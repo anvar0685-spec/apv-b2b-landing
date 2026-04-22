@@ -2,35 +2,14 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import { Manrope, Inter, JetBrains_Mono } from "next/font/google";
 import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
-import { themeToCssVars } from "@/lib/theme-default";
 import { absUrl } from "@/lib/abs-url";
 import { site } from "@/config/site";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { YandexMetrika } from "@/components/seo/yandex-metrika";
 import { CookieBanner } from "@/components/layout/cookie-banner";
-import "../globals.css";
-
-const display = Manrope({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const body = Inter({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-body",
-  display: "swap",
-});
-
-const mono = JetBrains_Mono({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-mono",
-  display: "swap",
-});
 
 export async function generateMetadata({
   params,
@@ -70,24 +49,16 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   setRequestLocale(locale);
   const messages = await getMessages();
-  const themeStyle = themeToCssVars(undefined);
 
   return (
-    <html
-      lang={locale}
-      className={`${display.variable} ${body.variable} ${mono.variable}`}
-      style={themeStyle}
-      suppressHydrationWarning
-    >
-      <body className="min-h-screen bg-[var(--background)] antialiased">
-        <NextIntlClientProvider messages={messages}>
-          <SiteHeader />
-          {children}
-          <SiteFooter />
-          <CookieBanner />
-        </NextIntlClientProvider>
-        <YandexMetrika />
-      </body>
-    </html>
+    <>
+      <NextIntlClientProvider messages={messages}>
+        <SiteHeader />
+        {children}
+        <SiteFooter />
+        <CookieBanner />
+      </NextIntlClientProvider>
+      <YandexMetrika />
+    </>
   );
 }
