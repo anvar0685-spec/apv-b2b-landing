@@ -12,5 +12,7 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
+  // Явно включаем `/`: иначе на части окружений middleware не вызывается для корня,
+  // next-intl не получает локаль → notFound() вместо главной.
+  matcher: ["/", "/((?!api|_next|_vercel|.*\\..*).*)"],
 };
