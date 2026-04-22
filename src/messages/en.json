@@ -1,0 +1,21 @@
+{
+  "brand": "PLACEHOLDER_BRAND",
+  "nav": {
+    "services": "Services",
+    "personal": "Workforce",
+    "cases": "Case studies",
+    "blog": "Blog",
+    "calculator": "Calculator",
+    "contacts": "Contacts",
+    "about": "About"
+  },
+  "cta": {
+    "calc": "Estimate cost",
+    "proposal": "Request proposal"
+  },
+  "home": {
+    "heroTitle": "Premium line-staff contractor for Moscow & Moscow Oblast",
+    "heroSubtitle": "SLA, transparent pricing, compliance without migration surprises.",
+    "trust": "Trusted by marketplace and logistics operations teams"
+  }
+}

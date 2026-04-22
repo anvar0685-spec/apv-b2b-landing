@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# APV B2B Landing (Sprint 1 foundation)
 
-## Getting Started
+Премиум B2B-лендинг: **Next.js 14** (App Router), **TypeScript strict**, **Tailwind + shadcn-паттерн**, **next-intl** (ru/en), **Framer Motion**, **Prisma 5 + PostgreSQL**, **Redis** (кэш / rate limit / BullMQ), **архитектурные хуки Tier 2–4** из брифа.
 
-First, run the development server:
+## Быстрый старт (локально)
 
 ```bash
+cp .env.example .env
+docker compose up -d
+npm run db:push
+npm run db:seed
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Открой `http://localhost:3000` — русская локаль без префикса, английская: `/en`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Скрипты
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Команда        | Назначение              |
+| -------------- | ----------------------- |
+| `npm run dev`  | Dev-сервер              |
+| `npm run build`| Production-сборка       |
+| `npm run lint` | ESLint                  |
+| `npm run db:push` | Prisma → БД (dev)   |
+| `npm run db:seed` | Сиды tenant/flags  |
+| `npm run db:studio` | Prisma Studio     |
 
-## Learn More
+## API
 
-To learn more about Next.js, take a look at the following resources:
+- `POST /api/v1/leads` — создание лида (+ `LeadEvent`).
+- `POST /api/v1/analytics/events` — `AnalyticsEvent` (через `trackEvent` на клиенте).
+- `GET /api/v1/health` — БД/Redis статус (`force-dynamic`).
+- `GET /api/docs` — заготовка OpenAPI JSON.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Важно
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Репозиторий создан в **`apv-b2b-landing/`** (ASCII-путь): `npm` не принимает кириллицу в `name` при scaffold в корне с кириллическим именем папки.
+- Бренд, домен, реквизиты — **плейсхолдеры** до финализации (см. `.env.example`).
 
-## Deploy on Vercel
+## Деплой (цель)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Timeweb Cloud**, российский IP, PostgreSQL, Redis, S3-совместимое хранилище — переменные уже заложены в `.env.example`.

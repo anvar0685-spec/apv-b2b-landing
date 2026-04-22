@@ -1,0 +1,12 @@
+---
+description: Стек и границы проекта APV B2B landing
+globs: "**/*.{ts,tsx,prisma,md}"
+alwaysApply: false
+---
+
+# Проект
+
+- Next.js 14 App Router, TypeScript strict, Tailwind, next-intl (ru/en), Frisma 5, PostgreSQL, Redis.
+- Дизайн-токены через **CSS variables** (`--primary`, `--accent`, …), не хардкодить hex в компонентах.
+- Программатика: 10 профессий × 30 городов; SEO-мета уникальны на странице.
+- Архитектурный задел Tier 2–4: см. `ARCHITECTURE.md`.

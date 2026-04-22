@@ -1,0 +1,10 @@
+/* TEAM */
+Engineering: APV platform squad
+Content: TBD after brand finalization
+
+/* SITE */
+Stack: Next.js 14, TypeScript, Prisma, PostgreSQL, Redis
+Region: Moscow + Moscow Oblast (programmatic SEO)
+
+/* THANKS */
+Next.js, Vercel OSS, Prisma, next-intl, Tailwind CSS

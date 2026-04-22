@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 const config: Config = {
   content: [
@@ -10,10 +11,18 @@ const config: Config = {
     extend: {
       colors: {
         background: "var(--background)",
-        foreground: "var(--foreground)",
+        foreground: "var(--neutral-950)",
+        primary: "var(--primary)",
+        accent: "var(--accent)",
+        surface: "var(--surface)",
+      },
+      maxWidth: {
+        content: "1280px",
+        hero: "1440px",
       },
     },
   },
-  plugins: [],
+  plugins: [tailwindcssAnimate],
 };
+
 export default config;

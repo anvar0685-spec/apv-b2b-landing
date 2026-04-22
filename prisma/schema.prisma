@@ -1,0 +1,379 @@
+// Tier 1–4 ready schema. Single DB; all domain tables are tenant-scoped.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TenantType {
+  OWN
+  WHITELABEL
+}
+
+enum LeadStatus {
+  NEW
+  QUALIFYING
+  QUALIFIED
+  ASSIGNED_OWN
+  ASSIGNED_PARTNER
+  AUCTION_ACTIVE
+  CLOSED
+  REJECTED
+}
+
+enum AssignedType {
+  OWN_SALES
+  PARTNER
+}
+
+enum LeadOutcome {
+  WON
+  LOST
+  NO_RESPONSE
+  DUPLICATE
+}
+
+enum CommissionStatus {
+  PENDING
+  PAID
+  DISPUTED
+}
+
+enum Urgency {
+  LOW
+  NORMAL
+  HIGH
+  CRITICAL
+}
+
+enum PartnerStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+  BANNED
+}
+
+enum PartnerTier {
+  BRONZE
+  SILVER
+  GOLD
+  PLATINUM
+}
+
+enum ContentPackageType {
+  ARTICLES
+  CASES
+  TEMPLATES
+  SEO_KIT
+}
+
+model Tenant {
+  id        String     @id @default(cuid())
+  slug      String     @unique
+  domain    String     @unique
+  name      String
+  type      TenantType @default(OWN)
+  config    Json       @default("{}")
+  createdAt DateTime   @default(now())
+
+  articles    Article[]
+  caseStudies CaseStudy[]
+  leads       Lead[]
+  users       User[]
+  services    Service[]
+  partners    Partner[]
+  analytics   AnalyticsEvent[]
+  flags       FeatureFlag[]
+  webhooks    WebhookSubscription[]
+}
+
+model User {
+  id           String   @id @default(cuid())
+  tenantId     String
+  tenant       Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  email        String
+  passwordHash String?
+  role         String   @default("owner")
+  createdAt    DateTime @default(now())
+
+  articles Article[]
+
+  @@unique([tenantId, email])
+  @@index([tenantId])
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  slug        String
+  title       String
+  description String?
+  priceFrom   Int?
+  currency    String   @default("RUB")
+  metadata    Json     @default("{}")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([tenantId, slug])
+  @@index([tenantId])
+}
+
+model Article {
+  id                 String    @id @default(cuid())
+  tenantId           String
+  tenant             Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  slug               String
+  locale             String      @default("ru")
+  title              String
+  excerpt            String?
+  body               String      @db.Text
+  category           String?
+  published          Boolean     @default(false)
+  publishedAt        DateTime?
+  readingTimeMinutes Int?
+  authorId           String?
+  author             User?       @relation(fields: [authorId], references: [id])
+  sourceType         String      @default("ORIGINAL")
+  sourcePackageId    String?
+  canonicalTenantId  String?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  @@unique([tenantId, locale, slug])
+  @@index([tenantId, published])
+}
+
+model CaseStudy {
+  id          String   @id @default(cuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  slug        String
+  locale      String   @default("ru")
+  title       String
+  summary     String?
+  body        String   @db.Text
+  industry    String?
+  city        String?
+  published   Boolean  @default(false)
+  publishedAt DateTime?
+  metrics     Json     @default("{}")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([tenantId, locale, slug])
+  @@index([tenantId, published])
+}
+
+model Partner {
+  id               String        @id @default(cuid())
+  tenantId         String
+  tenant           Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  companyName      String
+  inn              String
+  ogrn             String
+  contactName      String
+  contactPhone     String
+  contactEmail     String
+  industries       String[]
+  professions      String[]
+  cities           String[]
+  capacityMin      Int
+  capacityMax      Int
+  status           PartnerStatus @default(PENDING)
+  tier             PartnerTier   @default(BRONZE)
+  qualityScore     Float         @default(0)
+  commissionRate   Float         @default(0.12)
+  balance          Int           @default(0)
+  totalEarned      Int           @default(0)
+  totalOwed        Int           @default(0)
+  agreementUrl     String?
+  nonCompeteUntil  DateTime?
+  createdAt        DateTime      @default(now())
+
+  leads    Lead[]
+  payments PartnerPayment[]
+  reviews  PartnerReview[]
+
+  @@unique([tenantId, inn])
+  @@index([tenantId, status])
+}
+
+model PartnerPayment {
+  id          String    @id @default(cuid())
+  partnerId   String
+  partner     Partner   @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  leadId      String?
+  amount      Int
+  type        String
+  status      String
+  description String?
+  paidAt      DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([partnerId])
+}
+
+model PartnerReview {
+  id         String   @id @default(cuid())
+  partnerId  String
+  partner    Partner  @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  leadId     String
+  rating     Int
+  comment    String?
+  isVerified Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@index([partnerId])
+}
+
+model Lead {
+  id                   String           @id @default(cuid())
+  tenantId             String
+  tenant               Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  companyName          String
+  contactName          String
+  contactPhone         String
+  contactEmail         String?
+  serviceType          String
+  profession           String
+  city                 String
+  headcount            Int
+  budgetMonthly        Int?
+  urgency              Urgency          @default(NORMAL)
+  comment              String?
+  source               String
+  sourceUrl            String?
+  utmSource            String?
+  utmMedium            String?
+  utmCampaign          String?
+  qualificationScore   Int              @default(0)
+  aiNotes              String?
+  isQualified          Boolean          @default(false)
+  status               LeadStatus       @default(NEW)
+  assignedTo           AssignedType?
+  assignedPartnerId    String?
+  partner              Partner?         @relation(fields: [assignedPartnerId], references: [id])
+  createdAt            DateTime         @default(now())
+  qualifiedAt          DateTime?
+  assignedAt           DateTime?
+  closedAt             DateTime?
+  outcome              LeadOutcome?
+  contractValue        Int?
+  contractMonths       Int?
+  commissionAmount     Int?
+  commissionStatus     CommissionStatus?
+
+  events LeadEvent[]
+
+  @@index([tenantId, status])
+  @@index([assignedPartnerId, status])
+}
+
+model LeadEvent {
+  id        String   @id @default(cuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  type      String
+  payload   Json     @default("{}")
+  actorType String
+  actorId   String?
+  createdAt DateTime @default(now())
+
+  @@index([leadId])
+}
+
+model AnalyticsEvent {
+  id          String   @id @default(cuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  type        String
+  category    String
+  sessionId   String?
+  userId      String?
+  partnerId   String?
+  url         String?
+  referrer    String?
+  userAgent   String?
+  ipHash      String?
+  city        String?
+  device      String?
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+  utmTerm     String?
+  utmContent  String?
+  payload     Json     @default("{}")
+  cohortMonth String?
+  createdAt   DateTime @default(now())
+
+  @@index([tenantId, type, createdAt])
+  @@index([tenantId, sessionId])
+  @@index([tenantId, cohortMonth])
+}
+
+model ContentPackage {
+  id          String              @id @default(cuid())
+  name        String
+  description String?
+  type        ContentPackageType
+  version     String
+  isPublic    Boolean             @default(false)
+  price       Int?
+  licenseType String?
+  items       ContentPackageItem[]
+  licenses    ContentLicense[]
+}
+
+model ContentPackageItem {
+  id         String         @id @default(cuid())
+  packageId  String
+  package    ContentPackage @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  itemType   String
+  sourceId   String
+  sourceData Json           @default("{}")
+
+  @@index([packageId])
+}
+
+model ContentLicense {
+  id               String         @id @default(cuid())
+  packageId        String
+  package          ContentPackage @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  licenseeTenantId String
+  grantedAt        DateTime       @default(now())
+  expiresAt        DateTime?
+  terms            Json           @default("{}")
+
+  @@index([licenseeTenantId])
+}
+
+model FeatureFlag {
+  id         String   @id @default(cuid())
+  tenantId   String
+  tenant     Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  key        String
+  enabled    Boolean  @default(false)
+  rolloutPct Int      @default(0)
+  conditions Json?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([tenantId, key])
+}
+
+model WebhookSubscription {
+  id        String   @id @default(cuid())
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  targetUrl String
+  secret    String
+  events    String[]
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@index([tenantId, active])
+}
