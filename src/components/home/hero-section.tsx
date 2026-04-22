@@ -10,8 +10,17 @@ export function HeroSection() {
   const t = useTranslations("home");
   const tc = useTranslations("cta");
 
+  const sub = [
+    { href: "#services-preview", label: "Услуги" },
+    { href: "#calc", label: "Калькулятор" },
+    { href: "#cases", label: "Кейсы" },
+    { href: "#process", label: "Процесс" },
+    { href: "#tech", label: "Compliance" },
+    { href: "#faq", label: "FAQ" },
+  ];
+
   return (
-    <section className="relative overflow-hidden bg-[var(--primary-dark)] text-white">
+    <section id="hero" className="relative overflow-hidden bg-[var(--primary-dark)] text-white">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(249,115,22,0.15),_transparent_55%)]" />
       <div className="relative mx-auto max-w-[1440px] px-4 pb-20 pt-16 sm:px-6 lg:px-8 lg:pb-28 lg:pt-24">
         <motion.div
@@ -36,6 +45,20 @@ export function HeroSection() {
               <Link href="/zayavka">{tc("proposal")}</Link>
             </Button>
           </div>
+          <nav
+            aria-label="Разделы страницы"
+            className="mt-12 flex flex-wrap gap-2 border-t border-white/10 pt-6"
+          >
+            {sub.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="rounded-full border border-white/20 px-3 py-1.5 text-xs font-medium text-white/85 transition hover:border-[var(--accent)] hover:text-white"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
         </motion.div>
       </div>
     </section>

@@ -1,11 +1,22 @@
 import type { Metadata } from "next";
-import { StubPage } from "@/components/marketing/stub-page";
+import { notFound } from "next/navigation";
+import { getServicePage } from "@/content/service-page-data";
+import { ServicePageFull } from "@/components/marketing/service-page-full";
 
-export const metadata: Metadata = {
-  title: "Аутсорсинг функций — склад и производство",
-  description: "Аутсорсинг функций для логистики и производства: процессы, KPI, ответственность подрядчика.",
-};
+type Props = { params: { locale: string } };
 
-export default function Page() {
-  return <StubPage title="Аутсорсинг функций" />;
+export async function generateMetadata(): Promise<Metadata> {
+  const m = getServicePage("autsorsing");
+  if (!m) return {};
+  return {
+    title: "Аутсорсинг функций склада и производства",
+    description: m.subtitle,
+    alternates: { canonical: "/uslugi/autsorsing" },
+  };
+}
+
+export default function Page({ params }: Props) {
+  const m = getServicePage("autsorsing");
+  if (!m) notFound();
+  return <ServicePageFull model={m} locale={params.locale} />;
 }

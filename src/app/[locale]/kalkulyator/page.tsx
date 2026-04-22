@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
-import { StubPage } from "@/components/marketing/stub-page";
+import { Suspense } from "react";
+import { CalculatorFull } from "@/components/kalkulyator/calculator-full";
 
 export const metadata: Metadata = {
-  title: "Калькулятор стоимости аутстаффинга",
+  title: "Калькулятор стоимости аутстаффинга и аутсорсинга",
   description:
-    "Пять шагов: услуга, профессия, численность, график, локация. Итог с вилкой ±15% и CTA на КП.",
+    "Пять шагов расчёта и блок дополнений: предварительная вилка стоимости и переход к КП.",
+  alternates: { canonical: "/kalkulyator" },
 };
 
 export default function Page() {
-  return <StubPage title="Калькулятор" description="Мультистеп UI + сохранение в URL — Sprint 2." />;
+  return (
+    <main id="main" className="pb-24">
+      <Suspense fallback={<p className="p-8 text-center text-sm text-[var(--neutral-500)]">Загрузка…</p>}>
+        <CalculatorFull />
+      </Suspense>
+    </main>
+  );
 }

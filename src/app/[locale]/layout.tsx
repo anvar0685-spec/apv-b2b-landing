@@ -6,9 +6,12 @@ import { Manrope, Inter, JetBrains_Mono } from "next/font/google";
 import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { themeToCssVars } from "@/lib/theme-default";
+import { absUrl } from "@/lib/abs-url";
+import { site } from "@/config/site";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { YandexMetrika } from "@/components/seo/yandex-metrika";
+import { CookieBanner } from "@/components/layout/cookie-banner";
 import "../globals.css";
 
 const display = Manrope({
@@ -29,12 +32,31 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  ),
-  robots: { index: true, follow: true },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  return {
+    metadataBase: new URL(site.url),
+    robots: { index: true, follow: true },
+    verification: {
+      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+      yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION || undefined,
+    },
+    alternates: {
+      languages: {
+        "ru-RU": absUrl("/", "ru"),
+        "en-US": absUrl("/", "en"),
+      },
+    },
+    openGraph: {
+      siteName: site.brandName,
+      type: "website",
+      locale: params.locale === "en" ? "en_US" : "ru_RU",
+    },
+  };
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -48,7 +70,6 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   setRequestLocale(locale);
   const messages = await getMessages();
-  /** Тема из БД подключим через `unstable_cache` / edge-safe fetch без блокировки build. */
   const themeStyle = themeToCssVars(undefined);
 
   return (
@@ -63,6 +84,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           <SiteHeader />
           {children}
           <SiteFooter />
+          <CookieBanner />
         </NextIntlClientProvider>
         <YandexMetrika />
       </body>

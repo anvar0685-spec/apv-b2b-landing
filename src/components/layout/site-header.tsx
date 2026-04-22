@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
+import { site } from "@/config/site";
 
 export async function SiteHeader() {
   const t = await getTranslations("nav");
@@ -26,7 +27,7 @@ export async function SiteHeader() {
       </a>
       <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="font-display text-lg font-bold text-[var(--primary)]">
-          APV
+          {site.brandName}
         </Link>
         <nav className="hidden items-center gap-6 lg:flex" aria-label="Main">
           {links.map((l) => (

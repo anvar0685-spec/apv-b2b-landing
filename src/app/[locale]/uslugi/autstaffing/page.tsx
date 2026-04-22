@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
-import { StubPage } from "@/components/marketing/stub-page";
+import { notFound } from "next/navigation";
+import { getServicePage } from "@/content/service-page-data";
+import { ServicePageFull } from "@/components/marketing/service-page-full";
 
-export const metadata: Metadata = {
-  title: "Аутстаффинг персонала — Москва и МО",
-  description:
-    "Премиальный аутстаффинг линейного персонала: SLA, прозрачная цена, compliance без риска для заказчика.",
-};
+type Props = { params: { locale: string } };
 
-export default function Page() {
-  return (
-    <StubPage
-      title="Аутстаффинг персонала"
-      description="Полноформатная SEO-страница услуги (800–1200 слов, таблицы, FAQ, кейсы) — в бэклоге контента."
-    />
-  );
+export async function generateMetadata(): Promise<Metadata> {
+  const m = getServicePage("autstaffing");
+  if (!m) return {};
+  const title = "Аутстаффинг персонала — Москва и МО | PLACEHOLDER_BRAND";
+  return {
+    title,
+    description: m.subtitle,
+    alternates: { canonical: "/uslugi/autstaffing" },
+  };
+}
+
+export default function Page({ params }: Props) {
+  const m = getServicePage("autstaffing");
+  if (!m) notFound();
+  return <ServicePageFull model={m} locale={params.locale} />;
 }

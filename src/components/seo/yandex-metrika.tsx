@@ -1,9 +1,24 @@
+"use client";
+
 import Script from "next/script";
+import { useEffect, useState } from "react";
+import { analyticsAllowed } from "@/lib/cookie-consent";
 
 const MID = process.env.NEXT_PUBLIC_YANDEX_METRICA_ID;
 
 export function YandexMetrika() {
-  if (!MID) return null;
+  const [on, setOn] = useState(false);
+
+  useEffect(() => {
+    const sync = () => setOn(analyticsAllowed());
+    sync();
+    const handler = () => sync();
+    window.addEventListener("apv-consent-changed", handler);
+    return () => window.removeEventListener("apv-consent-changed", handler);
+  }, []);
+
+  if (!MID || !on) return null;
+
   return (
     <Script id="ym" strategy="afterInteractive">
       {`

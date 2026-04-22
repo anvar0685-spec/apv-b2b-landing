@@ -1,10 +1,8 @@
 import type { MetadataRoute } from "next";
-import { CITIES, PROFESSIONS } from "@/content/professions-cities";
-
-const base = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(
-  /\/$/,
-  "",
-);
+import { BLOG_POSTS } from "@/content/blog-stub";
+import { CASES } from "@/content/cases-stub";
+import { PROFESSIONS } from "@/content/professions-cities";
+import { absUrl } from "@/lib/abs-url";
 
 const STATIC = [
   "",
@@ -35,38 +33,42 @@ const STATIC = [
   "/sitemap",
 ] as const;
 
-function localized(path: string, locale: "ru" | "en") {
-  if (locale === "ru") return `${base}${path}`;
-  return `${base}/en${path}`;
-}
-
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
+  const last = new Date();
 
   for (const locale of ["ru", "en"] as const) {
     for (const p of STATIC) {
       entries.push({
-        url: localized(p, locale),
-        lastModified: new Date(),
+        url: absUrl(p, locale),
+        lastModified: last,
         changeFrequency: "weekly",
         priority: p === "" ? 1 : 0.7,
       });
     }
     for (const prof of PROFESSIONS) {
       entries.push({
-        url: localized(`/personal/${prof.slug}`, locale),
-        lastModified: new Date(),
+        url: absUrl(`/personal/${prof.slug}`, locale),
+        lastModified: last,
         changeFrequency: "weekly",
         priority: 0.65,
       });
-      for (const city of CITIES) {
-        entries.push({
-          url: localized(`/personal/${prof.slug}/${city.slug}`, locale),
-          lastModified: new Date(),
-          changeFrequency: "monthly",
-          priority: 0.55,
-        });
-      }
+    }
+    for (const b of BLOG_POSTS) {
+      entries.push({
+        url: absUrl(`/blog/${b.slug}`, locale),
+        lastModified: new Date(b.publishedAt),
+        changeFrequency: "monthly",
+        priority: 0.5,
+      });
+    }
+    for (const c of CASES) {
+      entries.push({
+        url: absUrl(`/keysy/${c.slug}`, locale),
+        lastModified: last,
+        changeFrequency: "monthly",
+        priority: 0.55,
+      });
     }
   }
 

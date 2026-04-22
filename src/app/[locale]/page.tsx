@@ -1,8 +1,12 @@
 import { getTranslations } from "next-intl/server";
 import { HeroSection } from "@/components/home/hero-section";
+import { TrustMarquee } from "@/components/home/trust-marquee";
+import { StatsCounters } from "@/components/home/stats-counters";
+import { HomeSections } from "@/components/home/home-sections";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
+import { site } from "@/config/site";
 
 export async function generateMetadata({ params }: { params: { locale: string } }) {
   const { locale } = params;
@@ -14,12 +18,16 @@ export async function generateMetadata({ params }: { params: { locale: string } 
     locale === "en"
       ? "SLA, transparent pricing, compliance infrastructure for marketplaces, logistics, retail, construction."
       : "SLA, прозрачная цена, compliance-инфраструктура для маркетплейсов, логистики, ритейла и стройки.";
+  const base = site.url.replace(/\/$/, "");
   return {
     title,
     description,
     alternates: {
       canonical: "/",
-      languages: { ru: "/", en: "/en" },
+      languages: {
+        "ru-RU": `${base}/`,
+        "en-US": `${base}/en`,
+      },
     },
     openGraph: { title, description, type: "website", locale },
   };
@@ -27,43 +35,61 @@ export async function generateMetadata({ params }: { params: { locale: string } 
 
 export default async function HomePage() {
   const t = await getTranslations("home");
+  const base = site.url.replace(/\/$/, "");
 
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "PLACEHOLDER_BRAND",
-    url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+    name: site.brandName,
+    url: base,
     description:
       "Премиальный подрядчик линейного персонала с compliance-инфраструктурой.",
     identifier: [
-      { "@type": "PropertyValue", name: "INN", value: "TBD" },
-      { "@type": "PropertyValue", name: "OGRN", value: "TBD" },
+      { "@type": "PropertyValue", name: "INN", value: site.inn },
+      { "@type": "PropertyValue", name: "OGRN", value: site.ogrn },
     ],
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: site.legalAddress,
+      addressLocality: "Москва",
+      addressCountry: "RU",
+    },
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        telephone: site.phone,
+        email: site.emailHello,
+        contactType: "sales",
+      },
+    ],
+    sameAs: [site.telegram, site.whatsapp],
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: site.brandName,
+    url: base,
   };
 
   return (
-    <>
+    <main id="main">
       <JsonLd data={orgJsonLd} />
+      <JsonLd data={websiteJsonLd} />
       <HeroSection />
-      <section className="border-y border-[var(--neutral-200)] bg-[var(--surface)] py-10">
+      <section className="bg-[var(--surface)] py-4">
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <p className="text-center text-xs font-semibold uppercase tracking-[0.08em] text-[var(--neutral-500)]">
             {t("trust")}
           </p>
-          <div className="mt-6 grid grid-cols-2 gap-4 opacity-60 sm:grid-cols-3 md:grid-cols-6">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div
-                key={i}
-                className="flex h-12 items-center justify-center rounded-lg border border-dashed border-[var(--neutral-200)] bg-white text-xs font-medium text-[var(--neutral-500)]"
-              >
-                LOGO {i + 1}
-              </div>
-            ))}
-          </div>
         </div>
+        <TrustMarquee />
       </section>
-      <section className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <div className="grid gap-6 md:grid-cols-3">
+      <section id="pain" className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <h2 className="font-display text-3xl font-bold text-[var(--primary)] md:text-4xl">
+          Проблема → решение
+        </h2>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
           <Card>
             <CardTitle>Дефицит персонала</CardTitle>
             <CardDescription>
@@ -92,6 +118,8 @@ export default async function HomePage() {
           </Link>
         </div>
       </section>
-    </>
+      <StatsCounters />
+      <HomeSections />
+    </main>
   );
 }
