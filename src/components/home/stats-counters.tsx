@@ -62,7 +62,7 @@ export function StatsCounters() {
     <section
       id="stats"
       ref={ref}
-      className="border-y border-[var(--neutral-200)] bg-[var(--surface)] py-20 lg:py-28"
+      className="border-y border-[var(--neutral-200)] bg-[var(--surface)] py-32 lg:py-40"
     >
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <p className="text-center text-xs font-semibold uppercase tracking-[0.14em] text-[var(--neutral-500)]">
@@ -78,7 +78,7 @@ export function StatsCounters() {
               transition={{ duration: 0.45, delay: idx * 0.05 }}
               className="relative"
             >
-              <p className="font-display text-5xl font-bold tabular-nums leading-none tracking-tight text-[var(--primary)] sm:text-6xl lg:text-7xl xl:text-8xl">
+              <p className="kpi-numerals font-mono-nums text-5xl font-bold tabular-nums leading-none tracking-tight text-[var(--primary)] sm:text-6xl lg:text-7xl xl:text-8xl">
                 {s.value}
                 <span className="text-[0.55em] font-semibold text-[var(--accent)]">{s.suffix}</span>
               </p>

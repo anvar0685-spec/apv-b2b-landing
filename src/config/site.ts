@@ -6,7 +6,7 @@ const url = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export const site = {
   url,
-  brandName: process.env.NEXT_PUBLIC_BRAND_NAME ?? "PLACEHOLDER_BRAND",
+  brandName: process.env.NEXT_PUBLIC_BRAND_NAME ?? "АПВ - СИСТЕМА",
   domain: process.env.NEXT_PUBLIC_SITE_DOMAIN ?? "example.com",
   inn: process.env.NEXT_PUBLIC_INN ?? "0000000000",
   ogrn: process.env.NEXT_PUBLIC_OGRN ?? "0000000000000",

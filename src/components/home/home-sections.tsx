@@ -58,8 +58,8 @@ export function HomeSections() {
   return (
     <>
       <JsonLd data={faqJson} />
-      <section id="services-preview" className="mx-auto max-w-[1280px] px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <h2 className="font-display text-4xl font-bold tracking-[-0.03em] text-[var(--primary)] md:text-6xl lg:text-[clamp(2.75rem,5.5vw,5rem)]">
+      <section id="services-preview" className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <h2 className="font-display text-[clamp(2.85rem,6.5vw,5.75rem)] font-extrabold leading-[1.02] tracking-[-0.045em] text-[var(--primary)]">
           Наши услуги
         </h2>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[var(--neutral-700)]">
@@ -86,10 +86,13 @@ export function HomeSections() {
         </div>
       </section>
 
-      <section id="calc" className="bg-[var(--surface)] py-20 lg:py-28">
+      <section id="calc" className="bg-[var(--surface)] py-32 lg:py-40">
         <div className="mx-auto grid max-w-[1280px] gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div>
-            <h2 className="font-display text-3xl font-bold tracking-tight text-[var(--primary)] md:text-5xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">
+              Инструмент
+            </p>
+            <h2 className="font-display mt-3 text-2xl font-bold tracking-tight text-[var(--primary)] md:text-4xl md:leading-[1.15]">
               Калькулятор стоимости
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-[var(--neutral-700)]">
@@ -114,8 +117,8 @@ export function HomeSections() {
         </div>
       </section>
 
-      <section id="cases" className="mx-auto max-w-[1280px] px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <h2 className="font-display text-3xl font-bold tracking-tight text-[var(--primary)] md:text-5xl">
+      <section id="cases" className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+        <h2 className="font-display text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
           Кейсы-флагманы
         </h2>
         <p className="mt-4 max-w-2xl text-[var(--neutral-700)]">
@@ -133,7 +136,7 @@ export function HomeSections() {
               <CardTitle className="mt-3">{c.title}</CardTitle>
               <CardDescription>{c.summary}</CardDescription>
               <CaseSparkline chartId={`home-case-${c.slug}`} variant={i === 1 ? "flat" : "up"} />
-              <p className="mt-2 font-mono-nums text-lg font-semibold tabular-nums text-[var(--primary)]">
+              <p className="kpi-numerals mt-2 font-mono-nums text-lg font-semibold tabular-nums text-[var(--primary)]">
                 {c.metricUp}
               </p>
               <div className="mt-auto pt-5">
@@ -148,8 +151,11 @@ export function HomeSections() {
 
       <ProcessStickySplit />
 
-      <section id="tech" className="mx-auto max-w-[1280px] px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <h2 className="font-display text-3xl font-bold tracking-tight text-[var(--primary)] md:text-5xl">
+      <section id="tech" className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">
+          Инфраструктура
+        </p>
+        <h2 className="font-display mt-3 text-2xl font-bold tracking-tight text-[var(--primary)] md:text-4xl md:leading-[1.15]">
           Технологии и compliance
         </h2>
         <div className="mt-10 grid gap-5 md:grid-cols-3">
@@ -175,9 +181,9 @@ export function HomeSections() {
         </div>
       </section>
 
-      <section id="reviews" className="bg-[var(--surface)] py-20 lg:py-28">
+      <section id="reviews" className="bg-[var(--surface)] py-32 lg:py-36">
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-3xl font-bold tracking-tight text-[var(--primary)] md:text-5xl">
+          <h2 className="font-display text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
             Отзывы
           </h2>
           <p className="mt-4 max-w-2xl text-[var(--neutral-700)]">
@@ -187,7 +193,7 @@ export function HomeSections() {
             {REVIEWS.map((r) => (
               <figure
                 key={r.name}
-                className="mb-5 break-inside-avoid rounded-3xl border border-[var(--neutral-200)] bg-white p-6 shadow-sm"
+                className="mb-5 break-inside-avoid rounded-2xl border border-[var(--neutral-200)] bg-white p-6 shadow-[var(--card-shadow)] transition-shadow duration-300 hover:shadow-[var(--card-shadow-hover)]"
               >
                 <div className="flex items-start gap-4">
                   <div
@@ -210,9 +216,9 @@ export function HomeSections() {
         </div>
       </section>
 
-      <section id="blog" className="mx-auto max-w-[1280px] px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section id="blog" className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="font-display text-3xl font-bold tracking-tight text-[var(--primary)] md:text-5xl">
+          <h2 className="font-display text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
             Блог — свежие материалы
           </h2>
           <Button asChild variant="secondary" size="sm">
@@ -237,14 +243,20 @@ export function HomeSections() {
         </div>
       </section>
 
-      <section id="faq" className="border-t border-[var(--neutral-200)] bg-white py-20 lg:py-28">
+      <section id="faq" className="border-t border-[var(--neutral-200)] bg-white py-20 lg:py-32">
         <div className="mx-auto max-w-[880px] px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-center text-3xl font-bold tracking-tight text-[var(--primary)] md:text-5xl">
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">
+            Поддержка решения
+          </p>
+          <h2 className="font-display mt-3 text-center text-2xl font-bold tracking-tight text-[var(--primary)] md:text-4xl md:leading-[1.15]">
             Частые вопросы
           </h2>
           <div className="mt-14 space-y-3">
             {FAQ.map((f) => (
-              <details key={f.q} className="faq-item group rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] transition open:bg-white open:shadow-md">
+              <details
+                key={f.q}
+                className="faq-item group rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] transition open:bg-white open:shadow-[var(--card-shadow-hover)]"
+              >
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-left md:px-6 md:py-5">
                   <span className="font-semibold text-[var(--primary)] md:text-lg">{f.q}</span>
                   <svg
@@ -267,22 +279,25 @@ export function HomeSections() {
         </div>
       </section>
 
-      <section id="cta" className="grain-dark bg-[var(--primary-dark)] py-20 text-white lg:py-28">
+      <section id="cta" className="grain-dark bg-[var(--primary-dark)] py-24 text-white lg:py-36">
         <div className="mx-auto max-w-[720px] px-4 text-center sm:px-6">
-          <h2 className="font-display text-3xl font-bold tracking-tight md:text-5xl">
+          <h2 className="font-display text-2xl font-bold tracking-tight md:text-4xl md:leading-[1.15]">
             Оставить заявку на расчёт
           </h2>
           <p className="mt-5 text-sm leading-relaxed text-white/75 md:text-base">
             Переход на мультистеп-форму: контакты, параметры проекта, согласие на обработку ПД.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <Button asChild>
+            <Button
+              asChild
+              className="focus-visible:ring-2 focus-visible:ring-white/90 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--primary-dark)]"
+            >
               <Link href="/zayavka">Заполнить заявку</Link>
             </Button>
             <Button
               asChild
               variant="secondary"
-              className="border-white/25 bg-white/10 text-white hover:bg-white/15"
+              className="border-white/25 bg-white/10 text-white hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-white/90 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--primary-dark)]"
             >
               <Link href="/kalkulyator">Открыть калькулятор</Link>
             </Button>

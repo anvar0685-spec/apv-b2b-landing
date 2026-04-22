@@ -1,21 +1,17 @@
 import type { ReactNode } from "react";
 import { headers } from "next/headers";
 import { hasLocale } from "next-intl";
-import { Manrope, Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import { themeToCssVars } from "@/lib/theme-default";
 import "./globals.css";
 
-const display = Manrope({
+/** В next/font для Next 14 нет отдельного Inter_Display — один Inter + веса для «display». */
+const inter = Inter({
   subsets: ["latin", "cyrillic"],
-  variable: "--font-display",
+  variable: "--font-sans",
   display: "swap",
-});
-
-const bodyFont = Inter({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-body",
-  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const mono = JetBrains_Mono({
@@ -35,7 +31,7 @@ export default function RootLayout({ children }: Props) {
   return (
     <html
       lang={lang}
-      className={`${display.variable} ${bodyFont.variable} ${mono.variable}`}
+      className={`${inter.variable} ${mono.variable}`}
       style={themeStyle}
       suppressHydrationWarning
     >

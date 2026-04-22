@@ -10,6 +10,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { YandexMetrika } from "@/components/seo/yandex-metrika";
 import { CookieBanner } from "@/components/layout/cookie-banner";
+import { PageTransition } from "@/components/layout/page-transition";
 
 export async function generateMetadata({
   params,
@@ -54,7 +55,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     <>
       <NextIntlClientProvider messages={messages}>
         <SiteHeader />
-        {children}
+        <PageTransition>{children}</PageTransition>
         <SiteFooter />
         <CookieBanner />
       </NextIntlClientProvider>

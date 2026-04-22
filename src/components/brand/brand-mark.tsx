@@ -41,7 +41,7 @@ export function BrandMark({ letters, className, sizeClassName = "h-10 w-10" }: B
         textAnchor="middle"
         fill="white"
         style={{
-          fontFamily: "var(--font-display), system-ui, sans-serif",
+          fontFamily: "var(--font-sans), system-ui, sans-serif",
           fontSize: 15,
           fontWeight: 700,
           letterSpacing: "-0.02em",

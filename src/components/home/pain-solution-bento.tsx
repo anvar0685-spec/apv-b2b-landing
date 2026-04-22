@@ -39,13 +39,13 @@ export function PainSolutionBento() {
   return (
     <section
       id="pain"
-      className="mx-auto max-w-[1280px] px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
+      className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 lg:px-8 lg:py-32"
     >
       <div className="max-w-3xl">
         <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">
           Диагностика → решение
         </p>
-        <h2 className="font-display mt-3 text-3xl font-bold tracking-tight text-[var(--primary)] md:text-5xl">
+        <h2 className="font-display mt-3 text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
           Проблема → решение
         </h2>
         <p className="mt-5 text-lg leading-relaxed text-[var(--neutral-700)]">

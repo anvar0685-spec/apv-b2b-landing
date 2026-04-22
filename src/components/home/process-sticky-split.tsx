@@ -64,9 +64,9 @@ export function ProcessStickySplit() {
   }, []);
 
   return (
-    <section id="process" className="border-y border-[var(--neutral-200)] bg-white py-20 lg:py-28">
+    <section id="process" className="border-y border-[var(--neutral-200)] bg-white py-24 lg:py-32">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        <h2 className="font-display text-3xl font-bold tracking-tight text-[var(--primary)] md:text-5xl">
+        <h2 className="font-display text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
           Процесс работы
         </h2>
         <p className="mt-4 max-w-2xl text-[var(--neutral-700)]">
@@ -110,11 +110,11 @@ export function ProcessStickySplit() {
                   sectionRefs.current[i] = el;
                 }}
                 data-index={i}
-                className="min-h-[52vh] scroll-mt-28 rounded-3xl border border-[var(--neutral-200)] bg-[var(--surface)] p-1 shadow-sm lg:min-h-[60vh]"
+                className="min-h-[52vh] scroll-mt-28 rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] p-1 shadow-[var(--card-shadow)] lg:min-h-[60vh]"
               >
                 <div
                   className={cn(
-                    "relative flex h-full min-h-[48vh] flex-col justify-end overflow-hidden rounded-[1.35rem] bg-gradient-to-br p-8 text-white lg:min-h-[56vh]",
+                    "relative flex h-full min-h-[48vh] flex-col justify-end overflow-hidden rounded-[1.125rem] bg-gradient-to-br p-8 text-white lg:min-h-[56vh]",
                     s.panel,
                   )}
                 >

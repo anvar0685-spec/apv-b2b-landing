@@ -31,12 +31,23 @@ export function SiteHeaderClient({
 }: SiteHeaderClientProps) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8);
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight;
+      const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      setProgress(p);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   return (
@@ -46,6 +57,11 @@ export function SiteHeaderClient({
         scrolled ? "shadow-[0_1px_0_rgba(0,0,0,0.06)]" : "shadow-none",
       )}
     >
+      <div
+        className="pointer-events-none absolute left-0 top-0 z-[60] h-[2px] bg-[var(--accent)] transition-[width] duration-150 ease-out"
+        style={{ width: `${progress * 100}%` }}
+        aria-hidden
+      />
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-[var(--accent)] focus:px-3 focus:py-2 focus:text-white"
@@ -54,13 +70,13 @@ export function SiteHeaderClient({
       </a>
       <div
         className={cn(
-          "mx-auto flex max-w-[1280px] items-center justify-between gap-4 px-4 transition-[height] duration-300 sm:px-6 lg:gap-6 lg:px-8",
+          "relative mx-auto flex max-w-[1280px] items-center justify-between gap-4 px-4 transition-[height] duration-300 sm:px-6 lg:gap-6 lg:px-8",
           scrolled ? "h-14" : "h-16",
         )}
       >
         <Link
           href="/"
-          className="group flex min-w-0 items-center gap-3 text-[var(--primary)]"
+          className="interactive-hover-ring group flex min-w-0 items-center gap-3 rounded-lg text-[var(--primary)]"
           aria-label={brandName}
         >
           <BrandMark letters={monogram} sizeClassName={scrolled ? "h-9 w-9" : "h-10 w-10"} />
@@ -68,7 +84,7 @@ export function SiteHeaderClient({
             {brandName.replace(/_/g, " ")}
           </span>
         </Link>
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
+        <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Main">
           {links.map((l) => {
             const active = pathMatches(pathname, l.href);
             return (
@@ -76,18 +92,12 @@ export function SiteHeaderClient({
                 key={l.href}
                 href={l.href}
                 className={cn(
-                  "group relative px-3 py-2 text-sm font-medium text-[var(--neutral-700)] transition-colors hover:text-[var(--primary)]",
-                  active && "text-[var(--primary)]",
+                  "interactive-hover-ring relative rounded-lg px-3 py-2 text-sm font-medium text-[var(--neutral-700)] transition-colors hover:text-[var(--primary)]",
+                  active &&
+                    "bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] text-[var(--primary)] mix-blend-multiply ring-1 ring-[color-mix(in_srgb,var(--accent)_22%,transparent)]",
                 )}
               >
                 {l.label}
-                <span
-                  className={cn(
-                    "pointer-events-none absolute bottom-1 left-3 right-3 h-px origin-left scale-x-0 bg-[var(--accent)] transition-transform duration-300 ease-out group-hover:scale-x-100",
-                    active && "scale-x-100",
-                  )}
-                  aria-hidden
-                />
               </Link>
             );
           })}

@@ -39,7 +39,7 @@ export function HeroSection() {
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent-soft)]">
               Moscow · MO · compliance-first
             </p>
-            <h1 className="font-display mt-5 max-w-[18ch] text-balance text-4xl font-bold leading-[0.98] tracking-[-0.035em] sm:text-5xl md:text-6xl lg:text-[4.25rem] xl:text-[4.75rem]">
+            <h1 className="font-display mt-5 max-w-[18ch] text-balance text-4xl font-extrabold leading-[0.95] tracking-[-0.04em] sm:text-5xl sm:tracking-[-0.045em] md:text-6xl md:tracking-[-0.048em] lg:text-[4.25rem] lg:tracking-[-0.05em] xl:text-[4.75rem]">
               <HeroWordsReveal text={t("heroTitle")} />
             </h1>
             <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/78 md:text-xl md:leading-[1.55]">
@@ -47,14 +47,17 @@ export function HeroSection() {
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <MagneticButtonWrap>
-                <Button asChild>
+                <Button
+                  asChild
+                  className="focus-visible:ring-2 focus-visible:ring-white/90 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--primary-dark)]"
+                >
                   <Link href="/kalkulyator">{tc("calc")}</Link>
                 </Button>
               </MagneticButtonWrap>
               <Button
                 asChild
                 variant="secondary"
-                className="border-white/25 bg-white/10 text-white hover:bg-white/15"
+                className="border-white/25 bg-white/10 text-white hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-white/90 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--primary-dark)]"
               >
                 <Link href="/zayavka">{tc("proposal")}</Link>
               </Button>
@@ -67,7 +70,7 @@ export function HeroSection() {
                 <a
                   key={l.href}
                   href={l.href}
-                  className="rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-white/88 backdrop-blur-sm transition hover:border-[var(--accent)]/50 hover:bg-white/[0.08] hover:text-white"
+                  className="interactive-hover-ring rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-white/88 backdrop-blur-sm transition hover:border-[var(--accent)]/50 hover:bg-white/[0.08] hover:text-white"
                 >
                   {l.label}
                 </a>

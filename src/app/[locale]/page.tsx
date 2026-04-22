@@ -77,7 +77,7 @@ export default async function HomePage() {
       <JsonLd data={orgJsonLd} />
       <JsonLd data={websiteJsonLd} />
       <HeroSection />
-      <section className="bg-[var(--surface)] py-5">
+      <section className="bg-[var(--surface)] py-6 lg:py-8">
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <p className="text-center text-xs font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">
             {t("trust")}
