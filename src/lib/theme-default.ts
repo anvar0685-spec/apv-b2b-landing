@@ -1,19 +1,22 @@
 import type { CSSProperties } from "react";
 
-/** Дефолт из брифа; мержится с tenant.config.theme из БД. */
+/**
+ * Премиум B2B-палитра: глубокий navy + teal (не «дефолтный» orange Tailwind).
+ * Мержится с tenant.config.theme из БД.
+ */
 export const defaultTheme = {
-  primary: "#0B1D3A",
-  primaryDark: "#05101F",
-  accent: "#F97316",
-  accentSoft: "#FFEDD5",
-  success: "#10B981",
-  neutral950: "#0A0A0A",
+  primary: "#071525",
+  primaryDark: "#030a12",
+  accent: "#0d9488",
+  accentSoft: "#ccfbf1",
+  success: "#059669",
+  neutral950: "#0a0a0a",
   neutral700: "#404040",
   neutral500: "#737373",
-  neutral200: "#E5E5E5",
-  neutral50: "#FAFAFA",
-  background: "#FFFFFF",
-  surface: "#F7F8FA",
+  neutral200: "#e5e5e5",
+  neutral50: "#fafafa",
+  background: "#ffffff",
+  surface: "#f4f6f9",
 } as const;
 
 export function themeToCssVars(

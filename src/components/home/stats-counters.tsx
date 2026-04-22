@@ -32,34 +32,61 @@ export function StatsCounters() {
   const y4 = useCount(inView ? 100 : 0, !!reduce);
 
   const items = [
-    { label: "Лет на рынке (заглушка)", value: y1, suffix: "+" },
-    { label: "Сотрудников под управлением", value: y2, suffix: "+" },
-    { label: "Клиентов B2B", value: y3, suffix: "+" },
-    { label: "Compliance-рейтинг", value: y4, suffix: "%" },
+    {
+      label: "Лет на рынке (заглушка)",
+      value: y1,
+      suffix: "+",
+      hint: "операционный след",
+    },
+    {
+      label: "Сотрудников под управлением",
+      value: y2,
+      suffix: "+",
+      hint: "пиковые волны",
+    },
+    {
+      label: "Клиентов B2B",
+      value: y3,
+      suffix: "+",
+      hint: "логистика · ритейл · производство",
+    },
+    {
+      label: "Compliance-рейтинг",
+      value: y4,
+      suffix: "%",
+      hint: "миграционный контур",
+    },
   ];
 
   return (
     <section
       id="stats"
       ref={ref}
-      className="border-y border-[var(--neutral-200)] bg-white py-16 lg:py-24"
+      className="border-y border-[var(--neutral-200)] bg-[var(--surface)] py-20 lg:py-28"
     >
-      <div className="mx-auto grid max-w-[1280px] gap-10 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
-        {items.map((s) => (
-          <motion.div
-            key={s.label}
-            initial={reduce ? undefined : { opacity: 0, y: 12 }}
-            whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <p className="font-mono-nums text-4xl font-bold text-[var(--primary)] md:text-5xl">
-              {s.value}
-              {s.suffix}
-            </p>
-            <p className="mt-2 text-sm text-[var(--neutral-700)]">{s.label}</p>
-          </motion.div>
-        ))}
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+        <p className="text-center text-xs font-semibold uppercase tracking-[0.14em] text-[var(--neutral-500)]">
+          Цифры, с которыми заходит COO
+        </p>
+        <div className="mt-14 grid gap-y-14 gap-x-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-12">
+          {items.map((s, idx) => (
+            <motion.div
+              key={s.label}
+              initial={reduce ? undefined : { opacity: 0, y: 16 }}
+              whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: idx * 0.05 }}
+              className="relative"
+            >
+              <p className="font-display text-5xl font-bold tabular-nums leading-none tracking-tight text-[var(--primary)] sm:text-6xl lg:text-7xl xl:text-8xl">
+                {s.value}
+                <span className="text-[0.55em] font-semibold text-[var(--accent)]">{s.suffix}</span>
+              </p>
+              <p className="mt-4 text-sm font-semibold text-[var(--primary)]">{s.label}</p>
+              <p className="mt-1 text-xs text-[var(--neutral-500)]">{s.hint}</p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

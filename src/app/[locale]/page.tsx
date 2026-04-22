@@ -3,9 +3,9 @@ import { HeroSection } from "@/components/home/hero-section";
 import { TrustMarquee } from "@/components/home/trust-marquee";
 import { StatsCounters } from "@/components/home/stats-counters";
 import { HomeSections } from "@/components/home/home-sections";
+import { PainSolutionBento } from "@/components/home/pain-solution-bento";
+import { FullBleedOperations } from "@/components/home/full-bleed-operations";
 import { JsonLd } from "@/components/seo/json-ld";
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import { Link } from "@/i18n/navigation";
 import { site } from "@/config/site";
 
 export async function generateMetadata({ params }: { params: { locale: string } }) {
@@ -77,48 +77,17 @@ export default async function HomePage() {
       <JsonLd data={orgJsonLd} />
       <JsonLd data={websiteJsonLd} />
       <HeroSection />
-      <section className="bg-[var(--surface)] py-4">
+      <section className="bg-[var(--surface)] py-5">
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-xs font-semibold uppercase tracking-[0.08em] text-[var(--neutral-500)]">
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">
             {t("trust")}
           </p>
         </div>
         <TrustMarquee />
       </section>
-      <section id="pain" className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <h2 className="font-display text-3xl font-bold text-[var(--primary)] md:text-4xl">
-          Проблема → решение
-        </h2>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          <Card>
-            <CardTitle>Дефицит персонала</CardTitle>
-            <CardDescription>
-              Закрываем пики и текучку за счёт пула и предсказуемого онбординга.
-            </CardDescription>
-          </Card>
-          <Card>
-            <CardTitle>Compliance</CardTitle>
-            <CardDescription>
-              Миграционный учёт и контроль документов без передачи риска заказчику.
-            </CardDescription>
-          </Card>
-          <Card>
-            <CardTitle>Скорость</CardTitle>
-            <CardDescription>
-              SLA по выходу на смену и отчётность для COO/HRD в одном контуре.
-            </CardDescription>
-          </Card>
-        </div>
-        <div className="mt-12 text-center">
-          <Link
-            href="/uslugi"
-            className="text-sm font-semibold text-[var(--accent)] underline-offset-4 hover:underline"
-          >
-            Все услуги →
-          </Link>
-        </div>
-      </section>
+      <PainSolutionBento />
       <StatsCounters />
+      <FullBleedOperations />
       <HomeSections />
     </main>
   );
