@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { CalculatorEmbed } from "@/components/home/calculator-embed";
 import { Button } from "@/components/ui/button";
 import { CaseSparkline } from "@/components/home/case-sparkline";
+import { ProcessStickySplit } from "@/components/home/process-sticky-split";
 
 const FAQ = [
   {
@@ -58,7 +59,7 @@ export function HomeSections() {
     <>
       <JsonLd data={faqJson} />
       <section id="services-preview" className="mx-auto max-w-[1280px] px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <h2 className="font-display text-3xl font-bold tracking-tight text-[var(--primary)] md:text-5xl">
+        <h2 className="font-display text-4xl font-bold tracking-[-0.03em] text-[var(--primary)] md:text-6xl lg:text-[clamp(2.75rem,5.5vw,5rem)]">
           Наши услуги
         </h2>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[var(--neutral-700)]">
@@ -122,7 +123,10 @@ export function HomeSections() {
         </p>
         <div className="mt-14 grid gap-6 lg:grid-cols-3">
           {CASES.slice(0, 3).map((c, i) => (
-            <Card key={c.slug} className="flex flex-col">
+            <Card
+              key={c.slug}
+              className="group relative flex flex-col overflow-hidden border-[var(--neutral-200)]/90 bg-gradient-to-b from-white via-white to-[var(--surface)] shadow-[0_1px_0_rgba(0,0,0,0.04)] transition-[box-shadow,transform,border-color] duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/30 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.03),0_0_40px_-8px_var(--accent)] motion-reduce:transform-none"
+            >
               <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)]">
                 {c.industry}
               </p>
@@ -142,35 +146,7 @@ export function HomeSections() {
         </div>
       </section>
 
-      <section id="process" className="border-y border-[var(--neutral-200)] bg-white py-20 lg:py-28">
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-3xl font-bold tracking-tight text-[var(--primary)] md:text-5xl">
-            Процесс работы
-          </h2>
-          <ol className="mt-14 grid gap-5 md:grid-cols-5">
-            {[
-              "Заявка и SLA",
-              "Подбор",
-              "Compliance-check",
-              "Онбординг",
-              "Операция",
-            ].map((t, i) => (
-              <li
-                key={t}
-                className="relative rounded-3xl border border-[var(--neutral-200)] bg-[var(--surface)] p-6 shadow-sm transition hover:border-[var(--accent)]/30 hover:shadow-md"
-              >
-                <span className="font-mono-nums text-xs font-bold tabular-nums text-[var(--accent)]">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <p className="mt-3 font-semibold text-[var(--primary)]">{t}</p>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-700)]">
-                  Заглушка описания этапа; детали процесса — в КП и онбординг-пакете.
-                </p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      <ProcessStickySplit />
 
       <section id="tech" className="mx-auto max-w-[1280px] px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <h2 className="font-display text-3xl font-bold tracking-tight text-[var(--primary)] md:text-5xl">

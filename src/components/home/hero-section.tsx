@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { HeroSlaDashboard } from "@/components/home/hero-sla-dashboard";
+import { HeroWordsReveal } from "@/components/home/hero-words-reveal";
+import { MagneticButtonWrap } from "@/components/home/magnetic-button-wrap";
 
 export function HeroSection() {
   const reduce = useReducedMotion();
@@ -38,15 +40,17 @@ export function HeroSection() {
               Moscow · MO · compliance-first
             </p>
             <h1 className="font-display mt-5 max-w-[18ch] text-balance text-4xl font-bold leading-[0.98] tracking-[-0.035em] sm:text-5xl md:text-6xl lg:text-[4.25rem] xl:text-[4.75rem]">
-              {t("heroTitle")}
+              <HeroWordsReveal text={t("heroTitle")} />
             </h1>
             <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/78 md:text-xl md:leading-[1.55]">
               {t("heroSubtitle")}
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
-              <Button asChild>
-                <Link href="/kalkulyator">{tc("calc")}</Link>
-              </Button>
+              <MagneticButtonWrap>
+                <Button asChild>
+                  <Link href="/kalkulyator">{tc("calc")}</Link>
+                </Button>
+              </MagneticButtonWrap>
               <Button
                 asChild
                 variant="secondary"
