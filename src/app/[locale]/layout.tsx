@@ -11,6 +11,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { YandexMetrika } from "@/components/seo/yandex-metrika";
 import { CookieBanner } from "@/components/layout/cookie-banner";
 import { PageTransition } from "@/components/layout/page-transition";
+import { ThemeProvider } from "@/components/layout/theme-provider";
 
 export async function generateMetadata({
   params,
@@ -53,6 +54,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <>
+      <ThemeProvider />
       <NextIntlClientProvider messages={messages}>
         <SiteHeader />
         <PageTransition>{children}</PageTransition>

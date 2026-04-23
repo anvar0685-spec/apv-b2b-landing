@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import {
-  CITIES,
-  PROFESSIONS,
-  getCity,
-  getProfession,
-} from "@/content/professions-cities";
-import { StubPage } from "@/components/marketing/stub-page";
+import { CITIES, PROFESSIONS, getCity, getProfession } from "@/content/professions-cities";
+import { ProgrammaticStaffingPage } from "@/components/marketing/programmatic-staffing-page";
+import { site } from "@/config/site";
 
 type Props = {
   params: { locale: string; profession: string; city: string };
@@ -25,9 +21,10 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const prof = getProfession(params.profession);
   const city = getCity(params.city);
-  if (!prof || !city) return { title: "Страница" };
-  const title = `Аутстаффинг ${prof.titleRu} в ${city.nameRu} | PLACEHOLDER`;
-  const description = `Подбор и аутстаффинг ${prof.titleRu.toLowerCase()} в ${city.nameRu}: ставки, логистика, кейсы. Запросите расчёт.`;
+  if (!prof || !city) return { title: "Персонал" };
+  const brand = site.brandName.replace(/_/g, " ");
+  const title = `Аутстаффинг ${prof.titleRu} в ${city.nameRu} — ${brand}`;
+  const description = `Подбор и аутстаффинг ${prof.titleRu.toLowerCase()} в ${city.nameRu}: расчёт вилки, логистика смен, compliance. Запросите КП.`;
   return {
     title,
     description,
@@ -43,16 +40,5 @@ export default function ProgrammaticPage({ params }: Props) {
   const city = getCity(params.city);
   if (!prof || !city) notFound();
 
-  return (
-    <StubPage
-      title={`Аутстаффинг ${prof.titleRu} в ${city.nameRu}`}
-      description="Уникальный локальный контент (вилки, работодатели, карта, FAQ) подключится после наполнения редакцией и human-review."
-    >
-      <p>
-        Программатическая страница: {prof.slug} × {city.slug}. Здесь будут
-        таблица ставок, перечень крупных работодателей региона, встраивание
-        Яндекс.Карт и локальный FAQ с JSON-LD.
-      </p>
-    </StubPage>
-  );
+  return <ProgrammaticStaffingPage profession={prof} city={city} />;
 }

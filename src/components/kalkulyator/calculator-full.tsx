@@ -69,8 +69,8 @@ export function CalculatorFull() {
         Калькулятор стоимости
       </h1>
       <p className="mt-3 text-[var(--neutral-700)]">
-        Пять шагов по брифу + опциональный блок дополнений. Итог — вилка ±15% (демо-формула,
-        не оферта).
+        Пять шагов по брифу + опциональный блок дополнений. Итог — ориентировочная вилка ±15% по упрощённой модели;
+        итоговые условия — в КП и договоре.
       </p>
       <Card className="mt-10">
         <div className="mb-6">
@@ -92,7 +92,7 @@ export function CalculatorFull() {
                 className={`rounded-2xl border px-4 py-4 text-left text-sm font-semibold transition ${
                   service === s.id
                     ? "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--primary)]"
-                    : "border-[var(--neutral-200)] bg-white text-[var(--neutral-700)] hover:border-[var(--accent)]"
+                    : "border-[var(--neutral-200)] bg-[var(--card)] text-[var(--neutral-700)] hover:border-[var(--accent)]"
                 }`}
               >
                 {s.label}
@@ -105,7 +105,7 @@ export function CalculatorFull() {
             <Label htmlFor="prof">Профессия</Label>
             <select
               id="prof"
-              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-white px-3 text-sm"
+              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-sm"
               value={profession}
               onChange={(e) => setProfession(e.target.value)}
             >
@@ -185,7 +185,7 @@ export function CalculatorFull() {
             <Label htmlFor="city">Город (МО)</Label>
             <select
               id="city"
-              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-white px-3 text-sm"
+              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-sm"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             >
@@ -230,7 +230,7 @@ export function CalculatorFull() {
             <CardTitle>Предварительный расчёт</CardTitle>
             <CardDescription className="mt-2">
               Вилка ±15%: от {estimate.low.toLocaleString("ru-RU")} до{" "}
-              {estimate.high.toLocaleString("ru-RU")} ₽ / мес (демо).
+              {estimate.high.toLocaleString("ru-RU")} ₽ / мес (оценка).
             </CardDescription>
             <p className="mt-4 font-mono-nums text-2xl font-bold text-[var(--primary)]">
               ~{estimate.total.toLocaleString("ru-RU")} ₽

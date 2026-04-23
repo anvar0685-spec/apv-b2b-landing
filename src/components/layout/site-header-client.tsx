@@ -5,6 +5,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { BrandMark } from "@/components/brand/brand-mark";
 import { cn } from "@/lib/utils";
+import { toggleTheme } from "@/components/layout/theme-provider";
 
 export type SiteHeaderLink = { href: string; label: string };
 
@@ -32,6 +33,15 @@ export function SiteHeaderClient({
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    const sync = () => setDark(document.documentElement.classList.contains("dark"));
+    sync();
+    const obs = new MutationObserver(sync);
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => obs.disconnect();
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -53,8 +63,8 @@ export function SiteHeaderClient({
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-[var(--neutral-200)] bg-white/90 backdrop-blur-md transition-[box-shadow,height] duration-300",
-        scrolled ? "shadow-[0_1px_0_rgba(0,0,0,0.06)]" : "shadow-none",
+        "sticky top-0 z-50 border-b border-[var(--neutral-200)] bg-white/90 backdrop-blur-md transition-[box-shadow,height] duration-300 dark:border-white/10 dark:bg-[var(--primary-dark)]/92 dark:shadow-[0_1px_0_rgba(255,255,255,0.06)]",
+        scrolled ? "shadow-[0_1px_0_rgba(0,0,0,0.06)] dark:shadow-[0_1px_0_rgba(255,255,255,0.06)]" : "shadow-none",
       )}
     >
       <div
@@ -103,6 +113,18 @@ export function SiteHeaderClient({
           })}
         </nav>
         <div className="flex shrink-0 items-center gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              toggleTheme();
+              setDark(document.documentElement.classList.contains("dark"));
+            }}
+            className="interactive-hover-ring inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--neutral-200)] bg-[var(--surface)] text-sm text-[var(--primary)] transition hover:bg-[var(--card)] dark:border-white/15 dark:bg-white/5 dark:text-white"
+            aria-label={dark ? "Светлая тема" : "Тёмная тема"}
+            title={dark ? "Светлая тема" : "Тёмная тема"}
+          >
+            {dark ? "☀" : "☾"}
+          </button>
           <Button asChild variant="secondary" size="sm">
             <Link href="/zayavka">{ctaProposal}</Link>
           </Button>

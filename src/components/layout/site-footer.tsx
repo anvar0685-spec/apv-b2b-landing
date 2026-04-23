@@ -43,9 +43,7 @@ export function SiteFooter() {
           </ul>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--neutral-500)]">
-            Контакты (заглушки)
-          </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--neutral-500)]">Контакты</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
               <a className="hover:text-white" href={`tel:${site.phone.replace(/\s/g, "")}`}>
@@ -98,7 +96,8 @@ export function SiteFooter() {
             </Button>
           </form>
           <p className="mt-3 text-center text-[11px] leading-relaxed text-[var(--neutral-500)]">
-            Заглушка: без рассылки до подключения ESP; переход на заявку с подсказкой в query при необходимости.
+            Подписка активируется после подключения ESP; сейчас форма ведёт на заявку — менеджер зафиксирует интерес к
+            дайджесту.
           </p>
         </div>
       </div>

@@ -7,5 +7,11 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <StubPage title="FAQ" description="FAQPage JSON-LD — Sprint 2." />;
+  return (
+    <StubPage
+      title="FAQ"
+      kicker="Поддержка"
+      description="Ответы на частые вопросы по модели поставки, срокам выхода на объекты и документальному контуру. Расширенная версия появится здесь же после редакционного наполнения."
+    />
+  );
 }

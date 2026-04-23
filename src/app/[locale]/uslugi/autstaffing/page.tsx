@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServicePage } from "@/content/service-page-data";
 import { ServicePageFull } from "@/components/marketing/service-page-full";
+import { site } from "@/config/site";
 
 type Props = { params: { locale: string } };
 
 export async function generateMetadata(): Promise<Metadata> {
   const m = getServicePage("autstaffing");
   if (!m) return {};
-  const title = "Аутстаффинг персонала — Москва и МО | PLACEHOLDER_BRAND";
+  const brand = site.brandName.replace(/_/g, " ");
+  const title = `Аутстаффинг персонала — Москва и МО · ${brand}`;
   return {
     title,
     description: m.subtitle,

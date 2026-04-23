@@ -46,16 +46,15 @@ export function ServicePageFull({ model, locale }: Props) {
     <main id="main" className="pb-24">
       <JsonLd data={serviceJson} />
       <JsonLd data={faqJson} />
-      <section className="border-b border-[var(--neutral-200)] bg-[var(--surface)] py-6">
+      <section className="border-b border-[var(--neutral-200)] bg-[var(--surface)] py-8 lg:py-12">
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <Breadcrumbs items={crumbs} locale={locale} />
-          <h1 className="font-display mt-6 max-w-4xl text-balance text-3xl font-bold tracking-tight text-[var(--primary)] md:text-5xl">
+          <p className="type-kicker mt-8">Услуга</p>
+          <h1 className="font-display mt-3 max-w-4xl text-balance text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.75rem] md:leading-[1.1]">
             {model.h1}
           </h1>
-          <p className="mt-4 max-w-3xl text-lg text-[var(--neutral-700)]">
-            {model.subtitle}
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <p className="type-lead mt-5 max-w-3xl">{model.subtitle}</p>
+          <div className="mt-10 flex flex-wrap gap-3">
             <Button asChild>
               <Link href="/kalkulyator">Рассчитать стоимость</Link>
             </Button>
@@ -67,7 +66,7 @@ export function ServicePageFull({ model, locale }: Props) {
       </section>
 
       <article className="mx-auto max-w-[800px] px-4 py-12 sm:px-6 lg:px-8">
-        <h2 className="font-display text-2xl font-semibold text-[var(--primary)]">
+        <h2 className="type-headline">
           {locale === "en" ? "Overview" : "О услуге"}
         </h2>
         <div className="mt-4 space-y-4 text-base leading-relaxed text-[var(--neutral-700)]">
@@ -76,7 +75,7 @@ export function ServicePageFull({ model, locale }: Props) {
           ))}
         </div>
 
-        <h2 className="font-display mt-14 text-2xl font-semibold text-[var(--primary)]">
+        <h2 className="type-headline mt-14">
           {locale === "en" ? "Who it fits" : "Кому подходит"}
         </h2>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -88,7 +87,7 @@ export function ServicePageFull({ model, locale }: Props) {
           ))}
         </div>
 
-        <h2 className="font-display mt-14 text-2xl font-semibold text-[var(--primary)]">
+        <h2 className="type-headline mt-14">
           {locale === "en" ? "How it works" : "Как это работает"}
         </h2>
         <ol className="mt-4 list-decimal space-y-3 pl-5 text-[var(--neutral-700)]">
@@ -97,7 +96,7 @@ export function ServicePageFull({ model, locale }: Props) {
           ))}
         </ol>
 
-        <h2 className="font-display mt-14 text-2xl font-semibold text-[var(--primary)]">
+        <h2 className="type-headline mt-14">
           {locale === "en" ? "What is included" : "Что входит"}
         </h2>
         <div className="mt-4 overflow-x-auto rounded-2xl border border-[var(--neutral-200)]">
@@ -121,7 +120,7 @@ export function ServicePageFull({ model, locale }: Props) {
           </table>
         </div>
 
-        <h2 className="font-display mt-14 text-2xl font-semibold text-[var(--primary)]">
+        <h2 className="type-headline mt-14">
           {locale === "en" ? "Comparison" : "Сравнение подходов"}
         </h2>
         <div className="mt-4 overflow-x-auto rounded-2xl border border-[var(--neutral-200)]">
@@ -149,9 +148,7 @@ export function ServicePageFull({ model, locale }: Props) {
           </table>
         </div>
 
-        <h2 className="font-display mt-14 text-2xl font-semibold text-[var(--primary)]">
-          Профессии
-        </h2>
+        <h2 className="type-headline mt-14">Профессии</h2>
         <ul className="mt-4 columns-1 gap-2 sm:columns-2">
           {PROFESSIONS.map((p) => (
             <li key={p.slug} className="mb-2 break-inside-avoid">
@@ -165,9 +162,7 @@ export function ServicePageFull({ model, locale }: Props) {
           ))}
         </ul>
 
-        <h2 className="font-display mt-14 text-2xl font-semibold text-[var(--primary)]">
-          Кейсы и материалы
-        </h2>
+        <h2 className="type-headline mt-14">Кейсы и материалы</h2>
         <p className="mt-4 text-[var(--neutral-700)]">
           Перейдите в раздел кейсов и блога — там публикуется отраслевая аналитика и
           примеры внедрений.{" "}
@@ -180,14 +175,12 @@ export function ServicePageFull({ model, locale }: Props) {
           </Link>
         </p>
 
-        <h2 className="font-display mt-14 text-2xl font-semibold text-[var(--primary)]">
-          FAQ
-        </h2>
+        <h2 className="type-headline mt-14">FAQ</h2>
         <div className="mt-4 space-y-4">
           {model.faq.map((f) => (
             <div
               key={f.q}
-              className="rounded-2xl border border-[var(--neutral-200)] bg-white p-5"
+              className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-5 shadow-[var(--card-shadow)]"
             >
               <h3 className="font-semibold text-[var(--primary)]">{f.q}</h3>
               <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-700)]">{f.a}</p>
@@ -198,8 +191,8 @@ export function ServicePageFull({ model, locale }: Props) {
         <div className="mt-14 rounded-2xl bg-[var(--primary-dark)] p-8 text-center text-white">
           <p className="font-display text-xl font-semibold">Нужен расчёт под ваш объект?</p>
           <p className="mt-2 text-sm text-white/80">
-            Оставьте заявку — менеджер свяжется в течение 15 минут в рабочее время (заглушка
-            SLA).
+            Оставьте заявку — менеджер свяжется в течение 15 минут в рабочее время (срок фиксируется в регламенте
+            обслуживания клиентов).
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Button asChild>

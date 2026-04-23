@@ -4,8 +4,40 @@
 
 :root {
   color-scheme: light;
+  --primary: #071525;
+  --primary-dark: #030a12;
+  --accent: #0d9488;
+  --accent-soft: #ccfbf1;
+  --success: #059669;
+  --neutral-950: #0a0a0a;
+  --neutral-700: #404040;
+  --neutral-500: #737373;
+  --neutral-200: #e5e5e5;
+  --neutral-50: #fafafa;
+  --background: #ffffff;
+  --surface: #f4f6f9;
+  --card: #ffffff;
   --card-shadow: 0 1px 0 rgba(7, 21, 37, 0.06), 0 8px 24px -12px rgba(7, 21, 37, 0.1);
   --card-shadow-hover: 0 1px 0 rgba(7, 21, 37, 0.08), 0 16px 40px -14px rgba(7, 21, 37, 0.14);
+}
+
+html.dark {
+  color-scheme: dark;
+  --primary: #e8eef4;
+  --primary-dark: #020617;
+  --accent: #2dd4bf;
+  --accent-soft: #134e4a;
+  --success: #34d399;
+  --neutral-950: #f8fafc;
+  --neutral-700: #94a3b8;
+  --neutral-500: #64748b;
+  --neutral-200: #1e293b;
+  --neutral-50: #020617;
+  --background: #030a12;
+  --surface: #0f172a;
+  --card: #0f172a;
+  --card-shadow: 0 1px 0 rgba(255, 255, 255, 0.04), 0 8px 24px -12px rgba(0, 0, 0, 0.45);
+  --card-shadow-hover: 0 1px 0 rgba(255, 255, 255, 0.06), 0 16px 40px -14px rgba(0, 0, 0, 0.55);
 }
 
 body {
@@ -17,7 +49,7 @@ body {
 }
 
 .font-display {
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
   letter-spacing: -0.025em;
 }
 
@@ -25,20 +57,74 @@ body {
   font-family: var(--font-mono), ui-monospace, monospace;
 }
 
+@layer components {
+  .type-kicker {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--neutral-500);
+  }
+
+  .type-display-xl {
+    font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+    font-size: clamp(2.85rem, 6.5vw, 5.75rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+    color: var(--primary);
+  }
+
+  .type-display-lg {
+    font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+    font-size: clamp(2rem, 4.2vw, 2.625rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+    color: var(--primary);
+  }
+
+  .type-headline {
+    font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--primary);
+  }
+
+  .type-lead {
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--neutral-700);
+  }
+
+  .type-body {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--neutral-700);
+  }
+
+  .type-editorial-dropcap > p:first-of-type::first-letter {
+    float: left;
+    margin: 0.08em 0.12em 0 0;
+    font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+    font-size: 3.25rem;
+    font-weight: 700;
+    line-height: 0.85;
+    color: var(--accent);
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 
-  /** Tabular figures для метрик и KPI */
   .tabular-nums {
     font-variant-numeric: tabular-nums;
   }
 
-  /**
-   * Лёгкое зерно поверх тёмных блоков (премиум‑текстура).
-   * data:image — без внешних запросов.
-   */
   .grain-dark {
     position: relative;
     isolation: isolate;
@@ -59,9 +145,35 @@ body {
     position: relative;
     z-index: 2;
   }
+
+  /** Края ленты trust: мягкое затухание к фону секции */
+  .trust-marquee-fade {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .trust-marquee-fade::before,
+  .trust-marquee-fade::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3rem;
+    z-index: 2;
+  }
+
+  .trust-marquee-fade::before {
+    left: 0;
+    background: linear-gradient(to right, var(--surface), transparent);
+  }
+
+  .trust-marquee-fade::after {
+    right: 0;
+    background: linear-gradient(to left, var(--surface), transparent);
+  }
 }
 
-/* FAQ: аккуратный disclosure без «браузерного» вида */
 details.faq-item > summary {
   list-style: none;
   cursor: pointer;
@@ -89,12 +201,10 @@ details.faq-item[open] .faq-chevron {
     );
 }
 
-/** Крупные KPI: JetBrains Mono + opentype для более «дорогого» ритма цифр */
 .kpi-numerals {
   font-feature-settings: "tnum" 1, "zero" 1, "ss02" 1;
 }
 
-/** Full-bleed: без сток-видео — лёгкий «живой» сдвиг градиента */
 @keyframes full-bleed-shift {
   0%,
   100% {
@@ -117,7 +227,6 @@ details.faq-item[open] .faq-chevron {
   }
 }
 
-/** Лёгкое «кольцо» на интерактиве (тонкий указатель премиум-UI) */
 @media (pointer: fine) {
   .interactive-hover-ring {
     transition: box-shadow 0.2s ease, background-color 0.2s ease;

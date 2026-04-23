@@ -23,7 +23,7 @@ export function CookieBanner() {
     <div
       role="dialog"
       aria-label="Настройки cookies"
-      className="fixed inset-x-0 bottom-0 z-[60] border-t border-[var(--neutral-200)] bg-white/95 p-4 shadow-lg backdrop-blur md:left-auto md:right-6 md:bottom-6 md:max-w-lg md:rounded-2xl md:border"
+      className="fixed inset-x-0 bottom-0 z-[60] border-t border-[var(--neutral-200)] bg-[var(--card)]/95 p-4 shadow-lg backdrop-blur-md md:left-auto md:right-6 md:bottom-6 md:max-w-lg md:rounded-2xl md:border"
     >
       <p className="text-sm font-medium text-[var(--primary)]">
         Мы используем cookies

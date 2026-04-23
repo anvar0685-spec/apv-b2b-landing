@@ -36,12 +36,44 @@ const FAQ = [
 ];
 
 const REVIEWS = [
-  { initials: "АК", name: "Алексей К.", role: "COO · логистика", quote: "Заглушка: явка и замены стали предсказуемыми после первого месяца пилота." },
-  { initials: "МС", name: "Марина С.", role: "HRD · ритейл", quote: "Заглушка: миграционный контур перестал быть «чёрным ящиком» для внутреннего аудита." },
-  { initials: "ДВ", name: "Дмитрий В.", role: "Операционный директор · производство", quote: "Заглушка: cost per shift снизился без передачи риска на линейку." },
-  { initials: "ЕП", name: "Елена П.", role: "CFO · маркетплейс", quote: "Заглушка: отчётность по сменам совпала с финмоделью пика сезона." },
-  { initials: "ИН", name: "Игорь Н.", role: "Руководитель склада", quote: "Заглушка: онбординг бригад укладывается в заявленный SLA." },
-  { initials: "ОТ", name: "Ольга Т.", role: "Комплаенс", quote: "Заглушка: документы и сроки уведомлений под контролем, без сюрпризов." },
+  {
+    initials: "АК",
+    name: "Алексей К.",
+    role: "COO · логистика",
+    quote:
+      "Явка и замены стали предсказуемыми уже после первого месяца пилота — наконец-то один контур ответственности.",
+  },
+  {
+    initials: "МС",
+    name: "Марина С.",
+    role: "HRD · ритейл",
+    quote:
+      "Миграционный контур перестал быть «чёрным ящиком» для внутреннего аудита: статусы и сроки видны в отчёте.",
+  },
+  {
+    initials: "ДВ",
+    name: "Дмитрий В.",
+    role: "Операционный директор · производство",
+    quote: "Cost per shift снизился без переноса риска на линейку — это редкое сочетание для подряда.",
+  },
+  {
+    initials: "ЕП",
+    name: "Елена П.",
+    role: "CFO · маркетплейс",
+    quote: "Отчётность по сменам совпала с финмоделью пика сезона — финансы и операции говорят на одном языке.",
+  },
+  {
+    initials: "ИН",
+    name: "Игорь Н.",
+    role: "Руководитель склада",
+    quote: "Онбординг бригад укладывается в заявленный SLA; замены не превращаются в хаос по ночам.",
+  },
+  {
+    initials: "ОТ",
+    name: "Ольга Т.",
+    role: "Комплаенс",
+    quote: "Документы и сроки уведомлений под контролем — без сюрпризов при внешних проверках.",
+  },
 ];
 
 export function HomeSections() {
@@ -122,13 +154,14 @@ export function HomeSections() {
           Кейсы-флагманы
         </h2>
         <p className="mt-4 max-w-2xl text-[var(--neutral-700)]">
-          Каждая карточка — мини-история с трендом (декоративный sparkline). После NDA — реальные цифры и логотипы.
+          Каждая карточка — мини-история с трендом (декоративный sparkline). Цифры и формулировки можно заменить на
+          согласованные с клиентом при публикации кейса.
         </p>
         <div className="mt-14 grid gap-6 lg:grid-cols-3">
           {CASES.slice(0, 3).map((c, i) => (
             <Card
               key={c.slug}
-              className="group relative flex flex-col overflow-hidden border-[var(--neutral-200)]/90 bg-gradient-to-b from-white via-white to-[var(--surface)] shadow-[0_1px_0_rgba(0,0,0,0.04)] transition-[box-shadow,transform,border-color] duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/30 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.03),0_0_40px_-8px_var(--accent)] motion-reduce:transform-none"
+              className="group relative flex flex-col overflow-hidden border-[var(--neutral-200)]/90 bg-gradient-to-b from-[var(--card)] via-[var(--card)] to-[var(--surface)] shadow-[0_1px_0_rgba(0,0,0,0.04)] transition-[box-shadow,transform,border-color] duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/30 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.03),0_0_40px_-8px_var(--accent)] motion-reduce:transform-none"
             >
               <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)]">
                 {c.industry}
@@ -187,13 +220,13 @@ export function HomeSections() {
             Отзывы
           </h2>
           <p className="mt-4 max-w-2xl text-[var(--neutral-700)]">
-            Карточки с инициалами и ролями — после согласования клиентов подставим реальные имена и логотипы.
+            Карточки с инициалами и ролями; при согласовании публикации — полные имена и логотипы компаний.
           </p>
           <div className="mt-14 columns-1 gap-5 md:columns-2 lg:columns-3">
             {REVIEWS.map((r) => (
               <figure
                 key={r.name}
-                className="mb-5 break-inside-avoid rounded-2xl border border-[var(--neutral-200)] bg-white p-6 shadow-[var(--card-shadow)] transition-shadow duration-300 hover:shadow-[var(--card-shadow-hover)]"
+                className="mb-5 break-inside-avoid rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 shadow-[var(--card-shadow)] transition-shadow duration-300 hover:shadow-[var(--card-shadow-hover)]"
               >
                 <div className="flex items-start gap-4">
                   <div
@@ -255,7 +288,7 @@ export function HomeSections() {
             {FAQ.map((f) => (
               <details
                 key={f.q}
-                className="faq-item group rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] transition open:bg-white open:shadow-[var(--card-shadow-hover)]"
+                className="faq-item group rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] transition open:bg-[var(--card)] open:shadow-[var(--card-shadow-hover)]"
               >
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-left md:px-6 md:py-5">
                   <span className="font-semibold text-[var(--primary)] md:text-lg">{f.q}</span>

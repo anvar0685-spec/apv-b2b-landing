@@ -4,8 +4,8 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 
 /**
- * До NDA: монохромные марки (собственные SVG в `public/trust/marks/`) + подпись отрасли.
- * После согласования — заменить `mark` на `/public/trust/clients/*.svg` с реальными логотипами.
+ * Монохромные марки (SVG в `public/trust/marks/`) + подпись отрасли — единый визуальный ряд.
+ * Реальные логотипы клиентов подключаются тем же компонентом при появлении согласованных файлов.
  */
 const CLIENTS = [
   { mark: "/trust/marks/mark-logistics.svg", label: "Логистика · МО" },
@@ -22,7 +22,7 @@ const CLIENTS = [
 
 function TrustMark({ src, label }: { src: string; label: string }) {
   return (
-    <div className="group inline-flex items-center gap-3.5 rounded-2xl border border-[var(--neutral-200)] bg-white px-4 py-2.5 shadow-[var(--card-shadow)] transition-shadow duration-300 hover:shadow-[var(--card-shadow-hover)]">
+    <div className="group inline-flex items-center gap-3.5 rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] px-4 py-2.5 shadow-[var(--card-shadow)] transition-shadow duration-300 hover:shadow-[var(--card-shadow-hover)]">
       <Image
         src={src}
         width={104}
@@ -43,17 +43,20 @@ export function TrustMarquee() {
   const strip = [...CLIENTS, ...CLIENTS];
 
   return (
-    <div className="relative overflow-hidden border-y border-[var(--neutral-200)] bg-[var(--surface)] py-8">
-      <p className="sr-only">Партнёрские форматы — до согласования NDA показаны нейтральные марки</p>
+    <div className="trust-marquee-fade relative overflow-hidden border-y border-[var(--neutral-200)] bg-[var(--surface)] py-8">
+      <p className="sr-only">
+        Отраслевые форматы сотрудничества; визуальные марки — нейтральный стиль без раскрытия
+        коммерческих имён.
+      </p>
       {reduce ? (
-        <div className="flex flex-wrap justify-center gap-3 px-4">
+        <div className="relative z-[1] flex flex-wrap justify-center gap-3 px-4">
           {CLIENTS.slice(0, 6).map((c) => (
             <TrustMark key={c.mark} src={c.mark} label={c.label} />
           ))}
         </div>
       ) : (
         <motion.div
-          className="flex gap-6 whitespace-nowrap px-4"
+          className="relative z-[1] flex gap-6 whitespace-nowrap px-4"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 48, ease: "linear", repeat: Infinity }}
         >

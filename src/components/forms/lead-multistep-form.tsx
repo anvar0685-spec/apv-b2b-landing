@@ -66,20 +66,20 @@ export function LeadMultistepForm() {
 
   if (doneId) {
     return (
-      <div className="rounded-2xl border border-[var(--neutral-200)] bg-white p-8 text-center shadow-sm">
+      <div className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-8 text-center shadow-[var(--card-shadow)]">
         <p className="font-display text-xl font-semibold text-[var(--primary)]">
           Заявка получена
         </p>
         <p className="mt-3 text-sm text-[var(--neutral-700)]">
           Номер заявки: <span className="font-mono-nums font-semibold">{doneId}</span>. Менеджер
-          свяжется в течение 15 минут в рабочее время (заглушка SLA).
+          свяжется в течение 15 минут в рабочее время — срок подтверждается в регламенте обслуживания клиентов.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--neutral-200)] bg-white p-6 shadow-sm md:p-10">
+    <div className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 shadow-[var(--card-shadow)] md:p-10">
       <Progress value={pct} />
       <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">
         Шаг {step + 1} из 3

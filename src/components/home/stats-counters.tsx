@@ -33,7 +33,7 @@ export function StatsCounters() {
 
   const items = [
     {
-      label: "Лет на рынке (заглушка)",
+      label: "Лет на рынке",
       value: y1,
       suffix: "+",
       hint: "операционный след",

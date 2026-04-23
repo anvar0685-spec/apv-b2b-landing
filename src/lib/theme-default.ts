@@ -1,8 +1,8 @@
 import type { CSSProperties } from "react";
 
 /**
- * Премиум B2B-палитра: глубокий navy + teal (не «дефолтный» orange Tailwind).
- * Мержится с tenant.config.theme из БД.
+ * Палитра и токены по умолчанию (синхронизированы с `src/app/globals.css` :root / html.dark).
+ * `themeToCssVars` — для точечного оверлея (мультитенант из БД); базовая тема задаётся в CSS.
  */
 export const defaultTheme = {
   primary: "#071525",
@@ -17,6 +17,7 @@ export const defaultTheme = {
   neutral50: "#fafafa",
   background: "#ffffff",
   surface: "#f4f6f9",
+  card: "#ffffff",
 } as const;
 
 export function themeToCssVars(
@@ -36,5 +37,6 @@ export function themeToCssVars(
     "--neutral-50": m.neutral50,
     "--background": m.background,
     "--surface": m.surface,
+    "--card": m.card,
   } as CSSProperties;
 }

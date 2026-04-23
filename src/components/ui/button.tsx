@@ -11,7 +11,7 @@ const buttonVariants = cva(
         default:
           "bg-[var(--accent)] text-white shadow-[0_4px_14px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.22)] hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.24)] motion-reduce:transform-none",
         secondary:
-          "border border-[var(--neutral-200)] bg-[var(--surface)] text-[var(--primary)] hover:bg-white",
+          "border border-[var(--neutral-200)] bg-[var(--surface)] text-[var(--primary)] hover:bg-[var(--card)] dark:border-white/15 dark:bg-white/5 dark:text-white dark:hover:bg-white/10",
         ghost: "text-[var(--primary)] hover:bg-[var(--surface)]",
       },
       size: {

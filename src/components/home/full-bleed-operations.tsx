@@ -1,33 +1,13 @@
-"use client";
-
-import { useState } from "react";
-
 /**
- * Полноширинный блок «операции»: локальный loop `/operations-loop.mp4`
- * (брендированный ambient, сгенерированный в репо) + градиент/сетка/зерно.
- * При ошибке загрузки — только градиент и анимация слоя.
+ * Полноширинный блок «операции»: градиент + сетка + зерно + лёгкая CSS-анимация слоя.
+ * Видео-слой убран в пользу стабильного премиум-фона без артефактов сжатия.
  */
 export function FullBleedOperations() {
-  const [videoFailed, setVideoFailed] = useState(false);
-
   return (
     <section
       className="relative min-h-[420px] overflow-hidden border-y border-[var(--neutral-200)]"
       aria-labelledby="operations-heading"
     >
-      {!videoFailed ? (
-        <video
-          className="absolute inset-0 h-full w-full object-cover opacity-[0.34]"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          aria-hidden
-          src="/operations-loop.mp4"
-          onError={() => setVideoFailed(true)}
-        />
-      ) : null}
       <div className="full-bleed-ambient absolute inset-0 bg-gradient-to-br from-[var(--primary-dark)] via-[var(--primary)] to-[var(--primary-dark)]" />
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.07]"
@@ -51,8 +31,9 @@ export function FullBleedOperations() {
                 Операции, которые видят на складе и в отчёте
               </h2>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-white/75 md:text-lg">
-                Смены, замены, миграционный учёт и явка — в одной плоскости данных. Фон — короткий брендированный loop;
-                после съёмки заменим на реальные кадры объекта и смены.
+                Смены, замены, миграционный учёт и явка — в одной плоскости данных. Фоновый слой
+                подчёркивает глубину бренда; при съёмке на объекте можно заменить на фото- или
+                видеоподложку без смены вёрстки.
               </p>
             </div>
             <ul className="space-y-4 text-sm text-white/85 md:text-base">

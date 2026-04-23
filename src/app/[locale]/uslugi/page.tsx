@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { StubPage } from "@/components/marketing/stub-page";
+import { ServicesHub } from "@/components/marketing/services-hub";
 
 export const metadata: Metadata = {
-  title: "Услуги — аутстаффинг и аутсорсинг персонала",
+  title: "Услуги — аутстаффинг, аутсорсинг, managed service",
   description:
-    "Аутстаффинг, аутсорсинг, управляемый подряд, миграционный учёт и подбор персонала для Москвы и МО.",
+    "Концентратор направлений: аутстаффинг, аутсорсинг, управляемый подряд, миграционный учёт и подбор линейного персонала.",
 };
 
 export default function Page() {
-  return <StubPage title="Услуги" description="Концентратор услуг: выберите направление ниже (заглушка навигации)." />;
+  return <ServicesHub />;
 }

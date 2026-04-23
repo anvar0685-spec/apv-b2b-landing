@@ -1,6 +1,5 @@
 /**
- * Плейсхолдеры бренда/реквизитов/контактов.
- * После финализации — только env + правка копирайта при необходимости.
+ * Бренд, домен и реквизиты: значения по умолчанию для dev; в продакшене задаются через env.
  */
 const url = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -18,6 +17,6 @@ export const site = {
   emailSales: process.env.NEXT_PUBLIC_EMAIL_SALES ?? "sales@example.com",
   telegram: process.env.NEXT_PUBLIC_TELEGRAM ?? "https://t.me/your_company",
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "https://wa.me/70000000000",
-  /** ERID / маркировка рекламы — заглушка */
+  /** ERID / маркировка рекламы (значение по умолчанию до выдачи в ОРД) */
   erid: process.env.NEXT_PUBLIC_AD_ERID ?? "ERID-TBD",
 } as const;
