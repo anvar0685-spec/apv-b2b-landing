@@ -8,31 +8,36 @@ const STEPS = [
     id: "proc-0",
     title: "Заявка и SLA",
     body: "Фиксируем объём, график, KPI явки и эскалации. Черновой контур договора и приложения по SLA.",
-    panel: "from-[var(--accent)]/25 via-[var(--primary)]/40 to-[var(--primary-dark)]",
+    panel:
+      "from-teal-400 via-teal-600 to-slate-950 dark:from-teal-500 dark:via-teal-800 dark:to-slate-950 ring-1 ring-white/25",
   },
   {
     id: "proc-1",
     title: "Подбор",
     body: "Воронка квалификации, проверка профиля и выход на пилотную смену без «пустых» кандидатов.",
-    panel: "from-violet-500/20 via-[var(--primary)]/35 to-[var(--primary-dark)]",
+    panel:
+      "from-violet-400 via-fuchsia-700 to-slate-950 dark:from-violet-500 dark:via-purple-900 dark:to-slate-950 ring-1 ring-white/20",
   },
   {
     id: "proc-2",
     title: "Compliance-check",
     body: "Миграционный контур, документы, сроки уведомлений — до выхода на объект.",
-    panel: "from-emerald-500/20 via-[var(--primary)]/35 to-[var(--primary-dark)]",
+    panel:
+      "from-emerald-400 via-teal-800 to-slate-950 dark:from-emerald-500 dark:via-emerald-900 dark:to-slate-950 ring-1 ring-white/20",
   },
   {
     id: "proc-3",
     title: "Онбординг",
     body: "Инструктаж, доступы, ментор на первых сменах, контрольные точки с бригадиром.",
-    panel: "from-amber-500/20 via-[var(--primary)]/35 to-[var(--primary-dark)]",
+    panel:
+      "from-amber-400 via-orange-700 to-slate-950 dark:from-amber-500 dark:via-orange-900 dark:to-slate-950 ring-1 ring-white/20",
   },
   {
     id: "proc-4",
     title: "Операция",
     body: "Смены под отчётность: явка, замены, инциденты и отчёты для COO в одном контуре.",
-    panel: "from-sky-500/20 via-[var(--primary)]/35 to-[var(--primary-dark)]",
+    panel:
+      "from-sky-400 via-blue-800 to-slate-950 dark:from-sky-500 dark:via-blue-900 dark:to-slate-950 ring-1 ring-white/20",
   },
 ] as const;
 
@@ -64,7 +69,7 @@ export function ProcessStickySplit() {
   }, []);
 
   return (
-    <section id="process" className="border-y border-[var(--neutral-200)] bg-white py-24 lg:py-32">
+    <section id="process" className="border-y border-[var(--neutral-200)] bg-[var(--background)] py-24 lg:py-32">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <h2 className="font-display text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
           Процесс работы
@@ -84,8 +89,8 @@ export function ProcessStickySplit() {
                     className={cn(
                       "flex w-full items-start gap-4 rounded-2xl border px-4 py-4 text-left transition md:px-5 md:py-4",
                       active === i
-                        ? "border-[var(--accent)]/40 bg-[var(--surface)] shadow-md ring-1 ring-[var(--accent)]/15"
-                        : "border-transparent bg-transparent hover:border-[var(--neutral-200)] hover:bg-[var(--surface)]/80",
+                        ? "border-[var(--accent)]/50 bg-[var(--accent-soft)]/90 shadow-md ring-2 ring-[var(--accent)]/25 dark:bg-[var(--accent-soft)]/15"
+                        : "border-transparent bg-transparent hover:border-[var(--neutral-200)] hover:bg-[var(--surface)]",
                     )}
                   >
                     <span className="font-mono-nums mt-0.5 text-xs font-bold tabular-nums text-[var(--accent)]">
@@ -114,25 +119,30 @@ export function ProcessStickySplit() {
               >
                 <div
                   className={cn(
-                    "relative flex h-full min-h-[48vh] flex-col justify-end overflow-hidden rounded-[1.125rem] bg-gradient-to-br p-8 text-white lg:min-h-[56vh]",
+                    "relative flex h-full min-h-[48vh] flex-col justify-end overflow-hidden rounded-[1.125rem] bg-gradient-to-br p-8 text-white shadow-inner lg:min-h-[56vh]",
                     s.panel,
                   )}
                 >
-                  <div className="pointer-events-none absolute inset-0 bg-[var(--primary-dark)]/55" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-transparent" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
                   <div
-                    className="pointer-events-none absolute inset-0 opacity-[0.12]"
+                    className="pointer-events-none absolute inset-0 opacity-[0.06]"
                     style={{
                       backgroundImage:
                         "linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)",
-                      backgroundSize: "32px 32px",
+                      backgroundSize: "28px 28px",
                     }}
                   />
                   <div className="relative">
-                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/70">
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/95 drop-shadow-sm">
                       Этап {String(i + 1).padStart(2, "0")}
                     </p>
-                    <p className="font-display mt-2 text-2xl font-bold tracking-tight md:text-3xl">{s.title}</p>
-                    <p className="mt-3 max-w-md text-sm leading-relaxed text-white/85 md:text-base">{s.body}</p>
+                    <p className="font-display mt-3 text-2xl font-bold tracking-tight drop-shadow-md md:text-4xl md:leading-[1.08]">
+                      {s.title}
+                    </p>
+                    <p className="mt-4 max-w-lg text-sm font-medium leading-relaxed text-white/95 drop-shadow md:text-base">
+                      {s.body}
+                    </p>
                   </div>
                 </div>
               </div>
