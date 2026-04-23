@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { ServicesHub } from "@/components/marketing/services-hub";
 
 export const metadata: Metadata = {
-  title: "Услуги — аутстаффинг, аутсорсинг, managed service",
+  title: "Складской аутсорсинг — Москва и МО",
   description:
-    "Концентратор направлений: аутстаффинг, аутсорсинг, управляемый подряд, миграционный учёт и подбор линейного персонала.",
+    "Аутсорсинг персонала на склады и DC: смены, явка, SLA. Миграционный учёт и подбор — в контракте поставки.",
 };
 
 export default function Page() {

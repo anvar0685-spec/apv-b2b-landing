@@ -7,7 +7,6 @@ import { absUrl } from "@/lib/abs-url";
 const STATIC = [
   "",
   "/uslugi",
-  "/uslugi/autstaffing",
   "/uslugi/autsorsing",
   "/uslugi/upravlyaemyy-podryad",
   "/uslugi/migracionnyy-uchet",

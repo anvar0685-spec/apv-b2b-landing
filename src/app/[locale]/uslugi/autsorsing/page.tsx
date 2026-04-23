@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const m = getServicePage("autsorsing");
   if (!m) return {};
   return {
-    title: "Аутсорсинг функций склада и производства",
+    title: "Аутсорсинг персонала на склады — Москва и МО",
     description: m.subtitle,
     alternates: { canonical: "/uslugi/autsorsing" },
   };

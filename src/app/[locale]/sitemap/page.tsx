@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 const CORE = [
   "/",
   "/uslugi",
-  "/uslugi/autstaffing",
   "/uslugi/autsorsing",
   "/uslugi/upravlyaemyy-podryad",
   "/uslugi/migracionnyy-uchet",

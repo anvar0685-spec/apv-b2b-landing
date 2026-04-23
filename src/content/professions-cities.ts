@@ -8,6 +8,7 @@ export const PROFESSIONS = [
     titleEn: "Pickers",
   },
   { slug: "kladovschiki", titleRu: "Кладовщики", titleEn: "Warehouse clerks" },
+  { slug: "voditeli-prt", titleRu: "Водители ПРТ", titleEn: "PRT drivers" },
   {
     slug: "operatory-pogruzchika",
     titleRu: "Операторы погрузчика",
@@ -19,7 +20,7 @@ export const PROFESSIONS = [
     titleRu: "Разнорабочие",
     titleEn: "General labor",
   },
-  { slug: "klinery", titleRu: "Клинеры", titleEn: "Cleaners" },
+  { slug: "klinery", titleRu: "Уборщики (склад)", titleEn: "Warehouse cleaners" },
   {
     slug: "voditeli-kategorii-b",
     titleRu: "Водители категории B",

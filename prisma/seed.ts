@@ -88,8 +88,7 @@ async function main() {
   });
 
   const services = [
-    { slug: "autstaffing", title: "Аутстаффинг персонала" },
-    { slug: "autsorsing", title: "Аутсорсинг функций" },
+    { slug: "autsorsing", title: "Складской аутсорсинг" },
     { slug: "upravlyaemyy-podryad", title: "Управляемый подряд" },
     { slug: "migracionnyy-uchet", title: "Миграционный учёт" },
     { slug: "podbor-personala", title: "Подбор персонала" },

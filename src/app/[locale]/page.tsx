@@ -12,12 +12,12 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   const { locale } = params;
   const title =
     locale === "en"
-      ? "Premium line-staff contractor — Moscow & MO"
-      : "Премиальный подрядчик линейного персонала — Москва и МО";
+      ? "Warehouse staffing outsourcing — Moscow & Moscow Oblast"
+      : "Аутсорсинг персонала на склады — Москва и Московская область";
   const description =
     locale === "en"
-      ? "SLA, transparent pricing, compliance infrastructure for marketplaces, logistics, retail, construction."
-      : "SLA, прозрачная цена, compliance-инфраструктура для маркетплейсов, логистики, ритейла и стройки.";
+      ? "Shift outsourcing for warehouses and DCs: SLA, hourly rates, compliance. Moscow & MO. No outstaffing."
+      : "Аутсорсинг смен на склады и DC: SLA, ставки ₽/час, compliance. Москва и МО. Аутстаффинг не оказываем.";
   const base = site.url.replace(/\/$/, "");
   return {
     title,
@@ -43,7 +43,7 @@ export default async function HomePage() {
     name: site.brandName,
     url: base,
     description:
-      "Премиальный подрядчик линейного персонала с compliance-инфраструктурой.",
+      "Аутсорсинг персонала на склады Москвы и МО: смены, SLA, прозрачные ставки, compliance.",
     identifier: [
       { "@type": "PropertyValue", name: "INN", value: site.inn },
       { "@type": "PropertyValue", name: "OGRN", value: site.ogrn },

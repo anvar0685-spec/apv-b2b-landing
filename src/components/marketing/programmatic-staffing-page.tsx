@@ -69,8 +69,8 @@ export function ProgrammaticStaffingPage({ profession, city }: Props) {
                 </li>
                 <li className="flex gap-2">
                   <span className="font-mono-nums text-[var(--accent)]">02</span>
-                  <Link className="font-medium text-[var(--accent)] hover:underline" href="/uslugi/autstaffing">
-                    Страница аутстаффинга
+                  <Link className="font-medium text-[var(--accent)] hover:underline" href="/uslugi/autsorsing">
+                    Складской аутсорсинг
                   </Link>
                 </li>
                 <li className="flex gap-2">

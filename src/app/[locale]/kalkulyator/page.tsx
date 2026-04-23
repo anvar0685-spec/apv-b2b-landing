@@ -3,9 +3,9 @@ import { Suspense } from "react";
 import { CalculatorFull } from "@/components/kalkulyator/calculator-full";
 
 export const metadata: Metadata = {
-  title: "Калькулятор стоимости аутстаффинга и аутсорсинга",
+  title: "Калькулятор складского аутсорсинга — ставки ₽/час",
   description:
-    "Пять шагов расчёта и блок дополнений: предварительная вилка стоимости и переход к КП.",
+    "Ориентир по Москве и МО: грузчики 600, комплектовщики 620, кладовщики 650, водители ПРТ 750, уборщики и разнорабочие 600 ₽/час. Вилка к месячному фонду и заявка на КП.",
   alternates: { canonical: "/kalkulyator" },
 };
 

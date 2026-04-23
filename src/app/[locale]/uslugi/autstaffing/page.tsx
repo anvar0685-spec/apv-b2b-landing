@@ -1,25 +1,9 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { getServicePage } from "@/content/service-page-data";
-import { ServicePageFull } from "@/components/marketing/service-page-full";
-import { site } from "@/config/site";
+import { permanentRedirect } from "next/navigation";
 
 type Props = { params: { locale: string } };
 
-export async function generateMetadata(): Promise<Metadata> {
-  const m = getServicePage("autstaffing");
-  if (!m) return {};
-  const brand = site.brandName.replace(/_/g, " ");
-  const title = `Аутстаффинг персонала — Москва и МО · ${brand}`;
-  return {
-    title,
-    description: m.subtitle,
-    alternates: { canonical: "/uslugi/autstaffing" },
-  };
-}
-
+/** Аутстаффинг не оказываем — единая витрина складского аутсорсинга. */
 export default function Page({ params }: Props) {
-  const m = getServicePage("autstaffing");
-  if (!m) notFound();
-  return <ServicePageFull model={m} locale={params.locale} />;
+  const path = params.locale === "en" ? "/en/uslugi/autsorsing" : "/uslugi/autsorsing";
+  permanentRedirect(path);
 }

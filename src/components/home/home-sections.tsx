@@ -10,8 +10,8 @@ import { ProcessStickySplit } from "@/components/home/process-sticky-split";
 
 const FAQ = [
   {
-    q: "Чем аутстаффинг отличается от классического агентства?",
-    a: "Мы отвечаем за поставку смен, явку и compliance-контур, а не только за подбор резюме.",
+    q: "Почему только аутсорсинг на склады?",
+    a: "Так выстроена модель: подрядчик ведёт смены и явку на объекте, без аутстаффинга. Для DC и 3PL это снижает операционный шум в закупке.",
   },
   {
     q: "Как быстро можно выйти на объём?",
@@ -95,26 +95,38 @@ export function HomeSections() {
           Наши услуги
         </h2>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[var(--neutral-700)]">
-          Четыре ключевых направления + подбор. Карточки ведут на SEO-страницы услуг.
+          Фокус — <strong>складской аутсорсинг в Москве и МО</strong>. Остальные страницы — контур договора и закупка.
         </p>
-        <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {[
-            { href: "/uslugi/autstaffing", t: "Аутстаффинг", d: "Поставка линейного персонала под ваши смены." },
-            { href: "/uslugi/autsorsing", t: "Аутсорсинг", d: "Функции склада/производства под KPI." },
-            { href: "/uslugi/upravlyaemyy-podryad", t: "Managed service", d: "Управляемый подряд и отчётность." },
-            { href: "/uslugi/migracionnyy-uchet", t: "Миграционный учёт", d: "Compliance без «сюрпризов» для заказчика." },
-            { href: "/uslugi/podbor-personala", t: "Подбор персонала", d: "Воронка и выход на смену под ключ." },
-          ].map((s) => (
-            <Card key={s.href}>
-              <CardTitle>{s.t}</CardTitle>
-              <CardDescription>{s.d}</CardDescription>
-              <div className="mt-5">
-                <Button asChild variant="secondary" size="sm">
-                  <Link href={s.href}>Подробнее</Link>
-                </Button>
-              </div>
-            </Card>
-          ))}
+        <div className="mt-14 flex flex-col gap-5">
+          <Card className="border-[var(--accent)]/20 ring-1 ring-[var(--accent)]/10">
+            <CardTitle>Аутсорсинг на склады</CardTitle>
+            <CardDescription>
+              Смены, явка, SLA. Ставки-ориентиры: грузчики 600 ₽/ч, комплектовщики 620, кладовщики 650, водители ПРТ
+              750, уборщики и разнорабочие 600.
+            </CardDescription>
+            <div className="mt-5">
+              <Button asChild variant="secondary" size="sm">
+                <Link href="/uslugi/autsorsing">Модель поставки</Link>
+              </Button>
+            </div>
+          </Card>
+          <div className="grid gap-5 md:grid-cols-3">
+            {[
+              { href: "/uslugi/migracionnyy-uchet", t: "Миграционный учёт", d: "В рамках контракта на склад." },
+              { href: "/uslugi/podbor-personala", t: "Подбор", d: "Профили под DC и 3PL." },
+              { href: "/uslugi/upravlyaemyy-podryad", t: "Managed подряд", d: "Для зрелых площадок с KPI." },
+            ].map((s) => (
+              <Card key={s.href}>
+                <CardTitle>{s.t}</CardTitle>
+                <CardDescription>{s.d}</CardDescription>
+                <div className="mt-5">
+                  <Button asChild variant="secondary" size="sm">
+                    <Link href={s.href}>Подробнее</Link>
+                  </Button>
+                </div>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 

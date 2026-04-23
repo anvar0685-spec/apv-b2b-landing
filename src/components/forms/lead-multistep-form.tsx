@@ -18,7 +18,11 @@ export function LeadMultistepForm() {
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
   const [phone, setPhone] = useState("");
-  const [serviceType, setServiceType] = useState(() => sp.get("service") ?? "autstaffing");
+  const [serviceType, setServiceType] = useState(() => {
+    const s = sp.get("service");
+    if (s === "autstaffing" || !s) return "autsorsing";
+    return s;
+  });
   const [profession, setProfession] = useState(() => sp.get("profession") ?? "gruzchiki");
   const [city, setCity] = useState(() => sp.get("city") ?? "moskva");
   const [headcount, setHeadcount] = useState(() => Number(sp.get("headcount") ?? 20) || 20);
@@ -115,9 +119,8 @@ export function LeadMultistepForm() {
               value={serviceType}
               onChange={(e) => setServiceType(e.target.value)}
             >
-              <option value="autstaffing">Аутстаффинг</option>
-              <option value="autsorsing">Аутсорсинг</option>
-              <option value="managed">Managed service</option>
+              <option value="autsorsing">Складской аутсорсинг (Москва и МО)</option>
+              <option value="managed">Управляемый подряд (по запросу)</option>
             </select>
           </div>
           <div>

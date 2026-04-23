@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { PROFESSIONS, CITIES } from "@/content/professions-cities";
+import { getWarehouseHourlyRateRub, shiftMultiplier } from "@/content/warehouse-hourly-rates";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,19 +13,14 @@ import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
 import { trackEvent } from "@/lib/analytics";
 
-const SERVICES = [
-  { id: "autstaffing", label: "Аутстаффинг" },
-  { id: "autsorsing", label: "Аутсорсинг" },
-  { id: "managed", label: "Managed service" },
-] as const;
+const SERVICE_SLUG = "autsorsing" as const;
 
-/** 5 основных шагов + шаг дополнений и результата (как в брифе). */
-const STEPS = 6;
+/** Профиль → численность → график → город → дополнения и итог */
+const STEPS = 5;
 
 export function CalculatorFull() {
   const sp = useSearchParams();
   const [step, setStep] = useState(0);
-  const [service, setService] = useState(() => sp.get("s") ?? "autstaffing");
   const [profession, setProfession] = useState(() => sp.get("p") ?? "gruzchiki");
   const [headcount, setHeadcount] = useState(() => Number(sp.get("n") ?? 30) || 30);
   const [shift, setShift] = useState<"day" | "night" | "24">("day");
@@ -35,21 +31,26 @@ export function CalculatorFull() {
   const [extraPeak, setExtraPeak] = useState(false);
   const [extraCompliance, setExtraCompliance] = useState(false);
 
+  const hourlyBase = useMemo(() => getWarehouseHourlyRateRub(profession), [profession]);
+  const hourlyEffective = useMemo(
+    () => Math.round(hourlyBase * shiftMultiplier(shift)),
+    [hourlyBase, shift],
+  );
+
   const estimate = useMemo(() => {
-    const baseRate = shift === "night" ? 520 : shift === "24" ? 680 : 450;
     const hours = hoursPerWeek * 4.3;
-    const subtotal = baseRate * hours * headcount;
+    const subtotal = hourlyEffective * hours * headcount;
     const compliancePrem = extraCompliance ? subtotal * 0.06 : 0;
     const extras =
       (extraHousing ? headcount * 8000 : 0) +
       (extraTransport ? headcount * 3000 : 0) +
       (extraPeak ? subtotal * 0.08 : 0);
     const total = Math.round(subtotal + compliancePrem + extras);
-    const low = Math.round(total * 0.85);
-    const high = Math.round(total * 1.15);
+    const low = Math.round(total * 0.9);
+    const high = Math.round(total * 1.1);
     return { low, high, total };
   }, [
-    shift,
+    hourlyEffective,
     hoursPerWeek,
     headcount,
     extraHousing,
@@ -66,11 +67,12 @@ export function CalculatorFull() {
   return (
     <div className="mx-auto max-w-[720px] px-4 py-12 sm:px-6 lg:py-16">
       <h1 className="font-display text-3xl font-bold text-[var(--primary)] md:text-4xl">
-        Калькулятор стоимости
+        Калькулятор складского аутсорсинга
       </h1>
       <p className="mt-3 text-[var(--neutral-700)]">
-        Пять шагов по брифу + опциональный блок дополнений. Итог — ориентировочная вилка ±15% по упрощённой модели;
-        итоговые условия — в КП и договоре.
+        Ориентир по ставкам <strong>₽/час</strong> для Москвы и МО: грузчики 600, комплектовщики 620, кладовщики 650,
+        водители ПРТ 750, разнорабочие и уборщики 600. Ночь и сутки дают надбавку к ставке; итог — вилка ±10% к
+        месячному фонду, финальные цифры — в КП и договоре.
       </p>
       <Card className="mt-10">
         <div className="mb-6">
@@ -83,26 +85,8 @@ export function CalculatorFull() {
           <Progress value={pct} className="mt-2" />
         </div>
         {step === 0 ? (
-          <div className="grid gap-3 sm:grid-cols-3">
-            {SERVICES.map((s) => (
-              <button
-                key={s.id}
-                type="button"
-                onClick={() => setService(s.id)}
-                className={`rounded-2xl border px-4 py-4 text-left text-sm font-semibold transition ${
-                  service === s.id
-                    ? "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--primary)]"
-                    : "border-[var(--neutral-200)] bg-[var(--card)] text-[var(--neutral-700)] hover:border-[var(--accent)]"
-                }`}
-              >
-                {s.label}
-              </button>
-            ))}
-          </div>
-        ) : null}
-        {step === 1 ? (
           <div>
-            <Label htmlFor="prof">Профессия</Label>
+            <Label htmlFor="prof">Профессия на складе</Label>
             <select
               id="prof"
               className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-sm"
@@ -111,13 +95,17 @@ export function CalculatorFull() {
             >
               {PROFESSIONS.map((p) => (
                 <option key={p.slug} value={p.slug}>
-                  {p.titleRu}
+                  {p.titleRu} — от {getWarehouseHourlyRateRub(p.slug)} ₽/ч
                 </option>
               ))}
             </select>
+            <p className="mt-3 text-xs text-[var(--neutral-500)]">
+              Для выбранной роли базовая ставка:{" "}
+              <span className="font-mono-nums font-semibold text-[var(--primary)]">{hourlyBase} ₽/ч</span>
+            </p>
           </div>
         ) : null}
-        {step === 2 ? (
+        {step === 1 ? (
           <div>
             <Label htmlFor="hc">Количество человек</Label>
             <Input
@@ -139,7 +127,7 @@ export function CalculatorFull() {
             />
           </div>
         ) : null}
-        {step === 3 ? (
+        {step === 2 ? (
           <div className="space-y-4">
             <div>
               <Label>График</Label>
@@ -165,6 +153,10 @@ export function CalculatorFull() {
                   </button>
                 ))}
               </div>
+              <p className="mt-2 text-xs text-[var(--neutral-500)]">
+                С учётом графика: <span className="font-mono-nums font-semibold">{hourlyEffective} ₽/ч</span> на
+                человека
+              </p>
             </div>
             <div>
               <Label htmlFor="hw">Часов в неделю на человека</Label>
@@ -180,7 +172,7 @@ export function CalculatorFull() {
             </div>
           </div>
         ) : null}
-        {step === 4 ? (
+        {step === 3 ? (
           <div>
             <Label htmlFor="city">Город (МО)</Label>
             <select
@@ -197,73 +189,66 @@ export function CalculatorFull() {
             </select>
           </div>
         ) : null}
-        {step === 5 ? (
-          <div className="space-y-4 border-t border-[var(--neutral-200)] pt-6">
-            <p className="text-sm font-semibold text-[var(--primary)]">Дополнительно</p>
-            <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
-              <Checkbox checked={extraHousing} onCheckedChange={(v) => setExtraHousing(v === true)} />
-              Нужно жильё
-            </label>
-            <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
-              <Checkbox
-                checked={extraTransport}
-                onCheckedChange={(v) => setExtraTransport(v === true)}
-              />
-              Нужен транспорт
-            </label>
-            <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
-              <Checkbox checked={extraPeak} onCheckedChange={(v) => setExtraPeak(v === true)} />
-              Высокий сезон
-            </label>
-            <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
-              <Checkbox
-                checked={extraCompliance}
-                onCheckedChange={(v) => setExtraCompliance(v === true)}
-              />
-              Compliance под маркетплейс
-            </label>
-          </div>
-        ) : null}
-
-        {step === 5 ? (
-          <div className="mt-8 rounded-2xl bg-[var(--surface)] p-6">
-            <CardTitle>Предварительный расчёт</CardTitle>
-            <CardDescription className="mt-2">
-              Вилка ±15%: от {estimate.low.toLocaleString("ru-RU")} до{" "}
-              {estimate.high.toLocaleString("ru-RU")} ₽ / мес (оценка).
-            </CardDescription>
-            <p className="mt-4 font-mono-nums text-2xl font-bold text-[var(--primary)]">
-              ~{estimate.total.toLocaleString("ru-RU")} ₽
-            </p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              <Button
-                type="button"
-                onClick={() =>
-                  void trackEvent("calculator_completed", {
-                    service,
-                    profession,
-                    city,
-                    headcount,
-                    estimate: estimate.total,
-                  })
-                }
-                asChild
-              >
-                <Link
-                  href={`/zayavka?service=${service}&profession=${profession}&city=${city}&headcount=${headcount}`}
-                >
-                  Получить точный расчёт и КП
-                </Link>
-              </Button>
+        {step === 4 ? (
+          <>
+            <div className="space-y-4 border-b border-[var(--neutral-200)] pb-6">
+              <p className="text-sm font-semibold text-[var(--primary)]">Дополнительно</p>
+              <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
+                <Checkbox checked={extraHousing} onCheckedChange={(v) => setExtraHousing(v === true)} />
+                Нужно жильё
+              </label>
+              <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
+                <Checkbox checked={extraTransport} onCheckedChange={(v) => setExtraTransport(v === true)} />
+                Нужен транспорт
+              </label>
+              <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
+                <Checkbox checked={extraPeak} onCheckedChange={(v) => setExtraPeak(v === true)} />
+                Высокий сезон
+              </label>
+              <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
+                <Checkbox checked={extraCompliance} onCheckedChange={(v) => setExtraCompliance(v === true)} />
+                Расширенный compliance (маркетплейс / DC)
+              </label>
             </div>
-          </div>
+            <div className="mt-8 rounded-2xl bg-[var(--surface)] p-6">
+              <CardTitle>Предварительный расчёт</CardTitle>
+              <CardDescription className="mt-2">
+                Вилка ±10% к месячному фонду: от {estimate.low.toLocaleString("ru-RU")} до{" "}
+                {estimate.high.toLocaleString("ru-RU")} ₽ / мес (оценка).
+              </CardDescription>
+              <p className="mt-4 font-mono-nums text-2xl font-bold text-[var(--primary)]">
+                ~{estimate.total.toLocaleString("ru-RU")} ₽
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                <Button
+                  type="button"
+                  onClick={() =>
+                    void trackEvent("calculator_completed", {
+                      service: SERVICE_SLUG,
+                      profession,
+                      city,
+                      headcount,
+                      estimate: estimate.total,
+                    })
+                  }
+                  asChild
+                >
+                  <Link
+                    href={`/zayavka?service=${SERVICE_SLUG}&profession=${profession}&city=${city}&headcount=${headcount}`}
+                  >
+                    Получить точный расчёт и КП
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </>
         ) : null}
 
         <div className="mt-8 flex flex-wrap justify-between gap-3">
           <Button type="button" variant="secondary" disabled={step === 0} onClick={prev}>
             Назад
           </Button>
-          {step < 5 ? (
+          {step < STEPS - 1 ? (
             <Button type="button" onClick={next}>
               Далее
             </Button>
