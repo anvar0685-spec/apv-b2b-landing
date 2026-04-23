@@ -22,9 +22,15 @@ const CORE = [
   "/zayavka",
   "/kontakty",
   "/o-kompanii",
+  "/o-kompanii/komanda",
+  "/o-kompanii/dokumenty",
+  "/o-kompanii/pressa",
   "/faq",
   "/garantii",
   "/dlya-postavschikov",
+  "/pravovaya-informaciya",
+  "/politika-konfidencialnosti",
+  "/oferta",
 ] as const;
 
 export default function HtmlSitemapPage() {
