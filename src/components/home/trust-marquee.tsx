@@ -1,20 +1,42 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 
-/** Заглушки до NDA: отраслевые якоря в стиле бренда, не «MP / 3PL». */
+/**
+ * До NDA: монохромные марки (собственные SVG в `public/trust/marks/`) + подпись отрасли.
+ * После согласования — заменить `mark` на `/public/trust/clients/*.svg` с реальными логотипами.
+ */
 const CLIENTS = [
-  { code: "АП", label: "Логистика · МО" },
-  { code: "СК", label: "Склад · пики сезона" },
-  { code: "ПР", label: "Производство · смены" },
-  { code: "РТ", label: "Ритейл · явка" },
-  { code: "МП", label: "Маркетплейс · DC" },
-  { code: "ФМ", label: "FMCG · подряд" },
-  { code: "ФА", label: "Фарма · compliance" },
-  { code: "ХР", label: "HoReCa · линейка" },
-  { code: "СТ", label: "Стройка · бригады" },
-  { code: "3L", label: "3PL · хабы" },
+  { mark: "/trust/marks/mark-logistics.svg", label: "Логистика · МО" },
+  { mark: "/trust/marks/mark-warehouse.svg", label: "Склад · пики сезона" },
+  { mark: "/trust/marks/mark-production.svg", label: "Производство · смены" },
+  { mark: "/trust/marks/mark-retail.svg", label: "Ритейл · явка" },
+  { mark: "/trust/marks/mark-marketplace.svg", label: "Маркетплейс · DC" },
+  { mark: "/trust/marks/mark-fmcg.svg", label: "FMCG · подряд" },
+  { mark: "/trust/marks/mark-pharma.svg", label: "Фарма · compliance" },
+  { mark: "/trust/marks/mark-horeca.svg", label: "HoReCa · линейка" },
+  { mark: "/trust/marks/mark-build.svg", label: "Стройка · бригады" },
+  { mark: "/trust/marks/mark-3pl.svg", label: "3PL · хабы" },
 ] as const;
+
+function TrustMark({ src, label }: { src: string; label: string }) {
+  return (
+    <div className="group inline-flex items-center gap-3.5 rounded-2xl border border-[var(--neutral-200)] bg-white px-4 py-2.5 shadow-[var(--card-shadow)] transition-shadow duration-300 hover:shadow-[var(--card-shadow-hover)]">
+      <Image
+        src={src}
+        width={104}
+        height={28}
+        alt=""
+        unoptimized
+        className="h-7 w-[104px] shrink-0 object-contain object-left opacity-[0.78] contrast-[1.05] grayscale transition duration-300 group-hover:opacity-95"
+      />
+      <span className="border-l border-[var(--neutral-200)] pl-3.5 text-xs font-semibold tracking-wide text-[var(--neutral-700)]">
+        {label}
+      </span>
+    </div>
+  );
+}
 
 export function TrustMarquee() {
   const reduce = useReducedMotion();
@@ -22,37 +44,21 @@ export function TrustMarquee() {
 
   return (
     <div className="relative overflow-hidden border-y border-[var(--neutral-200)] bg-[var(--surface)] py-8">
-      <p className="sr-only">Отрасли и форматы — заглушки до согласования NDA</p>
+      <p className="sr-only">Партнёрские форматы — до согласования NDA показаны нейтральные марки</p>
       {reduce ? (
         <div className="flex flex-wrap justify-center gap-3 px-4">
           {CLIENTS.slice(0, 6).map((c) => (
-            <div
-              key={c.code}
-              className="flex items-center gap-3 rounded-2xl border border-[var(--neutral-200)] bg-white px-4 py-2.5 shadow-[var(--card-shadow)]"
-            >
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--primary)] font-mono-nums text-[11px] font-bold text-white">
-                {c.code}
-              </span>
-              <span className="text-xs font-semibold text-[var(--neutral-700)]">{c.label}</span>
-            </div>
+            <TrustMark key={c.mark} src={c.mark} label={c.label} />
           ))}
         </div>
       ) : (
         <motion.div
           className="flex gap-6 whitespace-nowrap px-4"
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 36, ease: "linear", repeat: Infinity }}
+          transition={{ duration: 48, ease: "linear", repeat: Infinity }}
         >
           {strip.map((c, i) => (
-            <div
-              key={`${c.code}-${i}`}
-              className="inline-flex items-center gap-3 rounded-2xl border border-[var(--neutral-200)] bg-white px-4 py-2.5 shadow-[var(--card-shadow)]"
-            >
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--primary)] font-mono-nums text-[11px] font-bold text-white">
-                {c.code}
-              </span>
-              <span className="text-xs font-semibold tracking-wide text-[var(--neutral-700)]">{c.label}</span>
-            </div>
+            <TrustMark key={`${c.mark}-${i}`} src={c.mark} label={c.label} />
           ))}
         </motion.div>
       )}

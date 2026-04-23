@@ -1,13 +1,33 @@
+"use client";
+
+import { useState } from "react";
+
 /**
- * Full-bleed «операции» — без сток-видео: градиент + лёгкая CSS-анимация + сетка + зерно.
- * Реальный loop положите в `public/operations-loop.webm` и подключите позже при необходимости.
+ * Полноширинный блок «операции»: локальный loop `/operations-loop.mp4`
+ * (брендированный ambient, сгенерированный в репо) + градиент/сетка/зерно.
+ * При ошибке загрузки — только градиент и анимация слоя.
  */
 export function FullBleedOperations() {
+  const [videoFailed, setVideoFailed] = useState(false);
+
   return (
     <section
       className="relative min-h-[420px] overflow-hidden border-y border-[var(--neutral-200)]"
       aria-labelledby="operations-heading"
     >
+      {!videoFailed ? (
+        <video
+          className="absolute inset-0 h-full w-full object-cover opacity-[0.34]"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden
+          src="/operations-loop.mp4"
+          onError={() => setVideoFailed(true)}
+        />
+      ) : null}
       <div className="full-bleed-ambient absolute inset-0 bg-gradient-to-br from-[var(--primary-dark)] via-[var(--primary)] to-[var(--primary-dark)]" />
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.07]"
@@ -31,8 +51,8 @@ export function FullBleedOperations() {
                 Операции, которые видят на складе и в отчёте
               </h2>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-white/75 md:text-lg">
-                Смены, замены, миграционный учёт и явка — в одной плоскости данных. Визуальный слой без сток-ролика;
-                после съёмки добавим короткий loop объекта и команды.
+                Смены, замены, миграционный учёт и явка — в одной плоскости данных. Фон — короткий брендированный loop;
+                после съёмки заменим на реальные кадры объекта и смены.
               </p>
             </div>
             <ul className="space-y-4 text-sm text-white/85 md:text-base">
