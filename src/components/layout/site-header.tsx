@@ -10,6 +10,9 @@ export async function SiteHeader() {
   const links = [
     { href: "/uslugi", label: t("services") },
     { href: "/personal", label: t("personal") },
+    { href: "/otrasli", label: t("industries") },
+    { href: "/ploshchadki", label: t("platforms") },
+    { href: "/geografiya", label: t("geo") },
     { href: "/keysy", label: t("cases") },
     { href: "/blog", label: t("blog") },
     { href: "/kalkulyator", label: t("calculator") },

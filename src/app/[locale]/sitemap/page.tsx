@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { CITIES, PROFESSIONS } from "@/content/professions-cities";
+import { allMultipageSeoPaths } from "@/lib/site-structure";
 
 export const metadata: Metadata = {
   title: "Карта сайта",
@@ -30,6 +31,7 @@ const CORE = [
   "/pravovaya-informaciya",
   "/politika-konfidencialnosti",
   "/oferta",
+  ...allMultipageSeoPaths(),
 ] as const;
 
 export default function HtmlSitemapPage() {

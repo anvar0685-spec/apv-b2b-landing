@@ -1,47 +1,34 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
-const STEPS = [
-  {
-    id: "proc-0",
-    title: "Заявка и SLA",
-    body: "Фиксируем объём, график, KPI явки и эскалации. Черновой контур договора и приложения по SLA.",
-    panel:
-      "from-teal-400 via-teal-600 to-slate-950 dark:from-teal-500 dark:via-teal-800 dark:to-slate-950 ring-1 ring-white/25",
-  },
-  {
-    id: "proc-1",
-    title: "Подбор",
-    body: "Воронка квалификации, проверка профиля и выход на пилотную смену без «пустых» кандидатов.",
-    panel:
-      "from-violet-400 via-fuchsia-700 to-slate-950 dark:from-violet-500 dark:via-purple-900 dark:to-slate-950 ring-1 ring-white/20",
-  },
-  {
-    id: "proc-2",
-    title: "Compliance-check",
-    body: "Миграционный контур, документы, сроки уведомлений — до выхода на объект.",
-    panel:
-      "from-emerald-400 via-teal-800 to-slate-950 dark:from-emerald-500 dark:via-emerald-900 dark:to-slate-950 ring-1 ring-white/20",
-  },
-  {
-    id: "proc-3",
-    title: "Онбординг",
-    body: "Инструктаж, доступы, ментор на первых сменах, контрольные точки с бригадиром.",
-    panel:
-      "from-amber-400 via-orange-700 to-slate-950 dark:from-amber-500 dark:via-orange-900 dark:to-slate-950 ring-1 ring-white/20",
-  },
-  {
-    id: "proc-4",
-    title: "Операция",
-    body: "Смены под отчётность: явка, замены, инциденты и отчёты для COO в одном контуре.",
-    panel:
-      "from-sky-400 via-blue-800 to-slate-950 dark:from-sky-500 dark:via-blue-900 dark:to-slate-950 ring-1 ring-white/20",
-  },
+const PANELS = [
+  "from-teal-400 via-teal-600 to-slate-950 dark:from-teal-500 dark:via-teal-800 dark:to-slate-950 ring-1 ring-white/25",
+  "from-violet-400 via-fuchsia-700 to-slate-950 dark:from-violet-500 dark:via-purple-900 dark:to-slate-950 ring-1 ring-white/20",
+  "from-emerald-400 via-teal-800 to-slate-950 dark:from-emerald-500 dark:via-emerald-900 dark:to-slate-950 ring-1 ring-white/20",
+  "from-amber-400 via-orange-700 to-slate-950 dark:from-amber-500 dark:via-orange-900 dark:to-slate-950 ring-1 ring-white/20",
+  "from-sky-400 via-blue-800 to-slate-950 dark:from-sky-500 dark:via-blue-900 dark:to-slate-950 ring-1 ring-white/20",
 ] as const;
 
+type ProcessCopy = {
+  title: string;
+  lead: string;
+  stepWord: string;
+  steps: { title: string; body: string }[];
+};
+
 export function ProcessStickySplit() {
+  const t = useTranslations("homePage");
+  const process = t.raw("process") as ProcessCopy;
+  const steps = process.steps.map((s, i) => ({
+    id: `proc-${i}`,
+    title: s.title,
+    body: s.body,
+    panel: PANELS[i] ?? PANELS[0],
+  }));
+
   const [active, setActive] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -72,16 +59,14 @@ export function ProcessStickySplit() {
     <section id="process" className="border-y border-[var(--neutral-200)] bg-[var(--background)] py-24 lg:py-32">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <h2 className="font-display text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
-          Процесс работы
+          {process.title}
         </h2>
-        <p className="mt-4 max-w-2xl text-[var(--neutral-700)]">
-          Слева — этапы, справа — визуальный якорь при скролле. Клик по этапу прокручивает к блоку.
-        </p>
+        <p className="mt-4 max-w-2xl text-[var(--neutral-700)]">{process.lead}</p>
 
         <div className="mt-14 lg:grid lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5">
             <ol className="lg:sticky lg:top-28 lg:space-y-2">
-              {STEPS.map((s, i) => (
+              {steps.map((s, i) => (
                 <li key={s.id}>
                   <button
                     type="button"
@@ -107,7 +92,7 @@ export function ProcessStickySplit() {
           </div>
 
           <div className="mt-10 space-y-6 lg:col-span-7 lg:mt-0">
-            {STEPS.map((s, i) => (
+            {steps.map((s, i) => (
               <div
                 key={s.id}
                 id={s.id}
@@ -135,7 +120,7 @@ export function ProcessStickySplit() {
                   />
                   <div className="relative">
                     <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/95 drop-shadow-sm">
-                      Этап {String(i + 1).padStart(2, "0")}
+                      {process.stepWord} {String(i + 1).padStart(2, "0")}
                     </p>
                     <p className="font-display mt-3 text-2xl font-bold tracking-tight drop-shadow-md md:text-4xl md:leading-[1.08]">
                       {s.title}

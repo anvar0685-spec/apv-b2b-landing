@@ -3,6 +3,9 @@
   "nav": {
     "services": "Services",
     "personal": "Workforce",
+    "industries": "Industries",
+    "platforms": "Platforms",
+    "geo": "Geography",
     "cases": "Case studies",
     "blog": "Blog",
     "calculator": "Calculator",
@@ -18,5 +21,341 @@
     "heroSubtitle": "Shift-based SLA: attendance, replacements, transparent hourly rates, compliance. We do not provide outstaffing.",
     "trust": "Trusted by",
     "trustLead": "Operations teams at marketplaces, logistics and manufacturing — one line-staff standard."
+  },
+  "homePage": {
+    "hero": {
+      "kicker": "Moscow · MO · compliance-first",
+      "sectionsNavAria": "On this page",
+      "anchors": {
+        "personas": "Who it’s for",
+        "services": "Services",
+        "professions": "Roles",
+        "calc": "Calculator",
+        "cases": "Cases",
+        "process": "Process",
+        "whyUs": "Why us",
+        "faq": "FAQ"
+      }
+    },
+    "heroDashboard": {
+      "slaKicker": "SLA · shift",
+      "attendance": "Attendance · focus",
+      "replacements": "Replacements",
+      "incidents": "Incidents",
+      "throughput": "Throughput · 14d",
+      "chips": ["Migration compliance", "Documents", "Shift SLA"]
+    },
+    "trustSrOnly": "Sectors where we supply staff; icons are illustrative.",
+    "trustSectors": [
+      { "title": "Logistics", "hint": "MO · hubs" },
+      { "title": "Warehouse", "hint": "peak season" },
+      { "title": "Manufacturing", "hint": "24/7 shifts" },
+      { "title": "Retail", "hint": "attendance · swaps" },
+      { "title": "Marketplace", "hint": "DC · sort" },
+      { "title": "FMCG", "hint": "contract · SLA" },
+      { "title": "Pharma", "hint": "compliance" },
+      { "title": "HoReCa", "hint": "floor team" },
+      { "title": "Construction", "hint": "crews" },
+      { "title": "3PL", "hint": "warehouses" }
+    ],
+    "personas": {
+      "kicker": "Who it’s for",
+      "title": "Three stakeholders, one solution",
+      "lead": "Warehouse staffing decisions involve different risks for ops, HR and finance — we close each loop separately and as a system.",
+      "cards": [
+        {
+          "title": "Warehouse director / COO",
+          "body": "You need attendance, replacements and a single accountable party per shift — without HR noise in daily ops."
+        },
+        {
+          "title": "CHRO / HRD",
+          "body": "Less load on internal recruiting in peaks: clear profiles, time-to-floor and contract-grade reporting."
+        },
+        {
+          "title": "CFO",
+          "body": "Predictable cost per shift: hourly benchmarks and peak scenarios so the model matches reality."
+        }
+      ]
+    },
+    "pain": {
+      "kicker": "Diagnosis → fix",
+      "title": "Problem → solution",
+      "lead": "The bento grid highlights priorities: labour shortage and compliance are the “heavy” tiles; speed and outcome tie to KPIs.",
+      "linkAllServices": "All services",
+      "cells": {
+        "deficit": {
+          "kicker": "Operational risk",
+          "title": "Labour shortage",
+          "body": "Seasonal peaks, line churn and shift gaps without a predictable pool and onboarding."
+        },
+        "compliance": {
+          "kicker": "Law · migration",
+          "title": "Compliance",
+          "body": "Document trail without quietly pushing risk to the client."
+        },
+        "speed": {
+          "kicker": "SLA",
+          "title": "Speed",
+          "body": "Time-to-shift and reporting for COO/HRD in one operating loop."
+        },
+        "outcome": {
+          "kicker": "Outcome",
+          "title": "Contractor as operating system",
+          "body": "Shift coverage, swaps, attendance control and transparent KPIs — from pilot one."
+        }
+      }
+    },
+    "stats": {
+      "kicker": "Numbers a COO can take to a steering meeting",
+      "items": [
+        { "label": "Years in market", "hint": "operational track record" },
+        { "label": "People under management", "hint": "peak waves" },
+        { "label": "B2B clients", "hint": "logistics · retail · manufacturing" },
+        { "label": "Compliance score", "hint": "migration paperwork loop" }
+      ]
+    },
+    "fullBleed": {
+      "kicker": "Field operations",
+      "title": "What the floor and the report both show",
+      "body": "Shifts, replacements, migration compliance and attendance — one data plane. The background layer adds depth; on-site shoots can swap in photo or video without layout changes.",
+      "bullets": [
+        "Single SLA for shift start and replacement escalation",
+        "Clear document trail for audits and inspections",
+        "COO reporting: attendance, incidents, cost per shift"
+      ]
+    },
+    "professionsHub": {
+      "kicker": "Roles",
+      "title": "Warehouse roles for shift delivery",
+      "leadBefore": "From loaders to forklift operators — dedicated landings with rates and scenarios. Quick links below; the full list is on the",
+      "leadLink": "Workforce hub",
+      "allProfessions": "All roles",
+      "industriesBlockKicker": "Industries & platforms",
+      "industriesBlockTitle": "Where we work",
+      "industriesBlockLead": "Industry and geo landings from the site map; marketplaces as a separate track for your SLAs.",
+      "industriesTitle": "Industries",
+      "industriesDesc": "E-commerce, 3PL, retail, pharma, FMCG, Class A — unique URLs for SEO.",
+      "allIndustries": "All industries",
+      "platformsTitle": "Platforms",
+      "platformsDesc": "Major marketplaces and logistics brands — dedicated pages for procurement search.",
+      "allPlatforms": "All platforms",
+      "geoTitle": "Geography",
+      "geoDesc": "Moscow by district and key cities in the Moscow Oblast — programmatic and editorial landings.",
+      "geoMoscow": "Moscow (districts)",
+      "geoKhimki": "Khimki",
+      "geoPodolsk": "Podolsk",
+      "geoMap": "Map"
+    },
+    "whyUs": {
+      "kicker": "Why us",
+      "title": "Six pillars teams pilot on",
+      "lead": "No generic “quality & reliability” — only what tenders and first shifts actually test.",
+      "items": [
+        {
+          "title": "Time-to-floor",
+          "text": "Pilot and scale with clear timelines in the proposal — without endless approval chains."
+        },
+        {
+          "title": "Compliance",
+          "text": "Migration paperwork and documents on the contractor side in the standard model, with audit-ready reporting."
+        },
+        {
+          "title": "Transparent ₽/hour",
+          "text": "Rate benchmarks and shift scenarios before signature; contract KPIs on attendance and replacements."
+        },
+        {
+          "title": "Single delivery loop",
+          "text": "Shifts, swaps, onboarding and comms — one ops desk instead of many agencies."
+        },
+        {
+          "title": "DC & marketplace experience",
+          "text": "Profiles for high line intensity, sale peaks and night shifts."
+        },
+        {
+          "title": "Reporting that fits finance",
+          "text": "Attendance and incident dashboards — one format for COO and financial models."
+        }
+      ]
+    },
+    "process": {
+      "title": "How we work",
+      "lead": "Stages on the left, visual anchor on the right while you scroll. Click a stage to jump to its block.",
+      "stepWord": "Stage",
+      "steps": [
+        {
+          "title": "Request & SLA",
+          "body": "We lock volume, schedule, attendance KPIs and escalation paths — draft contract and SLA annex."
+        },
+        {
+          "title": "Sourcing",
+          "body": "Qualification funnel, profile checks and pilot shift without empty CVs."
+        },
+        {
+          "title": "Compliance check",
+          "body": "Migration loop, documents and notification deadlines — before site access."
+        },
+        {
+          "title": "Onboarding",
+          "body": "Briefings, access, mentors on first shifts, checkpoints with the shift lead."
+        },
+        {
+          "title": "Operations",
+          "body": "Shift reporting: attendance, swaps, incidents and COO reports in one loop."
+        }
+      ]
+    },
+    "sections": {
+      "servicesTitle": "Our services",
+      "servicesLead": "Focus —",
+      "servicesLeadStrong": "warehouse outsourcing in Moscow & the Moscow Oblast",
+      "servicesLeadAfter": ". Other pages cover contract and procurement context.",
+      "outsourcingTitle": "Warehouse outsourcing",
+      "outsourcingDesc": "Shifts, attendance, SLA. Rate benchmarks: loaders ₽600/h, pickers ₽620, warehouse clerks ₽650, PRT drivers ₽750, cleaners & general labour ₽600.",
+      "outsourcingCta": "Delivery model",
+      "tileMigrationTitle": "Migration compliance",
+      "tileMigrationDesc": "Inside the warehouse contract.",
+      "tileRecruitingTitle": "Recruiting",
+      "tileRecruitingDesc": "Profiles for DCs and 3PL.",
+      "tileManagedTitle": "Managed contract",
+      "tileManagedDesc": "For mature sites with KPIs.",
+      "more": "Learn more",
+      "calcKicker": "Tool",
+      "calcTitle": "Cost calculator",
+      "calcLead": "Mini version on the home page. Full multi-step flow on a dedicated page.",
+      "calcBullets": [
+        "service type and role;",
+        "headcount and schedule (full version);",
+        "location in the Moscow Oblast and extras."
+      ],
+      "casesTitle": "Flagship cases",
+      "casesLead": "Each card is a short story with a decorative sparkline. Figures and wording can be replaced with client-approved copy when published.",
+      "caseCta": "Open case",
+      "techKicker": "Infrastructure",
+      "techTitle": "Technology & compliance",
+      "techItems": [
+        {
+          "t": "Migration compliance",
+          "d": "Checklists, notification deadlines, controlled document versions."
+        },
+        {
+          "t": "AI screening (planned)",
+          "d": "Lead qualification and draft articles for human edit."
+        },
+        {
+          "t": "SLA dashboards",
+          "d": "Attendance, swaps, shift incidents — one reporting surface."
+        }
+      ],
+      "reviewsTitle": "Testimonials",
+      "reviewsLead": "Initials and roles; with publication approval — full names and logos.",
+      "blogTitle": "Blog — latest",
+      "blogAll": "All posts",
+      "readMore": "Read",
+      "faqKicker": "After you choose",
+      "faqTitle": "FAQ",
+      "ctaTitle": "Request a costing",
+      "ctaLead": "Multi-step form: contacts, project parameters, personal data consent.",
+      "ctaProposal": "Start request",
+      "ctaCalculator": "Open calculator"
+    },
+    "blogCategories": {
+      "compliance": "Compliance",
+      "hr": "HR",
+      "optimizaciya": "Optimization",
+      "migracionnyy-uchet": "Migration compliance"
+    },
+    "faq": [
+      {
+        "q": "Why only warehouse outsourcing?",
+        "a": "That’s the model: the contractor runs shifts and on-site attendance, not outstaffing. For DCs and 3PL it cuts procurement noise."
+      },
+      {
+        "q": "How fast can we ramp volume?",
+        "a": "Pilot — from a few days; scale depends on profiles and location. Details go into the commercial proposal."
+      },
+      {
+        "q": "Who owns migration compliance?",
+        "a": "In the standard contractor model the document loop sits with us; legal finalises contract wording."
+      },
+      {
+        "q": "Do you cover the whole Moscow Oblast?",
+        "a": "Yes — programmatic coverage for 30 MO cities plus Moscow."
+      },
+      {
+        "q": "Is there an attendance SLA?",
+        "a": "SLA is agreed case by case and written into the contract annex."
+      },
+      {
+        "q": "How do we get a proposal?",
+        "a": "Via the request form or calculator — data lands in CRM and analytics events."
+      },
+      {
+        "q": "Do you work nights and weekends?",
+        "a": "Yes. Shift patterns are agreed in the proposal: nights, weekends and peaks with separate coefficients in the model."
+      },
+      {
+        "q": "What if someone no-shows?",
+        "a": "The contract defines replacement procedure and response window; actual SLAs are tuned per site and profile."
+      },
+      {
+        "q": "How long is the pilot?",
+        "a": "Typically 2–4 weeks — enough to validate attendance, onboarding quality and shift reporting."
+      },
+      {
+        "q": "Can we start with part of the site?",
+        "a": "Yes — we begin with a zone or line and expand after metrics stabilise, without a “big bang” day one."
+      }
+    ],
+    "reviews": [
+      {
+        "initials": "AK",
+        "name": "Alexey K.",
+        "role": "COO · logistics",
+        "quote": "Attendance and replacements became predictable after the first pilot month — finally one accountable loop."
+      },
+      {
+        "initials": "MS",
+        "name": "Marina S.",
+        "role": "HRD · retail",
+        "quote": "Migration compliance stopped being a black box for internal audit — statuses and deadlines are visible in the report."
+      },
+      {
+        "initials": "DV",
+        "name": "Dmitry V.",
+        "role": "COO · manufacturing",
+        "quote": "Cost per shift dropped without pushing risk to the line — rare for staffing contracts."
+      },
+      {
+        "initials": "EP",
+        "name": "Elena P.",
+        "role": "CFO · marketplace",
+        "quote": "Shift reporting finally matched the peak-season financial model — finance and ops speak the same language."
+      },
+      {
+        "initials": "IN",
+        "name": "Igor N.",
+        "role": "Warehouse manager",
+        "quote": "Crew onboarding stays within the promised SLA; night replacements don’t turn into chaos."
+      },
+      {
+        "initials": "OT",
+        "name": "Olga T.",
+        "role": "Compliance",
+        "quote": "Documents and notification deadlines under control — no surprises on external inspections."
+      }
+    ],
+    "calculatorEmbed": {
+      "title": "Warehouse mini-calculator",
+      "description": "Same ₽/hour benchmarks as the full Calculator page. Quick monthly payroll estimate (day shift, 40 h/week).",
+      "stepLine": "Step {current} / {total}: {name}",
+      "stepNames": ["Role", "Headcount", "Estimate"],
+      "labelProfession": "Role",
+      "labelHeadcount": "Number of people",
+      "monthSuffix": "₽ / month",
+      "monthHint": "Estimate: {rate} ₽/h × 40 h × 4.3 weeks × {n} people. Nights, 24/7 and extras — in the full calculator.",
+      "back": "Back",
+      "next": "Next",
+      "fullCalc": "Full estimate"
+    }
   }
 }

@@ -1,4 +1,5 @@
 import { analyticsAllowed } from "./cookie-consent";
+import { reachYandexGoal } from "./analytics-yandex";
 
 /** Клиентский трекинг → API (keepalive). На сервере используй `recordAnalyticsEvent`. */
 export async function trackEvent(
@@ -7,6 +8,7 @@ export async function trackEvent(
 ) {
   if (typeof window === "undefined") return;
   if (!analyticsAllowed()) return;
+  reachYandexGoal(type);
   await fetch("/api/v1/analytics/events", {
     method: "POST",
     headers: { "Content-Type": "application/json" },

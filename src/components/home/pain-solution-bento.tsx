@@ -1,61 +1,33 @@
 import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 
-const CELLS = [
-  {
-    id: "deficit",
-    span: "md:col-span-2 lg:col-span-2",
-    kicker: "Операционный риск",
-    title: "Дефицит персонала",
-    body: "Пики сезона, текучка линейки и простои смен без предсказуемого пула и онбординга.",
-    tone: "light" as const,
-  },
-  {
-    id: "compliance",
-    span: "md:col-span-1 lg:col-span-1",
-    kicker: "152-ФЗ · миграция",
-    title: "Compliance",
-    body: "Документальный контур без переноса риска на заказчика.",
-    tone: "dark" as const,
-  },
-  {
-    id: "speed",
-    span: "md:col-span-1 lg:col-span-1",
-    kicker: "SLA",
-    title: "Скорость",
-    body: "Выход на смену и отчётность для COO/HRD в одном контуре.",
-    tone: "dark" as const,
-  },
-  {
-    id: "outcome",
-    span: "md:col-span-2 lg:col-span-4",
-    kicker: "Итог",
-    title: "Подрядчик как операционная система",
-    body: "Сменность, замены, контроль явки и прозрачные KPI — с первого пилота.",
-    tone: "accent" as const,
-  },
+const LAYOUT = [
+  { id: "deficit" as const, span: "md:col-span-2 lg:col-span-2", tone: "light" as const },
+  { id: "compliance" as const, span: "md:col-span-1 lg:col-span-1", tone: "dark" as const },
+  { id: "speed" as const, span: "md:col-span-1 lg:col-span-1", tone: "dark" as const },
+  { id: "outcome" as const, span: "md:col-span-2 lg:col-span-4", tone: "accent" as const },
 ];
 
-export function PainSolutionBento() {
+export async function PainSolutionBento() {
+  const t = await getTranslations("homePage.pain");
+
   return (
-    <section
-      id="pain"
-      className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 lg:px-8 lg:py-32"
-    >
+    <section id="pain" className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
       <div className="max-w-3xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">
-          Диагностика → решение
-        </p>
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">{t("kicker")}</p>
         <h2 className="font-display mt-3 text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
-          Проблема → решение
+          {t("title")}
         </h2>
-        <p className="mt-5 text-lg leading-relaxed text-[var(--neutral-700)]">
-          Bento-сетка подчёркивает приоритеты: дефицит кадров и compliance — отдельные «тяжёлые» блоки,
-          скорость и итог — визуально связаны с KPI.
-        </p>
+        <p className="mt-5 text-lg leading-relaxed text-[var(--neutral-700)]">{t("lead")}</p>
       </div>
 
       <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 lg:gap-5">
-        {CELLS.map((c) => {
+        {LAYOUT.map((c) => {
+          const cell = {
+            kicker: t(`cells.${c.id}.kicker`),
+            title: t(`cells.${c.id}.title`),
+            body: t(`cells.${c.id}.body`),
+          };
           const base =
             "group relative flex min-h-[180px] flex-col justify-between overflow-hidden rounded-3xl border p-6 transition duration-500 md:min-h-[200px]";
           const styles =
@@ -73,21 +45,21 @@ export function PainSolutionBento() {
                     c.tone === "dark" ? "text-white/50" : "text-[var(--neutral-500)]"
                   }`}
                 >
-                  {c.kicker}
+                  {cell.kicker}
                 </p>
                 <h3
                   className={`font-display mt-3 text-xl font-semibold tracking-tight md:text-2xl ${
                     c.tone === "dark" ? "text-white" : ""
                   }`}
                 >
-                  {c.title}
+                  {cell.title}
                 </h3>
                 <p
                   className={`mt-3 text-sm leading-relaxed md:text-base ${
                     c.tone === "dark" ? "text-white/75" : "text-[var(--neutral-700)]"
                   }`}
                 >
-                  {c.body}
+                  {cell.body}
                 </p>
               </div>
               <div className="mt-6 h-px w-full bg-gradient-to-r from-transparent via-[var(--accent)]/35 to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
@@ -101,7 +73,7 @@ export function PainSolutionBento() {
           href="/uslugi"
           className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] underline-offset-4 hover:underline"
         >
-          Все услуги
+          {t("linkAllServices")}
           <span aria-hidden>→</span>
         </Link>
       </div>

@@ -5,6 +5,26 @@ export type BlogStub = {
   category: string;
   publishedAt: string;
   readingTime: number;
+  titleEn?: string;
+  excerptEn?: string;
+};
+
+const BLOG_HOME_EN: Partial<Record<number, { titleEn: string; excerptEn: string }>> = {
+  0: {
+    titleEn: "Migration compliance: control matrix before an inspection",
+    excerptEn:
+      "How to align documents, notification deadlines and ownership without grey zones for internal audit.",
+  },
+  1: {
+    titleEn: "Shift planning in peak season: throughput without runaway overtime",
+    excerptEn:
+      "Practical notes on shift design, replacements and COO reporting when volume jumps 30–50%.",
+  },
+  2: {
+    titleEn: "HR and ops: one language for attendance numbers",
+    excerptEn:
+      "Bringing HR metrics and operational KPIs into one plane so finance and the line stay aligned.",
+  },
 };
 
 const SEEDS: { title: string; excerpt: string }[] = [
@@ -139,8 +159,19 @@ export const BLOG_POSTS: BlogStub[] = SEEDS.map((s, i) => {
     category: cat,
     publishedAt: new Date(2026, 3, i + 1).toISOString(),
     readingTime: 8 + (i % 5),
+    ...BLOG_HOME_EN[i],
   };
 });
+
+export function blogCardFields(b: BlogStub, locale: string) {
+  const en = locale === "en";
+  return {
+    slug: b.slug,
+    title: en && b.titleEn ? b.titleEn : b.title,
+    excerpt: en && b.excerptEn ? b.excerptEn : b.excerpt,
+    category: b.category,
+  };
+}
 
 export const BLOG_PAGE_SIZE = 9;
 

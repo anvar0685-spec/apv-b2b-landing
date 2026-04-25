@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { site } from "@/config/site";
 import { Button } from "@/components/ui/button";
+import { TrackedTelLink } from "@/components/contact/tracked-tel-link";
 
 const displayBrand = site.brandName.replace(/_/g, " ");
 
@@ -31,6 +32,21 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link className="hover:text-white" href="/otrasli">
+                Отрасли
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/ploshchadki">
+                Площадки
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/geografiya">
+                География
+              </Link>
+            </li>
+            <li>
               <Link className="hover:text-white" href="/blog">
                 Блог
               </Link>
@@ -46,9 +62,9 @@ export function SiteFooter() {
           <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--neutral-500)]">Контакты</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
-              <a className="hover:text-white" href={`tel:${site.phone.replace(/\s/g, "")}`}>
+              <TrackedTelLink className="hover:text-white" href={`tel:${site.phone.replace(/\s/g, "")}`}>
                 {site.phone}
-              </a>
+              </TrackedTelLink>
             </li>
             <li>
               <a className="hover:text-white" href={`mailto:${site.emailHello}`}>

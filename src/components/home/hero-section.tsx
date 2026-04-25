@@ -12,14 +12,18 @@ export function HeroSection() {
   const reduce = useReducedMotion();
   const t = useTranslations("home");
   const tc = useTranslations("cta");
+  const th = useTranslations("homePage.hero");
+  const ta = useTranslations("homePage.hero.anchors");
 
   const sub = [
-    { href: "#services-preview", label: "Услуги" },
-    { href: "#calc", label: "Калькулятор" },
-    { href: "#cases", label: "Кейсы" },
-    { href: "#process", label: "Процесс" },
-    { href: "#tech", label: "Compliance" },
-    { href: "#faq", label: "FAQ" },
+    { href: "#personas", label: ta("personas") },
+    { href: "#services-preview", label: ta("services") },
+    { href: "#professions-home", label: ta("professions") },
+    { href: "#calc", label: ta("calc") },
+    { href: "#cases", label: ta("cases") },
+    { href: "#process", label: ta("process") },
+    { href: "#why-us", label: ta("whyUs") },
+    { href: "#faq", label: ta("faq") },
   ] as const;
 
   return (
@@ -36,9 +40,7 @@ export function HeroSection() {
             animate={reduce ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent-soft)]">
-              Moscow · MO · compliance-first
-            </p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent-soft)]">{th("kicker")}</p>
             <h1 className="font-display mt-5 max-w-[18ch] text-balance text-4xl font-extrabold leading-[0.95] tracking-[-0.04em] sm:text-5xl sm:tracking-[-0.045em] md:text-6xl md:tracking-[-0.048em] lg:text-[4.25rem] lg:tracking-[-0.05em] xl:text-[4.75rem]">
               <HeroWordsReveal text={t("heroTitle")} />
             </h1>
@@ -63,7 +65,7 @@ export function HeroSection() {
               </Button>
             </div>
             <nav
-              aria-label="Разделы страницы"
+              aria-label={th("sectionsNavAria")}
               className="mt-12 flex flex-wrap gap-2 border-t border-white/[0.08] pt-8"
             >
               {sub.map((l) => (

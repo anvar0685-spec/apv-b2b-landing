@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
@@ -11,9 +12,11 @@ import { PROFESSIONS } from "@/content/professions-cities";
 import { getWarehouseHourlyRateRub } from "@/content/warehouse-hourly-rates";
 import { trackEvent } from "@/lib/analytics";
 
-const STEPS = ["Профессия", "Численность", "Ориентир"] as const;
-
 export function CalculatorEmbed() {
+  const locale = useLocale();
+  const t = useTranslations("homePage.calculatorEmbed");
+  const stepNames = t.raw("stepNames") as string[];
+
   const [step, setStep] = useState(0);
   const [prof, setProf] = useState("gruzchiki");
   const [n, setN] = useState(30);
@@ -21,22 +24,25 @@ export function CalculatorEmbed() {
   const rate = useMemo(() => getWarehouseHourlyRateRub(prof), [prof]);
   const roughMonth = useMemo(() => Math.round(rate * 40 * 4.3 * n), [rate, n]);
 
-  const pct = ((step + 1) / STEPS.length) * 100;
+  const pct = ((step + 1) / stepNames.length) * 100;
+  const nf = locale === "en" ? "en-US" : "ru-RU";
 
   return (
     <Card className="border-[var(--neutral-200)]">
-      <CardTitle>Мини-калькулятор склада</CardTitle>
-      <CardDescription>
-        Ставки ₽/час как на полной странице «Калькулятор». Быстрый ориентир по месячному фонду (день, 40 ч/нед).
-      </CardDescription>
+      <CardTitle>{t("title")}</CardTitle>
+      <CardDescription>{t("description")}</CardDescription>
       <div className="mt-6 space-y-4">
         <Progress value={pct} />
         <p className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">
-          Шаг {step + 1} / {STEPS.length}: {STEPS[step]}
+          {t("stepLine", {
+            current: step + 1,
+            total: stepNames.length,
+            name: stepNames[step] ?? "",
+          })}
         </p>
         {step === 0 ? (
           <div>
-            <Label htmlFor="ce-prof">Профессия</Label>
+            <Label htmlFor="ce-prof">{t("labelProfession")}</Label>
             <select
               id="ce-prof"
               className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-sm"
@@ -45,7 +51,7 @@ export function CalculatorEmbed() {
             >
               {PROFESSIONS.map((p) => (
                 <option key={p.slug} value={p.slug}>
-                  {p.titleRu} — {getWarehouseHourlyRateRub(p.slug)} ₽/ч
+                  {locale === "en" ? p.titleEn : p.titleRu} — {getWarehouseHourlyRateRub(p.slug)} ₽/ч
                 </option>
               ))}
             </select>
@@ -53,7 +59,7 @@ export function CalculatorEmbed() {
         ) : null}
         {step === 1 ? (
           <div>
-            <Label htmlFor="ce-n">Количество человек</Label>
+            <Label htmlFor="ce-n">{t("labelHeadcount")}</Label>
             <Input
               id="ce-n"
               type="number"
@@ -67,10 +73,10 @@ export function CalculatorEmbed() {
         {step === 2 ? (
           <div className="rounded-xl border border-[var(--neutral-200)] bg-[var(--surface)] p-4 text-sm">
             <p className="font-mono-nums text-lg font-bold text-[var(--primary)]">
-              ~{roughMonth.toLocaleString("ru-RU")} ₽ / мес
+              ~{roughMonth.toLocaleString(nf)} {t("monthSuffix")}
             </p>
             <p className="mt-2 text-xs text-[var(--neutral-500)]">
-              Ориентир: {rate} ₽/ч × 40 ч × 4,3 нед × {n} чел. Ночь/сутки и допы — в полном калькуляторе.
+              {t("monthHint", { rate, n })}
             </p>
           </div>
         ) : null}
@@ -81,11 +87,11 @@ export function CalculatorEmbed() {
             disabled={step === 0}
             onClick={() => setStep((s) => Math.max(0, s - 1))}
           >
-            Назад
+            {t("back")}
           </Button>
-          {step < STEPS.length - 1 ? (
+          {step < stepNames.length - 1 ? (
             <Button type="button" onClick={() => setStep((s) => s + 1)}>
-              Далее
+              {t("next")}
             </Button>
           ) : (
             <Button
@@ -99,7 +105,7 @@ export function CalculatorEmbed() {
               }}
               asChild
             >
-              <Link href={`/kalkulyator?p=${prof}&n=${n}`}>Полный расчёт</Link>
+              <Link href={`/kalkulyator?p=${prof}&n=${n}`}>{t("fullCalc")}</Link>
             </Button>
           )}
         </div>

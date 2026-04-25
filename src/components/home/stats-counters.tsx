@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 function useCount(target: number, reduce: boolean) {
   const [v, setV] = useState(reduce ? target : 0);
@@ -22,41 +23,21 @@ function useCount(target: number, reduce: boolean) {
   return v;
 }
 
+type StatItem = { label: string; hint: string };
+
 export function StatsCounters() {
   const reduce = useReducedMotion();
+  const t = useTranslations("homePage.stats");
+  const items = t.raw("items") as StatItem[];
+
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-20%" });
   const y1 = useCount(inView ? 12 : 0, !!reduce);
   const y2 = useCount(inView ? 3500 : 0, !!reduce);
   const y3 = useCount(inView ? 180 : 0, !!reduce);
   const y4 = useCount(inView ? 100 : 0, !!reduce);
-
-  const items = [
-    {
-      label: "Лет на рынке",
-      value: y1,
-      suffix: "+",
-      hint: "операционный след",
-    },
-    {
-      label: "Сотрудников под управлением",
-      value: y2,
-      suffix: "+",
-      hint: "пиковые волны",
-    },
-    {
-      label: "Клиентов B2B",
-      value: y3,
-      suffix: "+",
-      hint: "логистика · ритейл · производство",
-    },
-    {
-      label: "Compliance-рейтинг",
-      value: y4,
-      suffix: "%",
-      hint: "миграционный контур",
-    },
-  ];
+  const values = [y1, y2, y3, y4];
+  const suffixes = ["+", "+", "+", "%"] as const;
 
   return (
     <section
@@ -66,7 +47,7 @@ export function StatsCounters() {
     >
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <p className="text-center text-xs font-semibold uppercase tracking-[0.14em] text-[var(--neutral-500)]">
-          Цифры, с которыми заходит COO
+          {t("kicker")}
         </p>
         <div className="mt-14 grid gap-y-14 gap-x-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-12">
           {items.map((s, idx) => (
@@ -79,8 +60,8 @@ export function StatsCounters() {
               className="relative"
             >
               <p className="kpi-numerals font-mono-nums text-5xl font-bold tabular-nums leading-none tracking-tight text-[var(--primary)] sm:text-6xl lg:text-7xl xl:text-8xl">
-                {s.value}
-                <span className="text-[0.55em] font-semibold text-[var(--accent)]">{s.suffix}</span>
+                {values[idx]}
+                <span className="text-[0.55em] font-semibold text-[var(--accent)]">{suffixes[idx]}</span>
               </p>
               <p className="mt-4 text-sm font-semibold text-[var(--primary)]">{s.label}</p>
               <p className="mt-1 text-xs text-[var(--neutral-500)]">{s.hint}</p>

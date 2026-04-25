@@ -3,8 +3,9 @@ import { BLOG_POSTS } from "@/content/blog-stub";
 import { CASES } from "@/content/cases-stub";
 import { PROFESSIONS } from "@/content/professions-cities";
 import { absUrl } from "@/lib/abs-url";
+import { allMultipageSeoPaths } from "@/lib/site-structure";
 
-const STATIC = [
+const STATIC_BASE = [
   "",
   "/uslugi",
   "/uslugi/autsorsing",
@@ -32,6 +33,14 @@ const STATIC = [
   "/sitemap",
 ] as const;
 
+const STATIC = [...STATIC_BASE, ...allMultipageSeoPaths()];
+
+function staticPriority(path: string): number {
+  if (path === "") return 1;
+  if (path.startsWith("/otrasli") || path.startsWith("/ploshchadki") || path.startsWith("/geografiya")) return 0.78;
+  return 0.7;
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
   const last = new Date();
@@ -42,7 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: absUrl(p, locale),
         lastModified: last,
         changeFrequency: "weekly",
-        priority: p === "" ? 1 : 0.7,
+        priority: staticPriority(p),
       });
     }
     for (const prof of PROFESSIONS) {

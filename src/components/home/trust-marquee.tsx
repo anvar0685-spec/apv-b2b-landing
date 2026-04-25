@@ -14,21 +14,21 @@ import {
   Warehouse,
 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 type Sector = { Icon: LucideIcon; title: string; hint: string };
 
-/** Короткое имя отрасли + подсказка — без абстрактных «маркеров». */
-const SECTORS: Sector[] = [
-  { Icon: Truck, title: "Логистика", hint: "МО · хабы" },
-  { Icon: Warehouse, title: "Склад", hint: "пики сезона" },
-  { Icon: Factory, title: "Производство", hint: "смены 24/7" },
-  { Icon: Store, title: "Ритейл", hint: "явка · замены" },
-  { Icon: ShoppingBag, title: "Маркетплейс", hint: "DC · сорт" },
-  { Icon: Package, title: "FMCG", hint: "подряд · SLA" },
-  { Icon: Pill, title: "Фарма", hint: "compliance" },
-  { Icon: UtensilsCrossed, title: "HoReCa", hint: "линейка" },
-  { Icon: HardHat, title: "Стройка", hint: "бригады" },
-  { Icon: Boxes, title: "3PL", hint: "склады" },
+const ICONS: LucideIcon[] = [
+  Truck,
+  Warehouse,
+  Factory,
+  Store,
+  ShoppingBag,
+  Package,
+  Pill,
+  UtensilsCrossed,
+  HardHat,
+  Boxes,
 ];
 
 function TrustPill({ Icon, title, hint }: Sector) {
@@ -52,6 +52,12 @@ type TrustMarqueeProps = {
 
 export function TrustMarquee({ kicker, lead }: TrustMarqueeProps) {
   const reduce = useReducedMotion();
+  const t = useTranslations("homePage");
+  const rawSectors = t.raw("trustSectors") as { title: string; hint: string }[];
+  const SECTORS: Sector[] = rawSectors.map((s, i) => ({
+    ...s,
+    Icon: ICONS[i] ?? Truck,
+  }));
   const strip = [...SECTORS, ...SECTORS];
 
   return (
@@ -63,9 +69,7 @@ export function TrustMarquee({ kicker, lead }: TrustMarqueeProps) {
         </p>
       </div>
 
-      <p className="sr-only">
-        Секторы экономики, в которых мы поставляем персонал; иконки носят иллюстративный характер.
-      </p>
+      <p className="sr-only">{t("trustSrOnly")}</p>
 
       <div className="relative z-[1] mt-8 md:mt-10">
         {reduce ? (
