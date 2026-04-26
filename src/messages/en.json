@@ -361,5 +361,37 @@
       "next": "Next",
       "fullCalc": "Full estimate"
     }
+  },
+  "footer": {
+    "innOgrn": "INN: {inn} · OGRN: {ogrn}",
+    "navTitle": "Navigation",
+    "contactsTitle": "Contacts",
+    "legal": "Legal information",
+    "digestTitle": "Digest for operations teams",
+    "digestEmailLabel": "Email",
+    "digestPlaceholder": "Work email",
+    "digestSubmit": "Subscribe",
+    "digestDisclaimer": "Subscription goes live after ESP is connected; the form currently routes to a request — a manager will note your interest in the digest.",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp"
+  },
+  "blogIndex": {
+    "metaTitle": "Blog — warehouse shifts, compliance, HR",
+    "metaDescription": "Guides for HR, COOs and compliance: shift planning, migration paperwork, peak season. Shift outsourcing; we do not provide outstaffing.",
+    "kicker": "Editorial",
+    "title": "Blog",
+    "lead": "Process guides and breakdowns: {pageSize} posts per page, clean pagination, same card grid as the home page.",
+    "paginationAria": "Blog pages"
+  },
+  "blogCategory": {
+    "metaTitle": "{label} — blog",
+    "metaDescription": "Posts in «{label}». {pageSize} items per page.",
+    "backToBlog": "← All posts",
+    "headingPrefix": "Category:",
+    "lead": "{count, plural, one {# article} other {# articles}} in this category — same cards as on the home page and blog hub.",
+    "paginationAria": "Category pages"
+  },
+  "blogCard": {
+    "min": "min"
   }
 }

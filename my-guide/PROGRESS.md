@@ -4,6 +4,7 @@
 
 **Связанные документы**
 
+- Финальный аудит + чеклист: [`FINAL-AUDIT-CHECKLIST.md`](./FINAL-AUDIT-CHECKLIST.md)
 - План по неделям (кратко): [`.cursor/rules/01-six-week-roadmap.mdc`](../.cursor/rules/01-six-week-roadmap.mdc)
 - План детально: [`SIX-WEEK-PLAN.md`](./SIX-WEEK-PLAN.md)
 - Бриф визуала: [`WEB-DESIGN-BRIEF.md`](./WEB-DESIGN-BRIEF.md)
@@ -24,8 +25,9 @@
 | Услуги | Страницы `/uslugi/*`: `autsorsing`, `autstaffing`, `upravlyaemyy-podryad`, `migracionnyy-uchet`, `podbor-personala`, `postoyannyy-personal`, `nochnye-smeny`; контент в `src/content/service-pages/*`, `getServicePage`, `ServicePageFull`, JSON-LD Service+FAQ. |
 | Персонал | Хаб `/personal`, programmatic `/personal/[profession]/[city]`, RU/EN, `nameEn` городов, `profession-icons.tsx`, приоритетные 30 cross — `src/content/cross-priority.ts` + блок в `ProgrammaticStaffingPage`. |
 | Отрасли / площадки / гео | `CommercialSeoPage` + **`editorialParagraphs`** из `src/content/commercial-editorial.ts`; статическая схема **`MoDistrictMap`** на `/geografiya`. |
-| Блог | 10 статей в **`src/content/blog-published.ts`**, список через **`blog-stub.ts`**, статья: TOC, related, **`BlogPosting` JSON-LD**, `locale` в метаданных на **`/blog/[slug]`**. |
+| Блог | 10 статей в **`src/content/blog-published.ts`**, список через **`blog-stub.ts`**, статья: TOC, related, **`BlogPosting` JSON-LD**, `locale` в метаданных на **`/blog/[slug]`**; хаб **`/blog`** и **`/blog/category/*`**: `buildPageMetadata`, копирайт без «аутстаффинг» в SEO-заголовке как услуги, **`PremiumBlogCard`** с EN/RU. |
 | Шапка | `site-header-client.tsx`: grid, навигация с `xl`, drawer на узких экранах, без наложения на логотип. |
+| Футер | **`site-footer.tsx`**: `next-intl` (`footer` + реюз `nav`), дайджест и подписи на языке локали. |
 | Правила Cursor | В репо: **`00`–`03`** (третья роль — **`03-outsourcing-strategist-orchestrator.mdc`** — коммерция/продукт). |
 
 ### Не сделано или не закрыто без заказчика (не врать новому агенту)
