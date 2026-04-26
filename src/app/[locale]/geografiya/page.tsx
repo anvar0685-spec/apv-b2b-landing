@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";
+import { MoDistrictMap } from "@/components/marketing/mo-district-map";
+import { geoHubEditorial } from "@/content/commercial-editorial";
 import { GEO_REGION_SLUGS, geoLabel } from "@/lib/site-structure";
 
 type Props = { params: { locale: string } };
@@ -28,6 +30,7 @@ export default function Page({ params }: Props) {
   return (
     <CommercialSeoPage
       locale={locale}
+      editorialParagraphs={geoHubEditorial(locale)}
       crumbs={[{ href: "/", label: locale === "en" ? "Home" : "Главная" }, { href: "/geografiya", label: title }]}
       kicker={kicker}
       title={title}
@@ -39,7 +42,8 @@ export default function Page({ params }: Props) {
         description: lead,
       })}
     >
-      <ul className="grid gap-3 sm:grid-cols-2">
+      <MoDistrictMap locale={locale} />
+      <ul className="mt-10 grid gap-3 sm:grid-cols-2">
         {GEO_REGION_SLUGS.map((slug) => (
           <li key={slug}>
             <Link

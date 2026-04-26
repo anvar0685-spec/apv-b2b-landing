@@ -33,6 +33,10 @@ export function ServicesHub({ locale }: Props) {
     recruitingDesc: en ? "Funnel tuned to warehouse roles." : "воронка под профили склада.",
     managed: en ? "Managed contractor model" : "Управляемый подряд",
     managedDesc: en ? "For mature DCs with strict KPIs (on request)." : "для зрелых DC с жёсткими KPI (по запросу).",
+    permanent: en ? "Permanent shift teams" : "Постоянный персонал",
+    permanentDesc: en ? "Stable roster and KPI for long-running sites." : "стабильный состав и KPI для долгих контрактов.",
+    night: en ? "Night shifts" : "Ночные смены",
+    nightDesc: en ? "Separate SLA, mentoring and night reporting." : "отдельный SLA, менторинг и отчётность по ночи.",
     reference: en ? "Reference (we do not supply outstaffing)" : "Справочно (аутстаффинг не поставляем)",
     referenceLink: en ? "How outstaffing differs" : "Чем отличается аутстаффинг",
   };
@@ -91,6 +95,24 @@ export function ServicesHub({ locale }: Props) {
                   {t.managed}
                 </Link>{" "}
                 — {t.managedDesc}
+              </li>
+              <li>
+                <Link
+                  className="font-medium text-[var(--accent)] underline-offset-4 hover:underline"
+                  href="/uslugi/postoyannyy-personal"
+                >
+                  {t.permanent}
+                </Link>{" "}
+                — {t.permanentDesc}
+              </li>
+              <li>
+                <Link
+                  className="font-medium text-[var(--accent)] underline-offset-4 hover:underline"
+                  href="/uslugi/nochnye-smeny"
+                >
+                  {t.night}
+                </Link>{" "}
+                — {t.nightDesc}
               </li>
               <li className="pt-1 text-[var(--neutral-500)]">
                 <span className="text-xs font-semibold uppercase tracking-wide">{t.reference}</span>

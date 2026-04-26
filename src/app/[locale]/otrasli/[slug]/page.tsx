@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { buildPageMetadata, buildServiceJsonLd } from "@/lib/seo";
+import { industryEditorial } from "@/content/commercial-editorial";
 import { OTRASLI_SLUGS } from "@/lib/site-structure";
 
 type Props = { params: { locale: string; slug: string } };
@@ -33,9 +34,12 @@ export default function Page({ params }: Props) {
   const hub = locale === "en" ? "Industries" : "Отрасли";
   const kicker = locale === "en" ? "Industry page" : "Отраслевая посадочная";
 
+  const editorial = industryEditorial(def.slug, locale);
+
   return (
     <CommercialSeoPage
       locale={locale}
+      editorialParagraphs={editorial}
       crumbs={[
         { href: "/", label: locale === "en" ? "Home" : "Главная" },
         { href: "/otrasli", label: hub },

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { buildPageMetadata, buildServiceJsonLd } from "@/lib/seo";
+import { platformEditorial } from "@/content/commercial-editorial";
 import { PLOSHCHADKI_SLUGS } from "@/lib/site-structure";
 
 type Props = { params: { locale: string; slug: string } };
@@ -33,9 +34,12 @@ export default function Page({ params }: Props) {
   const hub = locale === "en" ? "Platforms" : "Площадки";
   const kicker = locale === "en" ? "Marketplace staffing" : "Площадка";
 
+  const editorial = platformEditorial(def.slug, locale);
+
   return (
     <CommercialSeoPage
       locale={locale}
+      editorialParagraphs={editorial}
       crumbs={[
         { href: "/", label: locale === "en" ? "Home" : "Главная" },
         { href: "/ploshchadki", label: hub },

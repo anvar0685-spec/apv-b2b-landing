@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";
+import { geoRegionEditorial } from "@/content/commercial-editorial";
 import {
   GEO_MOSCOW_DISTRICTS,
   GEO_MO_CITIES,
@@ -55,9 +56,12 @@ export default function Page({ params }: Props) {
   const hub = locale === "en" ? "Geography" : "География";
   const kicker = locale === "en" ? "Region" : "Регион";
 
+  const editorial = geoRegionEditorial(region, locale);
+
   return (
     <CommercialSeoPage
       locale={locale}
+      editorialParagraphs={editorial}
       crumbs={[
         { href: "/", label: locale === "en" ? "Home" : "Главная" },
         { href: "/geografiya", label: hub },

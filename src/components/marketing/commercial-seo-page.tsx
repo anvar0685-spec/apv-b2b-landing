@@ -11,6 +11,8 @@ type Props = {
   title: string;
   lead: string;
   jsonLd?: Record<string, unknown>;
+  /** Локализованные абзацы вместо заглушки «полный текст позже» */
+  editorialParagraphs?: string[];
   /** Доп. контент под лидом (карточки, списки ссылок) */
   children?: ReactNode;
   /** Показать блок перелинковки по приоритетным URL */
@@ -24,6 +26,7 @@ export function CommercialSeoPage({
   title,
   lead,
   jsonLd,
+  editorialParagraphs,
   children,
   showPriorityTeasers = false,
 }: Props) {
@@ -57,7 +60,15 @@ export function CommercialSeoPage({
 
       <section className="border-b border-[var(--neutral-200)] bg-[var(--background)] dark:border-white/10">
         <div className="mx-auto max-w-content px-4 py-10 sm:px-6 lg:px-8">
-          <p className="type-body max-w-2xl text-[var(--neutral-700)]">{foot}</p>
+          {editorialParagraphs?.length ? (
+            <div className="type-body max-w-3xl space-y-4 text-[var(--neutral-700)]">
+              {editorialParagraphs.map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+            </div>
+          ) : (
+            <p className="type-body max-w-2xl text-[var(--neutral-700)]">{foot}</p>
+          )}
           {children ? <div className="mt-10">{children}</div> : null}
 
           {showPriorityTeasers ? (

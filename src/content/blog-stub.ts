@@ -1,167 +1,24 @@
-export type BlogStub = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  publishedAt: string;
-  readingTime: number;
+import type { BlogArticle } from "@/content/blog-published";
+import { PUBLISHED_BLOG_ARTICLES } from "@/content/blog-published";
+
+/** Карточка списка (блог-хаб); полная статья — `blog-published.ts`. */
+export type BlogStub = Pick<BlogArticle, "slug" | "title" | "excerpt" | "category" | "publishedAt" | "readingTime"> & {
   titleEn?: string;
   excerptEn?: string;
 };
 
-const BLOG_HOME_EN: Partial<Record<number, { titleEn: string; excerptEn: string }>> = {
-  0: {
-    titleEn: "Migration compliance: control matrix before an inspection",
-    excerptEn:
-      "How to align documents, notification deadlines and ownership without grey zones for internal audit.",
-  },
-  1: {
-    titleEn: "Shift planning in peak season: throughput without runaway overtime",
-    excerptEn:
-      "Practical notes on shift design, replacements and COO reporting when volume jumps 30–50%.",
-  },
-  2: {
-    titleEn: "HR and ops: one language for attendance numbers",
-    excerptEn:
-      "Bringing HR metrics and operational KPIs into one plane so finance and the line stay aligned.",
-  },
-};
+export const BLOG_POSTS: BlogStub[] = PUBLISHED_BLOG_ARTICLES.map((a) => ({
+  slug: a.slug,
+  title: a.title,
+  titleEn: a.titleEn,
+  excerpt: a.excerpt,
+  excerptEn: a.excerptEn,
+  category: a.category,
+  publishedAt: a.publishedAt,
+  readingTime: a.readingTime,
+}));
 
-const SEEDS: { title: string; excerpt: string }[] = [
-  {
-    title: "Миграционный учёт: контрольная матрица перед проверкой",
-    excerpt:
-      "Как собрать документы, сроки уведомлений и ответственность без «серых зон» для внутреннего аудита.",
-  },
-  {
-    title: "Сменность в пике сезона: throughput без переработок",
-    excerpt:
-      "Практический разбор планирования смен, замен и отчётности для COO при росте объёма на 30–50%.",
-  },
-  {
-    title: "HR и операции: один язык цифр по явке",
-    excerpt:
-      "Сводим HR-метрики и операционные KPI в одну плоскость, чтобы финмодель и линейка не расходились.",
-  },
-  {
-    title: "Аутстаффинг vs штат: где граница ответственности",
-    excerpt:
-      "Как читать договор и приложения, чтобы SLA по явке и документам был измеримым, а не декларативным.",
-  },
-  {
-    title: "Compliance на складе: документы, которые реально проверяют",
-    excerpt:
-      "Список артефактов и контрольных точек, которые чаще всего запрашивают при проверках и аудитах.",
-  },
-  {
-    title: "Ночные смены: как снизить риск инцидентов без роста ФОТ",
-    excerpt:
-      "Регламенты инструктажей, менторинг первых смен и дисциплина эскалаций — что работает на практике.",
-  },
-  {
-    title: "Маркетплейс и DC: закрытие пиков без «кадрового хаоса»",
-    excerpt:
-      "Как выстроить пул под профиль комплектации и не потерять качество при ускорении onboarding.",
-  },
-  {
-    title: "Производство: текучка линейки и устойчивый график",
-    excerpt:
-      "Связка подбора, обучения и удержания на конвейере: что измерять еженедельно, а что — ежемесячно.",
-  },
-  {
-    title: "Фарм-логистика: миграционный контур без сюрпризов",
-    excerpt:
-      "Контроль версий документов и сроков уведомлений как часть операционной дисциплины, а не «юридической обёртки».",
-  },
-  {
-    title: "Ритейл: распределительный центр и дисциплина смен",
-    excerpt:
-      "Как выровнять ночные смены и сократить overtime, если отгрузки растут быстрее штатного найма.",
-  },
-  {
-    title: "Стройка: бригады, пропускной режим и календарь этапов",
-    excerpt:
-      "Практика вывода бригад на объект: инструктажи, замены и коммуникация с прорабом без простоев.",
-  },
-  {
-    title: "Managed service: KPI, которые имеет смысл закреплять в договоре",
-    excerpt:
-      "От явки до cost per shift — какие метрики реально управляемы и как их измерять без споров о методике.",
-  },
-  {
-    title: "Аутсорсинг функций склада: границы ответственности",
-    excerpt:
-      "Как разделить операционный контур и compliance, чтобы риски не «переезжали» на заказчика незаметно.",
-  },
-  {
-    title: "Пик сезона HoReCa: сервис без провалов по сменам",
-    excerpt:
-      "Сценарий подготовки к всплеску нагрузки: пул, обучение ответственных и быстрые замены в вечерние часы.",
-  },
-  {
-    title: "Документооборот смены: версии, сроки, ответственные",
-    excerpt:
-      "Мини-система контроля, которая помогает пройти внутренний аудит без аврального сбора бумаг.",
-  },
-  {
-    title: "Скоринг кандидатов: где полезен AI, а где нужен человек",
-    excerpt:
-      "Разумная автоматизация первичного отбора без потери качества и юридических рисков.",
-  },
-  {
-    title: "Отчётность для CFO: смены, ставки и финмодель",
-    excerpt:
-      "Как связать операционные данные с P&L, чтобы пик сезона не ломал прогноз маржи.",
-  },
-  {
-    title: "Инциденты смены: регламент реакции и эскалации",
-    excerpt:
-      "Тайминги, роли и каналы связи — чтобы инцидент не превращался в простой линии на полдня.",
-  },
-  {
-    title: "Онбординг линейки: первые 72 часа на объекте",
-    excerpt:
-      "Чек-лист инструктажей, ментор и контрольные точки, которые снижают отвал в первую неделю.",
-  },
-  {
-    title: "Логистика МО: локальные пулы и время выхода на смену",
-    excerpt:
-      "Как geography влияет на стоимость смены и что закладывать в модель при масштабировании.",
-  },
-  {
-    title: "Проверки и визиты: как подготовить площадку за 48 часов",
-    excerpt:
-      "Пакет документов и ответственные лица — без аврала и без «догоняния» кандидатов в последний момент.",
-  },
-  {
-    title: "Субподряд и замены: прозрачный SLA без конфликтов интересов",
-    excerpt:
-      "Как формулировать замены и качество исполнения, чтобы не было серых зон между контрагентами.",
-  },
-  {
-    title: "Безопасность труда на линейке: дисциплина без бюрократии",
-    excerpt:
-      "Минимальный набор практик, который реально снижает травматизм и не тормозит выход на смену.",
-  },
-  {
-    title: "Программатика городов: как читать локальные страницы",
-    excerpt:
-      "Зачем нужны отдельные посадочные под регион и как они помогают закрывать локальный поиск и закупки.",
-  },
-];
-
-export const BLOG_POSTS: BlogStub[] = SEEDS.map((s, i) => {
-  const cat = ["compliance", "hr", "optimizaciya", "migracionnyy-uchet"][i % 4]!;
-  return {
-    slug: `blog-stub-${i + 1}`,
-    title: s.title,
-    excerpt: s.excerpt,
-    category: cat,
-    publishedAt: new Date(2026, 3, i + 1).toISOString(),
-    readingTime: 8 + (i % 5),
-    ...BLOG_HOME_EN[i],
-  };
-});
+export const BLOG_PAGE_SIZE = 9;
 
 export function blogCardFields(b: BlogStub, locale: string) {
   const en = locale === "en";
@@ -172,8 +29,6 @@ export function blogCardFields(b: BlogStub, locale: string) {
     category: b.category,
   };
 }
-
-export const BLOG_PAGE_SIZE = 9;
 
 export function paginatePosts(page: number) {
   const p = Math.max(1, page);

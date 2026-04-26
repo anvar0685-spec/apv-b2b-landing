@@ -1,3 +1,4 @@
+import { isPriorityCross } from "@/content/cross-priority";
 import { CITIES, PROFESSIONS } from "@/content/professions-cities";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -16,6 +17,7 @@ export function ProgrammaticStaffingPage({ profession, city, locale }: Props) {
   const en = locale === "en";
   const cityName = en ? city.nameEn : city.nameRu;
   const roleName = en ? profession.titleEn : profession.titleRu;
+  const priority = isPriorityCross(profession.slug, city.slug);
 
   const t = {
     kicker: en ? "Programmatic · Moscow Oblast" : "Программатика · МО",
@@ -41,6 +43,18 @@ export function ProgrammaticStaffingPage({ profession, city, locale }: Props) {
     l1: en ? "Case studies by industry" : "Кейсы по отраслям",
     l2: en ? "Warehouse shift outsourcing" : "Складской аутсорсинг",
     l3: en ? "Other cities for this role" : "Другие города для профессии",
+    priBadge: en ? "Priority cluster (week-5 programme)" : "Приоритетный кластер (программа нед. 5)",
+    priH2: en ? "Local procurement context" : "Локальный контекст закупки",
+    priP1: en
+      ? `${cityName} concentrates employers and transport corridors that affect mobilisation time and bench depth for ${roleName}.`
+      : `В ${cityName} сосредоточены работодатели и транспортные коридоры, которые влияют на время выхода и глубину резерва для профиля «${roleName}».`,
+    priP2: en
+      ? "This priority page receives an expanded editorial block first; neighbouring programmatic URLs stay in the same contract model."
+      : "Эта приоритетная страница получает расширенный блок редактора первой; соседние programmatic URL остаются в той же договорной модели.",
+    priH3: en ? "Neighbouring demand signals" : "Соседние сигналы спроса",
+    priP3: en
+      ? "Use the profession hub to compare Khimki, Moscow and Podolsk patterns before you lock a pilot footprint."
+      : "Сравните паттерны Химок, Москвы и Подольска через хаб профессии перед фиксацией пилотного контура.",
   };
 
   return (
@@ -53,6 +67,11 @@ export function ProgrammaticStaffingPage({ profession, city, locale }: Props) {
             {t.h1}
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/78">{t.lead}</p>
+          {priority ? (
+            <p className="mt-4 inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[var(--accent-soft)]">
+              {t.priBadge}
+            </p>
+          ) : null}
           <div className="mt-10 flex flex-wrap gap-3">
             <Button asChild>
               <Link href={`/kalkulyator?p=${profession.slug}&city=${city.slug}`}>{t.calc}</Link>
@@ -75,6 +94,15 @@ export function ProgrammaticStaffingPage({ profession, city, locale }: Props) {
             <div className="type-editorial-dropcap type-body mt-6 space-y-4">
               <p>{t.p1}</p>
               <p>{t.p2}</p>
+              {priority ? (
+                <>
+                  <h3 className="type-headline pt-4 text-xl">{t.priH2}</h3>
+                  <p>{t.priP1}</p>
+                  <p>{t.priP2}</p>
+                  <h3 className="type-headline pt-2 text-xl">{t.priH3}</h3>
+                  <p>{t.priP3}</p>
+                </>
+              ) : null}
             </div>
           </div>
           <aside className="lg:col-span-5">
