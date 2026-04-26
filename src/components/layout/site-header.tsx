@@ -27,6 +27,10 @@ export async function SiteHeader() {
       links={links}
       ctaProposal={tc("proposal")}
       ctaCalc={tc("calc")}
+      skipToMain={t("skipToMain")}
+      menuOpenLabel={t("menuOpen")}
+      menuCloseLabel={t("menuClose")}
+      menuNavLabel={t("menuNav")}
     />
   );
 }

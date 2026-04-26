@@ -10,7 +10,11 @@
     "blog": "Blog",
     "calculator": "Calculator",
     "contacts": "Contacts",
-    "about": "About"
+    "about": "About",
+    "skipToMain": "Skip to main content",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "menuNav": "Main navigation"
   },
   "cta": {
     "calc": "Estimate cost",
