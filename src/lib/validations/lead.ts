@@ -1,26 +1,42 @@
 import { Urgency } from "@prisma/client";
 import { z } from "zod";
 
+export type LeadValidationCopy = {
+  nameMin: string;
+  companyMin: string;
+  phone: string;
+  headcountMin: string;
+  consent: string;
+};
+
+export type LeadStep0Copy = Pick<LeadValidationCopy, "nameMin" | "companyMin" | "phone">;
+
 /** Шаги мультистеп-формы `/zayavka` (клиентская валидация перед API). */
-export const leadMultistepStep0Schema = z.object({
-  contactName: z.string().min(2, "Имя — минимум 2 символа").max(120),
-  companyName: z.string().min(2, "Компания — минимум 2 символа").max(200),
-  contactPhone: z.string().min(5, "Укажите телефон").max(40),
-});
+export function createLeadMultistepStep0Schema(m: LeadStep0Copy) {
+  return z.object({
+    contactName: z.string().min(2, m.nameMin).max(120),
+    companyName: z.string().min(2, m.companyMin).max(200),
+    contactPhone: z.string().min(5, m.phone).max(40),
+  });
+}
 
-export const leadMultistepStep1Schema = z.object({
-  serviceType: z.string().min(2).max(64),
-  profession: z.string().min(1).max(64),
-  city: z.string().min(1).max(120),
-  headcount: z.coerce.number().int().min(1, "Минимум 1").max(5000),
-});
+export function createLeadMultistepStep1Schema(m: Pick<LeadValidationCopy, "headcountMin">) {
+  return z.object({
+    serviceType: z.string().min(2).max(64),
+    profession: z.string().min(1).max(64),
+    city: z.string().min(1).max(120),
+    headcount: z.coerce.number().int().min(1, m.headcountMin).max(5000),
+  });
+}
 
-export const leadMultistepStep2Schema = z.object({
-  comment: z.string().max(5000).optional().default(""),
-  consent: z.boolean().refine((v) => v === true, {
-    message: "Нужно согласие на обработку персональных данных.",
-  }),
-});
+export function createLeadMultistepStep2Schema(m: Pick<LeadValidationCopy, "consent">) {
+  return z.object({
+    comment: z.string().max(5000).optional().default(""),
+    consent: z.boolean().refine((v) => v === true, {
+      message: m.consent,
+    }),
+  });
+}
 
 export const leadCreateSchema = z.object({
   companyName: z.string().min(2).max(200),

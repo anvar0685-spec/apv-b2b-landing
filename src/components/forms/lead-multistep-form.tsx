@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useForm, type FieldPath } from "react-hook-form";
+import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,13 +17,12 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { site } from "@/config/site";
 import { absUrl } from "@/lib/abs-url";
 import {
+  createLeadMultistepStep0Schema,
+  createLeadMultistepStep1Schema,
+  createLeadMultistepStep2Schema,
   leadCreateSchema,
-  leadMultistepStep0Schema,
-  leadMultistepStep1Schema,
-  leadMultistepStep2Schema,
 } from "@/lib/validations/lead";
 import { Urgency } from "@prisma/client";
-import { useLocale } from "next-intl";
 import type { ZodError } from "zod";
 
 type FormValues = {
@@ -50,11 +50,37 @@ function applyFieldErrors(
 
 export function LeadMultistepForm() {
   const locale = useLocale();
+  const t = useTranslations("leadForm");
   const sp = useSearchParams();
   const [step, setStep] = useState(0);
   const [doneId, setDoneId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [submitErr, setSubmitErr] = useState<string | null>(null);
+
+  const step0Schema = useMemo(
+    () =>
+      createLeadMultistepStep0Schema({
+        nameMin: t("errors.nameMin"),
+        companyMin: t("errors.companyMin"),
+        phone: t("errors.phone"),
+      }),
+    [t],
+  );
+
+  const step1Schema = useMemo(
+    () =>
+      createLeadMultistepStep1Schema({
+        headcountMin: t("errors.headcountMin"),
+      }),
+    [t],
+  );
+  const step2Schema = useMemo(
+    () =>
+      createLeadMultistepStep2Schema({
+        consent: t("errors.consent"),
+      }),
+    [t],
+  );
 
   const defaults = useMemo<FormValues>(() => {
     const svc = sp.get("service");
@@ -90,7 +116,7 @@ export function LeadMultistepForm() {
 
   const validateStep0 = () => {
     clearErrors();
-    const r = leadMultistepStep0Schema.safeParse(getValues());
+    const r = step0Schema.safeParse(getValues());
     if (!r.success) {
       applyFieldErrors(r.error, setError);
       return false;
@@ -100,7 +126,7 @@ export function LeadMultistepForm() {
 
   const validateStep1 = () => {
     clearErrors();
-    const r = leadMultistepStep1Schema.safeParse(getValues());
+    const r = step1Schema.safeParse(getValues());
     if (!r.success) {
       applyFieldErrors(r.error, setError);
       return false;
@@ -110,7 +136,7 @@ export function LeadMultistepForm() {
 
   const onFinalSubmit = async (data: FormValues) => {
     clearErrors();
-    const step2 = leadMultistepStep2Schema.safeParse({
+    const step2 = step2Schema.safeParse({
       comment: data.comment,
       consent: data.consent,
     });
@@ -147,34 +173,38 @@ export function LeadMultistepForm() {
         body: JSON.stringify(parsed.data),
       });
       const json = (await res.json()) as { id?: string; error?: string };
-      if (!res.ok) throw new Error(json.error ?? "Ошибка отправки");
+      if (!res.ok) throw new Error(json.error ?? t("errors.submit"));
       setDoneId(json.id ?? "—");
       void trackEvent("form_submit_main", { form: "zayavka", id: json.id });
     } catch (e) {
-      setSubmitErr(e instanceof Error ? e.message : "Ошибка отправки");
+      setSubmitErr(e instanceof Error ? e.message : t("errors.submit"));
     } finally {
       setLoading(false);
     }
   };
 
+  const profLabel = (p: (typeof PROFESSIONS)[number]) => (locale === "en" ? p.titleEn : p.titleRu);
+  const cityLabel = (c: (typeof CITIES)[number]) => (locale === "en" ? c.nameEn : c.nameRu);
+
   if (doneId) {
     const thanksJson = {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      name: "Заявка отправлена",
-      description: "Подтверждение получения коммерческой заявки на расчёт.",
+      name: t("thanksJsonLdName"),
+      description: t("thanksJsonLdDesc"),
       url: absUrl("/zayavka", locale),
       isPartOf: { "@type": "WebSite", name: site.brandName, url: site.url.replace(/\/$/, "") },
     };
 
     return (
-      <div className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-8 text-center shadow-[var(--card-shadow)]">
+      <div
+        className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-8 text-center shadow-[var(--card-shadow)]"
+        role="status"
+        aria-live="polite"
+      >
         <JsonLd data={thanksJson} />
-        <p className="font-display text-xl font-semibold text-[var(--primary)]">Заявка получена</p>
-        <p className="mt-3 text-sm text-[var(--neutral-700)]">
-          Номер заявки: <span className="font-mono-nums font-semibold">{doneId}</span>. Менеджер свяжется в течение 15
-          минут в рабочее время — срок подтверждается в регламенте обслуживания клиентов.
-        </p>
+        <p className="font-display text-xl font-semibold text-[var(--primary)]">{t("successTitle")}</p>
+        <p className="mt-3 text-sm text-[var(--neutral-700)]">{t("successBody", { id: doneId })}</p>
       </div>
     );
   }
@@ -191,17 +221,22 @@ export function LeadMultistepForm() {
     >
       <Progress value={pct} />
       <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">
-        Шаг {step + 1} из 3
+        {t("stepLine", { current: step + 1, total: 3 })}
       </p>
       {submitErr ? (
-        <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800" role="alert">
+        <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800 dark:bg-red-950/40 dark:text-red-200" role="alert">
           {submitErr}
+        </p>
+      ) : null}
+      {loading ? (
+        <p className="mt-4 text-sm text-[var(--neutral-500)]" role="status" aria-live="polite">
+          {t("submitting")}
         </p>
       ) : null}
       {step === 0 ? (
         <div className="mt-6 space-y-4">
           <div>
-            <Label htmlFor="nm">Имя</Label>
+            <Label htmlFor="nm">{t("name")}</Label>
             <Input
               id="nm"
               aria-invalid={errors.contactName ? true : undefined}
@@ -215,7 +250,7 @@ export function LeadMultistepForm() {
             ) : null}
           </div>
           <div>
-            <Label htmlFor="co">Компания</Label>
+            <Label htmlFor="co">{t("company")}</Label>
             <Input
               id="co"
               aria-invalid={errors.companyName ? true : undefined}
@@ -229,7 +264,7 @@ export function LeadMultistepForm() {
             ) : null}
           </div>
           <div>
-            <Label htmlFor="ph">Телефон</Label>
+            <Label htmlFor="ph">{t("phone")}</Label>
             <Input
               id="ph"
               type="tel"
@@ -250,14 +285,14 @@ export function LeadMultistepForm() {
       {step === 1 ? (
         <div className="mt-6 space-y-4">
           <div>
-            <Label htmlFor="svc">Тип услуги</Label>
+            <Label htmlFor="svc">{t("serviceType")}</Label>
             <select
               id="svc"
               className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-white px-3 text-sm dark:bg-[var(--card)]"
               {...register("serviceType")}
             >
-              <option value="autsorsing">Складской аутсорсинг (Москва и МО)</option>
-              <option value="managed">Управляемый подряд (по запросу)</option>
+              <option value="autsorsing">{t("serviceAutsorsing")}</option>
+              <option value="managed">{t("serviceManaged")}</option>
             </select>
             {errors.serviceType ? (
               <p className="mt-1 text-xs text-red-600" role="alert">
@@ -266,7 +301,7 @@ export function LeadMultistepForm() {
             ) : null}
           </div>
           <div>
-            <Label htmlFor="pr">Профессия</Label>
+            <Label htmlFor="pr">{t("profession")}</Label>
             <select
               id="pr"
               className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-white px-3 text-sm dark:bg-[var(--card)]"
@@ -274,13 +309,13 @@ export function LeadMultistepForm() {
             >
               {PROFESSIONS.map((p) => (
                 <option key={p.slug} value={p.slug}>
-                  {p.titleRu}
+                  {profLabel(p)}
                 </option>
               ))}
             </select>
           </div>
           <div>
-            <Label htmlFor="hc">Количество человек</Label>
+            <Label htmlFor="hc">{t("headcount")}</Label>
             <Input
               id="hc"
               type="number"
@@ -295,7 +330,7 @@ export function LeadMultistepForm() {
             ) : null}
           </div>
           <div>
-            <Label htmlFor="ci">Город</Label>
+            <Label htmlFor="ci">{t("city")}</Label>
             <select
               id="ci"
               className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-white px-3 text-sm dark:bg-[var(--card)]"
@@ -303,7 +338,7 @@ export function LeadMultistepForm() {
             >
               {CITIES.map((c) => (
                 <option key={c.slug} value={c.slug}>
-                  {c.nameRu}
+                  {cityLabel(c)}
                 </option>
               ))}
             </select>
@@ -313,7 +348,7 @@ export function LeadMultistepForm() {
       {step === 2 ? (
         <div className="mt-6 space-y-4">
           <div>
-            <Label htmlFor="cm">Комментарий</Label>
+            <Label htmlFor="cm">{t("comment")}</Label>
             <Textarea id="cm" className="mt-2" rows={4} {...register("comment")} />
             {errors.comment ? (
               <p className="mt-1 text-xs text-red-600" role="alert">
@@ -329,15 +364,15 @@ export function LeadMultistepForm() {
                 onCheckedChange={(v) => setValue("consent", v === true, { shouldValidate: true })}
               />
               <span>
-                Согласен(на) на обработку персональных данных в соответствии с{" "}
+                {t("consentBefore")}{" "}
                 <Link className="text-[var(--accent)] underline" href="/politika-konfidencialnosti">
-                  политикой конфиденциальности
+                  {t("consentPrivacy")}
                 </Link>{" "}
-                и{" "}
+                {t("consentAnd")}{" "}
                 <Link className="text-[var(--accent)] underline" href="/soglasie-na-obrabotku-pd">
-                  согласием
+                  {t("consentPd")}
                 </Link>
-                .
+                {t("consentAfter")}
               </span>
             </label>
             {errors.consent ? (
@@ -350,11 +385,12 @@ export function LeadMultistepForm() {
       ) : null}
       <div className="mt-8 flex flex-wrap justify-between gap-3">
         <Button type="button" variant="secondary" disabled={step === 0} onClick={() => setStep((s) => s - 1)}>
-          Назад
+          {t("back")}
         </Button>
         {step < 2 ? (
           <Button
             type="button"
+            disabled={loading}
             onClick={() => {
               if (step === 0) {
                 if (!validateStep0()) return;
@@ -364,11 +400,11 @@ export function LeadMultistepForm() {
               setStep((s) => s + 1);
             }}
           >
-            Далее
+            {t("next")}
           </Button>
         ) : (
-          <Button type="submit" disabled={loading}>
-            {loading ? "Отправка…" : "Отправить"}
+          <Button type="submit" disabled={loading} aria-busy={loading}>
+            {loading ? t("submitting") : t("submit")}
           </Button>
         )}
       </div>

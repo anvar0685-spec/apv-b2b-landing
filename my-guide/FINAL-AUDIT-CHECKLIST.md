@@ -23,10 +23,10 @@
 | # | Проверка | Приоритет | Статус |
 |---|-----------|-------------|--------|
 | 1.1 | Единая сетка 1280px, ритм секций, читаемые `type-lead` / заголовки на длинных страницах | P1 | partial |
-| 1.2 | Состояния форм: loading, error, success (премиум-полировка из `02`) | P1 | partial |
-| 1.3 | Карточки списков (кейсы): подписи KPI и CTA на EN без «немого» RU | P1 | todo |
+| 1.2 | Состояния форм: loading, error, success (премиум-полировка из `02`) | P1 | done |
+| 1.3 | Карточки списков (кейсы): подписи KPI и CTA на EN без «немого» RU | P1 | done |
 | 1.4 | Фокус-стили и `motion-reduce` на hover-трансформациях | P2 | partial |
-| 1.5 | OG/preview критичных URL согласованы с контентом страницы | P1 | partial |
+| 1.5 | OG/preview критичных URL согласованы с контентом страницы | P1 | partial (хаб кейсов/заявка/о компании через `buildPageMetadata`) |
 
 ---
 
@@ -46,11 +46,11 @@
 
 | # | Проверка | Приоритет | Статус |
 |---|-----------|-------------|--------|
-| 3.1 | `generateMetadata` + `buildPageMetadata` для индексных и витринных URL без статического RU-only | P0 | partial → блог/категория done |
+| 3.1 | `generateMetadata` + `buildPageMetadata` для индексных и витринных URL без статического RU-only | P0 | partial → + `/keysy`, `/keysy/[slug]`, `/zayavka`, `/o-kompanii` |
 | 3.2 | `[locale]` в типах `params` на страницах внутри сегмента | P0 | partial |
 | 3.3 | `npm run build` зелёный после значимых правок | P0 | done |
 | 3.4 | Каноникал и `alternates` там, где уже настроен паттерн | P1 | partial |
-| 3.5 | JSON-LD без противоречия `areaServed` и копирайту | P1 | partial |
+| 3.5 | JSON-LD без противоречия `areaServed` и копирайту | P1 | partial → `serviceType` в `buildServiceJsonLd` по локали |
 
 ---
 
@@ -61,11 +61,14 @@
 - `/blog`: `generateMetadata`, копирайт меты, UI через `blogIndex`.
 - `/blog/category/[category]`: локаль в `params`, мета, UI, пагинация `aria-label`, карточки с `locale`.
 - `PremiumBlogCard`: `blogCardFields`, дата по локали, подписи из `homePage.sections` + `blogCard`.
+- **Кейсы:** `caseDetailFields` + EN-поля в `cases-stub`, `PremiumCaseCard` + `caseCard`, хаб `/keysy` и деталь `/keysy/[slug]` (мета, UI, prev/next на языке локали).
+- **Заявка:** `/zayavka` мета + `leadPage`, `LeadMultistepForm` полностью через `leadForm`, Zod-схемы фабриками, success/error/loading, города/профессии EN/RU.
+- **О компании:** `/o-kompanii` полный i18n `aboutPage`, мета через `buildPageMetadata`, блок «Модели» без витрины аутстаффинга.
+- **JSON-LD Service:** `serviceType` EN/RU в `buildServiceJsonLd`.
 
 ---
 
 ## 5. Следующие шаги (коротко)
 
-1. P1: `PremiumCaseCard` и прочие маркетинг-карточки — полная локаль.
-2. P1: полировка форм по чеклисту из `02`.
-3. P0 (вне кода): прод-smoke лидов, финальные тексты от заказчика.
+1. P1: остальные статические страницы (FAQ, контакты, подстраницы `o-kompanii/*`) — выровнять мету и копирайт под `locale`.
+2. P0 (вне кода): прод-smoke лидов, финальные тексты/тарифы от заказчика.

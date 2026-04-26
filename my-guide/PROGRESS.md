@@ -28,6 +28,7 @@
 | Блог | 10 статей в **`src/content/blog-published.ts`**, список через **`blog-stub.ts`**, статья: TOC, related, **`BlogPosting` JSON-LD**, `locale` в метаданных на **`/blog/[slug]`**; хаб **`/blog`** и **`/blog/category/*`**: `buildPageMetadata`, копирайт без «аутстаффинг» в SEO-заголовке как услуги, **`PremiumBlogCard`** с EN/RU. |
 | Шапка | `site-header-client.tsx`: grid, навигация с `xl`, drawer на узких экранах, без наложения на логотип. |
 | Футер | **`site-footer.tsx`**: `next-intl` (`footer` + реюз `nav`), дайджест и подписи на языке локали. |
+| Кейсы / заявка / о компании | **`/keysy`**, **`/keysy/[slug]`**: `buildPageMetadata`, `caseDetailFields` + EN в `cases-stub`, **`PremiumCaseCard`** + `caseCard`. **`/zayavka`**: `leadPage` + **`LeadMultistepForm`** (`leadForm`, фабрики Zod, success/loading/error, города/профессии по локали). **`/o-kompanii`**: полный **`aboutPage`**, мета, блок «Модели» без витрины аутстаффинга. **`buildServiceJsonLd`**: `serviceType` EN/RU. |
 | Правила Cursor | В репо: **`00`–`03`** (третья роль — **`03-outsourcing-strategist-orchestrator.mdc`** — коммерция/продукт). |
 
 ### Не сделано или не закрыто без заказчика (не врать новому агенту)

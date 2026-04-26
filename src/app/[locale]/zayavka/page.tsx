@@ -1,27 +1,32 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
 import { LeadMultistepForm } from "@/components/forms/lead-multistep-form";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Заявка на расчёт и коммерческое предложение",
-  description:
-    "Мультистеп-форма: контакты, параметры проекта, комментарий и согласие на обработку ПД.",
-  alternates: { canonical: "/zayavka" },
-};
+type PageProps = { params: { locale: string } };
 
-export default function Page() {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const t = await getTranslations({ locale: params.locale, namespace: "leadPage" });
+  return buildPageMetadata({
+    locale: params.locale,
+    pathname: "/zayavka",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+  });
+}
+
+export default async function Page({ params }: PageProps) {
+  const t = await getTranslations({ locale: params.locale, namespace: "leadPage" });
   return (
     <main id="main" className="mx-auto max-w-[720px] px-4 py-12 sm:px-6 lg:py-16">
-      <p className="type-kicker">КП и расчёт</p>
+      <p className="type-kicker">{t("kicker")}</p>
       <h1 className="font-display mt-2 text-3xl font-bold tracking-[-0.03em] text-[var(--primary)] md:text-4xl">
-        Заявка
+        {t("title")}
       </h1>
-      <p className="type-lead mt-4">
-        Три шага: контакты, параметры проекта, согласие на обработку персональных данных. Заявка сохраняется в CRM, в
-        аналитику уходит событие отправки.
-      </p>
+      <p className="type-lead mt-4">{t("lead")}</p>
       <div className="mt-10">
-        <Suspense fallback={<p className="text-sm text-[var(--neutral-500)]">Загрузка формы…</p>}>
+        <Suspense fallback={<p className="text-sm text-[var(--neutral-500)]">{t("formLoading")}</p>}>
           <LeadMultistepForm />
         </Suspense>
       </div>

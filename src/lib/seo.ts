@@ -25,7 +25,7 @@ export function buildServiceJsonLd(input: {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
-    serviceType: "Аутсорсинг складского персонала",
+    serviceType: locale === "en" ? "Warehouse shift outsourcing" : "Аутсорсинг складского персонала",
     name,
     description,
     url: absUrl(pathname, locale),
