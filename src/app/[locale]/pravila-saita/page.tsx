@@ -1,11 +1,20 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { LegalBody } from "@/components/marketing/legal-body";
 import { SITE_RULES_SECTIONS } from "@/content/legal-pages-stub";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Правила сайта",
-  description: "Пользовательское соглашение и правила использования сервисов сайта (шаблон).",
-};
+type Props = { params: { locale: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const t = await getTranslations({ locale: params.locale, namespace: "pagesSeo" });
+  return buildPageMetadata({
+    locale: params.locale,
+    pathname: "/pravila-saita",
+    title: t("pravilaSaita.metaTitle"),
+    description: t("pravilaSaita.metaDescription"),
+  });
+}
 
 export default function Page() {
   return (

@@ -1,14 +1,23 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { FaqPremium } from "@/components/marketing/faq-premium";
 import { MarketingPageHero } from "@/components/marketing/marketing-page-hero";
 import { FAQ_ITEMS } from "@/content/faq-items";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "FAQ",
-  description: "Ответы на частые вопросы по аутстаффингу, срокам, комплаенсу и документообороту.",
-};
+type Props = { params: { locale: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const t = await getTranslations({ locale: params.locale, namespace: "pagesSeo" });
+  return buildPageMetadata({
+    locale: params.locale,
+    pathname: "/faq",
+    title: t("faq.metaTitle"),
+    description: t("faq.metaDescription"),
+  });
+}
 
 export default function Page() {
   return (

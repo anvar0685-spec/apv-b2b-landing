@@ -18,6 +18,8 @@
 
 **Репозиторий:** только каталог **`apv-b2b-landing/`** (git `main`). Родительская папка «АПВ - СИСТЕМА» в git не трекается.
 
+**Последнее крупное обновление трекера:** единый паттерн SEO — **`pagesSeo`** в `messages` + `generateMetadata` → **`buildPageMetadata`** для калькулятора, HTML sitemap, FAQ, контактов, гарантий, поставщиков, юридических страниц, подстраниц «О компании»; главная **`/`** на базе `buildPageMetadata` с сохранением OG-image.
+
 ### Сделано в коде (можно продолжать с этого состояния)
 
 | Область | Факты |
@@ -29,6 +31,7 @@
 | Шапка | `site-header-client.tsx`: grid, навигация с `xl`, drawer на узких экранах, без наложения на логотип. |
 | Футер | **`site-footer.tsx`**: `next-intl` (`footer` + реюз `nav`), дайджест и подписи на языке локали. |
 | Кейсы / заявка / о компании | **`/keysy`**, **`/keysy/[slug]`**: `buildPageMetadata`, `caseDetailFields` + EN в `cases-stub`, **`PremiumCaseCard`** + `caseCard`. **`/zayavka`**: `leadPage` + **`LeadMultistepForm`** (`leadForm`, фабрики Zod, success/loading/error, города/профессии по локали). **`/o-kompanii`**: полный **`aboutPage`**, мета, блок «Модели» без витрины аутстаффинга. **`buildServiceJsonLd`**: `serviceType` EN/RU. |
+| SEO-мета (паттерн) | Все бывшие **`export const metadata`** под **`[locale]`** переведены на **`generateMetadata` + `buildPageMetadata`**; тексты в **`pagesSeo`** (`ru.json` / `en.json`). Главная: `buildPageMetadata` + **`home`**, OG/Twitter image сохранены. |
 | Правила Cursor | В репо: **`00`–`03`** (третья роль — **`03-outsourcing-strategist-orchestrator.mdc`** — коммерция/продукт). |
 
 ### Не сделано или не закрыто без заказчика (не врать новому агенту)

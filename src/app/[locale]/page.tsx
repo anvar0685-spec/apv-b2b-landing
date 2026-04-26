@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { HeroSection } from "@/components/home/hero-section";
 import { TrustMarquee } from "@/components/home/trust-marquee";
@@ -8,43 +9,29 @@ import { PainSolutionBento } from "@/components/home/pain-solution-bento";
 import { FullBleedOperations } from "@/components/home/full-bleed-operations";
 import { JsonLd } from "@/components/seo/json-ld";
 import { site } from "@/config/site";
+import { buildPageMetadata } from "@/lib/seo";
 
-export async function generateMetadata({ params }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const { locale } = params;
-  const title =
-    locale === "en"
-      ? "Warehouse staffing outsourcing — Moscow & Moscow Oblast"
-      : "Аутсорсинг персонала на склады — Москва и Московская область";
-  const description =
-    locale === "en"
-      ? "Shift outsourcing for warehouses and DCs: SLA, hourly rates, compliance. Moscow & MO. No outstaffing."
-      : "Аутсорсинг смен на склады и DC: SLA, ставки ₽/час, compliance. Москва и МО. Аутстаффинг не оказываем.";
-  const base = site.url.replace(/\/$/, "");
+  const t = await getTranslations({ locale, namespace: "home" });
+  const base = buildPageMetadata({
+    locale,
+    pathname: "/",
+    title: t("heroTitle"),
+    description: t("heroSubtitle"),
+  });
+  const siteBase = site.url.replace(/\/$/, "");
   const ogPath = locale === "en" ? "/en/opengraph-image" : "/opengraph-image";
+  const ogTitle = typeof base.openGraph?.title === "string" ? base.openGraph.title : t("heroTitle");
   return {
-    title,
-    description,
-    alternates: {
-      canonical: "/",
-      languages: {
-        "ru-RU": `${base}/`,
-        "en-US": `${base}/en`,
-      },
-    },
+    ...base,
     openGraph: {
-      title,
-      description,
-      type: "website",
-      locale: locale === "en" ? "en_US" : "ru_RU",
-      url: locale === "en" ? `${base}/en` : `${base}/`,
-      siteName: site.brandName.replace(/_/g, " "),
-      images: [{ url: `${base}${ogPath}`, width: 1200, height: 630, alt: title }],
+      ...base.openGraph,
+      images: [{ url: `${siteBase}${ogPath}`, width: 1200, height: 630, alt: ogTitle }],
     },
     twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [`${base}${ogPath}`],
+      ...base.twitter,
+      images: [`${siteBase}${ogPath}`],
     },
   };
 }

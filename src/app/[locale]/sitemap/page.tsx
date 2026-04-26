@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { CITIES, PROFESSIONS } from "@/content/professions-cities";
 import { allMultipageSeoPaths } from "@/lib/site-structure";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Карта сайта",
-  description: "HTML sitemap для пользователей и усиления внутренней перелинковки.",
-};
+type Props = { params: { locale: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const t = await getTranslations({ locale: params.locale, namespace: "pagesSeo" });
+  return buildPageMetadata({
+    locale: params.locale,
+    pathname: "/sitemap",
+    title: t("htmlSitemap.metaTitle"),
+    description: t("htmlSitemap.metaDescription"),
+  });
+}
 
 const CORE = [
   "/",
@@ -51,9 +60,7 @@ export default function HtmlSitemapPage() {
         </ul>
       </section>
       <section className="mt-12">
-        <h2 className="text-lg font-semibold text-[var(--primary)]">
-          Программатика (фрагмент)
-        </h2>
+        <h2 className="text-lg font-semibold text-[var(--primary)]">Программатика (фрагмент)</h2>
         <ul className="mt-4 max-h-96 overflow-auto text-sm text-[var(--neutral-700)]">
           {PROFESSIONS.slice(0, 2).flatMap((p) =>
             CITIES.slice(0, 5).map((c) => (
@@ -65,9 +72,7 @@ export default function HtmlSitemapPage() {
             )),
           )}
         </ul>
-        <p className="mt-2 text-xs text-[var(--neutral-500)]">
-          Полный список 300 URL в sitemap.xml.
-        </p>
+        <p className="mt-2 text-xs text-[var(--neutral-500)]">Полный список 300 URL в sitemap.xml.</p>
       </section>
     </main>
   );

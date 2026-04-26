@@ -1,13 +1,22 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { MarketingPageHero } from "@/components/marketing/marketing-page-hero";
 import { TEAM_MEMBERS } from "@/content/team-members";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Команда",
-  description: "Руководство и ключевые функции: операции, HR, юристы, финансы и развитие. EEAT для B2B-персонала.",
-};
+type Props = { params: { locale: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const t = await getTranslations({ locale: params.locale, namespace: "pagesSeo" });
+  return buildPageMetadata({
+    locale: params.locale,
+    pathname: "/o-kompanii/komanda",
+    title: t("komanda.metaTitle"),
+    description: t("komanda.metaDescription"),
+  });
+}
 
 export default function Page() {
   return (

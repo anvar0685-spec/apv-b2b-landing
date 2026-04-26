@@ -501,5 +501,64 @@
     "valuesV1": "Transparent pricing without hidden lines in timesheets.",
     "valuesV2": "Document discipline and audit readiness.",
     "valuesV3": "Respect for people on site and in the client's office."
+  },
+  "pagesSeo": {
+    "kalkulyator": {
+      "metaTitle": "Warehouse outsourcing calculator — hourly rates",
+      "metaDescription": "Moscow & Moscow Oblast benchmarks: loaders, pickers, clerks, PRT drivers, cleaners and general labour. Monthly payroll estimate and request for proposal.",
+      "loading": "Loading calculator…"
+    },
+    "htmlSitemap": {
+      "metaTitle": "Sitemap",
+      "metaDescription": "HTML sitemap for users and stronger internal linking."
+    },
+    "faq": {
+      "metaTitle": "FAQ",
+      "metaDescription": "Answers on warehouse shift outsourcing, timelines, compliance and paperwork."
+    },
+    "kontakty": {
+      "metaTitle": "Contacts — office and map",
+      "metaDescription": "Phone, email, Telegram, WhatsApp Business and registered address. Map connects after the final address and API key."
+    },
+    "dlyaPostavschikov": {
+      "metaTitle": "For suppliers and subcontractors",
+      "metaDescription": "Partner requirements, anti-corruption standards and qualification before project access."
+    },
+    "garantii": {
+      "metaTitle": "Warranties and SLA",
+      "metaDescription": "Service quality, replacements, compliance and transparent terms in the contract and SLA annex."
+    },
+    "pravovayaInformaciya": {
+      "metaTitle": "Legal information",
+      "metaDescription": "Site operator, intellectual property, limitation of liability and dispute resolution."
+    },
+    "politikaKonfidencialnosti": {
+      "metaTitle": "Privacy policy",
+      "metaDescription": "Personal data processing under 152-FZ: purposes, legal basis, data subject rights and safeguards."
+    },
+    "pravilaSaita": {
+      "metaTitle": "Site rules",
+      "metaDescription": "Terms of use and rules for site services (template)."
+    },
+    "soglasiePd": {
+      "metaTitle": "Personal data processing consent",
+      "metaDescription": "Consent text for forms and checkboxes on the site (template)."
+    },
+    "oferta": {
+      "metaTitle": "Public offer for services",
+      "metaDescription": "Public offer for warehouse shift outsourcing and related services (template)."
+    },
+    "komanda": {
+      "metaTitle": "Team",
+      "metaDescription": "Leadership and core functions: operations, HR, legal, finance and growth. EEAT for B2B workforce."
+    },
+    "dokumenty": {
+      "metaTitle": "Company documents",
+      "metaDescription": "Charter, licences, local policies and financial statements — on request for tenders and compliance."
+    },
+    "pressa": {
+      "metaTitle": "Press and publications",
+      "metaDescription": "Media coverage, talks and industry notes. A feed for EEAT and external comms."
+    }
   }
 }

@@ -1,13 +1,21 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { site } from "@/config/site";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Контакты — офис и карта",
-  description:
-    "Телефон, email, Telegram, WhatsApp Business и юридический адрес. Карта подключается после финального адреса и ключа API.",
-};
+type Props = { params: { locale: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const t = await getTranslations({ locale: params.locale, namespace: "pagesSeo" });
+  return buildPageMetadata({
+    locale: params.locale,
+    pathname: "/kontakty",
+    title: t("kontakty.metaTitle"),
+    description: t("kontakty.metaDescription"),
+  });
+}
 
 export default function Page() {
   const jsonLd = {

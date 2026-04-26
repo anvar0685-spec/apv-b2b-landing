@@ -46,7 +46,7 @@
 
 | # | Проверка | Приоритет | Статус |
 |---|-----------|-------------|--------|
-| 3.1 | `generateMetadata` + `buildPageMetadata` для индексных и витринных URL без статического RU-only | P0 | partial → + `/keysy`, `/keysy/[slug]`, `/zayavka`, `/o-kompanii` |
+| 3.1 | `generateMetadata` + `buildPageMetadata` для индексных и витринных URL без статического RU-only | P0 | done (все бывшие `export const metadata` в `[locale]` → `pagesSeo` + главная поверх `home`) |
 | 3.2 | `[locale]` в типах `params` на страницах внутри сегмента | P0 | partial |
 | 3.3 | `npm run build` зелёный после значимых правок | P0 | done |
 | 3.4 | Каноникал и `alternates` там, где уже настроен паттерн | P1 | partial |
@@ -65,10 +65,11 @@
 - **Заявка:** `/zayavka` мета + `leadPage`, `LeadMultistepForm` полностью через `leadForm`, Zod-схемы фабриками, success/error/loading, города/профессии EN/RU.
 - **О компании:** `/o-kompanii` полный i18n `aboutPage`, мета через `buildPageMetadata`, блок «Модели» без витрины аутстаффинга.
 - **JSON-LD Service:** `serviceType` EN/RU в `buildServiceJsonLd`.
+- **Единый SEO-паттерн:** `pagesSeo` + `buildPageMetadata` на `/kalkulyator`, `/sitemap`, `/faq`, `/kontakty`, `/garantii`, `/dlya-postavschikov`, правовые URL, `/o-kompanii/komanda|dokumenty|pressa`; главная `/` поверх `home` + OG.
 
 ---
 
 ## 5. Следующие шаги (коротко)
 
-1. P1: остальные статические страницы (FAQ, контакты, подстраницы `o-kompanii/*`) — выровнять мету и копирайт под `locale`.
+1. P1: **тело** страниц FAQ, контактов, гарантий, юрстраниц и подразделов «О компании» — полный UI-копирайт под EN (сейчас в основном RU в разметке).
 2. P0 (вне кода): прод-smoke лидов, финальные тексты/тарифы от заказчика.

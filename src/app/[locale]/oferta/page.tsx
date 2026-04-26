@@ -1,11 +1,20 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { LegalBody } from "@/components/marketing/legal-body";
 import { OFFER_SECTIONS } from "@/content/legal-pages-stub";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Оферта на услуги",
-  description: "Публичная оферта на оказание услуг аутстаффинга и смежных сервисов (шаблон).",
-};
+type Props = { params: { locale: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const t = await getTranslations({ locale: params.locale, namespace: "pagesSeo" });
+  return buildPageMetadata({
+    locale: params.locale,
+    pathname: "/oferta",
+    title: t("oferta.metaTitle"),
+    description: t("oferta.metaDescription"),
+  });
+}
 
 export default function Page() {
   return (
