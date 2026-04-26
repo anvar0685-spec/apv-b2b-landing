@@ -108,13 +108,14 @@ export function SiteHeaderClient({
       </a>
       <div
         className={cn(
-          "relative mx-auto flex max-w-[1280px] min-w-0 items-center gap-2 px-4 transition-[height] duration-300 sm:gap-3 sm:px-6 lg:gap-4 lg:px-8",
+          "relative mx-auto flex min-w-0 max-w-[1280px] items-center justify-between gap-2 px-4 transition-[height] duration-300 sm:gap-3 sm:px-6 lg:px-8",
+          "xl:grid xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:items-center xl:justify-normal xl:gap-x-3",
           scrolled ? "h-14" : "h-16",
         )}
       >
         <Link
           href="/"
-          className="interactive-hover-ring group z-20 flex min-w-0 max-w-[min(100%,14rem)] shrink-0 items-center gap-2 rounded-lg text-[var(--primary)] sm:max-w-[min(100%,18rem)] sm:gap-3"
+          className="interactive-hover-ring group flex min-w-0 max-w-[min(100%,11rem)] shrink-0 items-center gap-2 rounded-lg text-[var(--primary)] sm:max-w-[min(100%,15rem)] sm:gap-3 md:max-w-[min(100%,18rem)]"
           aria-label={brandName}
         >
           <BrandMark letters={monogram} sizeClassName={scrolled ? "h-9 w-9" : "h-10 w-10"} />
@@ -125,12 +126,12 @@ export function SiteHeaderClient({
 
         <nav
           className={cn(
-            "hidden min-w-0 flex-1 overflow-x-auto overscroll-x-contain xl:flex xl:justify-center",
+            "hidden min-h-0 min-w-0 overflow-x-auto overscroll-x-contain xl:block",
             "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
           )}
           aria-label={menuNavLabel}
         >
-          <div className="flex w-max max-w-full min-w-0 items-center justify-center gap-0.5 px-1 sm:gap-1 sm:px-2">
+          <div className="flex w-max min-w-0 items-center justify-start gap-0.5 py-1 sm:gap-1">
             {links.map((l) => {
               const active = pathMatches(pathname, l.href);
               return (
@@ -150,7 +151,7 @@ export function SiteHeaderClient({
           </div>
         </nav>
 
-        <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2 xl:ml-0">
+        <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2 xl:ml-0 xl:justify-self-end">
           <button
             type="button"
             className="interactive-hover-ring inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--neutral-200)] bg-[var(--surface)] text-[var(--primary)] xl:hidden dark:border-white/15 dark:bg-white/5 dark:text-white"
