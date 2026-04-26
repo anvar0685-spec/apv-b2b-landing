@@ -7,7 +7,7 @@ alwaysApply: true
 
 ## Онбординг для нового агента
 
-1. Прочитай **`.cursor/rules/`**: `00-agent-workflow` (этот файл), **`01-six-week-roadmap`**, при UI — **`02-ux-premium-orchestrator`**.
+1. Прочитай **`.cursor/rules/`**: `00-agent-workflow` (этот файл), **`01-six-week-roadmap`**, при UI — **`02-ux-premium-orchestrator`**, при **смысле услуг, SEO, CTA, позиционировании** — **`03-outsourcing-strategist-orchestrator`** (аутсорсер на склады + предприниматель + оркестратор коммерции).
 2. Открой **`my-guide/PROGRESS.md`** — чекбоксы по неделям и последнее обновление.
 3. Детальный план — **`my-guide/SIX-WEEK-PLAN.md`**, мастер-промпт — **`my-guide/COMPOSER-2-MASTER-PROMPT.md`**, бриф визуала — **`my-guide/WEB-DESIGN-BRIEF.md`**.
 
