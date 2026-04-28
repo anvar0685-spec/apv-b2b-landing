@@ -156,5 +156,5 @@
 
 - **Дата:** 2026-04-28  
 - **Кто:** agent / human  
-- **Коммит (RU-only):** `2a5d386` — message `chore(i18n): RU-only site, remove en.json` (полный диф: маркетинг, лиды, legal, cross-narratives и т.д.).  
+- **Коммит (RU-only):** см. `git log -1 --oneline` на `main` — сообщение `chore(i18n): RU-only site, remove en.json`.  
 - **Следующий шаг:** таблица **«Дорожная карта — до прода»** выше; **`FINAL-AUDIT-CHECKLIST.md`** при финальном чеке.
