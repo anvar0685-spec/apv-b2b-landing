@@ -9,6 +9,7 @@ export const managedPage: ServicePageBilingual = {
     intro: [
       "Managed service подходит, когда операции уже измеримы: есть WMS-данные, понятные целевые показатели по явке, ошибке и простоям, и готовность к еженедельным разборам с подрядчиком.",
       "Мы совместно фиксируем KPI, дорожную карту на 90 дней и формат дашборда: явка, замены, инциденты, cost per shift — в одной плоскости для COO и финансов.",
+      "Смысл managed: не «ещё отчёты в почте», а владелец сценария улучшения — что меняем на следующей неделе, если тренд не тот, с привязкой к источнику данных, а не к субъективному «нужно срочно людей».",
       "Материалы страницы не заменяют юридическую оценку штрафных/бонусных механик — их проектирует юрист после согласования коммерческих параметров.",
     ],
     segments: [
@@ -51,6 +52,7 @@ export const managedPage: ServicePageBilingual = {
     intro: [
       "Managed service fits when operations are measurable: WMS signals, clear targets for attendance, error and idle time, and appetite for weekly reviews with the vendor.",
       "We align KPIs, a 90-day roadmap and dashboard format — attendance, replacements, incidents, cost per shift — in one plane for the COO and finance.",
+      "The point of managed is not ‘more email reports’ but an owner of the improvement loop: what we change next week if the trend is wrong, tied to a data source — not a gut ‘we need more people’.",
       "Page copy is informational; penalty/bonus mechanics need legal review after commercial terms are set.",
     ],
     segments: [

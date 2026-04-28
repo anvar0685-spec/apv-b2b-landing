@@ -11,13 +11,11 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { YandexMetrika } from "@/components/seo/yandex-metrika";
 import { CookieBanner } from "@/components/layout/cookie-banner";
 import { PageTransition } from "@/components/layout/page-transition";
+import { CallbackFab } from "@/components/layout/callback-fab";
+import { QuickContactDock } from "@/components/layout/quick-contact-dock";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { locale: string };
-}): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(site.url),
     robots: { index: true, follow: true },
@@ -27,14 +25,13 @@ export async function generateMetadata({
     },
     alternates: {
       languages: {
-        "ru-RU": absUrl("/", "ru"),
-        "en-US": absUrl("/", "en"),
+        "ru-RU": absUrl("/"),
       },
     },
     openGraph: {
       siteName: site.brandName,
       type: "website",
-      locale: params.locale === "en" ? "en_US" : "ru_RU",
+      locale: "ru_RU",
     },
   };
 }
@@ -60,6 +57,8 @@ export default async function LocaleLayout({ children, params }: Props) {
         <PageTransition>{children}</PageTransition>
         <SiteFooter />
         <CookieBanner />
+        <CallbackFab />
+        <QuickContactDock />
       </NextIntlClientProvider>
       <YandexMetrika />
     </>

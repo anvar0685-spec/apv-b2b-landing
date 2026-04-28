@@ -15,6 +15,7 @@ export async function SiteFooter() {
       <div className="mx-auto grid max-w-[1280px] gap-10 px-4 py-14 sm:px-6 lg:grid-cols-3 lg:px-8">
         <div>
           <p className="font-display text-lg font-semibold text-white">{displayBrand}</p>
+          <p className="mt-2 text-xs leading-snug text-white/75">{site.legalEntityFullName}</p>
           <p className="mt-3 text-sm leading-relaxed text-[var(--neutral-200)]">
             {t("innOgrn", { inn: site.inn, ogrn: site.ogrn })}
           </p>

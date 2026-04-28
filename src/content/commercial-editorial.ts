@@ -6,11 +6,13 @@ const INDUSTRY: Record<string, { ru: string[]; en: string[] }> = {
       "E-commerce и маркетплейсы требуют предсказуемой явки на inbound/outbound, быстрых замен в пик и прозрачной отчётности по сменам — без переноса кадрового шума в вашу службу.",
       "Мы проектируем поставку смен под ваш профиль SKU: комплектация, сортировка, возвраты, паллетный контур — с единым SLA и контактом подрядчика.",
       "Калькулятор и заявка на сайте дают стартовый ориентир по фонду; финальные ставки и KPI фиксируются после диагностики объекта и графика.",
+      "В закупке фиксируйте «окно пика» (день недели, часы) и сценарий «смена не вышла» — тогда сравнение подрядчиков честное и не сводится к одной строке прайса.",
     ],
     en: [
       "E-commerce and marketplaces need predictable attendance on inbound/outbound, fast replacements at peaks, and clear shift reporting — without HR noise landing on your team.",
       "We design shift supply for your SKU profile: picking, sorting, returns, pallet flows — with one SLA and one contractor contact.",
       "The calculator and lead form give a starting cost envelope; final rates and KPIs are set after a site and schedule diagnostic.",
+      "In procurement, capture “peak window” (weekday, hours) plus the “shift failed to show” playbook — then vendor comparison stays honest and does not collapse into one rate row.",
     ],
   },
   "sklady-riteyla": {
@@ -18,11 +20,13 @@ const INDUSTRY: Record<string, { ru: string[]; en: string[] }> = {
       "Ритейл-DC живут циклами промо и сезонности: важны резерв смен, дисциплина ночных окон и согласованные KPI по ошибке и скорости линии.",
       "Совмещаем аутсорсинг смен с вашими WMS-процессами и внутренними регламентами безопасности; документы и миграционный контур — в рамках договора поставки.",
       "Для сетей с несколькими площадками в МО — единая модель отчётности и масштабирования между объектами.",
+      "Ночные и предпраздничные недели закладывайте отдельной строкой в КП: иначе «средняя ставка» не переживёт ноябрь без споров с финансами.",
     ],
     en: [
       "Retail DCs run on promo and seasonality: shift reserves, night-window discipline, and aligned KPIs for error rate and line speed matter.",
       "We align shift outsourcing with your WMS flows and safety rules; documents and migration compliance sit inside the supply contract.",
       "For multi-site retailers in the Moscow Oblast — one reporting model and scaling pattern across locations.",
+      "Price night shifts and pre-holiday weeks as separate lines in the proposal — otherwise an “average rate” will not survive November without finance arguments.",
     ],
   },
   "sklady-3pl": {
@@ -30,11 +34,13 @@ const INDUSTRY: Record<string, { ru: string[]; en: string[] }> = {
       "3PL-операторы обслуживают несколько брендов на одной площадке: критичны стандарты инструктажа, язык KPI и быстрый вывод замены без простоя клиентских SLA.",
       "Мы помогаем выровнять «человеческий» контур под мульти-клиент: роли, графики, отчётность — с разделением ответственности в договоре.",
       "Пилот на ограниченной зоне снижает риск при смене подрядчика или расширении квадратных метров.",
+      "Для мульти-клиента важен единый язык KPI в отчёте: иначе каждый бренд читает «свою» явку и спорит о методике на общей площадке.",
     ],
     en: [
       "3PL operators serve multiple brands on one site: onboarding standards, KPI language, and fast replacement without breaching client SLAs are critical.",
       "We align the people layer for multi-tenant sites: roles, schedules, reporting — with clear contractual responsibility splits.",
       "A pilot in a bounded zone reduces risk when switching vendors or adding square meters.",
+      "Multi-client sites need one KPI language in reporting — otherwise each brand reads “their own” attendance and argues methodology on a shared yard.",
     ],
   },
   "proizvodstvennye-sklady": {
@@ -42,11 +48,13 @@ const INDUSTRY: Record<string, { ru: string[]; en: string[] }> = {
       "Производственные склады сочетают складскую механику и производственный ритм: важны стабильность смен, обучение и снижение брака между линиями.",
       "Поставка смен строится вокруг узких мест — приёмка сырья, КС, отгрузка ГП — с прогнозируемым резервом и понятной эскалацией.",
       "Отчётность стыкуется с производственными дашбордами, чтобы COO видел связку людей и output.",
+      "Пересечение смен производства и складского контура требует явного владельца эскалации — иначе «между сменами» теряются брак и простой КС.",
     ],
     en: [
       "Manufacturing warehouses blend logistics and line cadence: shift stability, training, and defect reduction between lines matter.",
       "Shift supply is built around bottlenecks — raw inbound, WIP, finished-goods outbound — with predictable reserves and clear escalation.",
       "Reporting ties to production dashboards so ops leaders see people and output together.",
+      "Where production and warehouse shifts intersect, name one escalation owner — otherwise defects and WIP stalls get lost “between shifts”.",
     ],
   },
   "farmatsevticheskie-sklady": {
@@ -54,11 +62,13 @@ const INDUSTRY: Record<string, { ru: string[]; en: string[] }> = {
       "Фарма требует дисциплины документов, серийности и доступа: смены выводятся под регламенты площадки и согласованный контур обучения.",
       "Мы не подменяем QA продукции заказчика, но обеспечиваем предсказуемую явку и замены без нарушения ваших SOP.",
       "Миграционный и кадровый контур — в рамках договора поставки смен; детали фиксируются в приложениях.",
+      "Версии приказов и допусков к зонам хранения — отдельный контрольный список: фарма не прощает рассинхрон между «бумагой» и фактическим выходом.",
     ],
     en: [
       "Pharma needs document discipline, serialization, and access control: shifts are deployed to site rules with agreed training paths.",
       "We do not replace the customer’s product QA, but we deliver predictable attendance and replacements without breaking your SOPs.",
       "Migration and HR document flows sit inside the shift-supply contract; specifics live in annexes.",
+      "Permit versions and zone access lists need their own checklist — pharma punishes any mismatch between paperwork and who actually showed up.",
     ],
   },
   "fmcg-sklady": {
@@ -66,11 +76,13 @@ const INDUSTRY: Record<string, { ru: string[]; en: string[] }> = {
       "FMCG — высокая скорость оборота и паллетные пики: важны короткое время выхода замены и устойчивый пул на сезон.",
       "Сценарии night-break, кросс-дока и предпраздничных недель закладываются заранее в коммерческом предложении.",
       "Показатели явки и cost per shift помогают финансам держать модель в рамках бюджета.",
+      "Паллетные пики и night-break сценарии лучше моделировать заранее с подрядчиком: резерв без согласования превращается в «пожар» на воротах.",
     ],
     en: [
       "FMCG means fast turns and pallet peaks: short replacement lead time and a resilient seasonal pool matter.",
       "Night-break, cross-dock, and pre-holiday weeks are planned upfront in the commercial proposal.",
       "Attendance and cost-per-shift metrics help finance keep the model inside budget.",
+      "Model pallet peaks and night-break with the vendor early — unmanaged reserves turn into gate fire-fighting, not headcount.",
     ],
   },
   "sklady-klassa-a": {
@@ -78,11 +90,13 @@ const INDUSTRY: Record<string, { ru: string[]; en: string[] }> = {
       "Класс А — высокие требования к дисциплине, внешнему виду линейки и коммуникации с инфраструктурой площадки.",
       "Мы подстраиваем формат инструктажей, форму и язык отчётности под стандарты девелопера и эксплуатации.",
       "KPI по явке и времени реакции на замену фиксируются прозрачно, чтобы закупка и операции говорили на одном языке.",
+      "Визуал и дисциплина линейки на «классе А» — часть бренда площадки: под это выравниваются инструктажи и форма, без самодеятельности на объекте.",
     ],
     en: [
       "Class A sites demand discipline, frontline presentation, and tight coordination with building operations.",
       "We tune briefings, uniforms where required, and reporting language to developer and facilities standards.",
       "Attendance KPIs and replacement response times are written clearly so procurement and ops share one definition of “good”.",
+      "Frontline look-and-feel is part of the asset brand — briefings and uniforms align to that standard, not ad-hoc on site.",
     ],
   },
 };
@@ -93,11 +107,13 @@ const PLATFORM: Record<string, { ru: string[]; en: string[] }> = {
       "Крупные площадки WB требуют масштабируемых команд под inbound/outbound и дисциплину замен в пиковые окна.",
       "Мы выравниваем профили под ваши зоны и график, сохраняя единый контакт подрядчика и отчётность по сменам.",
       "Старт — диагностика процесса и пилот; масштабирование — по согласованной дорожной карте.",
+      "Слоты на воротах и скорость первичного онбординга — часть коммерческого пакета: без них KPI по комплектации «плывут» не из-за людей, а из-за логистики входа.",
     ],
     en: [
       "Large WB sites need scalable teams for inbound/outbound and disciplined replacements at peaks.",
       "We align role mixes to your zones and schedule while keeping one contractor contact and shift-level reporting.",
       "Kickoff is a process diagnostic and pilot; scale follows an agreed roadmap.",
+      "Gate slots and first-day onboarding speed belong in the commercial pack — without them picking KPIs drift because of inbound logistics, not headcount.",
     ],
   },
   ozon: {
@@ -105,11 +121,13 @@ const PLATFORM: Record<string, { ru: string[]; en: string[] }> = {
       "Высокая интенсивность линий Ozon чувствительна к явке и скорости онбординга замены.",
       "Поставка смен включает обучение первой смены, менторинг и контрольные точки первой недели.",
       "Документы и миграционный контур — в рамках договора поставки, без «серых зон» в закупке.",
+      "Первая неделя после массового набора — критична: менторинг и чек-лист первой смены дешевле, чем переделка ошибок в outbound.",
     ],
     en: [
       "High-intensity Ozon lines are sensitive to attendance and replacement onboarding speed.",
       "Shift supply includes first-shift training, mentoring, and week-one checkpoints.",
       "Documents and migration compliance are inside the supply contract — no grey zones for procurement.",
+      "Week one after a bulk hire is where projects win or lose — mentoring and first-shift checklists beat rework in outbound.",
     ],
   },
   "yandex-market": {
@@ -117,11 +135,13 @@ const PLATFORM: Record<string, { ru: string[]; en: string[] }> = {
       "Логистические хабы маркетплейса требуют предсказуемого выхода бригад и согласованных слотов на воротах.",
       "Мы помогаем синхронизировать пул смен с вашим планом отгрузок и внутренней маршрутизацией.",
       "Отчётность по сменам стыкуется с операционными встречами 3PL/заказчика.",
+      "Маршрутизация внутри хаба и язык KPI должны быть согласованы между 3PL и сетью — иначе «наша явка» и «ваша явка» расходятся в одной смене.",
     ],
     en: [
       "Marketplace hubs need predictable crew mobilisation and aligned gate slots.",
       "We sync the shift pool with your shipping plan and internal routing.",
       "Shift reporting maps to joint 3PL/customer ops reviews.",
+      "Hub routing and KPI language must be aligned between 3PL and the marketplace — otherwise “our attendance” and “your attendance” diverge in the same shift.",
     ],
   },
   lamoda: {
@@ -129,11 +149,13 @@ const PLATFORM: Record<string, { ru: string[]; en: string[] }> = {
       "Fashion fulfillment: аккуратность при примерке/возвратах, скорость комплектации и контроль ошибок.",
       "Смены подбираются под профиль зоны (inbound, сток, outbound) с единым SLA.",
       "Пилот на одной зоне снижает риск при смене формата сортировки.",
+      "Fashion-контур чувствителен к ошибке комплектации и возвратам: AQL и выборочный контроль лучше зашить в SLA, а не обсуждать постфактум.",
     ],
     en: [
       "Fashion fulfillment: careful handling for returns flows, picking speed, and error control.",
       "Shifts are tuned to zone profiles (inbound, stock, outbound) under one SLA.",
       "A single-zone pilot reduces risk when changing sortation formats.",
+      "Fashion is sensitive to picking errors and returns — bake AQL/sampling into the SLA instead of debating it after the fact.",
     ],
   },
   "sber-market": {
@@ -141,11 +163,13 @@ const PLATFORM: Record<string, { ru: string[]; en: string[] }> = {
       "Экосистемные сети требуют согласованных регламентов коммуникации между площадкой, 3PL и подрядчиком по сменам.",
       "Мы закрепляем каналы эскалации и формат еженедельных разборов метрик.",
       "Масштабирование между городами МО — с унифицированным шаблоном отчётности.",
+      "Экосистемные SLA требуют единого окна эскалации: иначе инцидент «зависает» между вендором смен, 3PL и сетью.",
     ],
     en: [
       "Ecosystem retail needs aligned communication rules between the site, 3PL, and shift vendor.",
       "We define escalation channels and a weekly metrics review format.",
       "Scaling across Moscow Oblast cities uses a unified reporting template.",
+      "Ecosystem SLAs need one escalation window — otherwise incidents stall between the shift vendor, 3PL, and the retailer.",
     ],
   },
 };
@@ -168,42 +192,63 @@ const GEO_REGION: Record<string, { ru: string[]; en: string[] }> = {
     ru: [
       "Москва — высокая плотность объектов и трафика; критичны время выхода на смену и резерв замен в часы пик.",
       "Округа ниже ведут на локальные страницы; контент наращивается редакцией без потери URL-стабильности.",
+      "Транспортная доступность и «час пик» на выходе влияют на стоимость смены сильнее, чем разница в паре десятков рублей к ставке — учитывайте в модели поставки.",
     ],
     en: [
       "Moscow means dense sites and traffic; shift start reliability and peak replacement reserves are critical.",
       "Districts below link to local pages; editorial content grows without breaking URL stability.",
+      "Access corridors and rush-hour mobilisation often matter more to shift economics than a few roubles on the hourly rate — model both.",
     ],
   },
   "moskovskaya-oblast": {
     ru: [
       "Московская область — разброс по расстояниям и транспортным коридорам; в модель закладывается логистика выхода и резерв на замену.",
       "Список городов — рабочий периметр программатики; детальные тексты подключаются по приоритету спроса.",
+      "Для удалённых от МКАД площадок заранее проговаривайте жильё/транзит или сдвиг графика — иначе резерв замены «съедается» логистикой, а не профилем.",
     ],
     en: [
       "The Moscow Oblast spans distances and transport corridors; the model includes mobilisation logistics and replacement reserves.",
       "The city list is the working perimeter for programmatic pages; deeper copy rolls out by demand priority.",
+      "For sites far from the MKAD, align housing/transit or shift timing early — otherwise replacement reserves burn off on logistics, not profile fit.",
     ],
   },
 };
 
-export function industryEditorial(slug: string, locale: string): string[] | undefined {
+const INDUSTRY_TAIL: string[] = [
+    "Калькулятор на сайте даёт быстрый ориентир по месячному фонду с учётом роли, численности и графика; детальные ставки, резерв и SLA фиксируются в коммерческом предложении после диагностики объекта.",
+    "Пилот на ограниченной зоне или сменах снижает риск при смене подрядчика и помогает закупке и операциям согласовать единые определения KPI до промышленного масштаба.",
+    "Публичные тексты не заменяют индивидуальное КП и договор: штрафные механики, порядок приёмки результата и форс-мажор закрепляются в договорной документации.",
+  ];
+
+const PLATFORM_TAIL: string[] = [
+    "Для площадочных моделей критичны слоты на воротах, скорость онбординга замены и язык отчётности, понятный и 3PL, и сети-заказчику одновременно.",
+    "Связка с разделом «Персонал» и программатикой по городам МО позволяет закупке сравнить логистику выхода и резерв между локациями до фиксации пилота.",
+    "Ориентиры по ставкам на витрине сайта — база для первичного сравнения; итоговая экономика зависит от графика, пиков и требований комплаенса на конкретном объекте.",
+  ];
+
+const GEO_TAIL: string[] = [
+    "Программатика «профессия × город» доступна из раздела «Персонал»: каждая пара URL получает своё ЧПУ и единый коммерческий и SEO-контур под закупку и поиск.",
+    "Схематичная карта в хабе «География» иллюстрирует зону присутствия и не является навигационным сервисом.",
+  ];
+
+export function industryEditorial(slug: string): string[] | undefined {
   const b = INDUSTRY[slug];
   if (!b) return undefined;
-  return locale === "en" ? b.en : b.ru;
+  return [...b.ru, ...INDUSTRY_TAIL];
 }
 
-export function platformEditorial(slug: string, locale: string): string[] | undefined {
+export function platformEditorial(slug: string): string[] | undefined {
   const b = PLATFORM[slug];
   if (!b) return undefined;
-  return locale === "en" ? b.en : b.ru;
+  return [...b.ru, ...PLATFORM_TAIL];
 }
 
-export function geoHubEditorial(locale: string): string[] {
-  return locale === "en" ? GEO_HUB.en : GEO_HUB.ru;
+export function geoHubEditorial(): string[] {
+  return [...GEO_HUB.ru, ...GEO_TAIL];
 }
 
-export function geoRegionEditorial(region: string, locale: string): string[] | undefined {
+export function geoRegionEditorial(region: string): string[] | undefined {
   const b = GEO_REGION[region];
   if (!b) return undefined;
-  return locale === "en" ? b.en : b.ru;
+  return [...b.ru, ...GEO_TAIL];
 }

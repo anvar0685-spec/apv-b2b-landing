@@ -1,9 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useForm, type FieldPath } from "react-hook-form";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -49,7 +49,6 @@ function applyFieldErrors(
 }
 
 export function LeadMultistepForm() {
-  const locale = useLocale();
   const t = useTranslations("leadForm");
   const sp = useSearchParams();
   const [step, setStep] = useState(0);
@@ -85,6 +84,8 @@ export function LeadMultistepForm() {
   const defaults = useMemo<FormValues>(() => {
     const svc = sp.get("service");
     const serviceType = svc === "autstaffing" || !svc ? "autsorsing" : svc.length >= 2 ? svc : "autsorsing";
+    const topic = sp.get("topic");
+    const commentPrefix = topic ? `Тема: ${topic}\n` : "";
     return {
       contactName: "",
       companyName: "",
@@ -93,7 +94,7 @@ export function LeadMultistepForm() {
       profession: sp.get("profession") ?? "gruzchiki",
       city: sp.get("city") ?? "moskva",
       headcount: Number(sp.get("headcount") ?? 20) || 20,
-      comment: "",
+      comment: commentPrefix,
       consent: false,
     };
   }, [sp]);
@@ -104,6 +105,7 @@ export function LeadMultistepForm() {
     setError,
     clearErrors,
     setValue,
+    setFocus,
     watch,
     getValues,
     formState: { errors },
@@ -111,14 +113,39 @@ export function LeadMultistepForm() {
     defaultValues: defaults,
   });
 
+  const formRef = useRef<HTMLFormElement>(null);
+
   const consent = watch("consent");
   const pct = ((step + 1) / 3) * 100;
+
+  const firstFieldError = (err: ZodError): FieldPath<FormValues> | null => {
+    const f = err.flatten().fieldErrors as Partial<
+      Record<keyof FormValues, string[] | undefined>
+    >;
+    const order: FieldPath<FormValues>[] = [
+      "contactName",
+      "companyName",
+      "contactPhone",
+      "serviceType",
+      "profession",
+      "headcount",
+      "city",
+      "comment",
+      "consent",
+    ];
+    for (const k of order) {
+      if (f[k]?.[0]) return k;
+    }
+    return null;
+  };
 
   const validateStep0 = () => {
     clearErrors();
     const r = step0Schema.safeParse(getValues());
     if (!r.success) {
       applyFieldErrors(r.error, setError);
+      const k = firstFieldError(r.error);
+      if (k) setFocus(k);
       return false;
     }
     return true;
@@ -129,6 +156,8 @@ export function LeadMultistepForm() {
     const r = step1Schema.safeParse(getValues());
     if (!r.success) {
       applyFieldErrors(r.error, setError);
+      const k = firstFieldError(r.error);
+      if (k) setFocus(k);
       return false;
     }
     return true;
@@ -142,6 +171,8 @@ export function LeadMultistepForm() {
     });
     if (!step2.success) {
       applyFieldErrors(step2.error, setError);
+      if (step2.error.flatten().fieldErrors.consent) setFocus("consent");
+      else if (step2.error.flatten().fieldErrors.comment) setFocus("comment");
       return;
     }
 
@@ -183,8 +214,8 @@ export function LeadMultistepForm() {
     }
   };
 
-  const profLabel = (p: (typeof PROFESSIONS)[number]) => (locale === "en" ? p.titleEn : p.titleRu);
-  const cityLabel = (c: (typeof CITIES)[number]) => (locale === "en" ? c.nameEn : c.nameRu);
+  const profLabel = (p: (typeof PROFESSIONS)[number]) => p.titleRu;
+  const cityLabel = (c: (typeof CITIES)[number]) => c.nameRu;
 
   if (doneId) {
     const thanksJson = {
@@ -192,7 +223,7 @@ export function LeadMultistepForm() {
       "@type": "WebPage",
       name: t("thanksJsonLdName"),
       description: t("thanksJsonLdDesc"),
-      url: absUrl("/zayavka", locale),
+      url: absUrl("/zayavka"),
       isPartOf: { "@type": "WebSite", name: site.brandName, url: site.url.replace(/\/$/, "") },
     };
 
@@ -201,16 +232,26 @@ export function LeadMultistepForm() {
         className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-8 text-center shadow-[var(--card-shadow)]"
         role="status"
         aria-live="polite"
+        tabIndex={-1}
       >
         <JsonLd data={thanksJson} />
         <p className="font-display text-xl font-semibold text-[var(--primary)]">{t("successTitle")}</p>
         <p className="mt-3 text-sm text-[var(--neutral-700)]">{t("successBody", { id: doneId })}</p>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <Button asChild variant="secondary" size="sm">
+            <Link href="/kalkulyator">Калькулятор</Link>
+          </Button>
+          <Button asChild size="sm">
+            <Link href="/">На главную</Link>
+          </Button>
+        </div>
       </div>
     );
   }
 
   return (
     <form
+      ref={formRef}
       className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 shadow-[var(--card-shadow)] md:p-10"
       onSubmit={(e) => {
         e.preventDefault();
@@ -219,7 +260,7 @@ export function LeadMultistepForm() {
       }}
       noValidate
     >
-      <Progress value={pct} />
+      <Progress value={pct} aria-label={t("stepLine", { current: step + 1, total: 3 })} />
       <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">
         {t("stepLine", { current: step + 1, total: 3 })}
       </p>

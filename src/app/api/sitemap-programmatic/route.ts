@@ -10,11 +10,9 @@ function esc(s: string) {
 export async function GET() {
   const now = new Date().toISOString();
   const urls: string[] = [];
-  for (const locale of ["ru", "en"] as const) {
-    for (const p of PROFESSIONS) {
-      for (const c of CITIES) {
-        urls.push(absUrl(`/personal/${p.slug}/${c.slug}`, locale));
-      }
+  for (const p of PROFESSIONS) {
+    for (const c of CITIES) {
+      urls.push(absUrl(`/personal/${p.slug}/${c.slug}`));
     }
   }
   const body = `<?xml version="1.0" encoding="UTF-8"?>

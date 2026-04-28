@@ -20,12 +20,11 @@ export const BLOG_POSTS: BlogStub[] = PUBLISHED_BLOG_ARTICLES.map((a) => ({
 
 export const BLOG_PAGE_SIZE = 9;
 
-export function blogCardFields(b: BlogStub, locale: string) {
-  const en = locale === "en";
+export function blogCardFields(b: BlogStub) {
   return {
     slug: b.slug,
-    title: en && b.titleEn ? b.titleEn : b.title,
-    excerpt: en && b.excerptEn ? b.excerptEn : b.excerpt,
+    title: b.title,
+    excerpt: b.excerpt,
     category: b.category,
   };
 }

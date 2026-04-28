@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { PROFESSIONS, CITIES } from "@/content/professions-cities";
@@ -12,24 +12,59 @@ import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
 import { trackEvent } from "@/lib/analytics";
+import { cn } from "@/lib/utils";
 
 const SERVICE_SLUG = "autsorsing" as const;
+const HOURS_SHIFT = 12;
+/** 5 шагов + экран срока/итога (нед. 7 мастер-док: профиль → численность → формат → локация → срок/доп. → результат). */
+const STEPS = 6;
 
-/** Профиль → численность → график → город → дополнения и итог */
-const STEPS = 5;
+type WorkFormat = "permanent" | "seasonal" | "night" | "oneoff";
+
+const FORMATS: { id: WorkFormat; label: string; hint: string }[] = [
+  { id: "permanent", label: "Постоянный персонал", hint: "База ~40 ч/нед" },
+  { id: "seasonal", label: "Сезон / пик", hint: "Выше часов + пиковая надбавка" },
+  { id: "night", label: "Ночной контур", hint: "Надбавка к ставке по смене" },
+  { id: "oneoff", label: "Разовый проект", hint: "Короткое окно, частичная занятость" },
+];
 
 export function CalculatorFull() {
   const sp = useSearchParams();
   const [step, setStep] = useState(0);
   const [profession, setProfession] = useState(() => sp.get("p") ?? "gruzchiki");
   const [headcount, setHeadcount] = useState(() => Number(sp.get("n") ?? 30) || 30);
+  const [workFormat, setWorkFormat] = useState<WorkFormat>("permanent");
   const [shift, setShift] = useState<"day" | "night" | "24">("day");
   const [hoursPerWeek, setHoursPerWeek] = useState(40);
   const [city, setCity] = useState("moskva");
+  const [durationMonths, setDurationMonths] = useState(3);
   const [extraHousing, setExtraHousing] = useState(false);
   const [extraTransport, setExtraTransport] = useState(false);
   const [extraPeak, setExtraPeak] = useState(false);
   const [extraCompliance, setExtraCompliance] = useState(false);
+
+  useEffect(() => {
+    if (workFormat === "permanent") {
+      setShift("day");
+      setHoursPerWeek(40);
+      setExtraPeak(false);
+    }
+    if (workFormat === "seasonal") {
+      setShift("day");
+      setHoursPerWeek(48);
+      setExtraPeak(true);
+    }
+    if (workFormat === "night") {
+      setShift("night");
+      setHoursPerWeek(40);
+      setExtraPeak(false);
+    }
+    if (workFormat === "oneoff") {
+      setShift("day");
+      setHoursPerWeek(30);
+      setExtraPeak(false);
+    }
+  }, [workFormat]);
 
   const hourlyBase = useMemo(() => getWarehouseHourlyRateRub(profession), [profession]);
   const hourlyEffective = useMemo(
@@ -41,14 +76,18 @@ export function CalculatorFull() {
     const hours = hoursPerWeek * 4.3;
     const subtotal = hourlyEffective * hours * headcount;
     const compliancePrem = extraCompliance ? subtotal * 0.06 : 0;
+    const peakLoad =
+      workFormat === "seasonal" ? subtotal * 0.08 : extraPeak ? subtotal * 0.08 : 0;
     const extras =
       (extraHousing ? headcount * 8000 : 0) +
       (extraTransport ? headcount * 3000 : 0) +
-      (extraPeak ? subtotal * 0.08 : 0);
+      peakLoad;
     const total = Math.round(subtotal + compliancePrem + extras);
     const low = Math.round(total * 0.9);
     const high = Math.round(total * 1.1);
-    return { low, high, total };
+    const shift12 = Math.round(hourlyEffective * HOURS_SHIFT * headcount);
+    const projectTotal = Math.round(total * durationMonths);
+    return { low, high, total, shift12, projectTotal };
   }, [
     hourlyEffective,
     hoursPerWeek,
@@ -57,6 +96,8 @@ export function CalculatorFull() {
     extraTransport,
     extraPeak,
     extraCompliance,
+    workFormat,
+    durationMonths,
   ]);
 
   const pct = ((step + 1) / STEPS) * 100;
@@ -70,9 +111,9 @@ export function CalculatorFull() {
         Калькулятор складского аутсорсинга
       </h1>
       <p className="mt-3 text-[var(--neutral-700)]">
-        Ориентир по ставкам <strong>₽/час</strong> для Москвы и МО: грузчики 600, комплектовщики 620, кладовщики 650,
-        водители ПРТ 750, разнорабочие и уборщики 600. Ночь и сутки дают надбавку к ставке; итог — вилка ±10% к
-        месячному фонду, финальные цифры — в КП и договоре.
+        Ориентир по ставкам <strong>₽/час</strong> для Москвы и МО: грузчики и разнорабочие 600, комплектовщики 650, кладовщики
+        680, водители погрузчика/ПРТ 800, уборщики 600. Ночь и сутки дают надбавку к ставке. Итог — вилка к месячному фонду, оценка смены
+        12 ч и вилка к проекту на выбранный срок. Финальные цифры, НДС и пакет — в КП и договоре.
       </p>
       <Card className="mt-10">
         <div className="mb-6">
@@ -86,7 +127,7 @@ export function CalculatorFull() {
         </div>
         {step === 0 ? (
           <div>
-            <Label htmlFor="prof">Профессия на складе</Label>
+            <Label htmlFor="prof">Шаг 1. Профессия на складе</Label>
             <select
               id="prof"
               className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-sm"
@@ -100,14 +141,14 @@ export function CalculatorFull() {
               ))}
             </select>
             <p className="mt-3 text-xs text-[var(--neutral-500)]">
-              Для выбранной роли базовая ставка:{" "}
+              Базовая ставка:{" "}
               <span className="font-mono-nums font-semibold text-[var(--primary)]">{hourlyBase} ₽/ч</span>
             </p>
           </div>
         ) : null}
         {step === 1 ? (
           <div>
-            <Label htmlFor="hc">Количество человек</Label>
+            <Label htmlFor="hc">Шаг 2. Количество человек</Label>
             <Input
               id="hc"
               type="number"
@@ -128,9 +169,36 @@ export function CalculatorFull() {
           </div>
         ) : null}
         {step === 2 ? (
+          <div>
+            <Label>Шаг 3. Формат работы (постоянный / сезон / ночь / разовый)</Label>
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {FORMATS.map((f) => (
+                <button
+                  key={f.id}
+                  type="button"
+                  onClick={() => setWorkFormat(f.id)}
+                  className={cn(
+                    "rounded-2xl border p-3 text-left text-sm transition",
+                    workFormat === f.id
+                      ? "border-[var(--accent)] bg-[var(--accent-soft)]"
+                      : "border-[var(--neutral-200)] bg-[var(--card)]",
+                  )}
+                >
+                  <span className="font-medium text-[var(--primary)]">{f.label}</span>
+                  <span className="mt-1 block text-xs text-[var(--neutral-500)]">{f.hint}</span>
+                </button>
+              ))}
+            </div>
+            <p className="mt-3 text-xs text-[var(--neutral-500)]">
+              Пресечки по графику и смене можно уточнить на следующем шаге.
+            </p>
+          </div>
+        ) : null}
+        {step === 3 ? (
           <div className="space-y-4">
+            <p className="text-sm font-semibold text-[var(--primary)]">Шаг 4. График (день / ночь / сутки) и часы</p>
             <div>
-              <Label>График</Label>
+              <Label>Смена</Label>
               <div className="mt-2 flex flex-wrap gap-2">
                 {(
                   [
@@ -143,19 +211,19 @@ export function CalculatorFull() {
                     key={k}
                     type="button"
                     onClick={() => setShift(k)}
-                    className={`rounded-full border px-4 py-2 text-sm font-medium ${
+                    className={cn(
+                      "rounded-full border px-4 py-2 text-sm font-medium",
                       shift === k
                         ? "border-[var(--accent)] bg-[var(--accent-soft)]"
-                        : "border-[var(--neutral-200)]"
-                    }`}
+                        : "border-[var(--neutral-200)]",
+                    )}
                   >
                     {lab}
                   </button>
                 ))}
               </div>
               <p className="mt-2 text-xs text-[var(--neutral-500)]">
-                С учётом графика: <span className="font-mono-nums font-semibold">{hourlyEffective} ₽/ч</span> на
-                человека
+                С учётом смены: <span className="font-mono-nums font-semibold">{hourlyEffective} ₽/ч</span> на человека
               </p>
             </div>
             <div>
@@ -172,9 +240,9 @@ export function CalculatorFull() {
             </div>
           </div>
         ) : null}
-        {step === 3 ? (
+        {step === 4 ? (
           <div>
-            <Label htmlFor="city">Город (МО)</Label>
+            <Label htmlFor="city">Шаг 5. Локация (Москва / МО)</Label>
             <select
               id="city"
               className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-sm"
@@ -187,12 +255,27 @@ export function CalculatorFull() {
                 </option>
               ))}
             </select>
+            <p className="mt-2 text-xs text-[var(--neutral-500)]">
+              Для сравнения по городам см. раздел «География» и программатику «персонал».
+            </p>
           </div>
         ) : null}
-        {step === 4 ? (
+        {step === 5 ? (
           <>
             <div className="space-y-4 border-b border-[var(--neutral-200)] pb-6">
-              <p className="text-sm font-semibold text-[var(--primary)]">Дополнительно</p>
+              <p className="text-sm font-semibold text-[var(--primary)]">Шаг 6. Срок (месяцы) и доп. условия</p>
+              <div>
+                <Label htmlFor="dur">Длительность проекта, мес.</Label>
+                <Input
+                  id="dur"
+                  type="number"
+                  min={1}
+                  max={36}
+                  value={durationMonths}
+                  onChange={(e) => setDurationMonths(Math.max(1, Math.min(36, Number(e.target.value) || 1)))}
+                  className="mt-2"
+                />
+              </div>
               <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
                 <Checkbox checked={extraHousing} onCheckedChange={(v) => setExtraHousing(v === true)} />
                 Нужно жильё
@@ -203,7 +286,7 @@ export function CalculatorFull() {
               </label>
               <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
                 <Checkbox checked={extraPeak} onCheckedChange={(v) => setExtraPeak(v === true)} />
-                Высокий сезон
+                Пик / разгрузка сверх плана
               </label>
               <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
                 <Checkbox checked={extraCompliance} onCheckedChange={(v) => setExtraCompliance(v === true)} />
@@ -213,11 +296,29 @@ export function CalculatorFull() {
             <div className="mt-8 rounded-2xl bg-[var(--surface)] p-6">
               <CardTitle>Предварительный расчёт</CardTitle>
               <CardDescription className="mt-2">
-                Вилка ±10% к месячному фонду: от {estimate.low.toLocaleString("ru-RU")} до{" "}
-                {estimate.high.toLocaleString("ru-RU")} ₽ / мес (оценка).
+                Вилка к месячному фонду: от {estimate.low.toLocaleString("ru-RU")} до {estimate.high.toLocaleString("ru-RU")}{" "}
+                ₽ / мес (оценка).
               </CardDescription>
+              <ul className="type-body mt-4 space-y-2 text-[var(--neutral-700)]">
+                <li>
+                  <strong>Ставка с учётом смены:</strong> {hourlyEffective} ₽/ч
+                </li>
+                <li>
+                  <strong>Ориентир за смену 12 ч (вся группа):</strong> {estimate.shift12.toLocaleString("ru-RU")} ₽
+                </li>
+                <li>
+                  <strong>Оценка на месяц (вся группа, база):</strong> {estimate.total.toLocaleString("ru-RU")} ₽
+                </li>
+                <li>
+                  <strong>Оценка на {durationMonths} мес.:</strong> {estimate.projectTotal.toLocaleString("ru-RU")} ₽
+                </li>
+              </ul>
+              <p className="type-body mt-3 text-sm text-[var(--neutral-500)]">
+                НДС, форма взаимодействия и пакет пика — в договоре. Разовый сценарий: сверяйтесь с заявкой и пилотом, а не
+                только с цифрой в калькуляторе.
+              </p>
               <p className="mt-4 font-mono-nums text-2xl font-bold text-[var(--primary)]">
-                ~{estimate.total.toLocaleString("ru-RU")} ₽
+                ~{estimate.total.toLocaleString("ru-RU")} ₽ <span className="text-base font-normal text-[var(--neutral-500)]">/ мес</span>
               </p>
               <div className="mt-6 flex flex-wrap gap-2">
                 <Button
@@ -228,6 +329,8 @@ export function CalculatorFull() {
                       profession,
                       city,
                       headcount,
+                      workFormat,
+                      durationMonths,
                       estimate: estimate.total,
                     })
                   }

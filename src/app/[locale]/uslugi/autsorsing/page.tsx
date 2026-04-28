@@ -7,7 +7,7 @@ import { buildPageMetadata } from "@/lib/seo";
 type Props = { params: { locale: string } };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const m = getServicePage("autsorsing", params.locale);
+  const m = getServicePage("autsorsing");
   if (!m) return {};
   return buildPageMetadata({
     locale: params.locale,
@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-export default function Page({ params }: Props) {
-  const m = getServicePage("autsorsing", params.locale);
+export default function Page() {
+  const m = getServicePage("autsorsing");
   if (!m) notFound();
-  return <ServicePageFull model={m} locale={params.locale} />;
+  return <ServicePageFull model={m} />;
 }

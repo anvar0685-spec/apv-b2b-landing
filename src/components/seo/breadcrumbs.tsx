@@ -5,9 +5,9 @@ import { absUrl } from "@/lib/abs-url";
 
 export type Crumb = { href: string; label: string };
 
-type Props = { items: Crumb[]; locale: string; variant?: "light" | "dark" };
+type Props = { items: Crumb[]; variant?: "light" | "dark" };
 
-export function Breadcrumbs({ items, locale, variant = "light" }: Props) {
+export function Breadcrumbs({ items, variant = "light" }: Props) {
   const json = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -15,7 +15,7 @@ export function Breadcrumbs({ items, locale, variant = "light" }: Props) {
       "@type": "ListItem",
       position: i + 1,
       name: it.label,
-      item: absUrl(it.href, locale),
+      item: absUrl(it.href),
     })),
   };
 

@@ -7,12 +7,9 @@ import { buildPageMetadata } from "@/lib/seo";
 type Props = { params: { locale: string } };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const m = getServicePage("autstaffing", params.locale);
+  const m = getServicePage("autstaffing");
   if (!m) return {};
-  const title =
-    params.locale === "en"
-      ? "Outstaffing — how the model differs (reference)"
-      : "Аутстаффинг — как отличается модель (справочно)";
+  const title = "Аутстаффинг — как отличается модель (справочно)";
   return buildPageMetadata({
     locale: params.locale,
     pathname: `/uslugi/${m.slug}`,
@@ -21,8 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-export default function Page({ params }: Props) {
-  const m = getServicePage("autstaffing", params.locale);
+export default function Page() {
+  const m = getServicePage("autstaffing");
   if (!m) notFound();
-  return <ServicePageFull model={m} locale={params.locale} />;
+  return <ServicePageFull model={m} />;
 }

@@ -9,6 +9,7 @@ export const postoyannyyPersonalPage: ServicePageBilingual = {
     intro: [
       "Постоянный контур подходит DC и хабам с устойчивым профилем смен: понятные окна пиков, согласованный резерв и регламенты обучения без еженедельной «пересборки» состава.",
       "Мы фиксируем KPI по явке, времени замены и отчётности; тарифная модель и штрафные механики — в КП и договоре, а не в маркетинговом тексте.",
+      "Долгий горизонт выгоден, когда в отчёте сходятся cost per shift, явка и OEE/throughput: еженедельные разборы с опорой на факт WMS, а не на «оценку на планёрке» — тогда и финансам, и операциям проще удерживать смету в квартале.",
       "Аутстаффинг не поставляем: работаем как подрядчик по сменам с ответственностью подрядчика за операционный результат на линии.",
     ],
     segments: [
@@ -39,6 +40,8 @@ export const postoyannyyPersonalPage: ServicePageBilingual = {
       { q: "Можно ли выйти из контракта?", a: "Условия расторжения и переходного периода — в договоре." },
       { q: "Нужен ли пилот?", a: "Рекомендуем для калибровки метрик и регламентов." },
       { q: "Как стартовать?", a: "Заявка или калькулятор — далее созвон с операционным менеджером." },
+      { q: "Постоянный — значит весь штат вне штата заказчика?", a: "Нет: речь о договорной поставке смен подрядчиком с устойчивым планом и контактом; нюансы формы взаимодействия — в договоре, не в абзаце на сайте." },
+      { q: "Как согласовать индексации и пик?", a: "Сценарии пика, коэффициенты и пороги эскалации — в КП/приложениях; публичная страница не фиксирует индивидуальные цифры." },
     ],
   },
   en: {
@@ -48,6 +51,7 @@ export const postoyannyyPersonalPage: ServicePageBilingual = {
     intro: [
       "Permanent staffing fits DCs with steady shift profiles: known peak windows, agreed reserves and training routines without weekly roster rebuilds.",
       "We align KPIs for attendance, replacement time and reporting; pricing and penalty mechanics belong in the proposal and contract, not marketing copy.",
+      "Long horizons work when cost per shift, attendance and OEE/throughput reconcile in a weekly review grounded in WMS facts — not a 'how did the shift feel' standup.",
       "We do not supply outstaffing: we operate as a shift contractor accountable for line outcomes.",
     ],
     segments: [
@@ -78,6 +82,14 @@ export const postoyannyyPersonalPage: ServicePageBilingual = {
       { q: "Can we exit the contract?", a: "Termination and transition terms live in the agreement." },
       { q: "Is a pilot required?", a: "Recommended to calibrate metrics and procedures." },
       { q: "How to start?", a: "Use the lead form or calculator — then a call with the ops manager." },
+      {
+        q: "Does 'permanent' mean everyone is outside the customer's headcount?",
+        a: "No: it is contractual shift supply with a stable plan and a single point of contact; the legal shape is in the contract, not in a line on a landing page.",
+      },
+      {
+        q: "How are peak waves and indexation handled?",
+        a: "Scenarios, coefficients and escalation gates sit in the proposal/annexes; the public page does not lock individual numbers.",
+      },
     ],
   },
 };

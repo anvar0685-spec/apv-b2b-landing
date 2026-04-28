@@ -6,9 +6,9 @@ export type ServicePageModel = ServiceLocaleBlock & { slug: string };
 
 export type ServiceFAQ = import("@/content/service-pages/types").ServiceFAQ;
 
-export function getServicePage(slug: string, locale = "ru"): ServicePageModel | null {
+export function getServicePage(slug: string): ServicePageModel | null {
   const b = SERVICE_PAGES_BILINGUAL[slug];
   if (!b) return null;
-  const block = locale === "en" ? b.en : b.ru;
+  const block = b.ru;
   return { slug: b.slug, ...block };
 }

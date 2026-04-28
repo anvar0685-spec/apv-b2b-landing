@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { HeroSection } from "@/components/home/hero-section";
 import { TrustMarquee } from "@/components/home/trust-marquee";
 import { HomePersonas } from "@/components/home/home-personas";
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
     description: t("heroSubtitle"),
   });
   const siteBase = site.url.replace(/\/$/, "");
-  const ogPath = locale === "en" ? "/en/opengraph-image" : "/opengraph-image";
+  const ogPath = "/opengraph-image";
   const ogTitle = typeof base.openGraph?.title === "string" ? base.openGraph.title : t("heroTitle");
   return {
     ...base,
@@ -38,27 +38,26 @@ export async function generateMetadata({ params }: { params: { locale: string } 
 
 export default async function HomePage() {
   const t = await getTranslations("home");
-  const locale = await getLocale();
   const base = site.url.replace(/\/$/, "");
   const orgDescription =
-    locale === "en"
-      ? "Warehouse staffing outsourcing in Moscow and the Moscow Oblast: shifts, SLA, transparent rates, compliance."
-      : "Аутсорсинг персонала на склады Москвы и МО: смены, SLA, прозрачные ставки, compliance.";
+    "Аутсорсинг персонала на склады Москвы и МО: смены, SLA, прозрачные ставки, compliance.";
 
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: site.brandName,
+    legalName: site.legalEntityFullName,
     url: base,
     description: orgDescription,
     identifier: [
       { "@type": "PropertyValue", name: "INN", value: site.inn },
-      { "@type": "PropertyValue", name: "OGRN", value: site.ogrn },
+      { "@type": "PropertyValue", name: "OGRNIP", value: site.ogrn },
     ],
     address: {
       "@type": "PostalAddress",
       streetAddress: site.legalAddress,
-      addressLocality: "Москва",
+      addressLocality: "Люберцы",
+      addressRegion: "Московская область",
       addressCountry: "RU",
     },
     contactPoint: [

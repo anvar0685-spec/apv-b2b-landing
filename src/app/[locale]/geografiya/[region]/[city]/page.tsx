@@ -27,14 +27,8 @@ export function generateMetadata({ params }: Props): Metadata {
   if (!isValidPair(region, city)) return {};
   const loc = geoLabel(city);
   const reg = geoLabel(region);
-  const title =
-    locale === "en"
-      ? `Warehouse staffing — ${loc.en} (${reg.en})`
-      : `Аутсорсинг складского персонала — ${loc.ru} (${reg.ru})`;
-  const description =
-    locale === "en"
-      ? `Outsourcing in ${loc.en}: rates, logistics reaction time, cases — content TBD.`
-      : `Аутсорсинг в ${loc.ru}: ставки, время выхода на объект, кейсы — контент по роадмапу.`;
+  const title = `Аутсорсинг складского персонала — ${loc.ru} (${reg.ru})`;
+  const description = `Аутсорсинг в ${loc.ru}: ставки, время выхода на объект, кейсы — контент по роадмапу.`;
   return buildPageMetadata({
     locale,
     pathname: `/geografiya/${region}/${city}`,
@@ -49,23 +43,19 @@ export default function Page({ params }: Props) {
 
   const loc = geoLabel(city);
   const reg = geoLabel(region);
-  const h1 = locale === "en" ? `Staffing in ${loc.en}` : `Персонал в ${loc.ru}`;
-  const lead =
-    locale === "en"
-      ? `Geo landing for ${loc.en} within ${reg.en}.`
-      : `Гео-посадочная: ${loc.ru} (${reg.ru}).`;
+  const h1 = `Персонал в ${loc.ru}`;
+  const lead = `Гео-посадочная: ${loc.ru} (${reg.ru}).`;
 
-  const hub = locale === "en" ? "Geography" : "География";
-  const kicker = locale === "en" ? "Geo" : "Локация";
+  const hub = "География";
+  const kicker = "Локация";
 
   return (
     <CommercialSeoPage
-      locale={locale}
       crumbs={[
-        { href: "/", label: locale === "en" ? "Home" : "Главная" },
+        { href: "/", label: "Главная" },
         { href: "/geografiya", label: hub },
-        { href: `/geografiya/${region}`, label: locale === "en" ? reg.en : reg.ru },
-        { href: `/geografiya/${region}/${city}`, label: locale === "en" ? loc.en : loc.ru },
+        { href: `/geografiya/${region}`, label: reg.ru },
+        { href: `/geografiya/${region}/${city}`, label: loc.ru },
       ]}
       kicker={kicker}
       title={h1}

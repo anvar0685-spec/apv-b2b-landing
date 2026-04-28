@@ -8,8 +8,9 @@ export const autsorsingPage: ServicePageBilingual = {
       "Поставка смен под KPI явки: грузчики, комплектовщики, кладовщики, водители ПРТ, уборщики и разнорабочие. Ответственность подрядчика, прозрачные ориентиры ₽/час, документальный контур без переноса операционного шума в вашу кадровую службу.",
     intro: [
       "Мы работаем как подрядчик по складским сменам: явка, замены, отчётность и согласованный SLA — без модели аутстаффинга. Это снижает риск «серых зон» в закупке и упрощает контроль со стороны COO и директора склада.",
-      "Ориентиры по ставкам (₽/час, дневная смена, Москва/МО): грузчики от 600, комплектовщики от 620, кладовщики от 650, водители ПРТ от 750, разнорабочие и уборщики от 600. Ночь, сутки и пиковые окна — с коэффициентами из коммерческого предложения; итоговая модель зависит от профиля, графика и локации.",
+      "Ориентиры по ставкам (₽/час, дневная смена, Москва/МО): грузчики и разнорабочие от 600, комплектовщики от 650, кладовщики от 680, водители ПРТ от 800, уборщики от 600. Ночь, сутки и пиковые окна — с коэффициентами из коммерческого предложения; итоговая модель зависит от профиля, графика и локации.",
       "Калькулятор на сайте даёт быстрый оценочный фонд; детальный расчёт и договор фиксируют KPI по явке, времени реакции на замену, compliance и формат отчётности по сменам. Ниже — блоки «кому подходит», «как работает», включения, сравнение с альтернативами, FAQ и ссылки на профессии и программатику по городам.",
+      "Для закупки: одна плоскость сравнения (источник данных WMS, окно пика, плечо до площадки, сценарий срыва) — снимает риск, что три подрядчика отвечают на один RFP, но с несопоставимыми допущениями.",
       "Тексты носят информационный характер и не заменяют индивидуальную юридическую консультацию. Объёмные обязательства, штрафные механики и сроки закрепляются в договоре, приложениях к SLA и внутренних регламентах качества.",
     ],
     segments: [
@@ -82,8 +83,9 @@ export const autsorsingPage: ServicePageBilingual = {
       "Shift delivery with attendance KPIs: loaders, pickers, warehouse clerks, PRT drivers, cleaners and general labour. Contractor accountability, transparent hourly benchmarks in RUB, and a document trail without dumping HR noise on your team.",
     intro: [
       "We operate as a warehouse shift contractor: attendance, replacements, reporting and an agreed SLA — not as an outstaffing vendor. That reduces grey zones in procurement and makes it easier for the COO and site director to govern the loop.",
-      "Hourly benchmarks (RUB/h, day shift, Moscow/MO): loaders from 600, pickers from 620, warehouse clerks from 650, PRT drivers from 750, general labour and cleaners from 600. Nights, 24/7 windows and peaks use coefficients from the commercial proposal; the final model depends on profile, schedule and location.",
+      "Hourly benchmarks (RUB/h, day shift, Moscow/MO): loaders and general labour from 600, pickers from 650, warehouse clerks from 680, PRT drivers from 800, cleaners from 600. Nights, 24/7 windows and peaks use coefficients from the commercial proposal; the final model depends on profile, schedule and location.",
       "The on-site calculator gives a quick payroll estimate; the detailed proposal and contract lock KPIs for attendance, replacement response time, compliance and per-shift reporting. Below: fit, process, inclusions, comparison with alternatives, FAQ and links to roles and city landings.",
+      "For procurement: keep one comparison plane (WMS data source, peak window, travel time to site, failure scenario) so three bidders are not answering the same RFP with incompatible assumptions.",
       "Copy is informational and does not replace legal advice. Material obligations, penalties and timelines are set in the contract, SLA annexes and internal quality policies.",
     ],
     segments: [

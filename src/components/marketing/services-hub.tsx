@@ -3,42 +3,34 @@ import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { getServicePage } from "@/content/service-page-data";
 
-type Props = { locale: string };
-
-export function ServicesHub({ locale }: Props) {
-  const en = locale === "en";
-  const main = getServicePage("autsorsing", locale);
+export function ServicesHub() {
+  const main = getServicePage("autsorsing");
   if (!main) return null;
 
   const t = {
-    kicker: en ? "Warehouses · Moscow & Moscow Oblast" : "Склады · Москва и МО",
-    h1: en ? "Services" : "Услуги",
-    lead: en ? (
-      <>
-        Core offer: <strong>warehouse shift outsourcing</strong>. Migration compliance and recruiting sit inside the
-        shift-supply contract; separate pages below support procurement and SEO.
-      </>
-    ) : (
+    kicker: "Склады · Москва и МО",
+    h1: "Услуги",
+    lead: (
       <>
         Основной продукт — <strong>аутсорсинг персонала на склады</strong>. Миграционный учёт и подбор входят в
         контракт поставки смен; отдельные страницы ниже — для закупки и SEO.
       </>
     ),
-    flagship: en ? "Flagship" : "Флагман",
-    cta: en ? "Model and scope" : "Подробнее и модель поставки",
-    blockTitle: en ? "Inside the warehouse contract" : "В рамках складского договора",
-    migration: en ? "Migration compliance" : "Миграционный учёт",
-    migrationDesc: en ? "Document trail for the site." : "документальный контур под объект.",
-    recruiting: en ? "Recruiting" : "Подбор персонала",
-    recruitingDesc: en ? "Funnel tuned to warehouse roles." : "воронка под профили склада.",
-    managed: en ? "Managed contractor model" : "Управляемый подряд",
-    managedDesc: en ? "For mature DCs with strict KPIs (on request)." : "для зрелых DC с жёсткими KPI (по запросу).",
-    permanent: en ? "Permanent shift teams" : "Постоянный персонал",
-    permanentDesc: en ? "Stable roster and KPI for long-running sites." : "стабильный состав и KPI для долгих контрактов.",
-    night: en ? "Night shifts" : "Ночные смены",
-    nightDesc: en ? "Separate SLA, mentoring and night reporting." : "отдельный SLA, менторинг и отчётность по ночи.",
-    reference: en ? "Reference (we do not supply outstaffing)" : "Справочно (аутстаффинг не поставляем)",
-    referenceLink: en ? "How outstaffing differs" : "Чем отличается аутстаффинг",
+    flagship: "Флагман",
+    cta: "Подробнее и модель поставки",
+    blockTitle: "В рамках складского договора",
+    migration: "Миграционный учёт",
+    migrationDesc: "документальный контур под объект.",
+    recruiting: "Подбор персонала",
+    recruitingDesc: "воронка под профили склада.",
+    managed: "Управляемый подряд",
+    managedDesc: "для зрелых DC с жёсткими KPI (по запросу).",
+    permanent: "Постоянный персонал",
+    permanentDesc: "стабильный состав и KPI для долгих контрактов.",
+    night: "Ночные смены",
+    nightDesc: "отдельный SLA, менторинг и отчётность по ночи.",
+    reference: "Справочно (аутстаффинг не поставляем)",
+    referenceLink: "Чем отличается аутстаффинг",
   };
 
   return (

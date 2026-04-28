@@ -39,6 +39,14 @@ export const nochnyeSmenyPage: ServicePageBilingual = {
       { q: "Как обеспечивается безопасность?", a: "Инструктажи и контрольные точки согласуются с заказчиком и регламентами площадки." },
       { q: "Можно ли совместить с дневным контрактом?", a: "Да, единый договор с раздельными SLA по окнам." },
       { q: "Как стартовать?", a: "Заявка с описанием ночного контура — ответ с планом пилота." },
+      {
+        q: "Почему в калькуляторе ночь даёт коэффициент, а в КП цифра отличается?",
+        a: "Витринный ориентир сглаживает локальные риски; в КП закладываются пик, состав двора и конкретный договорный пакет, включая H&S-надстройки.",
+      },
+      {
+        q: "Кто ведёт смена-в-смену, если ночь «сыпется» в одном кластере?",
+        a: "Прописываем единого дежурного диспетчера и сценарий бригады+резерва, а не суточный пожар в чате; деталь — в приложениях к SLA.",
+      },
     ],
   },
   en: {
@@ -78,6 +86,14 @@ export const nochnyeSmenyPage: ServicePageBilingual = {
       { q: "How is safety handled?", a: "Briefings and checkpoints align with the customer and site rules." },
       { q: "Can it combine with a day contract?", a: "Yes — one agreement with separate SLAs per window." },
       { q: "How to start?", a: "Send a request describing the night loop — we reply with a pilot plan." },
+      {
+        q: "Why does the calculator show a night coefficient but the proposal number differs?",
+        a: "The public benchmark smooths local risk; the proposal bakes in peak, yard mix and the contract pack, including H&S add-ons.",
+      },
+      {
+        q: "Who runs night-to-night if one cluster is unstable?",
+        a: "We name a single dispatch owner and a crew+reserve script, not 24/7 firefighting in chat; details in SLA annexes.",
+      },
     ],
   },
 };

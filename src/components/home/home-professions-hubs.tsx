@@ -3,15 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { PROFESSIONS } from "@/content/professions-cities";
 import { OTRASLI_SLUGS, PLOSHCHADKI_SLUGS } from "@/lib/site-structure";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 /** Первые 10 ролей из канона (без промо и прочего «несклад» в хвосте списка). */
 const TOP_PROFESSIONS = PROFESSIONS.slice(0, 10);
 
 export async function HomeProfessionsHubs() {
-  const locale = await getLocale();
   const t = await getTranslations("homePage.professionsHub");
-  const en = locale === "en";
 
   return (
     <section id="professions-home" className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
@@ -40,7 +38,7 @@ export async function HomeProfessionsHubs() {
               href={`/personal/${p.slug}`}
               className="block rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] px-4 py-4 text-sm font-semibold text-[var(--primary)] shadow-[var(--card-shadow)] transition hover:border-[color-mix(in_srgb,var(--accent)_35%,var(--neutral-200))] hover:text-[var(--accent)]"
             >
-              {en ? p.titleEn : p.titleRu}
+              {p.titleRu}
             </Link>
           </li>
         ))}
@@ -62,7 +60,7 @@ export async function HomeProfessionsHubs() {
               {OTRASLI_SLUGS.slice(0, 4).map((o) => (
                 <li key={o.slug}>
                   <Link className="text-[var(--accent)] hover:underline" href={`/otrasli/${o.slug}`}>
-                    {en ? o.title.en : o.title.ru}
+                    {o.title.ru}
                   </Link>
                 </li>
               ))}
@@ -80,7 +78,7 @@ export async function HomeProfessionsHubs() {
               {PLOSHCHADKI_SLUGS.map((p) => (
                 <li key={p.slug}>
                   <Link className="text-[var(--accent)] hover:underline" href={`/ploshchadki/${p.slug}`}>
-                    {en ? p.title.en : p.title.ru}
+                    {p.title.ru}
                   </Link>
                 </li>
               ))}

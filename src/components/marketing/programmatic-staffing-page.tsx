@@ -1,5 +1,7 @@
 import { isPriorityCross } from "@/content/cross-priority";
+import { getPriorityCrossNarrative } from "@/content/cross-priority-narratives";
 import { CITIES, PROFESSIONS } from "@/content/professions-cities";
+import { getProgrammaticLongreadParagraphs } from "@/content/programmatic-longread";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
@@ -10,51 +12,31 @@ type CityDef = (typeof CITIES)[number];
 type Props = {
   profession: ProfessionDef;
   city: CityDef;
-  locale: string;
 };
 
-export function ProgrammaticStaffingPage({ profession, city, locale }: Props) {
-  const en = locale === "en";
-  const cityName = en ? city.nameEn : city.nameRu;
-  const roleName = en ? profession.titleEn : profession.titleRu;
+export function ProgrammaticStaffingPage({ profession, city }: Props) {
+  const cityName = city.nameRu;
+  const roleName = profession.titleRu;
   const priority = isPriorityCross(profession.slug, city.slug);
+  const longread = getProgrammaticLongreadParagraphs(profession, city);
+  const priorityNarrative = priority
+    ? getPriorityCrossNarrative(profession.slug, city.slug) ?? null
+    : null;
 
   const t = {
-    kicker: en ? "Programmatic · Moscow Oblast" : "Программатика · МО",
-    h1: en
-      ? `${roleName} in ${cityName} — warehouse shift outsourcing`
-      : `${roleName} в ${cityName} — аутсорсинг складских смен`,
-    lead: en
-      ? "Local landing for search and procurement: regional context, calculator deep-link, and navigation to neighbouring cities for the same role. We do not supply outstaffing."
-      : "Локальная посадочная под поиск и закупки: контекст региона, ссылка в калькулятор и переход к соседним городам по той же профессии. Аутстаффинг не поставляем.",
-    calc: en ? "Estimate range" : "Рассчитать вилку",
-    proposal: en ? "Request proposal" : "Получить КП",
-    h2: en ? "What editorial will expand here" : "Что здесь будет развёрнуто редакцией",
-    p1: en
-      ? `Indicative rates and shift patterns for ${cityName}, service zone map, major employers in the area, and a local FAQ with structured data — the standard B2B stack for “role × city” pages.`
-      : `Таблица ориентиров по ставкам и сменности для ${cityName}, карта зоны выхода на объект, блок крупных работодателей региона и локальный FAQ с микроразметкой — стандартный набор для B2B-программатики «профессия × город».`,
-    p2: en
-      ? "The page already exposes correct meta tags, clean URLs, and CTAs into the calculator with prefilled parameters — so intent is not lost between search and the lead form."
-      : "Сейчас страница отдаёт корректные мета-теги, ЧПУ и CTA в калькулятор с предзаполненными параметрами — чтобы не терять интент пользователя между поиском и заявкой.",
-    cardTitle: en ? "Quick actions" : "Быстрые действия",
-    cardDesc: en
-      ? "Calculator and request flows already carry the right context."
-      : "Калькулятор и заявка уже ведут на нужный контекст.",
-    l1: en ? "Case studies by industry" : "Кейсы по отраслям",
-    l2: en ? "Warehouse shift outsourcing" : "Складской аутсорсинг",
-    l3: en ? "Other cities for this role" : "Другие города для профессии",
-    priBadge: en ? "Priority cluster (week-5 programme)" : "Приоритетный кластер (программа нед. 5)",
-    priH2: en ? "Local procurement context" : "Локальный контекст закупки",
-    priP1: en
-      ? `${cityName} concentrates employers and transport corridors that affect mobilisation time and bench depth for ${roleName}.`
-      : `В ${cityName} сосредоточены работодатели и транспортные коридоры, которые влияют на время выхода и глубину резерва для профиля «${roleName}».`,
-    priP2: en
-      ? "This priority page receives an expanded editorial block first; neighbouring programmatic URLs stay in the same contract model."
-      : "Эта приоритетная страница получает расширенный блок редактора первой; соседние programmatic URL остаются в той же договорной модели.",
-    priH3: en ? "Neighbouring demand signals" : "Соседние сигналы спроса",
-    priP3: en
-      ? "Use the profession hub to compare Khimki, Moscow and Podolsk patterns before you lock a pilot footprint."
-      : "Сравните паттерны Химок, Москвы и Подольска через хаб профессии перед фиксацией пилотного контура.",
+    kicker: "Программатика · МО",
+    h1: `${roleName} в ${cityName} — аутсорсинг складских смен`,
+    lead:
+      "Локальная посадочная под поиск и закупки: контекст региона, ссылка в калькулятор и переход к соседним городам по той же профессии. Аутстаффинг не поставляем.",
+    calc: "Рассчитать вилку",
+    proposal: "Получить КП",
+    h2: "Модель поставки смен и закупочный контекст",
+    cardTitle: "Быстрые действия",
+    cardDesc: "Калькулятор и заявка уже ведут на нужный контекст.",
+    l1: "Кейсы по отраслям",
+    l2: "Складской аутсорсинг",
+    l3: "Другие города для профессии",
+    priBadge: "Приоритетный кластер (программа нед. 5)",
   };
 
   return (
@@ -92,15 +74,17 @@ export function ProgrammaticStaffingPage({ profession, city, locale }: Props) {
           <div className="lg:col-span-7">
             <h2 className="type-headline">{t.h2}</h2>
             <div className="type-editorial-dropcap type-body mt-6 space-y-4">
-              <p>{t.p1}</p>
-              <p>{t.p2}</p>
-              {priority ? (
+              {longread.map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+              {priorityNarrative?.length ? (
                 <>
-                  <h3 className="type-headline pt-4 text-xl">{t.priH2}</h3>
-                  <p>{t.priP1}</p>
-                  <p>{t.priP2}</p>
-                  <h3 className="type-headline pt-2 text-xl">{t.priH3}</h3>
-                  <p>{t.priP3}</p>
+                  <h3 className="type-headline pt-6 text-xl" id="priority-narrative">
+                    Локальный контекст: {cityName} × {roleName}
+                  </h3>
+                  {priorityNarrative.map((para, j) => (
+                    <p key={`pri-${j}`}>{para}</p>
+                  ))}
                 </>
               ) : null}
             </div>

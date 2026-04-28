@@ -48,39 +48,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
   const last = new Date();
 
-  for (const locale of ["ru", "en"] as const) {
-    for (const p of STATIC) {
-      entries.push({
-        url: absUrl(p, locale),
-        lastModified: last,
-        changeFrequency: "weekly",
-        priority: staticPriority(p),
-      });
-    }
-    for (const prof of PROFESSIONS) {
-      entries.push({
-        url: absUrl(`/personal/${prof.slug}`, locale),
-        lastModified: last,
-        changeFrequency: "weekly",
-        priority: 0.65,
-      });
-    }
-    for (const b of BLOG_POSTS) {
-      entries.push({
-        url: absUrl(`/blog/${b.slug}`, locale),
-        lastModified: new Date(b.publishedAt),
-        changeFrequency: "monthly",
-        priority: 0.5,
-      });
-    }
-    for (const c of CASES) {
-      entries.push({
-        url: absUrl(`/keysy/${c.slug}`, locale),
-        lastModified: last,
-        changeFrequency: "monthly",
-        priority: 0.55,
-      });
-    }
+  for (const p of STATIC) {
+    entries.push({
+      url: absUrl(p),
+      lastModified: last,
+      changeFrequency: "weekly",
+      priority: staticPriority(p),
+    });
+  }
+  for (const prof of PROFESSIONS) {
+    entries.push({
+      url: absUrl(`/personal/${prof.slug}`),
+      lastModified: last,
+      changeFrequency: "weekly",
+      priority: 0.65,
+    });
+  }
+  for (const b of BLOG_POSTS) {
+    entries.push({
+      url: absUrl(`/blog/${b.slug}`),
+      lastModified: new Date(b.publishedAt),
+      changeFrequency: "monthly",
+      priority: 0.5,
+    });
+  }
+  for (const c of CASES) {
+    entries.push({
+      url: absUrl(`/keysy/${c.slug}`),
+      lastModified: last,
+      changeFrequency: "monthly",
+      priority: 0.55,
+    });
   }
 
   return entries;

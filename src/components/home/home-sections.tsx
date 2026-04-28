@@ -9,14 +9,13 @@ import { CaseSparkline } from "@/components/home/case-sparkline";
 import { ProcessStickySplit } from "@/components/home/process-sticky-split";
 import { HomeProfessionsHubs } from "@/components/home/home-professions-hubs";
 import { HomeWhyUs } from "@/components/home/home-why-us";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 type FaqItem = { q: string; a: string };
 type ReviewItem = { initials: string; name: string; role: string; quote: string };
 type TechTile = { t: string; d: string };
 
 export async function HomeSections() {
-  const locale = await getLocale();
   const t = await getTranslations("homePage");
   const ts = await getTranslations("homePage.sections");
 
@@ -124,7 +123,7 @@ export async function HomeSections() {
         <p className="mt-4 max-w-2xl text-[var(--neutral-700)]">{ts("casesLead")}</p>
         <div className="mt-14 grid gap-6 lg:grid-cols-3">
           {CASES.slice(0, 3).map((c, i) => {
-            const card = caseCardFields(c, locale);
+            const card = caseCardFields(c);
             return (
               <Card
                 key={c.slug}
@@ -213,7 +212,7 @@ export async function HomeSections() {
         </div>
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {BLOG_POSTS.slice(0, 3).map((b) => {
-            const card = blogCardFields(b, locale);
+            const card = blogCardFields(b);
             const catLabel = blogCategories[b.category] ?? b.category;
             return (
               <Card key={b.slug}>

@@ -14,13 +14,11 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: Props): Metadata {
   const def = PLOSHCHADKI_SLUGS.find((p) => p.slug === params.slug);
   if (!def) return {};
-  const title = params.locale === "en" ? def.title.en : def.title.ru;
-  const description = params.locale === "en" ? def.description.en : def.description.ru;
   return buildPageMetadata({
     locale: params.locale,
     pathname: `/ploshchadki/${def.slug}`,
-    title,
-    description,
+    title: def.title.ru,
+    description: def.description.ru,
   });
 }
 
@@ -29,19 +27,18 @@ export default function Page({ params }: Props) {
   if (!def) notFound();
 
   const { locale } = params;
-  const title = locale === "en" ? def.title.en : def.title.ru;
-  const lead = locale === "en" ? def.description.en : def.description.ru;
-  const hub = locale === "en" ? "Platforms" : "Площадки";
-  const kicker = locale === "en" ? "Marketplace staffing" : "Площадка";
+  const title = def.title.ru;
+  const lead = def.description.ru;
+  const hub = "Площадки";
+  const kicker = "Площадка";
 
-  const editorial = platformEditorial(def.slug, locale);
+  const editorial = platformEditorial(def.slug);
 
   return (
     <CommercialSeoPage
-      locale={locale}
       editorialParagraphs={editorial}
       crumbs={[
-        { href: "/", label: locale === "en" ? "Home" : "Главная" },
+        { href: "/", label: "Главная" },
         { href: "/ploshchadki", label: hub },
         { href: `/ploshchadki/${def.slug}`, label: title },
       ]}

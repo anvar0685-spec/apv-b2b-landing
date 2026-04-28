@@ -7,6 +7,7 @@ import {
   Hammer,
   Megaphone,
   PackageOpen,
+  Layers,
   Sparkles,
   Truck,
   Warehouse,
@@ -24,7 +25,7 @@ export const PROFESSION_ICONS: Record<ProfessionSlug, LucideIcon> = {
   razdorabochie: Hammer,
   klinery: Sparkles,
   "voditeli-kategorii-b": CarFront,
-  "sborschiki-upakovschiki": ClipboardList,
+  "sborschiki-upakovschiki": Layers,
   promoutery: Megaphone,
 };
 

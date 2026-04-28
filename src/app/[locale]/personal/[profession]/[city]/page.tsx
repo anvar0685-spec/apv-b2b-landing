@@ -23,16 +23,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const prof = getProfession(params.profession);
   const city = getCity(params.city);
   if (!prof || !city) return { title: "Персонал" };
-  const en = params.locale === "en";
   const brand = site.brandName.replace(/_/g, " ");
-  const cityName = en ? city.nameEn : city.nameRu;
-  const roleName = en ? prof.titleEn : prof.titleRu;
-  const title = en
-    ? `${roleName} in ${cityName} — shift outsourcing — ${brand}`
-    : `${roleName} в ${cityName} — аутсорсинг смен — ${brand}`;
-  const description = en
-    ? `Local page for ${roleName} in ${cityName}: indicative rates, shift logistics, compliance. We deliver warehouse shift outsourcing (no outstaffing).`
-    : `Локальная страница «${roleName}» в ${cityName}: ориентиры по ставкам, логистика смен, compliance. Поставка складских смен подрядчиком (без аутстаффинга).`;
+  const cityName = city.nameRu;
+  const roleName = prof.titleRu;
+  const title = `${roleName} в ${cityName} — аутсорсинг смен — ${brand}`;
+  const description = `Локальная страница «${roleName}» в ${cityName}: ориентиры по ставкам, логистика смен, compliance. Поставка складских смен подрядчиком (без аутстаффинга).`;
   return buildPageMetadata({
     locale: params.locale,
     pathname: `/personal/${params.profession}/${params.city}`,
@@ -46,5 +41,5 @@ export default function ProgrammaticPage({ params }: Props) {
   const city = getCity(params.city);
   if (!prof || !city) notFound();
 
-  return <ProgrammaticStaffingPage profession={prof} city={city} locale={params.locale} />;
+  return <ProgrammaticStaffingPage profession={prof} city={city} />;
 }

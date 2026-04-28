@@ -22,12 +22,15 @@ export default function Page() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: site.brandName,
+    legalName: site.legalEntityFullName,
     url: site.url,
     telephone: site.phone,
     email: site.emailHello,
     address: {
       "@type": "PostalAddress",
       streetAddress: site.legalAddress,
+      addressLocality: "Люберцы",
+      addressRegion: "Московская область",
       addressCountry: "RU",
     },
   };
@@ -96,11 +99,46 @@ export default function Page() {
                 </div>
               </li>
               <li className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 shadow-[var(--card-shadow)]">
-                <span className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">Юридический адрес</span>
+                <span className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">
+                  Юридическое лицо
+                </span>
+                <p className="mt-2 text-sm font-medium leading-snug text-[var(--neutral-950)]">{site.legalEntityFullName}</p>
+                <span className="mt-4 block text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">
+                  Юридический адрес
+                </span>
                 <p className="mt-2 max-w-md leading-relaxed text-[var(--neutral-700)]">{site.legalAddress}</p>
                 <p className="mt-3 text-sm text-[var(--neutral-500)]">
-                  ИНН {site.inn} · ОГРН {site.ogrn}
+                  ИНН {site.inn} · ОГРНИП {site.ogrn}
                 </p>
+              </li>
+              <li className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 shadow-[var(--card-shadow)]">
+                <span className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">Банковские реквизиты</span>
+                <dl className="mt-3 space-y-2 text-sm text-[var(--neutral-700)]">
+                  <div>
+                    <dt className="text-xs text-[var(--neutral-500)]">Расчётный счёт</dt>
+                    <dd className="font-mono-nums font-medium">{site.checkingAccount}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-[var(--neutral-500)]">Банк</dt>
+                    <dd>{site.bankName}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-[var(--neutral-500)]">ИНН банка</dt>
+                    <dd className="font-mono-nums">{site.bankInn}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-[var(--neutral-500)]">БИК</dt>
+                    <dd className="font-mono-nums">{site.bik}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-[var(--neutral-500)]">к/с</dt>
+                    <dd className="font-mono-nums break-all">{site.correspondentAccount}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-[var(--neutral-500)]">Юр. адрес банка</dt>
+                    <dd className="leading-relaxed">{site.bankLegalAddress}</dd>
+                  </div>
+                </dl>
               </li>
             </ul>
 
@@ -117,7 +155,7 @@ export default function Page() {
           <div>
             <h2 className="font-display text-xl font-semibold tracking-tight text-[var(--primary)]">Карта</h2>
             <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-700)]">
-              Виджет Яндекс.Карт подключается после выбора финального адреса и выдачи ключа API.
+              Виджет Яндекс.Карт подключается после выдачи ключа API (юр. адрес — Люберцы, см. блок реквизитов).
             </p>
             <div
               className="mt-8 flex aspect-[4/3] w-full items-center justify-center rounded-2xl border border-[var(--neutral-200)] bg-gradient-to-br from-[var(--surface)] to-[var(--card)] text-center shadow-[var(--card-shadow)]"

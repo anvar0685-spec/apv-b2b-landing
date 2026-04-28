@@ -1,4 +1,4 @@
-import type { LegalSection } from "@/content/legal-pages-stub";
+import type { LegalSection } from "@/content/legal-types";
 
 /** Оглавление + разделы без шапки страницы (для композиции с кастомным hero). */
 export function LegalTableOfContentsAndSections({ sections }: { sections: LegalSection[] }) {

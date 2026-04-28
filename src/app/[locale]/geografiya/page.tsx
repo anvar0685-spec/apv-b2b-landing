@@ -10,28 +10,22 @@ type Props = { params: { locale: string } };
 
 export function generateMetadata({ params }: Props): Metadata {
   const { locale } = params;
-  const title = locale === "en" ? "Geography: Moscow & MO" : "География: Москва и МО";
-  const description =
-    locale === "en"
-      ? "Regional hub for warehouse staffing SEO pages."
-      : "Региональный хаб посадочных под аутсорсинг на складах.";
+  const title = "География: Москва и МО";
+  const description = "Региональный хаб посадочных под аутсорсинг на складах.";
   return buildPageMetadata({ locale, pathname: "/geografiya", title, description });
 }
 
 export default function Page({ params }: Props) {
   const { locale } = params;
-  const title = locale === "en" ? "Geography" : "География";
+  const title = "География";
   const lead =
-    locale === "en"
-      ? "Moscow districts and key cities in the Moscow Oblast — landing scaffold per master prompt §5."
-      : "Округа Москвы и ключевые города МО — каркас посадочных по §5 мастер-документа.";
-  const kicker = locale === "en" ? "Geography" : "География";
+    "Округа Москвы и ключевые города МО — каркас посадочных по §5 мастер-документа.";
+  const kicker = "География";
 
   return (
     <CommercialSeoPage
-      locale={locale}
-      editorialParagraphs={geoHubEditorial(locale)}
-      crumbs={[{ href: "/", label: locale === "en" ? "Home" : "Главная" }, { href: "/geografiya", label: title }]}
+      editorialParagraphs={geoHubEditorial()}
+      crumbs={[{ href: "/", label: "Главная" }, { href: "/geografiya", label: title }]}
       kicker={kicker}
       title={title}
       lead={lead}
@@ -42,7 +36,7 @@ export default function Page({ params }: Props) {
         description: lead,
       })}
     >
-      <MoDistrictMap locale={locale} />
+      <MoDistrictMap />
       <ul className="mt-10 grid gap-3 sm:grid-cols-2">
         {GEO_REGION_SLUGS.map((slug) => (
           <li key={slug}>
@@ -51,7 +45,7 @@ export default function Page({ params }: Props) {
               href={`/geografiya/${slug}`}
             >
               <span className="font-display text-lg font-semibold tracking-tight group-hover:text-[var(--accent)]">
-                {locale === "en" ? geoLabel(slug).en : geoLabel(slug).ru}
+                {geoLabel(slug).ru}
               </span>
             </Link>
           </li>

@@ -5,7 +5,6 @@ import { Link } from "@/i18n/navigation";
 import { PRIORITY_PAGE_TEASERS } from "@/content/priority-pages-teasers";
 
 type Props = {
-  locale: string;
   crumbs: Crumb[];
   kicker?: string;
   title: string;
@@ -20,7 +19,6 @@ type Props = {
 };
 
 export function CommercialSeoPage({
-  locale,
   crumbs,
   kicker,
   title,
@@ -30,12 +28,9 @@ export function CommercialSeoPage({
   children,
   showPriorityTeasers = false,
 }: Props) {
-  const foot =
-    locale === "en"
-      ? "Full copy will be wired from my-guide/content per the 6-week roadmap."
-      : "Полный текст подключается из my-guide/content по 6-недельному плану (нед. 2–4).";
+  const foot = "Полный текст подключается из my-guide/content по 6-недельному плану (нед. 2–4).";
 
-  const relatedTitle = locale === "en" ? "Priority pages" : "Приоритетные разделы";
+  const relatedTitle = "Приоритетные разделы";
 
   return (
     <main id="main" className="pb-20">
@@ -43,7 +38,7 @@ export function CommercialSeoPage({
         <div className="hero-ambient pointer-events-none absolute inset-0 opacity-70" />
         <div className="relative mx-auto max-w-content px-4 pb-12 pt-10 sm:px-6 sm:pb-14 sm:pt-12 lg:px-8">
           {jsonLd ? <JsonLd data={jsonLd} /> : null}
-          <Breadcrumbs items={crumbs} locale={locale} variant="dark" />
+          <Breadcrumbs items={crumbs} variant="dark" />
           {kicker ? (
             <p className="type-kicker mt-8 text-[var(--accent-soft)] opacity-95">{kicker}</p>
           ) : null}
@@ -82,10 +77,10 @@ export function CommercialSeoPage({
                       className="group block rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] p-4 transition hover:border-[color-mix(in_srgb,var(--accent)_35%,var(--neutral-200))] dark:border-white/10 dark:bg-[var(--card)]"
                     >
                       <span className="font-display text-base font-semibold text-[var(--primary)] group-hover:text-[var(--accent)]">
-                        {locale === "en" ? p.en.title : p.ru.title}
+                        {p.ru.title}
                       </span>
                       <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-700)]">
-                        {locale === "en" ? p.en.teaser : p.ru.teaser}
+                        {p.ru.teaser}
                       </p>
                     </Link>
                   </li>

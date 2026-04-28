@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: t("fallbackDescription"),
     });
   }
-  const d = caseDetailFields(c, params.locale);
+  const d = caseDetailFields(c);
   return buildPageMetadata({
     locale: params.locale,
     pathname: `/keysy/${c.slug}`,
@@ -38,13 +38,13 @@ export default async function CasePage({ params }: Props) {
   if (!c) notFound();
 
   const t = await getTranslations({ locale: params.locale, namespace: "caseStudy" });
-  const d = caseDetailFields(c, params.locale);
+  const d = caseDetailFields(c);
 
   const idx = CASES.findIndex((x) => x.slug === c.slug);
   const prev = idx > 0 ? CASES[idx - 1]! : null;
   const next = idx >= 0 && idx < CASES.length - 1 ? CASES[idx + 1]! : null;
-  const prevD = prev ? caseDetailFields(prev, params.locale) : null;
-  const nextD = next ? caseDetailFields(next, params.locale) : null;
+  const prevD = prev ? caseDetailFields(prev) : null;
+  const nextD = next ? caseDetailFields(next) : null;
 
   return (
     <main id="main" className="pb-24">

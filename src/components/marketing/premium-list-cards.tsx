@@ -10,7 +10,7 @@ import { CaseSparkline } from "@/components/home/case-sparkline";
 
 export async function PremiumCaseCard({ c, index, locale }: { c: CaseStub; index: number; locale: string }) {
   const t = await getTranslations({ locale, namespace: "caseCard" });
-  const card = caseCardFields(c, locale);
+  const card = caseCardFields(c);
   const variant = index % 3 === 1 ? "flat" : "up";
   return (
     <Card className="group relative flex h-full flex-col overflow-hidden border-[var(--neutral-200)]/90 bg-gradient-to-b from-[var(--card)] via-[var(--card)] to-[var(--surface)] shadow-[0_1px_0_rgba(0,0,0,0.04)] transition-[box-shadow,transform,border-color] duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/30 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.03),0_0_40px_-8px_var(--accent)] motion-reduce:transform-none">
@@ -51,10 +51,8 @@ export async function PremiumBlogCard({ p, locale }: { p: BlogStub; locale: stri
   const ts = await getTranslations({ locale, namespace: "homePage.sections" });
   const tCard = await getTranslations({ locale, namespace: "blogCard" });
   const blogCategories = tHome.raw("blogCategories") as Record<string, string>;
-  const fields = blogCardFields(p, locale);
+  const fields = blogCardFields(p);
   const catLabel = blogCategories[p.category] ?? p.category.replace(/-/g, " ");
-  const dateLocale = locale === "en" ? "en-US" : "ru-RU";
-
   return (
     <Card className="group flex h-full flex-col transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/25 hover:shadow-[var(--card-shadow-hover)] motion-reduce:transform-none">
       <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">{catLabel}</p>
@@ -65,7 +63,7 @@ export async function PremiumBlogCard({ p, locale }: { p: BlogStub; locale: stri
       </CardTitle>
       <CardDescription className="flex-1">{fields.excerpt}</CardDescription>
       <div className="mt-5 flex items-center justify-between text-xs text-[var(--neutral-500)]">
-        <time dateTime={p.publishedAt}>{new Date(p.publishedAt).toLocaleDateString(dateLocale)}</time>
+        <time dateTime={p.publishedAt}>{new Date(p.publishedAt).toLocaleDateString("ru-RU")}</time>
         <span>
           {p.readingTime} {tCard("min")}
         </span>

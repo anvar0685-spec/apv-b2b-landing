@@ -5,14 +5,9 @@ export const alt = "Open Graph";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-type Props = { params: { locale: string } };
-
-export default function OpengraphImage({ params }: Props) {
+export default function OpengraphImage() {
   const brand = site.brandName.replace(/_/g, " ");
-  const tagline =
-    params.locale === "en"
-      ? "Line staff · Moscow & Moscow Oblast · SLA-first operations"
-      : "Линейный персонал · Москва и МО · SLA и compliance";
+  const tagline = "Линейный персонал · Москва и МО · SLA и compliance";
 
   return new ImageResponse(
     (

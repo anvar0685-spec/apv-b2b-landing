@@ -21,14 +21,8 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: Props): Metadata {
   if (!GEO_REGION_SLUGS.includes(params.region as GeoRegionSlug)) return {};
   const label = geoLabel(params.region);
-  const title =
-    params.locale === "en"
-      ? `Warehouse staffing — ${label.en}`
-      : `Аутсорсинг складского персонала — ${label.ru}`;
-  const description =
-    params.locale === "en"
-      ? `Outsourcing teams in ${label.en}: scaffold page for SEO expansion.`
-      : `Аутсорсинг персонала в ${label.ru}: каркас раздела под наполнение.`;
+  const title = `Аутсорсинг складского персонала — ${label.ru}`;
+  const description = `Аутсорсинг персонала в ${label.ru}: каркас раздела под наполнение.`;
   return buildPageMetadata({
     locale: params.locale,
     pathname: `/geografiya/${params.region}`,
@@ -42,30 +36,26 @@ export default function Page({ params }: Props) {
 
   const { locale, region } = params;
   const label = geoLabel(region);
-  const pageTitle = locale === "en" ? `Geography: ${label.en}` : `География: ${label.ru}`;
-  const lead =
-    locale === "en"
-      ? `List of locations inside ${label.en} — each will become a full SEO page.`
-      : `Список локаций внутри «${label.ru}» — далее отдельные посадочные с уникальным текстом.`;
+  const pageTitle = `География: ${label.ru}`;
+  const lead = `Список локаций внутри «${label.ru}» — далее отдельные посадочные с уникальным текстом.`;
 
   const children =
     region === "moskva"
       ? GEO_MOSCOW_DISTRICTS.map((city) => ({ city, loc: geoLabel(city) }))
       : GEO_MO_CITIES.map((city) => ({ city, loc: geoLabel(city) }));
 
-  const hub = locale === "en" ? "Geography" : "География";
-  const kicker = locale === "en" ? "Region" : "Регион";
+  const hub = "География";
+  const kicker = "Регион";
 
-  const editorial = geoRegionEditorial(region, locale);
+  const editorial = geoRegionEditorial(region);
 
   return (
     <CommercialSeoPage
-      locale={locale}
       editorialParagraphs={editorial}
       crumbs={[
-        { href: "/", label: locale === "en" ? "Home" : "Главная" },
+        { href: "/", label: "Главная" },
         { href: "/geografiya", label: hub },
-        { href: `/geografiya/${region}`, label: locale === "en" ? label.en : label.ru },
+        { href: `/geografiya/${region}`, label: label.ru },
       ]}
       kicker={kicker}
       title={pageTitle}
@@ -84,7 +74,7 @@ export default function Page({ params }: Props) {
               className="block rounded-xl border border-[var(--neutral-200)] bg-[var(--surface)] px-4 py-3 text-sm font-medium text-[var(--primary)] transition hover:border-[color-mix(in_srgb,var(--accent)_35%,var(--neutral-200))] hover:text-[var(--accent)] dark:border-white/10 dark:bg-[var(--card)]"
               href={`/geografiya/${region}/${city}`}
             >
-              {locale === "en" ? loc.en : loc.ru}
+              {loc.ru}
             </Link>
           </li>
         ))}

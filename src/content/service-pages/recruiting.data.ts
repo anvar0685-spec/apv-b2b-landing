@@ -9,6 +9,7 @@ export const recruitingPage: ServicePageBilingual = {
     intro: [
       "Подбор для склада отличается от «классического агентства»: важны скорость выхода на смену, понимание профиля линии и готовность передать кандидата в контур с инструктажами и KPI.",
       "Мы проектируем воронку под профили грузчиков, комплектовщиков, операторов погрузчика и смежных ролей; дальше — либо поставка в аутсорсинг смен, либо передача по согласованной модели.",
+      "Handoff: чек-лист первой смены, ответственный ментор и минимальная планка AQL/ошибки, иначе «сдал кандидата в HR» = потеря времени WMS, а не закрытие вакансии.",
       "Стоимость и SLA подбора фиксируются в КП; на странице — обзорный текст без индивидуальных обещаний.",
     ],
     segments: [
@@ -50,6 +51,7 @@ export const recruitingPage: ServicePageBilingual = {
     intro: [
       "Warehouse recruiting differs from a classic agency: time-to-shift, line profile literacy and willingness to hand people over with briefings and KPIs matter.",
       "We design funnels for loaders, pickers, forklift operators and adjacent roles, then either shift outsourcing or a customer-agreed model.",
+      "Handover: first-shift checklist, named mentor and a minimum AQL/error bar; otherwise 'HR got the candidates' is lost WMS time, not a closed vacancy.",
       "Fees and SLA are fixed in the proposal; this page is an overview without individual promises.",
     ],
     segments: [

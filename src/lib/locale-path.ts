@@ -1,9 +1,5 @@
-/** Путь с префиксом локали для `redirect` / `permanentRedirect` при `localePrefix: "as-needed"`. */
-export function localizedPath(locale: string, pathname: string): string {
+/** Путь для `redirect` / `permanentRedirect` при единственной локали `ru` и `localePrefix: "as-needed"`. */
+export function localizedPath(_locale: string, pathname: string): string {
   const p = pathname.startsWith("/") ? pathname : `/${pathname}`;
-  if (locale === "en") {
-    if (p === "/") return "/en";
-    return `/en${p}`;
-  }
   return p;
 }

@@ -14,13 +14,11 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: Props): Metadata {
   const def = OTRASLI_SLUGS.find((o) => o.slug === params.slug);
   if (!def) return {};
-  const title = params.locale === "en" ? def.title.en : def.title.ru;
-  const description = params.locale === "en" ? def.description.en : def.description.ru;
   return buildPageMetadata({
     locale: params.locale,
     pathname: `/otrasli/${def.slug}`,
-    title,
-    description,
+    title: def.title.ru,
+    description: def.description.ru,
   });
 }
 
@@ -29,19 +27,18 @@ export default function Page({ params }: Props) {
   if (!def) notFound();
 
   const { locale } = params;
-  const title = locale === "en" ? def.title.en : def.title.ru;
-  const lead = locale === "en" ? def.description.en : def.description.ru;
-  const hub = locale === "en" ? "Industries" : "Отрасли";
-  const kicker = locale === "en" ? "Industry page" : "Отраслевая посадочная";
+  const title = def.title.ru;
+  const lead = def.description.ru;
+  const hub = "Отрасли";
+  const kicker = "Отраслевая посадочная";
 
-  const editorial = industryEditorial(def.slug, locale);
+  const editorial = industryEditorial(def.slug);
 
   return (
     <CommercialSeoPage
-      locale={locale}
       editorialParagraphs={editorial}
       crumbs={[
-        { href: "/", label: locale === "en" ? "Home" : "Главная" },
+        { href: "/", label: "Главная" },
         { href: "/otrasli", label: hub },
         { href: `/otrasli/${def.slug}`, label: title },
       ]}

@@ -6,7 +6,18 @@ import { BLOG_PAGE_SIZE, paginatePostsByCategory } from "@/content/blog-stub";
 import { PremiumBlogCard } from "@/components/marketing/premium-list-cards";
 import { buildPageMetadata } from "@/lib/seo";
 
-const VALID = new Set(["compliance", "hr", "optimizaciya", "migracionnyy-uchet"]);
+const VALID = new Set([
+  "bazovaya",
+  "model",
+  "zakupka",
+  "stoimost",
+  "professii",
+  "migraciya",
+  "compliance",
+  "hr",
+  "optimizaciya",
+  "migracionnyy-uchet",
+]);
 
 type Props = {
   params: { locale: string; category: string };

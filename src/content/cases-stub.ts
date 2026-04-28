@@ -11,7 +11,7 @@ export type CaseStub = {
   solution: string;
   outcome: string;
   clientQuote: string;
-  /** Карточка на главной /en */
+  /** Опционально для отдельного EN deck/PDF вне сайта */
   titleEn?: string;
   industryEn?: string;
   summaryEn?: string;
@@ -23,29 +23,27 @@ export type CaseStub = {
   clientQuoteEn?: string;
 };
 
-export function caseCardFields(c: CaseStub, locale: string) {
-  const en = locale === "en";
+export function caseCardFields(c: CaseStub) {
   return {
     slug: c.slug,
-    title: en && c.titleEn ? c.titleEn : c.title,
-    industry: en && c.industryEn ? c.industryEn : c.industry,
-    summary: en && c.summaryEn ? c.summaryEn : c.summary,
-    metricUp: en && c.metricUpEn ? c.metricUpEn : c.metricUp,
-    city: en && c.cityEn ? c.cityEn : c.city,
+    title: c.title,
+    industry: c.industry,
+    summary: c.summary,
+    metricUp: c.metricUp,
+    city: c.city,
   };
 }
 
-export function caseDetailFields(c: CaseStub, locale: string) {
-  const card = caseCardFields(c, locale);
-  const en = locale === "en";
+export function caseDetailFields(c: CaseStub) {
+  const card = caseCardFields(c);
   return {
     ...card,
     staff: c.staff,
     durationMonths: c.durationMonths,
-    challenge: en && c.challengeEn ? c.challengeEn : c.challenge,
-    solution: en && c.solutionEn ? c.solutionEn : c.solution,
-    outcome: en && c.outcomeEn ? c.outcomeEn : c.outcome,
-    clientQuote: en && c.clientQuoteEn ? c.clientQuoteEn : c.clientQuote,
+    challenge: c.challenge,
+    solution: c.solution,
+    outcome: c.outcome,
+    clientQuote: c.clientQuote,
   };
 }
 
@@ -247,6 +245,104 @@ export const CASES: CaseStub[] = [
       "Overtime fell 12% at the same outbound volume; night-shift attendance stabilised.",
     clientQuoteEn:
       "We stopped \"buying\" peak season with endless overtime — shifts now close more evenly.",
+  },
+  {
+    slug: "3pl-cross-dock-mo",
+    title: "3PL: кросс-док и сортировка без «дыр» в сменах",
+    industry: "3PL / кросс-док",
+    city: "Домодедово",
+    staff: 75,
+    durationMonths: 7,
+    metricUp: "−21% время простоя ворот",
+    summary:
+      "Выровняли выход бригад под слоты на воротах и пик кросс-дока: смены закрывались, очередь фур не раздувала простой внутри.",
+    challenge:
+      "Несогласованность слотов и явки ломала кросс-док: простои ворот перетекали в простой линии и рост переработок у постоянного контура.",
+    solution:
+      "Ввели единый календарь смен с буфером на замену, синхронизацию с диспетчером площадки и еженедельный разбор отклонений по 15-минутным окнам.",
+    outcome:
+      "Время простоя ворот снизилось примерно на пятую; переработки у ядра не выросли при том же объёме кросс-дока.",
+    clientQuote:
+      "Нам нужен был не «ещё людей», а люди в слот — иначе ворота всегда узкое место.",
+    titleEn: "3PL: cross-dock without gate idle gaps",
+    industryEn: "3PL / cross-dock",
+    metricUpEn: "≈−21% gate idle time",
+    summaryEn:
+      "Aligned crew starts to gate slots and cross-dock peaks so shifts closed and the truck queue did not idle the line.",
+    cityEn: "Domodedovo",
+    challengeEn:
+      "Misaligned slots and attendance broke cross-dock: gate idle time spilled into line idle and core-team overtime.",
+    solutionEn:
+      "Introduced one shift calendar with a replacement buffer, sync with the yard dispatcher and weekly variance reviews in 15-minute windows.",
+    outcomeEn:
+      "Gate idle time fell by about a fifth; core overtime did not rise at the same cross-dock volume.",
+    clientQuoteEn:
+      "We did not need 'more people' — we needed people in the slot, or the gate would always be the bottleneck.",
+  },
+  {
+    slug: "kholod-konturnyy-sklad-mytischi",
+    title: "Холод: контур +2…+5 °C без «провалов» смены",
+    industry: "Продуктовая логистика / холод",
+    city: "Мытищи",
+    staff: 48,
+    durationMonths: 10,
+    metricUp: "0 срывов смены по температурным зонам",
+    summary:
+      "Выровняли выход смен под график открытия камер и инциденты HACCP: буфер замен и маршрут до зоны без пересечения с сухим контуром.",
+    challenge:
+      "Холод — не «тот же склад, но в жилетке»: срыв смены = риск цепочки, а не только позиция в графике.",
+    solution:
+      "Согласовали слоты выхода, дубли по критичным сменам и сценарий, если сотрудник не прошёл чек-лист допуска к зоне.",
+    outcome:
+      "Смены в температурных зонах закрывались по плану; инциденты фиксировались в регламенте, а не в ночных чатах.",
+    clientQuote:
+      "Нам нужен был поставщик, который говорит на языке HACCP, а не только ‘люди в смену’.",
+    titleEn: "Cold chain: +2…+5 °C without shift gaps",
+    industryEn: "Grocery logistics / cold chain",
+    metricUpEn: "0 temperature-zone shift failures",
+    summaryEn:
+      "Aligned shift starts with chamber open times and HACCP incidents: replacement buffer and path to zone without crossing dry flow.",
+    cityEn: "Mytishchi",
+    challengeEn:
+      "Cold is not “the same DC in a jacket” — a missed shift is a chain risk, not just a blank cell in a roster.",
+    solutionEn:
+      "Aligned start slots, critical-shift doubles, and a playbook if someone fails the zone access checklist.",
+    outcomeEn:
+      "Temperature-zone shifts closed on plan; incidents sat in the playbook, not in night-time chat threads.",
+    clientQuoteEn:
+      "We needed a vendor that speaks HACCP, not only “people for the shift”.",
+  },
+  {
+    slug: "ecom-fulfilment-ramenskoe",
+    title: "E-com фулфилмент: пик 11.11 без раздувания ядра",
+    industry: "E-commerce / fulfilment",
+    city: "Раменское",
+    staff: 110,
+    durationMonths: 5,
+    metricUp: "+27% строк outbound при том же ядре",
+    summary:
+      "Набор и онбординг под короткое окно пика: единый контакт подрядчика, замены по регламенту, без конфликта с постоянным контуром.",
+    challenge:
+      "Годовой промо-пик: нужно быстро закрыть объём без потери качества комплектации и без бесконечного overtime ядра.",
+    solution:
+      "Пул смен под профиль FBS, приоритет слотов на индуктивные линии и еженедельный разбор отклонений до конца пика.",
+    outcome:
+      "Outbound строк вырос без пропорционального роста постоянного штата; после пика — контролируемое сжатие контура.",
+    clientQuote:
+      "Мы не хотели ‘нанять всех и потом резать’ — нужен был управляемый пул под окно кампании.",
+    titleEn: "E-com fulfilment: 11.11 peak without bloating core staff",
+    industryEn: "E-commerce / fulfilment",
+    metricUpEn: "+27% outbound lines at same core size",
+    summaryEn:
+      "Hiring and onboarding for a tight peak window: one vendor contact, replacement rules, no collision with the core team.",
+    challengeEn:
+      "Annual promo peak: surge volume fast without picking-quality drift or endless core-team overtime.",
+    solutionEn:
+      "Shift pool tuned to FBS profile, priority slots on induct lines, weekly variance reviews until the peak ends.",
+    outcomeEn:
+      "Outbound lines rose without a proportional core headcount spike; after peak, the contour tightened in a controlled way.",
+    clientQuoteEn:
+      "We did not want ‘hire everyone then cut’ — we needed a managed pool for the campaign window.",
   },
 ];
 

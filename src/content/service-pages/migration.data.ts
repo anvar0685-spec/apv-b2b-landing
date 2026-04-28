@@ -9,6 +9,7 @@ export const migrationPage: ServicePageBilingual = {
     intro: [
       "Миграционный учёт для складов и производств — это не «отдел кадров отдельно», а часть операционной дисциплины: кто отвечает за уведомления, где хранятся версии документов, как проходят проверки.",
       "Мы выстраиваем чек-листы, матрицу ответственности и регламент эскалаций до выхода сотрудника на смену — чтобы линейный руководитель не оставался один на один с формальными рисками.",
+      "В связке с поставкой смен: документопоток, уведомления и контроль сроков ведутся в одном контуре с планом выхода на объект — без «серой зоны» между кадрами, постом охраны и подрядчиком, где потом невозможно восстановить, кто подавал, что и когда.",
       "Информация на странице не заменяет юридическое заключение; сложные кейсы передаются профильному юристу после сбора фактов.",
     ],
     segments: [
@@ -50,6 +51,7 @@ export const migrationPage: ServicePageBilingual = {
     intro: [
       "For warehouses and plants, migration compliance is part of ops discipline: who owns notifications, where document versions live, how inspections are prepared.",
       "We deploy checklists, a responsibility matrix and escalation paths before anyone hits the shift — so line managers are not alone with formal risk.",
+      "Tied to shift supply: the paperwork, notifications and access checks sit in the same path as the shift plan — not a hidden gap between HR, the gate and the vendor where nobody can later prove who filed what, when.",
       "Copy is informational; complex cases go to counsel after facts are collected.",
     ],
     segments: [

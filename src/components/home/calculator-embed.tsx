@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
@@ -13,7 +13,6 @@ import { getWarehouseHourlyRateRub } from "@/content/warehouse-hourly-rates";
 import { trackEvent } from "@/lib/analytics";
 
 export function CalculatorEmbed() {
-  const locale = useLocale();
   const t = useTranslations("homePage.calculatorEmbed");
   const stepNames = t.raw("stepNames") as string[];
 
@@ -25,7 +24,7 @@ export function CalculatorEmbed() {
   const roughMonth = useMemo(() => Math.round(rate * 40 * 4.3 * n), [rate, n]);
 
   const pct = ((step + 1) / stepNames.length) * 100;
-  const nf = locale === "en" ? "en-US" : "ru-RU";
+  const nf = "ru-RU";
 
   return (
     <Card className="border-[var(--neutral-200)]">
@@ -51,7 +50,7 @@ export function CalculatorEmbed() {
             >
               {PROFESSIONS.map((p) => (
                 <option key={p.slug} value={p.slug}>
-                  {locale === "en" ? p.titleEn : p.titleRu} — {getWarehouseHourlyRateRub(p.slug)} ₽/ч
+                  {p.titleRu} — {getWarehouseHourlyRateRub(p.slug)} ₽/ч
                 </option>
               ))}
             </select>

@@ -8,30 +8,20 @@ type Props = { params: { locale: string } };
 
 export function generateMetadata({ params }: Props): Metadata {
   const { locale } = params;
-  const title = locale === "en" ? "Marketplace & retail platforms" : "Площадки и маркетплейсы";
-  const description =
-    locale === "en"
-      ? "Dedicated landing pages for major marketplace logistics sites."
-      : "Отдельные посадочные под крупные маркетплейсы и логистические бренды.";
+  const title = "Площадки и маркетплейсы";
+  const description = "Отдельные посадочные под крупные маркетплейсы и логистические бренды.";
   return buildPageMetadata({ locale, pathname: "/ploshchadki", title, description });
 }
 
 export default function Page({ params }: Props) {
   const { locale } = params;
-  const title = locale === "en" ? "Platforms" : "Площадки";
-  const lead =
-    locale === "en"
-      ? "SEO hub for marketplace-specific staffing pages (master prompt §5)."
-      : "SEO-хаб под посадочные «персонал под конкретную площадку» (мастер-документ §5).";
-  const kicker = locale === "en" ? "Platforms" : "Площадки";
+  const title = "Площадки";
+  const lead = "SEO-хаб под посадочные «персонал под конкретную площадку» (мастер-документ §5).";
+  const kicker = "Площадки";
 
   return (
     <CommercialSeoPage
-      locale={locale}
-      crumbs={[
-        { href: "/", label: locale === "en" ? "Home" : "Главная" },
-        { href: "/ploshchadki", label: title },
-      ]}
+      crumbs={[{ href: "/", label: "Главная" }, { href: "/ploshchadki", label: title }]}
       kicker={kicker}
       title={title}
       lead={lead}
@@ -50,7 +40,7 @@ export default function Page({ params }: Props) {
               href={`/ploshchadki/${p.slug}`}
             >
               <span className="font-display text-lg font-semibold tracking-tight group-hover:text-[var(--accent)]">
-                {locale === "en" ? p.title.en : p.title.ru}
+                {p.title.ru}
               </span>
             </Link>
           </li>

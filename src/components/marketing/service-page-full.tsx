@@ -1,5 +1,6 @@
 import { PROFESSIONS } from "@/content/professions-cities";
 import type { ServicePageModel } from "@/content/service-page-data";
+import { ProfessionIcon } from "@/content/profession-icons";
 import { site } from "@/config/site";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
@@ -9,45 +10,39 @@ import { Link } from "@/i18n/navigation";
 
 const WAREHOUSE_PROFESSIONS = PROFESSIONS.slice(0, 10);
 
-type Props = { model: ServicePageModel; locale: string };
+type Props = { model: ServicePageModel };
 
-function ui(locale: string) {
-  const en = locale === "en";
-  return {
-    kicker: en ? "Service" : "Услуга",
-    overview: en ? "Overview" : "О услуге",
-    whoFits: en ? "Who it fits" : "Кому подходит",
-    how: en ? "How it works" : "Как это работает",
-    includes: en ? "What is included" : "Что входит",
-    tableItem: en ? "Item" : "Позиция",
-    tableIncluded: en ? "Included" : "Включено",
-    yes: en ? "yes" : "да",
-    optional: en ? "optional" : "опционально",
-    compare: en ? "Comparison" : "Сравнение подходов",
-    crit: en ? "Criterion" : "Критерий",
-    us: en ? "With us" : "С нами",
-    staff: en ? "In-house" : "Штат",
-    agency: en ? "Classic agency" : "Класс. агентство",
-    professions: en ? "Roles" : "Профессии",
-    casesTitle: en ? "Cases and content" : "Кейсы и материалы",
-    casesBody: en
-      ? "Visit case studies and the blog for sector notes and rollout examples."
-      : "Перейдите в раздел кейсов и блога — там публикуется отраслевая аналитика и примеры внедрений.",
-    casesLink: en ? "Case studies" : "Кейсы",
-    blogLink: en ? "Blog" : "Блог",
-    faq: "FAQ",
-    ctaTitle: en ? "Need a quote for your site?" : "Нужен расчёт под ваш объект?",
-    ctaLead: en
-      ? "Submit a request — the team replies during business hours (exact SLA is in the client service policy)."
-      : "Оставьте заявку — менеджер свяжется в течение 15 минут в рабочее время (срок фиксируется в регламенте обслуживания клиентов).",
-    req: en ? "Request proposal" : "Оставить заявку",
-    calc: en ? "Calculator" : "Калькулятор",
-    areaServed: en ? "Moscow and Moscow Oblast" : "Москва и Московская область",
-  };
-}
+const t = {
+  kicker: "Услуга",
+  overview: "О услуге",
+  whoFits: "Кому подходит",
+  how: "Как это работает",
+  includes: "Что входит",
+  tableItem: "Позиция",
+  tableIncluded: "Включено",
+  yes: "да",
+  optional: "опционально",
+  compare: "Сравнение подходов",
+  crit: "Критерий",
+  us: "С нами",
+  staff: "Штат",
+  agency: "Класс. агентство",
+  professions: "Профессии",
+  casesTitle: "Кейсы и материалы",
+  casesBody:
+    "Перейдите в раздел кейсов и блога — там публикуется отраслевая аналитика и примеры внедрений.",
+  casesLink: "Кейсы",
+  blogLink: "Блог",
+  faq: "FAQ",
+  ctaTitle: "Нужен расчёт под ваш объект?",
+  ctaLead:
+    "Оставьте заявку — менеджер свяжется в течение 15 минут в рабочее время (срок фиксируется в регламенте обслуживания клиентов).",
+  req: "Оставить заявку",
+  calc: "Калькулятор",
+  areaServed: "Москва и Московская область",
+};
 
-export function ServicePageFull({ model, locale }: Props) {
-  const t = ui(locale);
+export function ServicePageFull({ model }: Props) {
   const base = site.url.replace(/\/$/, "");
   const path = `/uslugi/${model.slug}`;
   const serviceJson = {
@@ -75,8 +70,8 @@ export function ServicePageFull({ model, locale }: Props) {
   };
 
   const crumbs = [
-    { href: "/", label: locale === "en" ? "Home" : "Главная" },
-    { href: "/uslugi", label: locale === "en" ? "Services" : "Услуги" },
+    { href: "/", label: "Главная" },
+    { href: "/uslugi", label: "Услуги" },
     { href: path, label: model.h1 },
   ];
 
@@ -84,19 +79,26 @@ export function ServicePageFull({ model, locale }: Props) {
     <main id="main" className="pb-24">
       <JsonLd data={serviceJson} />
       <JsonLd data={faqJson} />
-      <section className="border-b border-[var(--neutral-200)] bg-[var(--surface)] py-8 lg:py-12">
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <Breadcrumbs items={crumbs} locale={locale} />
-          <p className="type-kicker mt-8">{t.kicker}</p>
-          <h1 className="font-display mt-3 max-w-4xl text-balance text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.75rem] md:leading-[1.1]">
+      <section className="grain-dark relative overflow-hidden border-b border-white/[0.08] bg-[var(--primary-dark)] text-white">
+        <div className="hero-ambient pointer-events-none absolute inset-0 opacity-70" />
+        <div className="relative mx-auto max-w-[1280px] px-4 pb-12 pt-8 sm:px-6 sm:pb-14 sm:pt-10 lg:px-8">
+          <Breadcrumbs items={crumbs} variant="dark" />
+          <p className="type-kicker mt-8 text-[var(--accent-soft)]">{t.kicker}</p>
+          <h1 className="font-display mt-4 max-w-4xl text-balance text-3xl font-bold tracking-[-0.035em] text-white md:text-[2.75rem] md:leading-[1.1]">
             {model.h1}
           </h1>
-          <p className="type-lead mt-5 max-w-3xl">{model.subtitle}</p>
+          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/80 md:text-xl md:leading-[1.55]">
+            {model.subtitle}
+          </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Button asChild>
               <Link href="/kalkulyator">{t.calc}</Link>
             </Button>
-            <Button asChild variant="secondary">
+            <Button
+              asChild
+              variant="secondary"
+              className="border-white/25 bg-white/10 text-white hover:bg-white/15"
+            >
               <Link href="/zayavka">{t.req}</Link>
             </Button>
           </div>
@@ -173,14 +175,17 @@ export function ServicePageFull({ model, locale }: Props) {
         </div>
 
         <h2 className="type-headline mt-14">{t.professions}</h2>
-        <ul className="mt-4 columns-1 gap-2 sm:columns-2">
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
           {WAREHOUSE_PROFESSIONS.map((p) => (
-            <li key={p.slug} className="mb-2 break-inside-avoid">
+            <li key={p.slug}>
               <Link
-                className="text-sm font-medium text-[var(--accent)] hover:underline"
                 href={`/personal/${p.slug}`}
+                className="flex items-center gap-3 rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] px-4 py-3 text-sm font-medium text-[var(--primary)] shadow-[var(--card-shadow)] transition hover:border-[color-mix(in_srgb,var(--accent)_35%,var(--neutral-200))] hover:text-[var(--accent)] dark:border-white/10 dark:bg-[var(--card)]"
               >
-                {locale === "en" ? p.titleEn : p.titleRu}
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--accent)_12%,transparent)] text-[var(--accent)]">
+                  <ProfessionIcon slug={p.slug} className="h-5 w-5" />
+                </span>
+                {p.titleRu}
               </Link>
             </li>
           ))}
