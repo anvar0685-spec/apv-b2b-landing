@@ -1,13 +1,15 @@
 import type { MetadataRoute } from "next";
+import { site } from "@/config/site";
 
 export default function robots(): MetadataRoute.Robots {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const base = site.url.replace(/\/$/, "");
   return {
     rules: {
       userAgent: "*",
       allow: "/",
       disallow: ["/api/", "/admin"],
     },
-    sitemap: [`${base}/sitemap.xml`, `${base}/api/sitemap-programmatic`],
+    /** Программатика включена в основной `sitemap.xml` (единая точка для обхода). */
+    sitemap: `${base}/sitemap.xml`,
   };
 }

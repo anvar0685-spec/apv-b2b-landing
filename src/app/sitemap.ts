@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
-import { BLOG_POSTS } from "@/content/blog-stub";
+import { BLOG_CATEGORY_SLUGS, BLOG_POSTS } from "@/content/blog-stub";
 import { CASES } from "@/content/cases-stub";
-import { PROFESSIONS } from "@/content/professions-cities";
+import { CITIES, PROFESSIONS } from "@/content/professions-cities";
 import { absUrl } from "@/lib/abs-url";
 import { allMultipageSeoPaths } from "@/lib/site-structure";
 
@@ -14,7 +14,6 @@ const STATIC_BASE = [
   "/uslugi/podbor-personala",
   "/uslugi/postoyannyy-personal",
   "/uslugi/nochnye-smeny",
-  "/uslugi/autstaffing",
   "/personal",
   "/keysy",
   "/blog",
@@ -62,6 +61,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: last,
       changeFrequency: "weekly",
       priority: 0.65,
+    });
+  }
+  for (const prof of PROFESSIONS) {
+    for (const city of CITIES) {
+      entries.push({
+        url: absUrl(`/personal/${prof.slug}/${city.slug}`),
+        lastModified: last,
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
+    }
+  }
+  for (const cat of BLOG_CATEGORY_SLUGS) {
+    entries.push({
+      url: absUrl(`/blog/category/${cat}`),
+      lastModified: last,
+      changeFrequency: "weekly",
+      priority: 0.52,
     });
   }
   for (const b of BLOG_POSTS) {

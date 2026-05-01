@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { HeroSection } from "@/components/home/hero-section";
 import { TrustMarquee } from "@/components/home/trust-marquee";
+import { PartnersStrip } from "@/components/home/partners-strip";
 import { HomePersonas } from "@/components/home/home-personas";
 import { StatsCounters } from "@/components/home/stats-counters";
 import { HomeSections } from "@/components/home/home-sections";
@@ -40,15 +41,19 @@ export default async function HomePage() {
   const t = await getTranslations("home");
   const base = site.url.replace(/\/$/, "");
   const orgDescription =
-    "Аутсорсинг персонала на склады Москвы и МО: смены, SLA, прозрачные ставки, compliance.";
+    "Аутсорсинг персонала на склады Москвы и МО с 2023 года: смены, SLA, прозрачные ставки, compliance. Более 100 сотрудников в штате.";
+
+  const orgId = `${base}#organization`;
 
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": orgId,
     name: site.brandName,
     legalName: site.legalEntityFullName,
     url: base,
     description: orgDescription,
+    foundingDate: "2023",
     identifier: [
       { "@type": "PropertyValue", name: "INN", value: site.inn },
       { "@type": "PropertyValue", name: "OGRNIP", value: site.ogrn },
@@ -76,6 +81,8 @@ export default async function HomePage() {
     "@type": "WebSite",
     name: site.brandName,
     url: base,
+    inLanguage: "ru-RU",
+    publisher: { "@id": orgId },
   };
 
   return (
@@ -84,6 +91,7 @@ export default async function HomePage() {
       <JsonLd data={websiteJsonLd} />
       <HeroSection />
       <TrustMarquee kicker={t("trust")} lead={t("trustLead")} />
+      <PartnersStrip />
       <HomePersonas />
       <PainSolutionBento />
       <StatsCounters />

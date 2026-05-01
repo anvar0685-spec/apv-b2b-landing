@@ -1,3 +1,7 @@
+/**
+ * Legacy: те же URL теперь в основном `/sitemap.xml`.
+ * Оставлено для обратной совместимости; в `robots.txt` не указывается.
+ */
 import { CITIES, PROFESSIONS } from "@/content/professions-cities";
 import { absUrl } from "@/lib/abs-url";
 

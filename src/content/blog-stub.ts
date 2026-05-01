@@ -20,6 +20,20 @@ export const BLOG_POSTS: BlogStub[] = PUBLISHED_BLOG_ARTICLES.map((a) => ({
 
 export const BLOG_PAGE_SIZE = 9;
 
+/** Слаги рубрик блога (канон URL `/blog/category/...`); синхрон с `[category]/page.tsx`. */
+export const BLOG_CATEGORY_SLUGS = [
+  "bazovaya",
+  "model",
+  "zakupka",
+  "stoimost",
+  "professii",
+  "migraciya",
+  "compliance",
+  "hr",
+  "optimizaciya",
+  "migracionnyy-uchet",
+] as const;
+
 export function blogCardFields(b: BlogStub) {
   return {
     slug: b.slug,

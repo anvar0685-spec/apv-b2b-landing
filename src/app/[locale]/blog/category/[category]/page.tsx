@@ -2,22 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { BLOG_PAGE_SIZE, paginatePostsByCategory } from "@/content/blog-stub";
+import { BLOG_CATEGORY_SLUGS, BLOG_PAGE_SIZE, paginatePostsByCategory } from "@/content/blog-stub";
 import { PremiumBlogCard } from "@/components/marketing/premium-list-cards";
 import { buildPageMetadata } from "@/lib/seo";
 
-const VALID = new Set([
-  "bazovaya",
-  "model",
-  "zakupka",
-  "stoimost",
-  "professii",
-  "migraciya",
-  "compliance",
-  "hr",
-  "optimizaciya",
-  "migracionnyy-uchet",
-]);
+const VALID = new Set<string>(BLOG_CATEGORY_SLUGS);
 
 type Props = {
   params: { locale: string; category: string };

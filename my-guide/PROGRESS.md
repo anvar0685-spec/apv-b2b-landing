@@ -5,6 +5,7 @@
 **Связанные документы**
 
 - SEO-аудит (роль 04): [`SEO-AUDIT-FULL-2026-04-23.md`](./SEO-AUDIT-FULL-2026-04-23.md)
+- Чеклист выкладки SEO в прод: [`PROD-SEO-LAUNCH.md`](./PROD-SEO-LAUNCH.md)
 - База знаний контента (роль 03, конъюнктура, словарь): [`OUTSOURCING-CONTENT-KNOWLEDGE-BASE.md`](./OUTSOURCING-CONTENT-KNOWLEDGE-BASE.md)
 - Итог по блогу (2026-04-23): [`ROLE03-FINAL-REPORT-BLOG-2026-04-23.md`](./ROLE03-FINAL-REPORT-BLOG-2026-04-23.md)
 - Финальный аудит + чеклист: [`FINAL-AUDIT-CHECKLIST.md`](./FINAL-AUDIT-CHECKLIST.md)
@@ -122,7 +123,7 @@
 | Маршруты | [x] | done. |
 | Уникальные тексты (RU) | [x] | done: `commercial-editorial.ts` — блоки RU; EN в объекте — **не на сайте** при RU-only. Лонгрид на каждый slug — опционально. |
 | Карта МО (статика) | [x] | done: `MoDistrictMap` + подписи к точкам. |
-| Sitemap + canonical | [x] | done; новые `/uslugi/*` в sitemap. |
+| Sitemap + canonical | [x] | done; programmatic `/personal/*/*`, рубрики `/blog/category/*` и прочее — в одном `sitemap.xml`; см. [`PROD-SEO-LAUNCH.md`](./PROD-SEO-LAUNCH.md). |
 
 ---
 

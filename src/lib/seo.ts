@@ -8,11 +8,13 @@ export type PageSeoInput = {
   pathname: string;
   title: string;
   description: string;
+  /** Дополнительно для услуг и хабов */
+  keywords?: string[];
 };
 
 /**
- * Единая точка для title/description/canonical + Open Graph + Twitter (§3.3 мастер-документа).
- * og:image подключается на уровне layout/opengraph-image при необходимости.
+ * Единая точка для title/description/canonical + Open Graph + Twitter.
+ * Дефолтный `og:image` / `twitter:image` — маршрут `opengraph-image` (страницы при необходимости переопределяют).
  */
 export function buildServiceJsonLd(input: {
   locale: string;
@@ -58,14 +60,16 @@ export function buildWebPageJsonLd(input: {
   };
 }
 
-export function buildPageMetadata({ pathname, title, description }: PageSeoInput): Metadata {
+export function buildPageMetadata({ pathname, title, description, keywords }: PageSeoInput): Metadata {
   const canonical = absUrl(pathname);
   const brand = site.brandName.replace(/_/g, " ");
   const fullTitle = title.includes(brand) ? title : `${title} | ${brand}`;
+  const ogImage = absUrl("/opengraph-image");
 
   return {
     title: fullTitle,
     description,
+    ...(keywords?.length ? { keywords } : {}),
     alternates: { canonical },
     robots: { index: true, follow: true },
     openGraph: {
@@ -75,11 +79,13 @@ export function buildPageMetadata({ pathname, title, description }: PageSeoInput
       siteName: brand,
       locale: "ru_RU",
       type: "website",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: fullTitle }],
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description,
+      images: [ogImage],
     },
   };
 }
