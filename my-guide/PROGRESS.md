@@ -4,6 +4,7 @@
 
 **Связанные документы**
 
+- SEO-аудит (роль 04): [`SEO-AUDIT-FULL-2026-04-23.md`](./SEO-AUDIT-FULL-2026-04-23.md)
 - База знаний контента (роль 03, конъюнктура, словарь): [`OUTSOURCING-CONTENT-KNOWLEDGE-BASE.md`](./OUTSOURCING-CONTENT-KNOWLEDGE-BASE.md)
 - Итог по блогу (2026-04-23): [`ROLE03-FINAL-REPORT-BLOG-2026-04-23.md`](./ROLE03-FINAL-REPORT-BLOG-2026-04-23.md)
 - Финальный аудит + чеклист: [`FINAL-AUDIT-CHECKLIST.md`](./FINAL-AUDIT-CHECKLIST.md)

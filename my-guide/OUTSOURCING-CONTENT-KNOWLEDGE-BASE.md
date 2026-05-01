@@ -8,6 +8,7 @@
 - Правило роли агента: [`.cursor/rules/03-outsourcing-strategist-orchestrator.mdc`](../../.cursor/rules/03-outsourcing-strategist-orchestrator.mdc) (в корне воркспейса дублируется в `apv-b2b-landing/.cursor/rules/`).
 - Список конкурентов и типичный голос рынка: [`COMPETITOR-VOICE-BENCHMARK.md`](./COMPETITOR-VOICE-BENCHMARK.md).
 - Аудит и волны правок: [`TEXT-AUDIT-ROLE03-HUMAN-RU.md`](./TEXT-AUDIT-ROLE03-HUMAN-RU.md).
+- Технический SEO (роль 04): [`SEO-AUDIT-FULL-2026-04-23.md`](./SEO-AUDIT-FULL-2026-04-23.md).
 
 ---
 
