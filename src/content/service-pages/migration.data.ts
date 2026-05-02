@@ -3,20 +3,20 @@ import type { ServicePageBilingual } from "./types";
 export const migrationPage: ServicePageBilingual = {
   slug: "migracionnyy-uchet",
   ru: {
-    h1: "Миграционный учёт и compliance для работодателя",
+    h1: "Миграционный учёт для работодателя на складе",
     subtitle:
-      "Снижаем регуляторные риски: уведомления, сроки, документальный след и взаимодействие с контуром безопасности — в связке с поставкой смен на объект.",
+      "Снижаем регуляторные риски: уведомления, сроки, документы и работа с охраной и пропускным режимом — в связке с выводом людей на объект по договору с подрядчиком.",
     intro: [
-      "Миграционный учёт для складов и производств — это не «отдел кадров отдельно», а часть операционной дисциплины: кто отвечает за уведомления, где хранятся версии документов, как проходят проверки.",
+      "Миграционный учёт для складов и логистики — это не «отдел кадров отдельно», а часть операционной дисциплины: кто отвечает за уведомления, где хранятся версии документов, как готовятся проверки.",
       "Мы выстраиваем чек-листы, матрицу ответственности и регламент эскалаций до выхода сотрудника на смену — чтобы линейный руководитель не оставался один на один с формальными рисками.",
-      "В связке с поставкой смен: документопоток, уведомления и контроль сроков ведутся в одном контуре с планом выхода на объект — без «серой зоны» между кадрами, постом охраны и подрядчиком, где потом невозможно восстановить, кто подавал, что и когда.",
+      "Документопоток, уведомления и контроль сроков идут в одной цепочке с планом выхода на объект — без «серой зоны» между кадрами, КПП и подрядчиком, где потом невозможно восстановить, кто что подавал и когда.",
       "Информация на странице не заменяет юридическое заключение; сложные кейсы передаются профильному юристу после сбора фактов.",
     ],
     segments: [
-      { title: "Склады и логистика", text: "Массовый персонал, сменность, жёсткие проверки и аудит следов документов." },
-      { title: "Производство", text: "Патенты, разрешения, учёт по объектам и сменам." },
-      { title: "Стройка", text: "Временные бригады, пропускной режим, контроль сроков уведомлений." },
-      { title: "HoReCa", text: "Сезонные пики, сменные графики, обучение ответственных на точке." },
+      { title: "Склады e-commerce и фулфилмент", text: "Массовый персонал, пики маркетплейсов, жёсткий документальный след и аудит." },
+      { title: "3PL и распределительные центры", text: "Сменность под слоты ворот, кросс-док, учёт по объектам и сменам." },
+      { title: "Холодные и фарма-склады", text: "Допуски к зонам, сроки уведомлений, связка с регламентами качества и безопасности на площадке." },
+      { title: "РЦ ритейла и импортные склады", text: "Сезонные пики, разные профили комплектации и приёмки, обучение ответственных на смене." },
     ],
     howItWorks: [
       "Аудит текущего состояния документов и процессов.",
@@ -37,9 +37,9 @@ export const migrationPage: ServicePageBilingual = {
     ],
     faq: [
       { q: "Это юридическая консультация?", a: "Нет: это информационные материалы. Индивидуальные выводы готовит юрист после анализа документов." },
-      { q: "Как связать с аутсорсингом смен?", a: "Compliance — обязательный слой при поставке персонала; пакеты комбинируются в КП." },
-      { q: "Кто отвечает перед проверяющими?", a: "Зависит от модели договора; в стандартной схеме подрядчика — документальный контур на стороне подрядчика." },
-      { q: "Можно ли только compliance без смен?", a: "Обсуждается в КП; чаще связка эффективнее." },
+      { q: "Как связать с подрядом по персоналу?", a: "Миграционный учёт — обязательный слой при выводе людей на объект; пакеты услуг комбинируются в КП." },
+      { q: "Кто отвечает перед проверяющими?", a: "Зависит от модели договора; в типовой схеме подрядчика оформление документов и регламент — на нашей стороне." },
+      { q: "Можно ли только документы без вывода людей на объект?", a: "Обсуждается в КП; чаще связка эффективнее." },
       { q: "Какие сроки внедрения регламентов?", a: "Зависят от объёма и текущего состояния учёта — фиксируются в проекте." },
       { q: "Как запросить разбор?", a: "Форма заявки с пометкой «миграционный учёт» — менеджер вернётся с чек-листом вопросов." },
     ],
@@ -49,16 +49,16 @@ export const migrationPage: ServicePageBilingual = {
     subtitle:
       "Reduce regulatory risk: notifications, deadlines, an audit trail and security alignment — tied to shift delivery on site.",
     intro: [
-      "For warehouses and plants, migration compliance is part of ops discipline: who owns notifications, where document versions live, how inspections are prepared.",
+      "For warehouse and logistics sites, migration compliance is part of ops discipline: who owns notifications, where document versions live, how inspections are prepared.",
       "We deploy checklists, a responsibility matrix and escalation paths before anyone hits the shift — so line managers are not alone with formal risk.",
       "Tied to shift supply: the paperwork, notifications and access checks sit in the same path as the shift plan — not a hidden gap between HR, the gate and the vendor where nobody can later prove who filed what, when.",
       "Copy is informational; complex cases go to counsel after facts are collected.",
     ],
     segments: [
-      { title: "Warehouses and logistics", text: "Mass headcount, shift patterns, tight inspections and audit trails." },
-      { title: "Manufacturing", text: "Patents, permits, per-site and per-shift tracking." },
-      { title: "Construction", text: "Temporary crews, access control, notification deadlines." },
-      { title: "HoReCa", text: "Seasonal peaks, rosters, training for accountable leads on site." },
+      { title: "E-commerce and fulfilment DCs", text: "Mass headcount, marketplace peaks, tight paperwork and audits." },
+      { title: "3PL and regional DCs", text: "Gate-slot shift patterns, cross-dock, per-site and per-shift tracking." },
+      { title: "Cold and pharma warehouses", text: "Zone access rules, notification timelines, quality and safety alignment." },
+      { title: "Retail DCs and import warehouses", text: "Seasonal peaks, picking and inbound profiles, training shift leads on site." },
     ],
     howItWorks: [
       "Audit current paperwork and processes.",

@@ -55,15 +55,15 @@ export const CASES: CaseStub[] = [
     city: "Москва",
     staff: 120,
     durationMonths: 9,
-    metricUp: "+34% throughput смены",
+    metricUp: "+34% выработки за смену",
     summary:
-      "Складской контур в пик сезона: выровняли явку, сократили простои комплектации и дали прозрачный SLA по заменам.",
+      "Пик сезона на складе маркетплейса: выровняли явку, сократили простои комплектации и закрепили понятный SLA по заменам.",
     challenge:
-      "Пиковые волны заказов и нестабильная явка ломали throughput; внутренний штат не успевал закрывать ночные смены.",
+      "Пиковые волны заказов и нестабильная явка били по темпу отбора; внутренний штат не успевал закрывать ночные смены.",
     solution:
-      "Ввели пул смен с единым онбордингом, регламентом замен и ежедневной отчётностью по явке для операционного центра.",
+      "Собрали пул смен с единым стандартом ввода на объект, регламентом замен и ежедневной отчётностью по явке для операционного центра.",
     outcome:
-      "Throughput смены вырос на треть за счёт предсказуемой явки; инциденты по документам ушли в контролируемый контур.",
+      "Выработка за смену выросла примерно на треть за счёт предсказуемой явки; вопросы по документам ушли в управляемый порядок с ответственными и сроками.",
     clientQuote:
       "Наконец-то один SLA на явку и замены — без «перекидывания» между подрядчиками в пик сезона.",
     titleEn: "Marketplace DC: stable shifts in peak season",
@@ -83,40 +83,40 @@ export const CASES: CaseStub[] = [
   },
   {
     slug: "proizvodstvo-mo",
-    title: "Производство МО: закрытие текучки линейки",
-    industry: "Производство",
+    title: "Производственный хаб МО: склад отгрузки и комплектация",
+    industry: "Склад / отгрузка",
     city: "Подольск",
     staff: 65,
     durationMonths: 6,
     metricUp: "−18% к стоимости смены",
     summary:
-      "Стабилизировали линейку на конвейере: снизили текучку между неделями и выровняли стоимость смены.",
+      "Стабилизировали смены на складе готовой продукции и отгрузки при производственном хабе: выровняли явку у рампы и стоимость смены без простоя экспедиции.",
     challenge:
-      "Высокая текучка и разрыв между планом смен и фактическим выходом давили на производственный график.",
+      "Высокая текучка и разрыв между планом складских смен и фактическим выходом давили на окна отгрузки и график доставок.",
     solution:
-      "Собрали воронку под профиль, усилили инструктаж первых смен и закрепили менторов на линии.",
+      "Собрали воронку под складской профиль у рампы, усилили инструктаж первых смен и закрепили менторов на зоне комплектации.",
     outcome:
-      "Cost per shift снизился на 18% при сохранении качества; замены стали планируемыми, а не аварийными.",
+      "Себестоимость смены снизилась на 18% при сохранении качества; замены стали планируемыми для логистики, а не «пожарными».",
     clientQuote:
-      "Линия перестала «дышать» от недель к неделе — мы видим цифры явки так же, как OEE.",
-    titleEn: "Manufacturing MO: stabilising line churn",
-    industryEn: "Manufacturing",
+      "Нам нужен был предсказуемый склад отгрузки — без этого производство простаивает в ожидании машин.",
+    titleEn: "Manufacturing hub MO: outbound warehouse and picking",
+    industryEn: "Warehouse / outbound",
     metricUpEn: "−18% cost per shift",
     summaryEn:
-      "Stabilised the conveyor line: less week-to-week churn and a steadier cost per shift.",
+      "Stabilised shifts at the finished-goods and outbound warehouse serving a hub: steadier dock attendance and cost per shift.",
     cityEn: "Podolsk",
     challengeEn:
-      "High churn and a gap between planned shifts and actual attendance were squeezing the production schedule.",
+      "High churn and a gap between planned warehouse shifts and actual attendance squeezed shipping windows and outbound timing.",
     solutionEn:
-      "Tightened the funnel for the profile, strengthened first-shift briefings and assigned mentors on the line.",
+      "Tightened the funnel for dock-facing warehouse roles, strengthened first-shift briefings and assigned mentors in picking.",
     outcomeEn:
-      "Cost per shift fell by 18% with stable quality; replacements became planned instead of emergency fire-fighting.",
+      "Cost per shift fell by 18% with stable quality; replacements became planned for logistics, not emergency fire-fighting.",
     clientQuoteEn:
-      "The line stopped \"breathing\" week to week — we see attendance numbers the same way we see OEE.",
+      "We needed a predictable outbound warehouse — otherwise production waits on trucks.",
   },
   {
     slug: "farma-sklad-himki",
-    title: "Фарм-склад: усиленный compliance-контур",
+    title: "Фарм-склад: усиленный контроль документов и миграции",
     industry: "Фарма / склад",
     city: "Химки",
     staff: 40,
@@ -125,7 +125,7 @@ export const CASES: CaseStub[] = [
     summary:
       "Усилили документальный след и контроль сроков уведомлений — без переноса риска на заказчика.",
     challenge:
-      "Строгие требования к документам и срокам; любая ошибка в миграционном контуре — операционный и репутационный риск.",
+      "Строгие требования к документам и срокам; любая ошибка в миграционном учёте — операционный и репутационный риск.",
     solution:
       "Внедрили чек-листы, версионирование документов и SLA по эскалации до выхода на объект.",
     outcome:
@@ -148,70 +148,70 @@ export const CASES: CaseStub[] = [
       "We care about predictability, not a checkbox — we know each line worker's status in advance.",
   },
   {
-    slug: "horeca-set",
-    title: "HoReCa-сеть: сезонный пик без простоя",
-    industry: "HoReCa",
+    slug: "regionalnyj-rc-pik",
+    title: "Региональный РЦ: пик отбора без «дыр» в сменах",
+    industry: "Ритейл / РЦ",
     city: "Москва",
     staff: 200,
     durationMonths: 4,
     metricUp: "95%+ закрытие смен",
     summary:
-      "Закрыли сезонный пик: смены закрывались стабильно, фронт и кухня не теряли темп в часы максимальной нагрузки.",
+      "Закрыли сезонный пик на распределительном центре: смены у комплектации и экспедиции держали темп отгрузок без простоя линий.",
     challenge:
-      "Сезонный всплеск нагрузки и дефицит линейки в ключевых локациях сети.",
+      "Сезонный всплеск заказов и дефицит линейки в ключевых сменах отбора и погрузки.",
     solution:
-      "Собрали пул под профиль HoReCa, ускорили онбординг и синхронизировали замены с региональным операционным центром.",
+      "Собрали пул под профиль комплектации и погрузки, ускорили ввод людей на линию и синхронизировали замены с операционным центром сети.",
     outcome:
-      "Закрытие смен держалось выше 95%; простои в пик сократились без роста overtime на постоянном штате.",
+      "Закрытие смен держалось выше 95%; очередь заказов не раздувала простой отбора у стеллажей.",
     clientQuote:
-      "Гости не ждут, пока мы «наймём кого-то» — смены закрыты, и сервис не проседает в пик.",
-    titleEn: "HoReCa chain: seasonal peak without downtime",
-    industryEn: "HoReCa",
+      "Нам нужны были люди в слот отбора и у ворот — без этого РЦ не вывозит пик.",
+    titleEn: "Regional DC: peak picking without shift gaps",
+    industryEn: "Retail / DC",
     metricUpEn: "95%+ shifts covered",
     summaryEn:
-      "Closed the seasonal spike: stable shift coverage so front-of-house and kitchen kept pace at peak.",
+      "Closed the seasonal spike at a regional DC: picking and dock shifts kept outbound pace without line idle time.",
     cityEn: "Moscow",
     challengeEn:
-      "Seasonal demand spike and a shortage of line staff in key locations across the chain.",
+      "Seasonal order spike and a shortage of staff on critical picking and loading shifts.",
     solutionEn:
-      "Built an HoReCa profile pool, sped up onboarding and aligned replacements with the regional ops centre.",
+      "Built a pool for picking and loading profiles, sped up onboarding and aligned replacements with the network ops centre.",
     outcomeEn:
-      "Shift coverage stayed above 95%; peak-hour gaps shrank without inflating core-team overtime.",
+      "Shift coverage stayed above 95%; the order queue did not idle picking at the racks.",
     clientQuoteEn:
-      "Guests don't wait while we \"find someone\" — shifts are covered and service holds in the rush.",
+      "We needed people in the pick slot and at the gate — otherwise the DC cannot survive the peak.",
   },
   {
-    slug: "stroitelstvo-obekt",
-    title: "Стройка: бригады под срок сдачи",
-    industry: "Строительство",
+    slug: "sklad-rasshirenie-mo",
+    title: "Склад: расширение зон под график запуска",
+    industry: "Логистика / склад",
     city: "Одинцово",
     staff: 55,
     durationMonths: 5,
-    metricUp: "Сроки этапов без срыва",
+    metricUp: "Этапы ввода без срыва смен",
     summary:
-      "Обеспечили выход бригад под календарь этапов: пропускной режим, инструктажи и дисциплина явки.",
+      "Вывели смены под календарь открытия новых зон хранения: пропускной режим, инструктажи и дисциплина явки на складе.",
     challenge:
-      "Сжатые сроки этапов и риск срыва графика из-за неявки и неготовности бригад к пропускному режиму.",
+      "Сжатые сроки ввода мезонина и риск срыва графика из-за неявки и неготовности персонала к доступам и СИЗ.",
     solution:
-      "Согласовали календарь смен, усилили предсменные инструктажи и закрепили ответственных за замены.",
+      "Согласовали календарь смен, усилили предсменные инструктажи и закрепили ответственных за замены на объекте.",
     outcome:
-      "Ключевые этапы закрыты в срок; замены не останавливали работу на площадке.",
+      "Ключевые этапы ввода зон закрыты в срок; замены не останавливали приёмку и отгрузку.",
     clientQuote:
-      "Подрядчик, который держит календарь так же жёстко, как генподрядчик — для нас это редкость.",
-    titleEn: "Construction: crews aligned to handover dates",
-    industryEn: "Construction",
-    metricUpEn: "Milestone dates met",
+      "Подрядчик держал календарь выхода людей так же жёстко, как график открытия зон — для нас это редкость.",
+    titleEn: "Warehouse: zone ramp-up on a launch schedule",
+    industryEn: "Logistics / warehouse",
+    metricUpEn: "Ramp milestones met",
     summaryEn:
-      "Crews on a milestone calendar: site access rules, briefings and disciplined attendance.",
+      "Shift plan for opening new storage zones: access rules, briefings and disciplined attendance on site.",
     cityEn: "Odintsovo",
     challengeEn:
-      "Tight milestone dates and the risk of slippage from no-shows and crews not ready for site access rules.",
+      "Tight mezzanine go-live dates and the risk of slippage from no-shows and crews not ready for access rules and PPE.",
     solutionEn:
-      "Aligned the shift calendar, strengthened pre-shift briefings and named owners for replacements.",
+      "Aligned the shift calendar, strengthened pre-shift briefings and named replacement owners on site.",
     outcomeEn:
-      "Major milestones closed on time; replacements did not stop work on site.",
+      "Major zone go-live milestones closed on time; replacements did not stop inbound and outbound.",
     clientQuoteEn:
-      "A contractor that guards the schedule as tightly as the GC — that is rare for us.",
+      "The vendor held the people calendar as tightly as the zone opening plan — that is rare for us.",
   },
   {
     slug: "ritail-raspredelenie",
@@ -257,7 +257,7 @@ export const CASES: CaseStub[] = [
     summary:
       "Выровняли выход бригад под слоты на воротах и пик кросс-дока: смены закрывались, очередь фур не раздувала простой внутри.",
     challenge:
-      "Несогласованность слотов и явки ломала кросс-док: простои ворот перетекали в простой линии и рост переработок у постоянного контура.",
+      "Несогласованность слотов и явки ломала кросс-док: простои ворот перетекали в простой линии и рост переработок у постоянного штата.",
     solution:
       "Ввели единый календарь смен с буфером на замену, синхронизацию с диспетчером площадки и еженедельный разбор отклонений по 15-минутным окнам.",
     outcome:
@@ -281,14 +281,14 @@ export const CASES: CaseStub[] = [
   },
   {
     slug: "kholod-konturnyy-sklad-mytischi",
-    title: "Холод: контур +2…+5 °C без «провалов» смены",
+    title: "Холод: зона +2…+5 °C без «провалов» по явке",
     industry: "Продуктовая логистика / холод",
     city: "Мытищи",
     staff: 48,
     durationMonths: 10,
     metricUp: "0 срывов смены по температурным зонам",
     summary:
-      "Выровняли выход смен под график открытия камер и инциденты HACCP: буфер замен и маршрут до зоны без пересечения с сухим контуром.",
+      "Выровняли выход смен под график открытия камер и требования HACCP: буфер замен и маршрут до зоны без пересечения с сухим складом.",
     challenge:
       "Холод — не «тот же склад, но в жилетке»: срыв смены = риск цепочки, а не только позиция в графике.",
     solution:
@@ -319,15 +319,15 @@ export const CASES: CaseStub[] = [
     city: "Раменское",
     staff: 110,
     durationMonths: 5,
-    metricUp: "+27% строк outbound при том же ядре",
+    metricUp: "+27% отгрузочных строк при том же ядре",
     summary:
-      "Набор и онбординг под короткое окно пика: единый контакт подрядчика, замены по регламенту, без конфликта с постоянным контуром.",
+      "Набор и ввод под короткое окно пика: один контакт подрядчика, замены по регламенту, без конфликта с постоянным штатом.",
     challenge:
       "Годовой промо-пик: нужно быстро закрыть объём без потери качества комплектации и без бесконечного overtime ядра.",
     solution:
       "Пул смен под профиль FBS, приоритет слотов на индуктивные линии и еженедельный разбор отклонений до конца пика.",
     outcome:
-      "Outbound строк вырос без пропорционального роста постоянного штата; после пика — контролируемое сжатие контура.",
+      "Строк отгрузки стало больше без пропорционального роста постоянного штата; после пика — контролируемое сжатие численности.",
     clientQuote:
       "Мы не хотели ‘нанять всех и потом резать’ — нужен был управляемый пул под окно кампании.",
     titleEn: "E-com fulfilment: 11.11 peak without bloating core staff",

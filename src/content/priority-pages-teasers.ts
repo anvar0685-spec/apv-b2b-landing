@@ -11,17 +11,17 @@ export type PageTeaser = {
 export const PRIORITY_PAGE_TEASERS: readonly PageTeaser[] = [
   {
     path: "/",
-    ru: { title: "Главная", teaser: "Аутсорсинг смен на склады Москвы и МО: SLA, ставки, compliance." },
+    ru: { title: "Главная", teaser: "Подряд по персоналу на склады Москвы и МО: явка, замены, ставки и SLA в договоре." },
     en: { title: "Home", teaser: "Warehouse shift outsourcing for Moscow & MO: SLA, rates, compliance." },
   },
   {
     path: "/uslugi",
-    ru: { title: "Услуги", teaser: "Хаб форматов поставки персонала на склад." },
+    ru: { title: "Услуги", teaser: "Форматы работы с подрядчиком по складскому персоналу: что входит в КП." },
     en: { title: "Services", teaser: "Hub of staffing delivery formats for warehouses." },
   },
   {
     path: "/uslugi/autsorsing",
-    ru: { title: "Аутсорсинг", teaser: "Контрактная поставка смен и замен под ваши KPI." },
+    ru: { title: "Аутсорсинг", teaser: "Выводим людей на смены под ваши KPI; замены и явка — по регламенту сопровождения, не отдельный «продукт»." },
     en: { title: "Outsourcing", teaser: "Contractual shift supply and replacements under your KPIs." },
   },
   {
