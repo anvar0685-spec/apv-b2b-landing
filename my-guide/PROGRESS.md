@@ -157,7 +157,7 @@
 
 | Задача | Готово | Комментарий |
 |--------|--------|-------------|
-| Калькулятор §7 расширение | [x] | done: `calculator-full.tsx`, 6 шагов; QuickContactDock, CallbackFab. |
+| Калькулятор §7 расширение | [x] | done: `calculator-full.tsx`, 6 шагов; `ContactStack` (бывш. QuickContactDock + CallbackFab). |
 | Кейсы | [x] | done: 9 кейсов RU + поля `*En` в `cases-stub` (EN **не** на витрине при RU-only). |
 
 ---

@@ -32,6 +32,7 @@ export function HeroSection() {
       className="grain-dark relative overflow-hidden bg-[var(--primary-dark)] text-white"
     >
       <div className="hero-ambient pointer-events-none absolute inset-0 opacity-80" />
+      <div className="ux-pattern-hero pointer-events-none absolute inset-0" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-4 pb-20 pt-16 sm:px-6 lg:px-8 lg:pb-28 lg:pt-24">
         <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
           <motion.div

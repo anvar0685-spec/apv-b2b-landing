@@ -13,7 +13,7 @@ export function MarketingPageHero({
   containerClass = "mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8",
 }: MarketingPageHeroProps) {
   return (
-    <section className="relative overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--surface)] py-10 lg:py-14">
+    <section className="ux-marketing-subtle relative overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--surface)] py-10 lg:py-14">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[color-mix(in_srgb,var(--accent)_55%,transparent)] to-transparent dark:via-[color-mix(in_srgb,var(--accent)_40%,transparent)]"
         aria-hidden

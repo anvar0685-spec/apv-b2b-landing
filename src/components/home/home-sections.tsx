@@ -91,8 +91,9 @@ export async function HomeSections() {
 
       <HomeProfessionsHubs />
 
-      <section id="calc" className="bg-[var(--surface)] py-32 lg:py-40">
-        <div className="mx-auto grid max-w-[1280px] gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+      <section id="calc" className="relative overflow-hidden bg-[var(--surface)] py-32 lg:py-40">
+        <div className="ux-pattern-calc pointer-events-none absolute inset-0" aria-hidden />
+        <div className="relative mx-auto grid max-w-[1280px] gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">
               {ts("calcKicker")}

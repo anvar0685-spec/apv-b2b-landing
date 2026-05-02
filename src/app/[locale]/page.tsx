@@ -8,6 +8,7 @@ import { StatsCounters } from "@/components/home/stats-counters";
 import { HomeSections } from "@/components/home/home-sections";
 import { PainSolutionBento } from "@/components/home/pain-solution-bento";
 import { FullBleedOperations } from "@/components/home/full-bleed-operations";
+import { SectionDivider } from "@/components/marketing/section-divider";
 import { JsonLd } from "@/components/seo/json-ld";
 import { site } from "@/config/site";
 import { buildPageMetadata } from "@/lib/seo";
@@ -94,8 +95,10 @@ export default async function HomePage() {
       <PartnersStrip />
       <HomePersonas />
       <PainSolutionBento />
+      <SectionDivider className="py-6 sm:py-8" />
       <StatsCounters />
       <FullBleedOperations />
+      <SectionDivider className="py-6 sm:py-8" />
       <HomeSections />
     </main>
   );

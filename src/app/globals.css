@@ -236,3 +236,110 @@ details.faq-item[open] .faq-chevron {
     box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent);
   }
 }
+
+/* --- UX/UI роль 02: сдержанные паттерны без фото (иерархия «операции / склад») --- */
+
+/** Тихая «площадка» в hero: перспектива прохода + сетка */
+.ux-pattern-hero {
+  opacity: 0.085;
+  background-image:
+    linear-gradient(
+      112deg,
+      transparent 0%,
+      transparent 42%,
+      color-mix(in srgb, var(--accent) 35%, transparent) 50%,
+      transparent 58%
+    ),
+    repeating-linear-gradient(
+      -18deg,
+      transparent,
+      transparent 52px,
+      color-mix(in srgb, white 14%, transparent) 52px,
+      color-mix(in srgb, white 14%, transparent) 53px
+    ),
+    repeating-linear-gradient(
+      96deg,
+      transparent,
+      transparent 71px,
+      color-mix(in srgb, white 9%, transparent) 71px,
+      color-mix(in srgb, white 9%, transparent) 72px
+    );
+}
+
+html.dark .ux-pattern-hero {
+  opacity: 0.11;
+}
+
+/** Фон блока калькулятора: сетка как у дашборда */
+.ux-pattern-calc {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 47px,
+      color-mix(in srgb, var(--primary) 7%, transparent) 47px,
+      color-mix(in srgb, var(--primary) 7%, transparent) 48px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 47px,
+      color-mix(in srgb, var(--primary) 5%, transparent) 47px,
+      color-mix(in srgb, var(--primary) 5%, transparent) 48px
+    );
+  opacity: 0.55;
+}
+
+html.dark .ux-pattern-calc {
+  opacity: 0.35;
+}
+
+/** Лёгкий «воздух» на внутренних hero-секциях */
+.ux-marketing-subtle {
+  background-image: radial-gradient(
+    ellipse 140% 70% at 100% -10%,
+    color-mix(in srgb, var(--accent) 10%, transparent),
+    transparent 52%
+  );
+}
+
+/** Акцентная карточка bento */
+.ux-bento-accent-mesh::before {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  opacity: 0.14;
+  background:
+    radial-gradient(ellipse 75% 55% at 92% 8%, color-mix(in srgb, var(--accent) 50%, transparent), transparent 52%),
+    repeating-linear-gradient(
+      180deg,
+      transparent,
+      transparent 36px,
+      color-mix(in srgb, var(--accent) 14%, transparent) 36px,
+      transparent 37px
+    );
+  pointer-events: none;
+}
+
+/** Одна тёмная карточка — лёгкая диагональ */
+.ux-bento-dark-field::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  background-image: repeating-linear-gradient(
+    -38deg,
+    transparent,
+    transparent 14px,
+    color-mix(in srgb, white 5%, transparent) 14px,
+    color-mix(in srgb, white 5%, transparent) 15px
+  );
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ux-pattern-hero,
+  .ux-pattern-calc {
+    animation: none;
+  }
+}

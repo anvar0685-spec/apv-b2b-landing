@@ -37,9 +37,16 @@ export async function PainSolutionBento() {
                 ? "grain-dark border-white/10 bg-[var(--primary)] text-white hover:border-[var(--accent)]/35"
                 : "border-[var(--accent)]/25 bg-gradient-to-br from-[var(--accent)]/12 via-white to-[var(--surface)] text-[var(--primary)] hover:border-[var(--accent)]/40";
 
+          const mesh =
+            c.id === "outcome"
+              ? " ux-bento-accent-mesh"
+              : c.id === "compliance"
+                ? " ux-bento-dark-field"
+                : "";
+
           return (
-            <article key={c.id} className={`${c.span} ${base} ${styles}`}>
-              <div>
+            <article key={c.id} className={`${c.span} ${base} ${styles}${mesh}`}>
+              <div className="relative z-[1]">
                 <p
                   className={`text-[11px] font-semibold uppercase tracking-[0.14em] ${
                     c.tone === "dark" ? "text-white/50" : "text-[var(--neutral-500)]"
@@ -62,7 +69,7 @@ export async function PainSolutionBento() {
                   {cell.body}
                 </p>
               </div>
-              <div className="mt-6 h-px w-full bg-gradient-to-r from-transparent via-[var(--accent)]/35 to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
+              <div className="relative z-[1] mt-6 h-px w-full bg-gradient-to-r from-transparent via-[var(--accent)]/35 to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
             </article>
           );
         })}
