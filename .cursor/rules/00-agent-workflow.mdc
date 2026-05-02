@@ -7,7 +7,7 @@ alwaysApply: true
 
 ## Онбординг для нового агента
 
-1. Прочитай **`.cursor/rules/`**: `00-agent-workflow` (этот файл), **`01-six-week-roadmap`**, при UI — **`02-ux-premium-orchestrator`**, при **смысле услуг, CTA, позиционировании** — **`03-outsourcing-strategist-orchestrator`**, при **SEO, sitemap, canonical, микроразметке, индексации** — **`04-seo-strategist-orchestrator`**.
+1. Прочитай **`.cursor/rules/`**: `00-agent-workflow` (этот файл), **`01-six-week-roadmap`**, при UI — **`02-ux-premium-orchestrator`**, при **смысле услуг, CTA, позиционировании** — **`03-outsourcing-strategist-orchestrator`**, при **SEO, sitemap, canonical, микроразметке, индексации** — **`04-seo-strategist-orchestrator`**, при **финальной вычитке русского текста и отчёте копирайтера по всему сайту** — **`05-copywriter-outsourcing-auditor`**.
 2. Открой **`my-guide/PROGRESS.md`** — чекбоксы по неделям и последнее обновление.
 3. Детальный план — **`my-guide/SIX-WEEK-PLAN.md`**, мастер-промпт — **`my-guide/COMPOSER-2-MASTER-PROMPT.md`**, бриф визуала — **`my-guide/WEB-DESIGN-BRIEF.md`**.
 

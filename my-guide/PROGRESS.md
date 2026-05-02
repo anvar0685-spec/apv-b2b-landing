@@ -14,6 +14,7 @@
 - План детально: [`SIX-WEEK-PLAN.md`](./SIX-WEEK-PLAN.md)
 - Бриф визуала: [`WEB-DESIGN-BRIEF.md`](./WEB-DESIGN-BRIEF.md)
 - Цели Метрики: [`YANDEX-METRIKA-GOALS.md`](./YANDEX-METRIKA-GOALS.md)
+- Роль 05 — финальный текстовый аудит: [`.cursor/rules/05-copywriter-outsourcing-auditor.mdc`](../.cursor/rules/05-copywriter-outsourcing-auditor.mdc), отчёт: [`COPYWRITER-FINAL-AUDIT-REPORT.md`](./COPYWRITER-FINAL-AUDIT-REPORT.md)
 
 **Легенда:** `done` — закрыто по смыслу недели · `partial` — каркас/редакция без финальных тарифов/медиа от заказчика · `blocked` — ждём вводных.
 
@@ -40,7 +41,7 @@
 | Реквизиты | **`config/site.ts`**: ИНН, ОГРНИП, адрес, р/с, БИК, к/с, банк; дубли в **`.env.example`** для прода. |
 | Кейсы / заявка / о компании | **`/keysy`**, **`/keysy/[slug]`**; **`/zayavka`** + **`LeadMultistepForm`**; **`/o-kompanii`** + `aboutPage`. |
 | SEO-мета | **`generateMetadata` + `buildPageMetadata`**; опционально **`keywords`** в `buildPageMetadata`; тексты в **`pagesSeo`** и **`ru.json`**. Для **`autsorsing`** — переопределение title/description из **`autsorsing.data.ts`**. |
-| Правила Cursor | **`00`–`04`** в корне воркспейса и в **`apv-b2b-landing/.cursor/rules/`**; деплой/VPS — в **`00-agent-workflow`**. |
+| Правила Cursor | **`00`–`05`** в корне воркспейса и в **`apv-b2b-landing/.cursor/rules/`**; деплой/VPS — в **`00-agent-workflow`**; финальная вычитка текстов — **`05-copywriter-outsourcing-auditor`**. |
 | Прод (техника) | VPS: **nginx** прокси на **127.0.0.1:3000**, **PM2** крутит **`.next/standalone/server.js`**; скрипты **`deploy/*`**; **git pull + `npm run build:vps`** на сервере после пуша в **`main`**. |
 | Прайс и контакты | **`warehouse-hourly-rates.ts`**: 600 грузчики/разнорабочие, 650 комплектовщики (+ упаковщики/сборщики-упаковщики как смежная линейка), 680 кладовщики, 800 водители ПРТ; остальные slug — ориентиры в коде. **`site`**: телефон **+7 (925) 437-12-11**, WhatsApp, Telegram **@LVHanter**; синхрон текстов: главная (услуги), FAQ, калькулятор, мета калькулятора, `autsorsing.data`. |
 
@@ -58,7 +59,7 @@
 ### Куда смотреть в первую очередь
 
 - План: **`SIX-WEEK-PLAN.md`**, мастер: **`COMPOSER-2-MASTER-PROMPT.md`**, прогресс (этот файл).
-- Правила агента: **`apv-b2b-landing/.cursor/rules/`** (`00` … `03`).
+- Правила агента: **`apv-b2b-landing/.cursor/rules/`** (`00` … `05`).
 - Сборка: из **`apv-b2b-landing/`** → **`npm run build`**.
 
 ---
