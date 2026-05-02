@@ -57,9 +57,7 @@ export async function HomeSections() {
     <>
       <JsonLd data={faqJson} />
       <section id="services-preview" className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <h2 className="font-display text-[clamp(2.85rem,6.5vw,5.75rem)] font-extrabold leading-[1.02] tracking-[-0.045em] text-[var(--primary)]">
-          {ts("servicesTitle")}
-        </h2>
+        <h2 className="type-display-lg max-w-3xl text-balance">{ts("servicesTitle")}</h2>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[var(--neutral-700)]">
           {ts("servicesLead")}{" "}
           <strong>{ts("servicesLeadStrong")}</strong>

@@ -64,19 +64,18 @@ export function HeroSection() {
                 <Link href="/zayavka">{tc("proposal")}</Link>
               </Button>
             </div>
-            <nav
-              aria-label={th("sectionsNavAria")}
-              className="mt-12 flex flex-wrap gap-2 border-t border-white/[0.08] pt-8"
-            >
-              {sub.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  className="interactive-hover-ring rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-white/88 backdrop-blur-sm transition hover:border-[var(--accent)]/50 hover:bg-white/[0.08] hover:text-white"
-                >
-                  {l.label}
-                </a>
-              ))}
+            <nav aria-label={th("sectionsNavAria")} className="mt-12 border-t border-white/[0.08] pt-8">
+              <div className="-mx-1 flex gap-2 overflow-x-auto overscroll-x-contain pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden">
+                {sub.map((l) => (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    className="interactive-hover-ring shrink-0 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-white/88 backdrop-blur-sm transition hover:border-[var(--accent)]/50 hover:bg-white/[0.08] hover:text-white"
+                  >
+                    {l.label}
+                  </a>
+                ))}
+              </div>
             </nav>
           </motion.div>
 

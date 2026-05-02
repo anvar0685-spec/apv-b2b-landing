@@ -47,13 +47,14 @@ export function CallbackFab() {
           void trackEvent("callback_fab_open", { source: "fab" });
         }}
         className={cn(
-          "fixed bottom-5 left-5 z-40 flex items-center gap-2 rounded-full bg-[var(--primary)] px-4 py-3 text-sm font-semibold text-white shadow-lg",
+          "fixed bottom-5 left-5 z-40 flex items-center justify-center gap-2 rounded-full bg-[var(--primary)] text-sm font-semibold text-white shadow-lg",
+          "max-sm:h-12 max-sm:w-12 max-sm:px-0 sm:px-4 sm:py-3",
           "ring-2 ring-white/25 transition hover:ring-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]",
           "motion-reduce:transition-none",
         )}
       >
         <Phone className="h-4 w-4 shrink-0" aria-hidden />
-        Обратный звонок
+        <span className="max-sm:sr-only">Обратный звонок</span>
       </button>
 
       {open ? (

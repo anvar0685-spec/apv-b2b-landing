@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, Moon, Sun, X } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { BrandMark } from "@/components/brand/brand-mark";
@@ -172,7 +172,7 @@ export function SiteHeaderClient({
             aria-label={dark ? "Светлая тема" : "Тёмная тема"}
             title={dark ? "Светлая тема" : "Тёмная тема"}
           >
-            {dark ? "☀" : "☾"}
+            {dark ? <Sun className="h-4 w-4" aria-hidden /> : <Moon className="h-4 w-4" aria-hidden />}
           </button>
           <Button asChild variant="secondary" size="sm" className="hidden sm:inline-flex">
             <Link href="/zayavka">{ctaProposal}</Link>

@@ -1,3 +1,6 @@
+"use client";
+
+import { useId } from "react";
 import { cn } from "@/lib/utils";
 
 type BrandMarkProps = {
@@ -10,6 +13,7 @@ type BrandMarkProps = {
 /** Геометрический логомарк (монограмма) — SVG, масштабируется через className. */
 export function BrandMark({ letters, className, sizeClassName = "h-10 w-10" }: BrandMarkProps) {
   const ab = letters.slice(0, 2).toUpperCase();
+  const gradId = `bm-stroke-${useId().replace(/:/g, "")}`;
   return (
     <svg
       className={cn(sizeClassName, "shrink-0", className)}
@@ -21,7 +25,7 @@ export function BrandMark({ letters, className, sizeClassName = "h-10 w-10" }: B
       aria-hidden
     >
       <defs>
-        <linearGradient id="bm-stroke" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+        <linearGradient id={gradId} x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
           <stop stopColor="var(--accent)" />
           <stop offset="1" stopColor="var(--accent-soft)" />
         </linearGradient>
@@ -32,7 +36,7 @@ export function BrandMark({ letters, className, sizeClassName = "h-10 w-10" }: B
         width="38"
         height="38"
         rx="11"
-        stroke="url(#bm-stroke)"
+        stroke={`url(#${gradId})`}
         strokeWidth="1.25"
         fill="var(--primary-dark)"
       />

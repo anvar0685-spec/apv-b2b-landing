@@ -49,11 +49,11 @@ export function HeroSlaDashboard() {
   const y2 = useCountUp(12, 0, showMotion, !!reduce);
 
   return (
-    <div
+    <figure
       className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.45)] backdrop-blur-md"
-      aria-hidden
+      aria-label={t("figureAriaLabel")}
     >
-      <div className="absolute inset-0 hero-ambient opacity-90" />
+      <div className="absolute inset-0 hero-ambient opacity-90" aria-hidden />
       <div className="relative flex flex-col gap-5">
         <div className="flex items-center justify-between gap-3">
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">{t("slaKicker")}</p>
@@ -62,7 +62,7 @@ export function HeroSlaDashboard() {
             animate={reduce ? undefined : { scale: [1, 1.06, 1], opacity: [0.85, 1, 0.85] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
           >
-            live
+            {t("statusBadge")}
           </motion.span>
         </div>
 
@@ -145,7 +145,11 @@ export function HeroSlaDashboard() {
             </motion.span>
           ))}
         </div>
+
+        <figcaption className="relative border-t border-white/[0.07] pt-4 text-center text-[10px] leading-snug text-white/45">
+          {t("demoDisclaimer")}
+        </figcaption>
       </div>
-    </div>
+    </figure>
   );
 }
