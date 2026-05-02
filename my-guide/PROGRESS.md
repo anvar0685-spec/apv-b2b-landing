@@ -23,7 +23,9 @@
 
 **Репозиторий:** только каталог **`apv-b2b-landing/`** (git `main`). Родительская папка «АПВ - СИСТЕМА» в git не трекается.
 
-**Последнее крупное обновление трекера (2026-04-29):** **выравнивание позиционирования** — только **аутсорсинг складского персонала** на склады Москвы и МО: убраны **HoReCa** и **стройка** с главной и из **`migration.data.ts`**; кейсы **`horeca-set`** / **`stroitelstvo-obekt`** заменены на складские истории (**`regionalnyj-rc-pik`**, **`sklad-rasshirenie-mo`**) + редиректы в **`next.config.mjs`**; **`proizvodstvo-mo`** переписан под склад отгрузки; programmatic meta/H1/лонгрид и FAQ — единый закупочный язык. Блог — **`40`** статей; билд — см. «Последнее обновление». Предыдущее крупное (2026-04-23): **`/uslugi/autsorsing`**. **Тон под рынок:** [`COMPETITOR-VOICE-BENCHMARK.md`](./COMPETITOR-VOICE-BENCHMARK.md), [`TEXT-AUDIT-ROLE03-HUMAN-RU.md`](./TEXT-AUDIT-ROLE03-HUMAN-RU.md), база [`OUTSOURCING-CONTENT-KNOWLEDGE-BASE.md`](./OUTSOURCING-CONTENT-KNOWLEDGE-BASE.md) (§13 — микро-шаблоны). **2026-04-23 (блог):** нормализация всего `blog-published.ts` + отчёт [`ROLE03-FINAL-REPORT-BLOG-2026-04-23.md`](./ROLE03-FINAL-REPORT-BLOG-2026-04-23.md).
+**Последнее крупное обновление трекера (2026-05-02):** **прод-деплой на VPS (Timeweb)** — приложение за **nginx → PM2 → Next standalone**; middleware учитывает **`X-Forwarded-*`** (корректные редиректы не на `localhost`); **`localePrefix: "always"`** из‑за ограничения **standalone** (канон главной **`/ru`**); в **`ru.json`** синхронизированы ключи под **`PartnersStrip`** и **`homePage.stats.items`** (плюс **`entries`** для локальной версии счётчиков). Домен и **HTTPS** — сознательно позже.
+
+**Предыдущее крупное (2026-04-29):** **выравнивание позиционирования** — только **аутсорсинг складского персонала** на склады Москвы и МО: убраны **HoReCa** и **стройка** с главной и из **`migration.data.ts`**; кейсы **`horeca-set`** / **`stroitelstvo-obekt`** заменены на складские истории (**`regionalnyj-rc-pik`**, **`sklad-rasshirenie-mo`**) + редиректы в **`next.config.mjs`**; **`proizvodstvo-mo`** переписан под склад отгрузки; programmatic meta/H1/лонгрид и FAQ — единый закупочный язык. Блог — **`40`** статей; билд — см. «Последнее обновление». Предыдущее крупное (2026-04-23): **`/uslugi/autsorsing`**. **Тон под рынок:** [`COMPETITOR-VOICE-BENCHMARK.md`](./COMPETITOR-VOICE-BENCHMARK.md), [`TEXT-AUDIT-ROLE03-HUMAN-RU.md`](./TEXT-AUDIT-ROLE03-HUMAN-RU.md), база [`OUTSOURCING-CONTENT-KNOWLEDGE-BASE.md`](./OUTSOURCING-CONTENT-KNOWLEDGE-BASE.md) (§13 — микро-шаблоны). **2026-04-23 (блог):** нормализация всего `blog-published.ts` + отчёт [`ROLE03-FINAL-REPORT-BLOG-2026-04-23.md`](./ROLE03-FINAL-REPORT-BLOG-2026-04-23.md).
 
 ### Сделано в коде (можно продолжать с этого состояния)
 
@@ -38,7 +40,8 @@
 | Реквизиты | **`config/site.ts`**: ИНН, ОГРНИП, адрес, р/с, БИК, к/с, банк; дубли в **`.env.example`** для прода. |
 | Кейсы / заявка / о компании | **`/keysy`**, **`/keysy/[slug]`**; **`/zayavka`** + **`LeadMultistepForm`**; **`/o-kompanii`** + `aboutPage`. |
 | SEO-мета | **`generateMetadata` + `buildPageMetadata`**; опционально **`keywords`** в `buildPageMetadata`; тексты в **`pagesSeo`** и **`ru.json`**. Для **`autsorsing`** — переопределение title/description из **`autsorsing.data.ts`**. |
-| Правила Cursor | **`00`–`03`** в корне воркспейса и в **`apv-b2b-landing/.cursor/rules/`**. |
+| Правила Cursor | **`00`–`04`** в корне воркспейса и в **`apv-b2b-landing/.cursor/rules/`**; деплой/VPS — в **`00-agent-workflow`**. |
+| Прод (техника) | VPS: **nginx** прокси на **127.0.0.1:3000**, **PM2** крутит **`.next/standalone/server.js`**; скрипты **`deploy/*`**; **git pull + `npm run build:vps`** на сервере после пуша в **`main`**. |
 | Прайс и контакты | **`warehouse-hourly-rates.ts`**: 600 грузчики/разнорабочие, 650 комплектовщики (+ упаковщики/сборщики-упаковщики как смежная линейка), 680 кладовщики, 800 водители ПРТ; остальные slug — ориентиры в коде. **`site`**: телефон **+7 (925) 437-12-11**, WhatsApp, Telegram **@LVHanter**; синхрон текстов: главная (услуги), FAQ, калькулятор, мета калькулятора, `autsorsing.data`. |
 
 ### Не сделано или не закрыто без заказчика (не врать новому агенту)
@@ -67,7 +70,7 @@
 | # | Задача | Статус |
 |---|--------|--------|
 | 1 | **Юрист:** вычитка политики ПДн, оферты, согласия, правил под факт ведения бизнеса и **ИП Махмадов** | [ ] human |
-| 2 | **Хостинг + домен + HTTPS** (куда кладёте `next start` / serverless) | [ ] |
+| 2 | **Хостинг + домен + HTTPS** | partial: VPS + nginx + PM2 + **standalone** на боевом IP; **домен + TLS + финальный `NEXT_PUBLIC_SITE_URL`** — позже |
 | 3 | **Прод `.env`:** `NEXT_PUBLIC_SITE_URL`, `DATABASE_URL`, `REDIS_URL` (если нужен), `JWT_SECRET` (длинный случайный), реквизиты/телеметрия по необходимости | [ ] |
 | 4 | **Смоук-лиды:** с прод-домена отправить заявку → запись/уведомление (как настроите: БД, почта, Amo, Telegram) | [ ] |
 | 5 | **Яндекс.Метрика:** рабочий `YANDEX_METRICA_ID` / счётчик на домене прода | [ ] |
@@ -198,8 +201,8 @@
 
 ## Последнее обновление
 
-- **Дата:** 2026-04-29  
+- **Дата:** 2026-05-02  
 - **Кто:** agent  
-- **Что:** позиционирование «только склады» — см. отчёт выше; **`npm run build`** — OK.  
-- **Предыдущее крупное:** 2026-04-23 — программатика на всех парах; 2026-04-29 — блог 40 статей.  
-- **Следующий шаг:** юридическая вычитка человеком; прод-smoke лидов; **NEXT_PUBLIC_SITE_DOMAIN** на боевой домен вместо `example.com`.
+- **Что:** прод на VPS (nginx, PM2, standalone); правки **middleware** / **routing** / **`ru.json`** под прод; главная отдаёт **200** по цепочке **`/` → `/ru`**.  
+- **Предыдущее крупное:** 2026-04-29 — позиционирование «только склады» + блог 40 статей.  
+- **Следующий шаг:** работа над сайтом до привязки домена; затем **HTTPS**, **`NEXT_PUBLIC_SITE_URL`** / **`NEXT_PUBLIC_SITE_DOMAIN`** на финальный origin; юридическая вычитка; смоук лидов и Метрика на домене прода.
