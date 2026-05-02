@@ -24,7 +24,7 @@ type WorkFormat = "permanent" | "seasonal" | "night" | "oneoff";
 const FORMATS: { id: WorkFormat; label: string; hint: string }[] = [
   { id: "permanent", label: "Постоянный персонал", hint: "База ~40 ч/нед" },
   { id: "seasonal", label: "Сезон / пик", hint: "Выше часов + пиковая надбавка" },
-  { id: "night", label: "Ночной контур", hint: "Надбавка к ставке по смене" },
+  { id: "night", label: "Ночные смены", hint: "Надбавка к ставке по смене" },
   { id: "oneoff", label: "Разовый проект", hint: "Короткое окно, частичная занятость" },
 ];
 
@@ -290,7 +290,7 @@ export function CalculatorFull() {
               </label>
               <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
                 <Checkbox checked={extraCompliance} onCheckedChange={(v) => setExtraCompliance(v === true)} />
-                Расширенный compliance (маркетплейс / DC)
+                Жёсткие требования площадки (маркетплейс / РЦ): допуски и документы (+6% к ориентиру)
               </label>
             </div>
             <div className="mt-8 rounded-2xl bg-[var(--surface)] p-6">
@@ -314,7 +314,7 @@ export function CalculatorFull() {
                 </li>
               </ul>
               <p className="type-body mt-3 text-sm text-[var(--neutral-500)]">
-                НДС, форма взаимодействия и пакет пика — в договоре. Разовый сценарий: сверяйтесь с заявкой и пилотом, а не
+                НДС, форма взаимодействия и пакет пика — в договоре. Разовый сценарий: сверяйтесь с заявкой и параметрами первых смен на объекте, а не
                 только с цифрой в калькуляторе.
               </p>
               <p className="mt-4 font-mono-nums text-2xl font-bold text-[var(--primary)]">
