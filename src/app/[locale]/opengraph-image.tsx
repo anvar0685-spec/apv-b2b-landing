@@ -7,7 +7,7 @@ export const contentType = "image/png";
 
 export default function OpengraphImage() {
   const brand = site.brandName.replace(/_/g, " ");
-  const tagline = "Линейный персонал · Москва и МО · SLA и compliance";
+  const tagline = "Линейный персонал · Москва и МО · SLA и нормативка площадки";
 
   return new ImageResponse(
     (

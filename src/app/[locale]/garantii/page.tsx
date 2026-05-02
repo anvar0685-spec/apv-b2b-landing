@@ -48,10 +48,10 @@ export default function Page() {
             </CardDescription>
           </Card>
           <Card className="border-[var(--neutral-200)]/90">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)]">Комплаенс</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)]">Нормативка</p>
             <CardTitle className="mt-3">Документы и учёт</CardTitle>
             <CardDescription>
-              Инструктажи, табели, акты, кадровый и миграционный контур в зоне ответственности поставщика — по договору.
+              Инструктажи, табели, акты, кадровый документооборот и миграционный учёт в зоне ответственности поставщика — по договору.
               Пакеты под аудит заказчика согласуются заранее.
             </CardDescription>
           </Card>

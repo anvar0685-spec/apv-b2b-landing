@@ -41,7 +41,7 @@ export const OTRASLI_SLUGS: readonly SlugPageDef[] = [
     slug: "proizvodstvennye-sklady",
     title: { ru: "Производственные склады", en: "Manufacturing warehouse staffing" },
     description: {
-      ru: "Персонал под производственные складские контуры FMCG, фармы, электроники.",
+      ru: "Персонал под производственно-складские операции FMCG, фармы и электроники.",
       en: "Staffing for manufacturing warehouse flows in FMCG, pharma and electronics.",
     },
   },
@@ -49,7 +49,7 @@ export const OTRASLI_SLUGS: readonly SlugPageDef[] = [
     slug: "farmatsevticheskie-sklady",
     title: { ru: "Фармацевтические склады", en: "Pharma warehouse staffing" },
     description: {
-      ru: "Соблюдение регламентов хранения и сериализации при поставке смен.",
+      ru: "Соблюдение регламентов хранения и сериализации при выводе людей на смены.",
       en: "Storage and serialization requirements respected while supplying shifts.",
     },
   },

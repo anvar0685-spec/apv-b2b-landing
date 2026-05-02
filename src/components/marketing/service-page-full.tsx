@@ -49,14 +49,17 @@ export function ServicePageFull({ model }: Props) {
     "@context": "https://schema.org",
     "@type": "Service",
     name: model.h1,
-    description: model.subtitle,
+    description: model.metaDescription ?? model.subtitle,
     provider: {
       "@type": "Organization",
       name: site.brandName,
       url: base,
     },
-    areaServed: t.areaServed,
-    serviceType: model.slug,
+    areaServed: {
+      "@type": "AdministrativeArea",
+      name: t.areaServed,
+    },
+    serviceType: model.schemaServiceType ?? model.slug,
   };
 
   const faqJson = {

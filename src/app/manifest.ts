@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: brand,
     short_name: "АПВ",
     description:
-      "Аутсорсинг складского персонала в Москве и МО: смены, SLA, прозрачные ставки, compliance.",
+      "Аутсорсинг складского персонала в Москве и МО: смены, SLA, прозрачные ставки, документы и требования площадки.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

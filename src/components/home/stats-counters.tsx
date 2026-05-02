@@ -23,21 +23,53 @@ function useCount(target: number, reduce: boolean) {
   return v;
 }
 
-type StatItem = { label: string; hint: string };
+export type StatEntry = {
+  target: number;
+  /** Текст сразу после крупной цифры (например « года», «+», пусто). */
+  numberSuffix: string;
+  label: string;
+  hint: string;
+};
+
+function StatBlock({
+  entry,
+  inView,
+  reduce,
+  index,
+}: {
+  entry: StatEntry;
+  inView: boolean;
+  reduce: boolean;
+  index: number;
+}) {
+  const v = useCount(inView ? entry.target : 0, !!reduce);
+  return (
+    <motion.div
+      initial={reduce ? undefined : { opacity: 0, y: 16 }}
+      whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.45, delay: index * 0.05 }}
+      className="relative"
+    >
+      <p className="kpi-numerals font-mono-nums text-5xl font-bold tabular-nums leading-none tracking-tight text-[var(--primary)] sm:text-6xl lg:text-7xl xl:text-8xl">
+        {v}
+        {entry.numberSuffix ? (
+          <span className="text-[0.55em] font-semibold text-[var(--accent)]">{entry.numberSuffix}</span>
+        ) : null}
+      </p>
+      <p className="mt-4 text-sm font-semibold text-[var(--primary)]">{entry.label}</p>
+      <p className="mt-1 text-xs text-[var(--neutral-500)]">{entry.hint}</p>
+    </motion.div>
+  );
+}
 
 export function StatsCounters() {
   const reduce = useReducedMotion();
   const t = useTranslations("homePage.stats");
-  const items = t.raw("items") as StatItem[];
+  const entries = t.raw("entries") as StatEntry[];
 
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-20%" });
-  const y1 = useCount(inView ? 12 : 0, !!reduce);
-  const y2 = useCount(inView ? 3500 : 0, !!reduce);
-  const y3 = useCount(inView ? 180 : 0, !!reduce);
-  const y4 = useCount(inView ? 100 : 0, !!reduce);
-  const values = [y1, y2, y3, y4];
-  const suffixes = ["+", "+", "+", "%"] as const;
 
   return (
     <section
@@ -50,22 +82,8 @@ export function StatsCounters() {
           {t("kicker")}
         </p>
         <div className="mt-14 grid gap-y-14 gap-x-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-12">
-          {items.map((s, idx) => (
-            <motion.div
-              key={s.label}
-              initial={reduce ? undefined : { opacity: 0, y: 16 }}
-              whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: idx * 0.05 }}
-              className="relative"
-            >
-              <p className="kpi-numerals font-mono-nums text-5xl font-bold tabular-nums leading-none tracking-tight text-[var(--primary)] sm:text-6xl lg:text-7xl xl:text-8xl">
-                {values[idx]}
-                <span className="text-[0.55em] font-semibold text-[var(--accent)]">{suffixes[idx]}</span>
-              </p>
-              <p className="mt-4 text-sm font-semibold text-[var(--primary)]">{s.label}</p>
-              <p className="mt-1 text-xs text-[var(--neutral-500)]">{s.hint}</p>
-            </motion.div>
+          {entries.map((entry, idx) => (
+            <StatBlock key={entry.label} entry={entry} inView={inView} reduce={!!reduce} index={idx} />
           ))}
         </div>
       </div>

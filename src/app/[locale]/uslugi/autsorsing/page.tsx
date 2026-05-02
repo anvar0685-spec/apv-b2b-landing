@@ -12,8 +12,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return buildPageMetadata({
     locale: params.locale,
     pathname: `/uslugi/${m.slug}`,
-    title: m.h1,
-    description: m.subtitle,
+    title: m.metaTitle ?? m.h1,
+    description: m.metaDescription ?? m.subtitle,
+    keywords: m.metaKeywords,
   });
 }
 

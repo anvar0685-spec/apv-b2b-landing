@@ -1,5 +1,5 @@
 import { isPriorityCross } from "@/content/cross-priority";
-import { getPriorityCrossNarrative } from "@/content/cross-priority-narratives";
+import { getProgrammaticLocalNarrative } from "@/content/cross-priority-narratives";
 import { CITIES, PROFESSIONS } from "@/content/professions-cities";
 import { getProgrammaticLongreadParagraphs } from "@/content/programmatic-longread";
 import { Link } from "@/i18n/navigation";
@@ -19,18 +19,16 @@ export function ProgrammaticStaffingPage({ profession, city }: Props) {
   const roleName = profession.titleRu;
   const priority = isPriorityCross(profession.slug, city.slug);
   const longread = getProgrammaticLongreadParagraphs(profession, city);
-  const priorityNarrative = priority
-    ? getPriorityCrossNarrative(profession.slug, city.slug) ?? null
-    : null;
+  const localNarrative = getProgrammaticLocalNarrative(profession.slug, city.slug);
 
   const t = {
     kicker: "Программатика · МО",
-    h1: `${roleName} в ${cityName} — аутсорсинг складских смен`,
+    h1: `${roleName} в ${cityName} — складской персонал (аутсорсинг смен)`,
     lead:
       "Локальная посадочная под поиск и закупки: контекст региона, ссылка в калькулятор и переход к соседним городам по той же профессии. Аутстаффинг не поставляем.",
     calc: "Рассчитать вилку",
     proposal: "Получить КП",
-    h2: "Модель поставки смен и закупочный контекст",
+    h2: "Поставка складского персонала и закупочный контекст",
     cardTitle: "Быстрые действия",
     cardDesc: "Калькулятор и заявка уже ведут на нужный контекст.",
     l1: "Кейсы по отраслям",
@@ -77,13 +75,13 @@ export function ProgrammaticStaffingPage({ profession, city }: Props) {
               {longread.map((para, i) => (
                 <p key={i}>{para}</p>
               ))}
-              {priorityNarrative?.length ? (
+              {localNarrative.length ? (
                 <>
-                  <h3 className="type-headline pt-6 text-xl" id="priority-narrative">
+                  <h3 className="type-headline pt-6 text-xl" id="local-narrative">
                     Локальный контекст: {cityName} × {roleName}
                   </h3>
-                  {priorityNarrative.map((para, j) => (
-                    <p key={`pri-${j}`}>{para}</p>
+                  {localNarrative.map((para, j) => (
+                    <p key={`loc-${j}`}>{para}</p>
                   ))}
                 </>
               ) : null}

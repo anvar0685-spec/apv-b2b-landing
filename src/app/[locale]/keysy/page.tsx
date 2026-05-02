@@ -27,6 +27,7 @@ export default async function Page({ params }: PageProps) {
             {t("title")}
           </h1>
           <p className="type-lead mt-5 max-w-2xl">{t("lead")}</p>
+          <p className="type-body mt-4 max-w-3xl text-[var(--neutral-600)]">{t("disclaimer")}</p>
         </div>
       </section>
 

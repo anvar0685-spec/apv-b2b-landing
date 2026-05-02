@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     pathname: "/uslugi",
     title: "Складские услуги — Москва и МО",
     description:
-      "Аутсорсинг смен на склады и DC: явка, SLA. Миграционный учёт и подбор — в контракте поставки.",
+      "Аутсорсинг смен на склады и DC: явка, SLA. Миграционный учёт и подбор — в рамках договора на закрытие смен.",
   });
 }
 

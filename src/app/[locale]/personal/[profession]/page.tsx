@@ -36,7 +36,7 @@ export default function ProfessionHubPage({ params }: Props) {
         {prof.titleRu}
       </h1>
       <p className="mt-4 text-lg text-[var(--neutral-700)]">
-        Выберите город для локальной посадочной (контекст ставок, ссылка в калькулятор, compliance).
+        Выберите город для локальной посадочной (контекст ставок, ссылка в калькулятор, документы и допуски).
       </p>
       <ul className="mt-8 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {CITIES.map((c) => (

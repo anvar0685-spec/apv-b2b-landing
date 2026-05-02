@@ -55,6 +55,16 @@ export async function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link className="hover:text-white" href="/faq">
+                {t("linkFaq")}
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/garantii">
+                {t("linkGarantii")}
+              </Link>
+            </li>
+            <li>
               <Link className="hover:text-white" href="/pravovaya-informaciya">
                 {t("legal")}
               </Link>
