@@ -1,0 +1,50 @@
+---
+description: Деплой лендинга на VPS (SSH, npm ci, Next standalone, PM2) — обязательный чеклист без типовых сбоев
+alwaysApply: true
+---
+
+# Деплой на VPS (PM2 + Next standalone)
+
+Репозиторий — **этот каталог**. Документация и скрипт-образец: **`deploy/`**.
+
+## Учётные данные и SSH
+
+- Файл **`deploy/.vps-ssh.local.env`** (gitignored): **`VPS_HOST`**, **`VPS_USER`**, **`VPS_SSH_PASSWORD`**. Шаблон **`deploy/deploy-remote.example.sh`** опирается на **`DEPLOY_HOST`** — это другая переменная; не путать.
+- **Не цитируй пароли и секреты** из env в ответах пользователю и в логах чата.
+- **`ssh -o BatchMode=yes`** без ключа → часто `Permission denied`. Рабочий вариант с паролем (macOS): **`sshpass`**, из **корня репозитория**:
+  `set -a && . deploy/.vps-ssh.local.env && set +a && SSHPASS="$VPS_SSH_PASSWORD" sshpass -e ssh "${VPS_USER}@${VPS_HOST}" …`
+- Каталог приложения на сервере по умолчанию: **`/var/www/apv-b2b-landing`**.
+
+## Критичный порядок команд на сервере
+
+Именно так (как в **`deploy/deploy-remote.example.sh`**):
+
+1. `cd /var/www/apv-b2b-landing` (или `$APP_DIR`)
+2. `git fetch` / `git pull --ff-only origin main`
+3. **`npm ci`** — **до** загрузки `.env.production`
+4. `set -a && [ -f .env.production ] && . ./.env.production && set +a`
+5. **`npm run build:vps`** (`next build` + `deploy/copy-standalone-assets.sh`)
+6. `pm2 reload apv-b2b-landing --update-env` (или первый старт по **`deploy/README-NO-DOCKER.md`**)
+7. `pm2 save`
+8. Проверка: **`curl -sI http://127.0.0.1:3000/`** (ожидаемо редирект на `/ru` или 200 — не обрыв / 5xx).
+
+**Почему так:** если в **`.env.production`** задано **`NODE_ENV=production`**, то **`npm ci` после `source .env`** ставит только production-зависимости → **нет TypeScript/ESLint из devDependencies** → ошибки на typecheck/lint при `next build`.
+
+## До `git push` (локально)
+
+- **`npm run build`** — зелёный билд; иначе прод упадёт на том же месте.
+- Если менялись данные страниц (`*.data.ts`) под новые поля — **типы в `src/content/.../types.ts` и правки должны быть в коммите**; не оставлять расширения типов только локально.
+
+## Технические ловушки (не откатывать без причины)
+
+- В **`next.config.mjs`** — **явный webpack `resolve.alias`: `@` → каталог `src`** (next-intl на Linux).
+- В **`tsconfig.json`** — **`baseUrl: "."`** и **`paths`: `@/*` → `./src/*`**.
+
+## После деплоя
+
+- Не докладывать «всё в проде», пока нет **успешного завершения** шагов выше и **HTTP-ответа** от приложения.
+- Предупреждения про **fonts.gstatic.com** на VPS часто проходят ретраями; при стабильном падении — сеть/firewall.
+
+## Безопасность
+
+- Пароль в `.vps-ssh.local.env` — компромисс; лучше **SSH-ключ**. После утечки — **смена пароля**.
