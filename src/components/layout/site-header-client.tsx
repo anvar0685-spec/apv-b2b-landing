@@ -193,7 +193,7 @@ export function SiteHeaderClient({
           />
           <div
             id={menuId}
-            className="absolute right-0 top-0 flex h-full w-[min(100%,20rem)] flex-col border-l border-[var(--neutral-200)] bg-[var(--surface)] shadow-2xl dark:border-white/10 dark:bg-[var(--primary-dark)]"
+            className="absolute right-0 top-0 flex h-full min-h-0 w-[min(100%,20rem)] max-h-[100dvh] flex-col border-l border-[var(--neutral-200)] bg-[var(--surface)] shadow-2xl dark:border-white/10 dark:bg-[var(--primary-dark)]"
             style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}
           >
             <div className="flex items-center justify-between border-b border-[var(--neutral-200)] px-4 py-3 dark:border-white/10">
@@ -210,7 +210,10 @@ export function SiteHeaderClient({
                 <X className="h-5 w-5" aria-hidden />
               </button>
             </div>
-            <nav className="flex-1 overflow-y-auto px-2 py-3" aria-label={menuNavLabel}>
+            <nav
+              className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-2 py-3 [-webkit-overflow-scrolling:touch]"
+              aria-label={menuNavLabel}
+            >
               <ul className="space-y-0.5">
                 {links.map((l) => {
                   const active = pathMatches(pathname, l.href);
