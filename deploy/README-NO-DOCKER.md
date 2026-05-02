@@ -71,4 +71,6 @@ export DEPLOY_HOST=root@IP
 bash deploy/deploy-remote.example.sh
 ```
 
+В скрипте деплоя **`npm ci` выполняется до `source .env.production`**: иначе при `NODE_ENV=production` в `.env.production` npm не ставит devDependencies, и `next build` падает на typecheck/ESLint.
+
 Перед этым скопируй на сервер рабочий `ecosystem.config.cjs`, если ещё не сделал.

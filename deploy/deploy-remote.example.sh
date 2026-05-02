@@ -19,12 +19,15 @@ cd "$APP_DIR"
 git fetch origin
 git pull origin main
 
-# Загрузить прод-переменные ДО сборки (NEXT_PUBLIC_* вшиваются в клиент).
+# Сначала зависимости без прод-env: если в .env.production стоит NODE_ENV=production,
+# то npm ci отрежет devDependencies → Next на сборке ругается на typescript/eslint.
+npm ci
+
+# Загрузить прод-переменные перед сборкой (NEXT_PUBLIC_* вшиваются в клиент).
 set -a
 [ -f .env.production ] && . ./.env.production
 set +a
 
-npm ci
 npm run build:vps
 
 # PM2: первый раз — start; дальше — reload
