@@ -28,6 +28,9 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# SSH VPS (Timeweb root password — только локально, никогда в репозиторий)
+deploy/.vps-ssh.local.env
+
 # vercel
 .vercel
 

@@ -4,12 +4,19 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  /** Упаковка для VPS без Docker: `deploy/copy-standalone-assets.sh` + PM2 → `server.js`. */
+  output: "standalone",
   trailingSlash: false,
   poweredByHeader: false,
   reactStrictMode: true,
   /** Старые slug блога → актуальные 10 материалов (мастер-док, 2026-04). */
   async redirects() {
     return [
+      {
+        source: "/uslugi/autstaffing",
+        destination: "/blog/autsorsing-i-autstaffing-v-chem-raznitsa",
+        permanent: true,
+      },
       {
         source: "/blog/blog-migracionnaya-matrica",
         destination: "/blog/migracionnyy-uchet-na-sklade-kontrol-peregovory-s-podryadchikom",
@@ -24,6 +31,8 @@ const nextConfig = {
       { source: "/blog/blog-proizvodstvo-tekuchka", destination: "/blog/raschet-ekonomii-pri-autsorsinge-frontend-k-stoimosti", permanent: true },
       { source: "/blog/blog-farma-migracionnyy", destination: "/blog/migracionnyy-uchet-na-sklade-kontrol-peregovory-s-podryadchikom", permanent: true },
       { source: "/blog/blog-programmatika-gorodov", destination: "/blog/chto-takoe-autsorsing-personala-na-sklade", permanent: true },
+      { source: "/keysy/horeca-set", destination: "/keysy/regionalnyj-rc-pik", permanent: true },
+      { source: "/keysy/stroitelstvo-obekt", destination: "/keysy/sklad-rasshirenie-mo", permanent: true },
     ];
   },
   /** В dev отключаем filesystem cache webpack: иначе после сбоев/EMFILE часто «Cannot find module './NNNN.js'». */

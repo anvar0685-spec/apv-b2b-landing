@@ -7,6 +7,7 @@
     "dev": "WATCHPACK_POLLING=true next dev",
     "dev:clean": "npm run clean && WATCHPACK_POLLING=true next dev",
     "build": "next build",
+    "build:vps": "next build && bash deploy/copy-standalone-assets.sh",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\" \"*.{ts,tsx,js,json,md}\"",
