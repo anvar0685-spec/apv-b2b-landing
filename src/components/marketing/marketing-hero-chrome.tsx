@@ -15,7 +15,7 @@ export function MarketingHeroChrome({
   return (
     <section
       className={cn(
-        "ux-marketing-subtle relative overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--surface)] py-10 lg:py-14",
+        "ux-tech-field-light ux-marketing-subtle relative overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--surface)] py-10 lg:py-14 dark:border-white/10 dark:bg-[var(--primary-dark)]",
         className,
       )}
     >

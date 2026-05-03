@@ -148,6 +148,62 @@ body {
     z-index: 2;
   }
 
+  /**
+   * Техно-фон без «карточки»: мягкие пятна + сетка + диагональный штрих.
+   * Используем на светлых hero/conversion вместо бокового виджета.
+   */
+  .ux-tech-field-light {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .ux-tech-field-light::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.55;
+    background-image:
+      radial-gradient(circle at 14% 22%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 46%),
+      radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--primary) 10%, transparent), transparent 52%),
+      linear-gradient(
+        108deg,
+        transparent 0%,
+        color-mix(in srgb, var(--accent) 7%, transparent) 44%,
+        transparent 74%
+      );
+  }
+
+  .ux-tech-field-light::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.28;
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      color-mix(in srgb, var(--neutral-500) 22%, transparent) 1px,
+      transparent 0
+    );
+    background-size: 20px 20px;
+  }
+
+  html.dark .ux-tech-field-light::before {
+    opacity: 0.42;
+  }
+
+  html.dark .ux-tech-field-light::after {
+    opacity: 0.18;
+    background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.07) 1px, transparent 0);
+  }
+
+  .ux-tech-field-light > * {
+    position: relative;
+    z-index: 1;
+  }
+
   /** Края ленты trust: мягкое затухание к фону секции */
   .trust-marquee-fade {
     position: relative;

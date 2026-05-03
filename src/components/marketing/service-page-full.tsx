@@ -9,8 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { ServiceScrollStory } from "@/components/marketing/service-scroll-story";
 import { ServiceSectionWrap } from "@/components/marketing/service-section-wrap";
-import { TechOpsAside } from "@/components/marketing/tech-ops-aside";
-
 const WAREHOUSE_PROFESSIONS = PROFESSIONS.slice(0, 10);
 
 type Props = { model: ServicePageModel; /** Горизонтальный scroll-story + reveal секций (включаем точечно на 1–2 URL) */ scrollStory?: boolean };
@@ -91,7 +89,6 @@ export function ServicePageFull({ model, scrollStory = false }: Props) {
       <JsonLd data={serviceJson} />
       <JsonLd data={faqJson} />
       <OperationalDarkHero
-        aside={<TechOpsAside />}
         crumbs={crumbs}
         kicker={t.kicker}
         title={model.h1}

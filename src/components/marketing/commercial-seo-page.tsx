@@ -5,7 +5,6 @@ import { Link } from "@/i18n/navigation";
 import { OperationalDarkHero } from "@/components/layout/operational-dark-hero";
 import { CommercialAtlasHero, CommercialVerticalHero } from "@/components/marketing/commercial-light-heroes";
 import { HubOpsRail } from "@/components/marketing/hub-ops-rail";
-import { TechOpsAside } from "@/components/marketing/tech-ops-aside";
 import { CommercialVsStrip } from "@/components/marketing/commercial-vs-strip";
 import { SectionDivider } from "@/components/marketing/section-divider";
 import { PRIORITY_PAGE_TEASERS } from "@/content/priority-pages-teasers";
@@ -106,7 +105,6 @@ export async function CommercialSeoPage({
       </CommercialVerticalHero>
     ) : (
       <OperationalDarkHero
-        aside={<TechOpsAside />}
         crumbs={crumbs}
         kicker={kicker}
         kickerAsText
