@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -50,6 +51,11 @@ export function SiteHeaderClient({
   const [menuOpen, setMenuOpen] = useState(false);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const menuId = useId();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const sync = () => setDark(document.documentElement.classList.contains("dark"));
@@ -113,7 +119,7 @@ export function SiteHeaderClient({
       <div
         className={cn(
           "relative mx-auto flex min-w-0 max-w-[1280px] items-center justify-between gap-2 px-4 transition-[height] duration-300 sm:gap-3 sm:px-6 lg:px-8",
-          "xl:grid xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:items-center xl:justify-normal xl:gap-x-3",
+          "lg:grid lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:justify-normal lg:gap-x-3",
           scrolled ? "h-14" : "h-16",
         )}
       >
@@ -187,75 +193,84 @@ export function SiteHeaderClient({
         </div>
       </div>
 
-      {menuOpen ? (
-        <div className="fixed inset-0 z-[80] lg:hidden" role="presentation">
-          <button
-            type="button"
-            className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
-            aria-label={menuCloseLabel}
-            onClick={() => setMenuOpen(false)}
-          />
-          <div
-            id={menuId}
-            className="absolute right-0 top-0 flex h-full min-h-0 w-full max-w-sm flex-col border-l border-[var(--neutral-200)] bg-[var(--surface)] shadow-2xl dark:border-white/10 dark:bg-[var(--primary-dark)]"
-            style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}
-          >
-            <div className="flex items-center justify-between border-b border-[var(--neutral-200)] px-4 py-3 dark:border-white/10">
-              <span className="font-display text-sm font-semibold text-[var(--primary)] dark:text-white">
-                {brandName.replace(/_/g, " ")}
-              </span>
+      {menuOpen && mounted
+        ? createPortal(
+            <div className="fixed inset-0 z-[200] lg:hidden" role="presentation">
               <button
-                ref={closeBtnRef}
                 type="button"
-                className="interactive-hover-ring inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--neutral-200)] dark:border-white/15"
+                className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
                 aria-label={menuCloseLabel}
                 onClick={() => setMenuOpen(false)}
+              />
+              <div
+                id={menuId}
+                role="dialog"
+                aria-modal="true"
+                className="absolute right-0 top-0 flex h-[100dvh] max-h-[100dvh] min-h-0 w-full max-w-sm flex-col border-l border-[var(--neutral-200)] bg-[var(--surface)] shadow-2xl dark:border-white/10 dark:bg-[var(--primary-dark)]"
+                style={{
+                  paddingTop: "max(0px, env(safe-area-inset-top))",
+                  paddingBottom: "max(0px, env(safe-area-inset-bottom))",
+                }}
               >
-                <X className="h-5 w-5" aria-hidden />
-              </button>
-            </div>
-            <nav
-              className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-3 py-3 [-webkit-overflow-scrolling:touch]"
-              aria-label={menuNavLabel}
-            >
-              <p className="px-3 pb-2 text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--neutral-500)] dark:text-white/45">
-                {menuNavLabel}
-              </p>
-              <ul className="space-y-1">
-                {links.map((l) => {
-                  const active = pathMatches(pathname, l.href);
-                  return (
-                    <li key={l.href}>
-                      <Link
-                        href={l.href}
-                        onClick={() => setMenuOpen(false)}
-                        className={cn(
-                          "block min-h-[44px] rounded-xl px-3 py-3 text-sm font-medium leading-snug text-[var(--neutral-800)] dark:text-white/90",
-                          active && "bg-[color-mix(in_srgb,var(--accent)_12%,transparent)] text-[var(--primary)] dark:text-white",
-                        )}
-                      >
-                        {l.label}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </nav>
-            <div className="mt-auto flex flex-col gap-2 border-t border-[var(--neutral-200)] p-4 dark:border-white/10">
-              <Button asChild variant="secondary" className="w-full">
-                <Link href="/zayavka" onClick={() => setMenuOpen(false)}>
-                  {ctaProposal}
-                </Link>
-              </Button>
-              <Button asChild className="w-full">
-                <Link href="/kalkulyator" onClick={() => setMenuOpen(false)}>
-                  {ctaCalc}
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      ) : null}
+                <div className="flex shrink-0 items-center justify-between border-b border-[var(--neutral-200)] px-4 py-3 dark:border-white/10">
+                  <span className="font-display text-sm font-semibold text-[var(--primary)] dark:text-white">
+                    {brandName.replace(/_/g, " ")}
+                  </span>
+                  <button
+                    ref={closeBtnRef}
+                    type="button"
+                    className="interactive-hover-ring inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--neutral-200)] dark:border-white/15"
+                    aria-label={menuCloseLabel}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <X className="h-5 w-5" aria-hidden />
+                  </button>
+                </div>
+                <nav
+                  className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-3 py-3 [-webkit-overflow-scrolling:touch]"
+                  aria-label={menuNavLabel}
+                >
+                  <p className="px-3 pb-2 text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--neutral-500)] dark:text-white/45">
+                    {menuNavLabel}
+                  </p>
+                  <ul className="space-y-1">
+                    {links.map((l) => {
+                      const active = pathMatches(pathname, l.href);
+                      return (
+                        <li key={l.href}>
+                          <Link
+                            href={l.href}
+                            onClick={() => setMenuOpen(false)}
+                            className={cn(
+                              "block min-h-[44px] rounded-xl px-3 py-3 text-sm font-medium leading-snug text-[var(--neutral-800)] dark:text-white/90",
+                              active &&
+                                "bg-[color-mix(in_srgb,var(--accent)_12%,transparent)] text-[var(--primary)] dark:text-white",
+                            )}
+                          >
+                            {l.label}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </nav>
+                <div className="mt-auto flex shrink-0 flex-col gap-2 border-t border-[var(--neutral-200)] p-4 dark:border-white/10">
+                  <Button asChild variant="secondary" className="w-full">
+                    <Link href="/zayavka" onClick={() => setMenuOpen(false)}>
+                      {ctaProposal}
+                    </Link>
+                  </Button>
+                  <Button asChild className="w-full">
+                    <Link href="/kalkulyator" onClick={() => setMenuOpen(false)}>
+                      {ctaCalc}
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </div>,
+            document.body,
+          )
+        : null}
     </header>
   );
 }
