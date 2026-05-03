@@ -20,5 +20,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default function Page() {
   const m = getServicePage("upravlyaemyy-podryad");
   if (!m) notFound();
-  return <ServicePageFull model={m} />;
+  return <ServicePageFull model={m} scrollStory />;
 }
