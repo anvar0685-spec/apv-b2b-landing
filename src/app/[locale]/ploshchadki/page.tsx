@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";
 import { HUB_STEPS_PLATFORM } from "@/content/hub-visual-presets";
+import { platformHubEditorial } from "@/content/commercial-editorial";
 import { PLOSHCHADKI_SLUGS } from "@/lib/site-structure";
 
 type Props = { params: { locale: string } };
@@ -25,6 +26,8 @@ export default function Page({ params }: Props) {
     <CommercialSeoPage
       heroVariant="vertical"
       hubSteps={HUB_STEPS_PLATFORM}
+      editorialParagraphs={platformHubEditorial()}
+      editorialCalloutParagraphIndex={1}
       crumbs={[{ href: "/", label: "Главная" }, { href: "/ploshchadki", label: title }]}
       kicker={kicker}
       title={title}

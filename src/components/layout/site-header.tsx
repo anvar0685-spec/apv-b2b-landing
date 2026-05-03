@@ -15,6 +15,8 @@ export async function SiteHeader() {
     { href: "/geografiya", label: t("geo") },
     { href: "/keysy", label: t("cases") },
     { href: "/blog", label: t("blog") },
+    { href: "/faq", label: t("faq") },
+    { href: "/garantii", label: t("garantii") },
     { href: "/kalkulyator", label: t("calculator") },
     { href: "/o-kompanii", label: t("about") },
     { href: "/kontakty", label: t("contacts") },
@@ -31,6 +33,8 @@ export async function SiteHeader() {
       menuOpenLabel={t("menuOpen")}
       menuCloseLabel={t("menuClose")}
       menuNavLabel={t("menuNav")}
+      themeLightLabel={t("themeLight")}
+      themeDarkLabel={t("themeDark")}
     />
   );
 }

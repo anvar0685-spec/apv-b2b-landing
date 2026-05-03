@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";
 import { HUB_STEPS_INDUSTRY } from "@/content/hub-visual-presets";
+import { industryHubEditorial } from "@/content/commercial-editorial";
 import { OTRASLI_SLUGS } from "@/lib/site-structure";
 
 type Props = { params: { locale: string } };
@@ -26,6 +27,8 @@ export default function Page({ params }: Props) {
     <CommercialSeoPage
       heroVariant="vertical"
       hubSteps={HUB_STEPS_INDUSTRY}
+      editorialParagraphs={industryHubEditorial()}
+      editorialCalloutParagraphIndex={1}
       crumbs={[{ href: "/", label: "Главная" }, { href: "/otrasli", label: title }]}
       kicker={kicker}
       title={title}

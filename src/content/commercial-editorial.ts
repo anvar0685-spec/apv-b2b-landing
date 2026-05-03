@@ -1,5 +1,16 @@
 /** Уникальные абзацы для отраслей / площадок / гео (неделя 4 плана). */
 
+import type { GeoRegionSlug } from "@/lib/site-structure";
+import { geoLabel } from "@/lib/site-structure";
+
+/** Редакционный блок + явный индекс callout (-1 = без выделения). */
+export type EditorialBundle = {
+  paragraphs: string[];
+  calloutParagraphIndex: number;
+};
+
+export const COMMERCIAL_CALLOUT_DISABLED = -1;
+
 const INDUSTRY: Record<string, { ru: string[]; en: string[] }> = {
   "sklady-e-commerce": {
     ru: [
@@ -237,10 +248,58 @@ export function industryEditorial(slug: string): string[] | undefined {
   return [...b.ru, ...INDUSTRY_TAIL];
 }
 
+/** Явный индекс «сути для закупки»: для FMCG — абзац про паллетные пики (сильный операционный акцент). */
+export function industryEditorialBundle(slug: string): EditorialBundle | undefined {
+  const paragraphs = industryEditorial(slug);
+  if (!paragraphs) return undefined;
+  if (paragraphs.length < 3) return { paragraphs, calloutParagraphIndex: COMMERCIAL_CALLOUT_DISABLED };
+  const bySlug: Record<string, number> = {
+    "fmcg-sklady": 3,
+  };
+  const calloutParagraphIndex = bySlug[slug] ?? 1;
+  return { paragraphs, calloutParagraphIndex };
+}
+
 export function platformEditorial(slug: string): string[] | undefined {
   const b = PLATFORM[slug];
   if (!b) return undefined;
   return [...b.ru, ...PLATFORM_TAIL];
+}
+
+export function platformEditorialBundle(slug: string): EditorialBundle | undefined {
+  const paragraphs = platformEditorial(slug);
+  if (!paragraphs) return undefined;
+  if (paragraphs.length < 3) return { paragraphs, calloutParagraphIndex: COMMERCIAL_CALLOUT_DISABLED };
+  return { paragraphs, calloutParagraphIndex: 1 };
+}
+
+/** Хаб «Отрасли» — вводные абзацы перед списком карточек */
+export function industryHubEditorial(): string[] {
+  return [
+    "Раздел собирает профили складских цепочек — от e-commerce и ритейла до фармы и класса А — чтобы закупка и операции заходили на страницу уже с нужным контекстом процессов.",
+    "Каждая карточка ниже — отдельная посадочная с уникальным текстом: ориентиры по составу смен, SLA и типичным сценариям закупки под ваш объект.",
+    "Дальше свяжите выбранный профиль с калькулятором и разделом «Персонал»: так проще сравнить логистику выхода и резерв между локациями до запроса КП.",
+  ];
+}
+
+/** Хаб «Площадки» */
+export function platformHubEditorial(): string[] {
+  return [
+    "Площадки и маркетплейсы задают правила допуска, слоты на воротах и язык отчётности — отдельные страницы ниже помогают не смешивать требования разных брендов в одной закупке.",
+    "Мы выравниваем состав смен под регламент конкретной площадки и ваш график, сохраняя единый контакт подрядчика и прозрачность по сменам.",
+    "Для сравнения фонда используйте калькулятор и программатику по городам: итоговая экономика всё равно фиксируется в КП после диагностики объекта.",
+  ];
+}
+
+/** Гео-посадочная города / округа */
+export function geoCityEditorial(region: GeoRegionSlug, city: string): string[] {
+  const loc = geoLabel(city);
+  const reg = geoLabel(region);
+  return [
+    `Локальная посадочная для «${loc.ru}» в периметре «${reg.ru}»: географический контекст для закупки и поиска; детальные ставки и SLA — в коммерческом предложении после диагностики объекта.`,
+    `Связка с разделом «Персонал» и программатикой «профессия × город» даёт сравнимые ориентиры по логистике выхода и резерву замен между локациями до подписания договора.`,
+    `Публичный текст не заменяет индивидуальное КП: график пиков, окна на воротах и требования к документам закрепляются на стороне объекта и подрядчика в договорной документации.`,
+  ];
 }
 
 export function geoHubEditorial(): string[] {

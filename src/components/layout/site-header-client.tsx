@@ -20,6 +20,8 @@ type SiteHeaderClientProps = {
   menuOpenLabel: string;
   menuCloseLabel: string;
   menuNavLabel: string;
+  themeLightLabel: string;
+  themeDarkLabel: string;
 };
 
 function pathMatches(pathname: string, href: string) {
@@ -38,6 +40,8 @@ export function SiteHeaderClient({
   menuOpenLabel,
   menuCloseLabel,
   menuNavLabel,
+  themeLightLabel,
+  themeDarkLabel,
 }: SiteHeaderClientProps) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -126,12 +130,12 @@ export function SiteHeaderClient({
 
         <nav
           className={cn(
-            "hidden min-h-0 min-w-0 overflow-x-auto overscroll-x-contain xl:block",
+            "hidden min-h-0 min-w-0 overflow-x-auto overscroll-x-contain lg:block",
             "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
           )}
           aria-label={menuNavLabel}
         >
-          <div className="flex w-max min-w-0 items-center justify-start gap-0.5 py-1 sm:gap-1">
+          <div className="flex w-max min-w-0 max-w-full items-center justify-start gap-0.5 py-1 sm:gap-1">
             {links.map((l) => {
               const active = pathMatches(pathname, l.href);
               return (
@@ -151,10 +155,10 @@ export function SiteHeaderClient({
           </div>
         </nav>
 
-        <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2 xl:ml-0 xl:justify-self-end">
+        <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2 lg:ml-0 lg:justify-self-end">
           <button
             type="button"
-            className="interactive-hover-ring inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--neutral-200)] bg-[var(--surface)] text-[var(--primary)] xl:hidden dark:border-white/15 dark:bg-white/5 dark:text-white"
+            className="interactive-hover-ring inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--neutral-200)] bg-[var(--surface)] text-[var(--primary)] lg:hidden dark:border-white/15 dark:bg-white/5 dark:text-white"
             aria-expanded={menuOpen}
             aria-controls={menuId}
             aria-label={menuOpen ? menuCloseLabel : menuOpenLabel}
@@ -169,8 +173,8 @@ export function SiteHeaderClient({
               setDark(document.documentElement.classList.contains("dark"));
             }}
             className="interactive-hover-ring inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--neutral-200)] bg-[var(--surface)] text-sm text-[var(--primary)] transition hover:bg-[var(--card)] dark:border-white/15 dark:bg-white/5 dark:text-white"
-            aria-label={dark ? "Светлая тема" : "Тёмная тема"}
-            title={dark ? "Светлая тема" : "Тёмная тема"}
+            aria-label={dark ? themeLightLabel : themeDarkLabel}
+            title={dark ? themeLightLabel : themeDarkLabel}
           >
             {dark ? <Sun className="h-4 w-4" aria-hidden /> : <Moon className="h-4 w-4" aria-hidden />}
           </button>
@@ -184,7 +188,7 @@ export function SiteHeaderClient({
       </div>
 
       {menuOpen ? (
-        <div className="fixed inset-0 z-[80] xl:hidden" role="presentation">
+        <div className="fixed inset-0 z-[80] lg:hidden" role="presentation">
           <button
             type="button"
             className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
@@ -193,7 +197,7 @@ export function SiteHeaderClient({
           />
           <div
             id={menuId}
-            className="absolute right-0 top-0 flex h-full min-h-0 w-[min(100%,20rem)] max-h-[100dvh] flex-col border-l border-[var(--neutral-200)] bg-[var(--surface)] shadow-2xl dark:border-white/10 dark:bg-[var(--primary-dark)]"
+            className="absolute right-0 top-0 flex h-full min-h-0 w-full max-w-sm flex-col border-l border-[var(--neutral-200)] bg-[var(--surface)] shadow-2xl dark:border-white/10 dark:bg-[var(--primary-dark)]"
             style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}
           >
             <div className="flex items-center justify-between border-b border-[var(--neutral-200)] px-4 py-3 dark:border-white/10">
@@ -211,10 +215,13 @@ export function SiteHeaderClient({
               </button>
             </div>
             <nav
-              className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-2 py-3 [-webkit-overflow-scrolling:touch]"
+              className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-3 py-3 [-webkit-overflow-scrolling:touch]"
               aria-label={menuNavLabel}
             >
-              <ul className="space-y-0.5">
+              <p className="px-3 pb-2 text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--neutral-500)] dark:text-white/45">
+                {menuNavLabel}
+              </p>
+              <ul className="space-y-1">
                 {links.map((l) => {
                   const active = pathMatches(pathname, l.href);
                   return (
@@ -223,7 +230,7 @@ export function SiteHeaderClient({
                         href={l.href}
                         onClick={() => setMenuOpen(false)}
                         className={cn(
-                          "block rounded-xl px-3 py-2.5 text-sm font-medium text-[var(--neutral-800)] dark:text-white/90",
+                          "block min-h-[44px] rounded-xl px-3 py-3 text-sm font-medium leading-snug text-[var(--neutral-800)] dark:text-white/90",
                           active && "bg-[color-mix(in_srgb,var(--accent)_12%,transparent)] text-[var(--primary)] dark:text-white",
                         )}
                       >

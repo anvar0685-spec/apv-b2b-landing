@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { buildPageMetadata, buildServiceJsonLd } from "@/lib/seo";
-import { platformEditorial } from "@/content/commercial-editorial";
+import { platformEditorialBundle } from "@/content/commercial-editorial";
 import { HUB_STEPS_PLATFORM } from "@/content/hub-visual-presets";
 import { PLOSHCHADKI_SLUGS } from "@/lib/site-structure";
 
@@ -33,14 +33,16 @@ export default function Page({ params }: Props) {
   const hub = "Площадки";
   const kicker = "Площадка";
 
-  const editorial = platformEditorial(def.slug);
+  const editorial = platformEditorialBundle(def.slug);
+  if (!editorial) notFound();
 
   return (
     <CommercialSeoPage
       heroVariant="vertical"
       hubSteps={HUB_STEPS_PLATFORM}
       showComparisonStrip
-      editorialParagraphs={editorial}
+      editorialParagraphs={editorial.paragraphs}
+      editorialCalloutParagraphIndex={editorial.calloutParagraphIndex}
       crumbs={[
         { href: "/", label: "Главная" },
         { href: "/ploshchadki", label: hub },
