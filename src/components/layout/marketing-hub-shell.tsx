@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { MarketingHeroChrome } from "@/components/marketing/marketing-hero-chrome";
+import { TechSignalMotif } from "@/components/marketing/tech-signal-motif";
 import { SectionDivider } from "@/components/marketing/section-divider";
 import { cn } from "@/lib/utils";
 
@@ -28,15 +29,22 @@ export function MarketingHubShell({
   return (
     <>
       <MarketingHeroChrome innerClassName={heroContainerClass}>
-        <p className="type-kicker">{kicker}</p>
-        <h1 className="font-display mt-3 max-w-4xl text-balance text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
-          {title}
-        </h1>
-        {description ? <p className="type-lead mt-5 max-w-2xl">{description}</p> : null}
-        {belowLead ? <div className="mt-4 max-w-3xl">{belowLead}</div> : null}
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-start lg:gap-x-10">
+          <div className="min-w-0 lg:col-span-7">
+            <p className="type-kicker">{kicker}</p>
+            <h1 className="font-display mt-3 max-w-4xl text-balance text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] dark:text-white md:text-[2.625rem] md:leading-[1.12]">
+              {title}
+            </h1>
+            {description ? <p className="type-lead mt-5 max-w-2xl">{description}</p> : null}
+            {belowLead ? <div className="mt-4 max-w-3xl">{belowLead}</div> : null}
+          </div>
+          <div className="min-w-0 lg:col-span-5">
+            <TechSignalMotif variant="light" />
+          </div>
+        </div>
       </MarketingHeroChrome>
       {showDivider ? <SectionDivider className="py-5 sm:py-6" /> : null}
-      <div className={cn("relative", bodyWrapperClassName)}>
+      <div className={cn("relative min-w-0", bodyWrapperClassName)}>
         <div className="ux-page-body-subtle pointer-events-none absolute inset-0 -z-10 min-h-full" aria-hidden />
         {children}
       </div>

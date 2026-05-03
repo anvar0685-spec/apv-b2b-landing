@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { OperationalDarkHero } from "@/components/layout/operational-dark-hero";
 import { CommercialAtlasHero, CommercialVerticalHero } from "@/components/marketing/commercial-light-heroes";
 import { HubOpsRail } from "@/components/marketing/hub-ops-rail";
+import { TechSignalMotif } from "@/components/marketing/tech-signal-motif";
 import { CommercialVsStrip } from "@/components/marketing/commercial-vs-strip";
 import { SectionDivider } from "@/components/marketing/section-divider";
 import { PRIORITY_PAGE_TEASERS } from "@/content/priority-pages-teasers";
@@ -105,6 +106,7 @@ export async function CommercialSeoPage({
       </CommercialVerticalHero>
     ) : (
       <OperationalDarkHero
+        aside={<TechSignalMotif variant="dark" />}
         crumbs={crumbs}
         kicker={kicker}
         kickerAsText
@@ -121,7 +123,7 @@ export async function CommercialSeoPage({
     );
 
   return (
-    <main id="main" className="pb-20">
+    <main id="main" className="min-w-0 pb-20">
       {jsonLd ? <JsonLd data={jsonLd} /> : null}
       {hero}
       {dividerVisible ? <SectionDivider className="py-5 sm:py-6" /> : null}
@@ -138,7 +140,7 @@ export async function CommercialSeoPage({
             aria-hidden
           />
         )}
-        <div className="relative mx-auto max-w-content px-4 py-10 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-content min-w-0 px-4 py-10 sm:px-6 lg:px-8">
           {editorialParagraphs?.length ? (
             <div className="type-body max-w-3xl space-y-4 text-[var(--neutral-700)] dark:text-[var(--neutral-200)]">
               {editorialParagraphs.map((para, i) =>

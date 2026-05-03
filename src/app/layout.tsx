@@ -27,6 +27,12 @@ const mono = JetBrains_Mono({
 
 type Props = { children: ReactNode };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function RootLayout({ children }: Props) {
   const locale = headers().get("x-next-intl-locale");
   const lang =
@@ -38,7 +44,7 @@ export default function RootLayout({ children }: Props) {
       className={`${inter.variable} ${interDisplay.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen bg-[var(--background)] antialiased">{children}</body>
+      <body className="min-h-screen min-w-0 overflow-x-clip bg-[var(--background)] antialiased">{children}</body>
     </html>
   );
 }

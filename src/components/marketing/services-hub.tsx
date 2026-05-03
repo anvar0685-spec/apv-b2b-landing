@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { getServicePage } from "@/content/service-page-data";
+import { TechSignalMotif } from "@/components/marketing/tech-signal-motif";
 
 export function ServicesHub() {
   const main = getServicePage("autsorsing");
@@ -35,18 +36,23 @@ export function ServicesHub() {
   };
 
   return (
-    <main id="main" className="pb-24">
-      <section className="border-b border-[var(--neutral-200)] bg-[var(--surface)] py-10 lg:py-14">
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <p className="type-kicker">{t.kicker}</p>
-          <h1 className="font-display mt-3 max-w-3xl text-balance text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
-            {t.h1}
-          </h1>
-          <p className="type-lead mt-5 max-w-2xl">{t.lead}</p>
+    <main id="main" className="min-w-0 pb-24">
+      <section className="border-b border-[var(--neutral-200)] bg-[var(--surface)] py-10 lg:py-14 dark:border-white/10 dark:bg-[var(--primary-dark)]">
+        <div className="mx-auto grid max-w-[1280px] gap-8 px-4 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-8">
+          <div className="min-w-0 lg:col-span-7">
+            <p className="type-kicker">{t.kicker}</p>
+            <h1 className="font-display mt-3 max-w-3xl text-balance text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12] dark:text-white">
+              {t.h1}
+            </h1>
+            <p className="type-lead mt-5 max-w-2xl">{t.lead}</p>
+          </div>
+          <div className="min-w-0 lg:col-span-5">
+            <TechSignalMotif variant="light" />
+          </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+      <div className="mx-auto max-w-[1280px] min-w-0 px-4 py-12 sm:px-6 lg:px-8 lg:py-24">
         <div className="grid gap-6 lg:grid-cols-12">
           <Card className="border-[var(--accent)]/25 bg-gradient-to-br from-[var(--accent-soft)]/40 to-[var(--card)] lg:col-span-7">
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)]">{t.flagship}</p>

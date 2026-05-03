@@ -12,6 +12,8 @@ type Props = {
   /** доп. ряд под лидом (бейджи и т.п.) */
   meta?: ReactNode;
   actions?: ReactNode;
+  /** компактный техно-блок справа на lg (портал не нужен — вне backdrop-blur) */
+  aside?: ReactNode;
   /** доп. слой внутри hero (напр. параметрический градиент) */
   decoration?: ReactNode;
   className?: string;
@@ -29,6 +31,7 @@ export function OperationalDarkHero({
   description,
   meta,
   actions,
+  aside,
   decoration,
   className,
   sectionClassName,
@@ -44,6 +47,27 @@ export function OperationalDarkHero({
       <div className={hasCrumbs ? "mt-8" : undefined}>{kicker}</div>
     );
 
+  const mainColumn = (
+    <>
+      {hasCrumbs ? <Breadcrumbs items={crumbs!} variant="dark" /> : null}
+      {kickerEl}
+      <h1
+        className={cn(
+          titleClassName ??
+            "font-display max-w-4xl text-balance text-3xl font-bold tracking-[-0.035em] text-white md:text-[2.75rem] md:leading-[1.1]",
+          kicker != null ? "mt-4" : hasCrumbs ? "mt-8" : "mt-0",
+        )}
+      >
+        {title}
+      </h1>
+      {description ? (
+        <div className="mt-6 max-w-3xl text-base leading-relaxed text-white/80 sm:text-lg md:text-xl md:leading-[1.55]">{description}</div>
+      ) : null}
+      {meta}
+      {actions ? <div className="mt-10 flex flex-wrap gap-3">{actions}</div> : null}
+    </>
+  );
+
   return (
     <section
       className={cn(
@@ -54,23 +78,15 @@ export function OperationalDarkHero({
     >
       <div className={cn("hero-ambient pointer-events-none absolute inset-0", ambientClassName)} />
       {decoration}
-      <div className={containerClassName}>
-        {hasCrumbs ? <Breadcrumbs items={crumbs!} variant="dark" /> : null}
-        {kickerEl}
-        <h1
-          className={cn(
-            titleClassName ??
-              "font-display max-w-4xl text-balance text-3xl font-bold tracking-[-0.035em] text-white md:text-[2.75rem] md:leading-[1.1]",
-            kicker != null ? "mt-4" : hasCrumbs ? "mt-8" : "mt-0",
-          )}
-        >
-          {title}
-        </h1>
-        {description ? (
-          <div className="mt-6 max-w-3xl text-lg leading-relaxed text-white/80 md:text-xl md:leading-[1.55]">{description}</div>
-        ) : null}
-        {meta}
-        {actions ? <div className="mt-10 flex flex-wrap gap-3">{actions}</div> : null}
+      <div className={cn(containerClassName, aside && "min-w-0")}>
+        {aside ? (
+          <div className="grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-x-10">
+            <div className="min-w-0 lg:col-span-7">{mainColumn}</div>
+            <div className="min-w-0 lg:col-span-5 lg:row-span-1 lg:self-start">{aside}</div>
+          </div>
+        ) : (
+          mainColumn
+        )}
       </div>
     </section>
   );

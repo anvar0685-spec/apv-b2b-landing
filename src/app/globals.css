@@ -42,6 +42,8 @@ html.dark {
 
 body {
   min-height: 100vh;
+  min-width: 0;
+  overflow-x: clip;
   background: var(--background);
   color: var(--neutral-950);
   font-family: var(--font-sans), system-ui, sans-serif;
@@ -94,13 +96,13 @@ body {
   }
 
   .type-lead {
-    font-size: 1.125rem;
+    font-size: clamp(1rem, 2.8vw, 1.125rem);
     line-height: 1.65;
     color: var(--neutral-700);
   }
 
   .type-body {
-    font-size: 1rem;
+    font-size: clamp(0.9375rem, 2.2vw, 1rem);
     line-height: 1.65;
     color: var(--neutral-700);
   }

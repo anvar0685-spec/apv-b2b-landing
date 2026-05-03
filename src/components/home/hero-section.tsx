@@ -33,8 +33,8 @@ export function HeroSection() {
     >
       <div className="hero-ambient pointer-events-none absolute inset-0 opacity-80" />
       <div className="ux-pattern-hero pointer-events-none absolute inset-0" aria-hidden />
-      <div className="relative mx-auto max-w-[1440px] px-4 pb-20 pt-16 sm:px-6 lg:px-8 lg:pb-28 lg:pt-24">
-        <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
+      <div className="relative mx-auto max-w-[1440px] px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-28 lg:pt-24">
+        <div className="grid min-w-0 items-center gap-10 lg:grid-cols-12 lg:gap-10">
           <motion.div
             className="lg:col-span-7"
             initial={reduce ? undefined : { opacity: 0, y: 28 }}
@@ -42,10 +42,10 @@ export function HeroSection() {
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent-soft)]">{th("kicker")}</p>
-            <h1 className="font-display mt-5 max-w-[18ch] text-balance text-4xl font-extrabold leading-[0.95] tracking-[-0.04em] sm:text-5xl sm:tracking-[-0.045em] md:text-6xl md:tracking-[-0.048em] lg:text-[4.25rem] lg:tracking-[-0.05em] xl:text-[4.75rem]">
+            <h1 className="font-display mt-5 max-w-[min(100%,18ch)] text-balance text-4xl font-extrabold leading-[0.95] tracking-[-0.04em] sm:max-w-[18ch] sm:text-5xl sm:tracking-[-0.045em] md:text-6xl md:tracking-[-0.048em] lg:text-[4.25rem] lg:tracking-[-0.05em] xl:text-[4.75rem]">
               <HeroWordsReveal text={t("heroTitle")} />
             </h1>
-            <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/78 md:text-xl md:leading-[1.55]">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-white/78 sm:mt-7 sm:text-lg md:text-xl md:leading-[1.55]">
               {t("heroSubtitle")}
             </p>
             <div className="mt-10 flex flex-wrap gap-3">

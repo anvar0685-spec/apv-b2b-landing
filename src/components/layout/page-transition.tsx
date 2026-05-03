@@ -14,6 +14,7 @@ export function PageTransition({ children }: PageTransitionProps) {
     <AnimatePresence mode={reduce ? "sync" : "wait"}>
       <motion.div
         key={pathname}
+        className="min-w-0 w-full overflow-x-clip"
         initial={reduce ? false : { opacity: 0.001, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         exit={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: -4 }}

@@ -25,47 +25,47 @@ export async function SiteFooter() {
           <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--neutral-500)]">{t("navTitle")}</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
-              <Link className="hover:text-white" href="/uslugi">
+              <Link className="flex min-h-11 items-center py-2 hover:text-white" href="/uslugi">
                 {tn("services")}
               </Link>
             </li>
             <li>
-              <Link className="hover:text-white" href="/personal">
+              <Link className="flex min-h-11 items-center py-2 hover:text-white" href="/personal">
                 {tn("personal")}
               </Link>
             </li>
             <li>
-              <Link className="hover:text-white" href="/otrasli">
+              <Link className="flex min-h-11 items-center py-2 hover:text-white" href="/otrasli">
                 {tn("industries")}
               </Link>
             </li>
             <li>
-              <Link className="hover:text-white" href="/ploshchadki">
+              <Link className="flex min-h-11 items-center py-2 hover:text-white" href="/ploshchadki">
                 {tn("platforms")}
               </Link>
             </li>
             <li>
-              <Link className="hover:text-white" href="/geografiya">
+              <Link className="flex min-h-11 items-center py-2 hover:text-white" href="/geografiya">
                 {tn("geo")}
               </Link>
             </li>
             <li>
-              <Link className="hover:text-white" href="/blog">
+              <Link className="flex min-h-11 items-center py-2 hover:text-white" href="/blog">
                 {tn("blog")}
               </Link>
             </li>
             <li>
-              <Link className="hover:text-white" href="/faq">
+              <Link className="flex min-h-11 items-center py-2 hover:text-white" href="/faq">
                 {t("linkFaq")}
               </Link>
             </li>
             <li>
-              <Link className="hover:text-white" href="/garantii">
+              <Link className="flex min-h-11 items-center py-2 hover:text-white" href="/garantii">
                 {t("linkGarantii")}
               </Link>
             </li>
             <li>
-              <Link className="hover:text-white" href="/pravovaya-informaciya">
+              <Link className="flex min-h-11 items-center py-2 hover:text-white" href="/pravovaya-informaciya">
                 {t("legal")}
               </Link>
             </li>
@@ -75,22 +75,22 @@ export async function SiteFooter() {
           <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--neutral-500)]">{t("contactsTitle")}</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
-              <TrackedTelLink className="hover:text-white" href={`tel:${site.phone.replace(/\s/g, "")}`}>
+              <TrackedTelLink className="flex min-h-11 items-center py-2 hover:text-white" href={`tel:${site.phone.replace(/\s/g, "")}`}>
                 {site.phone}
               </TrackedTelLink>
             </li>
             <li>
-              <a className="hover:text-white" href={`mailto:${site.emailHello}`}>
+              <a className="flex min-h-11 items-center break-all py-2 hover:text-white" href={`mailto:${site.emailHello}`}>
                 {site.emailHello}
               </a>
             </li>
             <li>
-              <a className="hover:text-white" href={site.telegram} rel="noopener noreferrer">
+              <a className="flex min-h-11 items-center py-2 hover:text-white" href={site.telegram} rel="noopener noreferrer">
                 {t("telegram")}
               </a>
             </li>
             <li>
-              <a className="hover:text-white" href={site.whatsapp} rel="noopener noreferrer">
+              <a className="flex min-h-11 items-center py-2 hover:text-white" href={site.whatsapp} rel="noopener noreferrer">
                 {t("whatsapp")}
               </a>
             </li>

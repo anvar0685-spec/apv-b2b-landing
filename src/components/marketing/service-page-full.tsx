@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { ServiceScrollStory } from "@/components/marketing/service-scroll-story";
 import { ServiceSectionWrap } from "@/components/marketing/service-section-wrap";
+import { TechSignalMotif } from "@/components/marketing/tech-signal-motif";
 
 const WAREHOUSE_PROFESSIONS = PROFESSIONS.slice(0, 10);
 
@@ -43,6 +44,7 @@ const t = {
     "Оставьте заявку — менеджер свяжется в течение 15 минут в рабочее время (срок фиксируется в регламенте обслуживания клиентов).",
   req: "Оставить заявку",
   calc: "Калькулятор",
+  tableSwipeHint: "На узком экране таблицу можно прокручивать горизонтально.",
   areaServed: "Москва и Московская область",
 };
 
@@ -85,10 +87,11 @@ export function ServicePageFull({ model, scrollStory = false }: Props) {
   ];
 
   return (
-    <main id="main" className="pb-24">
+    <main id="main" className="min-w-0 pb-24">
       <JsonLd data={serviceJson} />
       <JsonLd data={faqJson} />
       <OperationalDarkHero
+        aside={<TechSignalMotif variant="dark" />}
         crumbs={crumbs}
         kicker={t.kicker}
         title={model.h1}
@@ -109,12 +112,12 @@ export function ServicePageFull({ model, scrollStory = false }: Props) {
         }
       />
 
-      <article className="relative mx-auto max-w-[800px] px-4 py-12 sm:px-6 lg:px-8">
+      <article className="relative mx-auto max-w-[800px] px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
         <div className="ux-page-body-subtle pointer-events-none absolute inset-x-0 top-0 -z-10 h-[min(100%,48rem)] opacity-[0.45] dark:opacity-[0.32]" aria-hidden />
 
         <ServiceSectionWrap motionEnabled={motion}>
           <h2 className="type-headline">{t.overview}</h2>
-          <div className="mt-4 space-y-4 text-base leading-relaxed text-[var(--neutral-700)]">
+          <div className="mt-4 space-y-4 text-[0.9375rem] leading-relaxed text-[var(--neutral-700)] sm:text-base">
             {model.intro.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
@@ -157,7 +160,8 @@ export function ServicePageFull({ model, scrollStory = false }: Props) {
 
         <ServiceSectionWrap motionEnabled={motion} className="mt-14">
           <h2 className="type-headline">{t.includes}</h2>
-          <div className="mt-4 overflow-x-auto rounded-2xl border border-[var(--neutral-200)]">
+          <p className="mt-2 text-xs text-[var(--neutral-500)] md:hidden">{t.tableSwipeHint}</p>
+          <div className="mt-3 overflow-x-auto overscroll-x-contain rounded-2xl border border-[var(--neutral-200)] [-webkit-overflow-scrolling:touch]">
             <table className="w-full min-w-[480px] text-left text-sm">
               <thead className="bg-[var(--surface)] text-xs uppercase tracking-wide text-[var(--neutral-500)]">
                 <tr>
@@ -179,7 +183,8 @@ export function ServicePageFull({ model, scrollStory = false }: Props) {
 
         <ServiceSectionWrap motionEnabled={motion} className="mt-14">
           <h2 className="type-headline">{t.compare}</h2>
-          <div className="mt-4 overflow-x-auto rounded-2xl border border-[var(--neutral-200)]">
+          <p className="mt-2 text-xs text-[var(--neutral-500)] md:hidden">{t.tableSwipeHint}</p>
+          <div className="mt-3 overflow-x-auto overscroll-x-contain rounded-2xl border border-[var(--neutral-200)] [-webkit-overflow-scrolling:touch]">
             <table className="w-full min-w-[520px] text-left text-sm">
               <thead className="bg-[var(--surface)] text-xs uppercase tracking-wide text-[var(--neutral-500)]">
                 <tr>
@@ -245,7 +250,7 @@ export function ServicePageFull({ model, scrollStory = false }: Props) {
                 className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-5 shadow-[var(--card-shadow)]"
               >
                 <h3 className="font-semibold text-[var(--primary)]">{f.q}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-700)]">{f.a}</p>
+                <p className="mt-2 text-[0.9375rem] leading-relaxed text-[var(--neutral-700)] sm:text-sm">{f.a}</p>
               </div>
             ))}
           </div>

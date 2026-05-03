@@ -1,0 +1,5 @@
+/** Общие SVG-пути спарклайна (как на главной в HeroSlaDashboard) */
+export const SPARK_AREA_PATH =
+  "M0 52 L28 48 L56 55 L84 38 L112 42 L140 28 L168 32 L196 22 L224 26 L252 14 L280 18 L280 72 L0 72 Z";
+export const SPARK_LINE_PATH =
+  "M0 52 L28 48 L56 55 L84 38 L112 42 L140 28 L168 32 L196 22 L224 26 L252 14 L280 18";

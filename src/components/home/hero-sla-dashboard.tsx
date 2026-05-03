@@ -3,6 +3,7 @@
 import { useEffect, useId, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { SPARK_AREA_PATH, SPARK_LINE_PATH } from "@/components/marketing/spark-chart-paths";
 
 function useCountUp(target: number, decimals: number, enabled: boolean, reduce: boolean) {
   const [v, setV] = useState(reduce ? target : 0);
@@ -26,11 +27,6 @@ function useCountUp(target: number, decimals: number, enabled: boolean, reduce: 
   }, [target, decimals, enabled, reduce]);
   return v;
 }
-
-const SPARK_D =
-  "M0 52 L28 48 L56 55 L84 38 L112 42 L140 28 L168 32 L196 22 L224 26 L252 14 L280 18 L280 72 L0 72 Z";
-const SPARK_LINE =
-  "M0 52 L28 48 L56 55 L84 38 L112 42 L140 28 L168 32 L196 22 L224 26 L252 14 L280 18";
 
 export function HeroSlaDashboard() {
   const reduce = useReducedMotion();
@@ -111,14 +107,14 @@ export function HeroSlaDashboard() {
               </linearGradient>
             </defs>
             <motion.path
-              d={SPARK_D}
+              d={SPARK_AREA_PATH}
               fill={`url(#${fillId})`}
               initial={reduce ? undefined : { opacity: 0 }}
               animate={reduce ? undefined : { opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             />
             <motion.path
-              d={SPARK_LINE}
+              d={SPARK_LINE_PATH}
               fill="none"
               stroke="var(--accent-soft)"
               strokeWidth="2.5"
