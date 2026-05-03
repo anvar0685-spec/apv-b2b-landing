@@ -6,7 +6,6 @@ import { Link } from "@/i18n/navigation";
 import { PROFESSIONS, CITIES } from "@/content/professions-cities";
 import { getWarehouseHourlyRateRub, shiftMultiplier } from "@/content/warehouse-hourly-rates";
 import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
@@ -105,17 +104,12 @@ export function CalculatorFull() {
   const next = () => setStep((s) => Math.min(STEPS - 1, s + 1));
   const prev = () => setStep((s) => Math.max(0, s - 1));
 
+  const panelClass =
+    "rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-4 py-6 sm:px-6 dark:border-white/12 dark:bg-[var(--primary-dark)]/55";
+
   return (
-    <div className="mx-auto max-w-[720px] px-4 py-12 sm:px-6 lg:py-16">
-      <h1 className="font-display text-3xl font-bold text-[var(--primary)] md:text-4xl">
-        Калькулятор складского аутсорсинга
-      </h1>
-      <p className="mt-3 text-[var(--neutral-700)]">
-        Ориентир по ставкам <strong>₽/час</strong> для Москвы и МО: грузчики и разнорабочие 600, комплектовщики 650, кладовщики
-        680, водители погрузчика/ПРТ 800, уборщики 600. Ночь и сутки дают надбавку к ставке. Итог — вилка к месячному фонду, оценка смены
-        12 ч и вилка к проекту на выбранный срок. Финальные цифры, НДС и пакет — в КП и договоре.
-      </p>
-      <Card className="mt-10">
+    <div className="mx-auto max-w-[720px]">
+      <div className={panelClass}>
         <div className="mb-6">
           <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">
             <span>
@@ -293,12 +287,14 @@ export function CalculatorFull() {
                 Жёсткие требования площадки (маркетплейс / РЦ): допуски и документы (+6% к ориентиру)
               </label>
             </div>
-            <div className="mt-8 rounded-2xl bg-[var(--surface)] p-6">
-              <CardTitle>Предварительный расчёт</CardTitle>
-              <CardDescription className="mt-2">
+            <div className="mt-8 border border-[var(--neutral-200)] bg-[var(--surface)] p-5 dark:border-white/10 dark:bg-white/[0.04]">
+              <h3 className="font-display text-lg font-semibold tracking-[-0.02em] text-[var(--primary)] dark:text-white">
+                Предварительный расчёт
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-600)] dark:text-white/65">
                 Вилка к месячному фонду: от {estimate.low.toLocaleString("ru-RU")} до {estimate.high.toLocaleString("ru-RU")}{" "}
                 ₽ / мес (оценка).
-              </CardDescription>
+              </p>
               <ul className="type-body mt-4 space-y-2 text-[var(--neutral-700)]">
                 <li>
                   <strong>Ставка с учётом смены:</strong> {hourlyEffective} ₽/ч
@@ -317,7 +313,7 @@ export function CalculatorFull() {
                 НДС, форма взаимодействия и пакет пика — в договоре. Разовый сценарий: сверяйтесь с заявкой и параметрами первых смен на объекте, а не
                 только с цифрой в калькуляторе.
               </p>
-              <p className="mt-4 font-mono-nums text-2xl font-bold text-[var(--primary)]">
+              <p className="mt-4 font-mono-nums text-2xl font-bold text-[var(--primary)] dark:text-white">
                 ~{estimate.total.toLocaleString("ru-RU")} ₽ <span className="text-base font-normal text-[var(--neutral-500)]">/ мес</span>
               </p>
               <div className="mt-6 flex flex-wrap gap-2">
@@ -347,7 +343,7 @@ export function CalculatorFull() {
           </>
         ) : null}
 
-        <div className="mt-8 flex flex-wrap justify-between gap-3">
+        <div className="mt-8 flex flex-wrap justify-between gap-3 border-t border-[var(--neutral-200)] pt-6 dark:border-white/10">
           <Button type="button" variant="secondary" disabled={step === 0} onClick={prev}>
             Назад
           </Button>
@@ -357,7 +353,7 @@ export function CalculatorFull() {
             </Button>
           ) : null}
         </div>
-      </Card>
+      </div>
     </div>
   );
 }

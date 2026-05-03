@@ -82,13 +82,7 @@ export function ProgrammaticStaffingPage({ profession, city }: Props) {
         }
         title={t.h1}
         description={t.lead}
-        meta={
-          priority ? (
-            <p className="mt-4 inline-flex rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[var(--accent-soft)]">
-              {t.priBadge}
-            </p>
-          ) : null
-        }
+        meta={null}
         actions={
           <>
             <Button asChild>
@@ -118,6 +112,8 @@ export function ProgrammaticStaffingPage({ profession, city }: Props) {
             cityName={cityName}
             calcHref={calcHref}
             labels={railLabels}
+            priorityCluster={priority}
+            priorityBadge={priority ? t.priBadge : undefined}
           />
 
           <div className="type-body space-y-4">
@@ -142,6 +138,8 @@ export function ProgrammaticStaffingPage({ profession, city }: Props) {
             cityName={cityName}
             calcHref={calcHref}
             labels={railLabels}
+            priorityCluster={priority}
+            priorityBadge={priority ? t.priBadge : undefined}
           />
         </div>
       </div>

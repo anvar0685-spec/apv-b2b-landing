@@ -163,7 +163,7 @@ body {
     position: absolute;
     inset: 0;
     z-index: 0;
-    opacity: 0.55;
+    opacity: 0.42;
     background-image:
       radial-gradient(circle at 14% 22%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 46%),
       radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--primary) 10%, transparent), transparent 52%),
@@ -181,7 +181,7 @@ body {
     position: absolute;
     inset: 0;
     z-index: 0;
-    opacity: 0.28;
+    opacity: 0.22;
     background-image: radial-gradient(
       circle at 1px 1px,
       color-mix(in srgb, var(--neutral-500) 22%, transparent) 1px,
@@ -191,11 +191,11 @@ body {
   }
 
   html.dark .ux-tech-field-light::before {
-    opacity: 0.42;
+    opacity: 0.34;
   }
 
   html.dark .ux-tech-field-light::after {
-    opacity: 0.18;
+    opacity: 0.14;
     background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.07) 1px, transparent 0);
   }
 
