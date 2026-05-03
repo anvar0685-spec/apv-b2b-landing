@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { MarketingHeroChrome } from "@/components/marketing/marketing-hero-chrome";
-import { TechSignalMotif } from "@/components/marketing/tech-signal-motif";
+import { TechHubSpectrum } from "@/components/marketing/tech-hub-spectrum";
 import { SectionDivider } from "@/components/marketing/section-divider";
 import { cn } from "@/lib/utils";
 
@@ -39,7 +39,7 @@ export function MarketingHubShell({
             {belowLead ? <div className="mt-4 max-w-3xl">{belowLead}</div> : null}
           </div>
           <div className="min-w-0 lg:col-span-5">
-            <TechSignalMotif variant="light" />
+            <TechHubSpectrum />
           </div>
         </div>
       </MarketingHeroChrome>

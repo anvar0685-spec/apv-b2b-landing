@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { ServiceScrollStory } from "@/components/marketing/service-scroll-story";
 import { ServiceSectionWrap } from "@/components/marketing/service-section-wrap";
-import { TechSignalMotif } from "@/components/marketing/tech-signal-motif";
+import { TechOpsAside } from "@/components/marketing/tech-ops-aside";
 
 const WAREHOUSE_PROFESSIONS = PROFESSIONS.slice(0, 10);
 
@@ -91,7 +91,7 @@ export function ServicePageFull({ model, scrollStory = false }: Props) {
       <JsonLd data={serviceJson} />
       <JsonLd data={faqJson} />
       <OperationalDarkHero
-        aside={<TechSignalMotif variant="dark" />}
+        aside={<TechOpsAside />}
         crumbs={crumbs}
         kicker={t.kicker}
         title={model.h1}

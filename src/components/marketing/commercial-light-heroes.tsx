@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import type { Crumb } from "@/components/seo/breadcrumbs";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { MarketingHeroChrome } from "@/components/marketing/marketing-hero-chrome";
-import { TechSignalMotif } from "@/components/marketing/tech-signal-motif";
+import { TechAtlasAccent } from "@/components/marketing/tech-atlas-accent";
 
 type HeroProps = {
   crumbs: Crumb[];
@@ -26,7 +26,7 @@ export function CommercialAtlasHero({ crumbs, kicker, title, lead, children }: H
           <p className="type-lead mt-5 max-w-2xl text-[var(--neutral-700)] dark:text-white/78">{lead}</p>
         </div>
         <div className="min-w-0 lg:col-span-5 lg:row-span-2 lg:self-start">
-          <TechSignalMotif variant="light" />
+          <TechAtlasAccent preset="geo" />
         </div>
         <div className="min-w-0 lg:col-span-7">{children}</div>
       </div>
@@ -53,7 +53,7 @@ export function CommercialVerticalHero({ crumbs, kicker, title, lead, children }
             <p className="type-lead mt-5 max-w-2xl text-[var(--neutral-700)] dark:text-white/78">{lead}</p>
           </div>
           <div className="min-w-0 lg:col-span-5 lg:row-span-2 lg:self-start">
-            <TechSignalMotif variant="light" />
+            <TechAtlasAccent preset="geo" />
           </div>
           <div className="min-w-0 lg:col-span-7">{children}</div>
         </div>

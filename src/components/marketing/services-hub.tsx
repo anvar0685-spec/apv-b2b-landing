@@ -2,7 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { getServicePage } from "@/content/service-page-data";
-import { TechSignalMotif } from "@/components/marketing/tech-signal-motif";
+import { TechAtlasAccent } from "@/components/marketing/tech-atlas-accent";
 
 export function ServicesHub() {
   const main = getServicePage("autsorsing");
@@ -47,7 +47,7 @@ export function ServicesHub() {
             <p className="type-lead mt-5 max-w-2xl">{t.lead}</p>
           </div>
           <div className="min-w-0 lg:col-span-5">
-            <TechSignalMotif variant="light" />
+            <TechAtlasAccent preset="services" />
           </div>
         </div>
       </section>
