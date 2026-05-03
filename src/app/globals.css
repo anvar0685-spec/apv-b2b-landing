@@ -239,68 +239,74 @@ details.faq-item[open] .faq-chevron {
 
 /* --- UX/UI роль 02: сдержанные паттерны без фото (иерархия «операции / склад») --- */
 
-/** Тихая «площадка» в hero: перспектива прохода + сетка */
+/** «Площадка» в hero: сетка + луч — заметнее, чем v1, без кислоты */
 .ux-pattern-hero {
-  opacity: 0.085;
+  opacity: 0.2;
   background-image:
     linear-gradient(
       112deg,
       transparent 0%,
-      transparent 42%,
-      color-mix(in srgb, var(--accent) 35%, transparent) 50%,
-      transparent 58%
+      transparent 38%,
+      color-mix(in srgb, var(--accent) 55%, transparent) 50%,
+      transparent 62%
     ),
     repeating-linear-gradient(
       -18deg,
       transparent,
-      transparent 52px,
-      color-mix(in srgb, white 14%, transparent) 52px,
-      color-mix(in srgb, white 14%, transparent) 53px
+      transparent 48px,
+      color-mix(in srgb, white 22%, transparent) 48px,
+      color-mix(in srgb, white 22%, transparent) 49px
     ),
     repeating-linear-gradient(
       96deg,
       transparent,
-      transparent 71px,
-      color-mix(in srgb, white 9%, transparent) 71px,
-      color-mix(in srgb, white 9%, transparent) 72px
+      transparent 64px,
+      color-mix(in srgb, white 14%, transparent) 64px,
+      color-mix(in srgb, white 14%, transparent) 65px
     );
 }
 
 html.dark .ux-pattern-hero {
-  opacity: 0.11;
+  opacity: 0.22;
 }
 
-/** Фон блока калькулятора: сетка как у дашборда */
+/** Фон блока калькулятора */
 .ux-pattern-calc {
   background-image:
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 47px,
-      color-mix(in srgb, var(--primary) 7%, transparent) 47px,
-      color-mix(in srgb, var(--primary) 7%, transparent) 48px
+      color-mix(in srgb, var(--primary) 14%, transparent) 47px,
+      color-mix(in srgb, var(--primary) 14%, transparent) 48px
     ),
     repeating-linear-gradient(
       90deg,
       transparent,
       transparent 47px,
-      color-mix(in srgb, var(--primary) 5%, transparent) 47px,
-      color-mix(in srgb, var(--primary) 5%, transparent) 48px
+      color-mix(in srgb, var(--primary) 11%, transparent) 47px,
+      color-mix(in srgb, var(--primary) 11%, transparent) 48px
     );
-  opacity: 0.55;
+  opacity: 0.85;
 }
 
 html.dark .ux-pattern-calc {
-  opacity: 0.35;
+  opacity: 0.55;
 }
 
 /** Лёгкий «воздух» на внутренних hero-секциях */
 .ux-marketing-subtle {
-  background-image: radial-gradient(
-    ellipse 140% 70% at 100% -10%,
-    color-mix(in srgb, var(--accent) 10%, transparent),
-    transparent 52%
-  );
+  background-image:
+    radial-gradient(
+      ellipse 120% 65% at 96% -5%,
+      color-mix(in srgb, var(--accent) 22%, transparent),
+      transparent 48%
+    ),
+    radial-gradient(
+      ellipse 70% 45% at 0% 100%,
+      color-mix(in srgb, var(--accent) 8%, transparent),
+      transparent 55%
+    );
 }
 
 /** Акцентная карточка bento */
@@ -308,31 +314,31 @@ html.dark .ux-pattern-calc {
   content: "";
   position: absolute;
   inset: -25%;
-  opacity: 0.14;
+  opacity: 0.26;
   background:
-    radial-gradient(ellipse 75% 55% at 92% 8%, color-mix(in srgb, var(--accent) 50%, transparent), transparent 52%),
+    radial-gradient(ellipse 75% 55% at 92% 8%, color-mix(in srgb, var(--accent) 62%, transparent), transparent 52%),
     repeating-linear-gradient(
       180deg,
       transparent,
       transparent 36px,
-      color-mix(in srgb, var(--accent) 14%, transparent) 36px,
+      color-mix(in srgb, var(--accent) 22%, transparent) 36px,
       transparent 37px
     );
   pointer-events: none;
 }
 
-/** Одна тёмная карточка — лёгкая диагональ */
+/** Одна тёмная карточка — диагональ */
 .ux-bento-dark-field::before {
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.12;
+  opacity: 0.22;
   background-image: repeating-linear-gradient(
     -38deg,
     transparent,
     transparent 14px,
-    color-mix(in srgb, white 5%, transparent) 14px,
-    color-mix(in srgb, white 5%, transparent) 15px
+    color-mix(in srgb, white 9%, transparent) 14px,
+    color-mix(in srgb, white 9%, transparent) 15px
   );
   pointer-events: none;
 }
@@ -342,4 +348,81 @@ html.dark .ux-pattern-calc {
   .ux-pattern-calc {
     animation: none;
   }
+}
+
+/** Лёгкая сетка под телом страницы (светлые хабы / контент после hero) */
+.ux-page-body-subtle {
+  opacity: 0.42;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 56px,
+      color-mix(in srgb, var(--primary) 6%, transparent) 56px,
+      transparent 57px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 56px,
+      color-mix(in srgb, var(--primary) 5%, transparent) 56px,
+      transparent 56px
+    );
+}
+
+html.dark .ux-page-body-subtle {
+  opacity: 0.32;
+}
+
+/** Акцент второго экрана для географии */
+.ux-geo-chapter {
+  background-image:
+    radial-gradient(circle at 10% 92%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 44%),
+    radial-gradient(circle at 94% 12%, color-mix(in srgb, var(--primary) 9%, transparent), transparent 40%);
+}
+
+/** Параметрический слой для программатики profession×city */
+.ux-prog-angled {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.13;
+  overflow: hidden;
+}
+
+html.dark .ux-prog-angled {
+  opacity: 0.17;
+}
+
+.ux-prog-angled::before {
+  content: "";
+  position: absolute;
+  inset: -38%;
+}
+
+.ux-prog-v0::before {
+  transform: rotate(-11deg);
+  background: linear-gradient(
+    118deg,
+    color-mix(in srgb, var(--accent) 44%, transparent) 0%,
+    transparent 54%
+  );
+}
+
+.ux-prog-v1::before {
+  transform: rotate(8deg);
+  background: linear-gradient(
+    104deg,
+    transparent 42%,
+    color-mix(in srgb, var(--accent) 40%, transparent) 74%
+  );
+}
+
+.ux-prog-v2::before {
+  transform: rotate(-4deg);
+  background: radial-gradient(
+    ellipse 82% 58% at 88% 10%,
+    color-mix(in srgb, var(--accent) 46%, transparent),
+    transparent 58%
+  );
 }

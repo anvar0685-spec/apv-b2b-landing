@@ -3,7 +3,7 @@ import type { ServicePageModel } from "@/content/service-page-data";
 import { ProfessionIcon } from "@/content/profession-icons";
 import { site } from "@/config/site";
 import { JsonLd } from "@/components/seo/json-ld";
-import { Breadcrumbs } from "@/components/seo/breadcrumbs";
+import { OperationalDarkHero } from "@/components/layout/operational-dark-hero";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
@@ -82,18 +82,13 @@ export function ServicePageFull({ model }: Props) {
     <main id="main" className="pb-24">
       <JsonLd data={serviceJson} />
       <JsonLd data={faqJson} />
-      <section className="grain-dark relative overflow-hidden border-b border-white/[0.08] bg-[var(--primary-dark)] text-white">
-        <div className="hero-ambient pointer-events-none absolute inset-0 opacity-70" />
-        <div className="relative mx-auto max-w-[1280px] px-4 pb-12 pt-8 sm:px-6 sm:pb-14 sm:pt-10 lg:px-8">
-          <Breadcrumbs items={crumbs} variant="dark" />
-          <p className="type-kicker mt-8 text-[var(--accent-soft)]">{t.kicker}</p>
-          <h1 className="font-display mt-4 max-w-4xl text-balance text-3xl font-bold tracking-[-0.035em] text-white md:text-[2.75rem] md:leading-[1.1]">
-            {model.h1}
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/80 md:text-xl md:leading-[1.55]">
-            {model.subtitle}
-          </p>
-          <div className="mt-10 flex flex-wrap gap-3">
+      <OperationalDarkHero
+        crumbs={crumbs}
+        kicker={t.kicker}
+        title={model.h1}
+        description={model.subtitle}
+        actions={
+          <>
             <Button asChild>
               <Link href="/kalkulyator">{t.calc}</Link>
             </Button>
@@ -104,11 +99,12 @@ export function ServicePageFull({ model }: Props) {
             >
               <Link href="/zayavka">{t.req}</Link>
             </Button>
-          </div>
-        </div>
-      </section>
+          </>
+        }
+      />
 
-      <article className="mx-auto max-w-[800px] px-4 py-12 sm:px-6 lg:px-8">
+      <article className="relative mx-auto max-w-[800px] px-4 py-12 sm:px-6 lg:px-8">
+        <div className="ux-page-body-subtle pointer-events-none absolute inset-x-0 top-0 -z-10 h-[min(100%,48rem)] opacity-[0.45] dark:opacity-[0.32]" aria-hidden />
         <h2 className="type-headline">{t.overview}</h2>
         <div className="mt-4 space-y-4 text-base leading-relaxed text-[var(--neutral-700)]">
           {model.intro.map((p, i) => (

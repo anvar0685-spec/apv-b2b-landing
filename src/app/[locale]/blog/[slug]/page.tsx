@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { getBlogArticle, PUBLISHED_BLOG_ARTICLES, relatedArticles, type BlogArticle } from "@/content/blog-published";
 import { Button } from "@/components/ui/button";
+import { MarketingHeroChrome } from "@/components/marketing/marketing-hero-chrome";
+import { SectionDivider } from "@/components/marketing/section-divider";
 import { JsonLd } from "@/components/seo/json-ld";
 import { site } from "@/config/site";
 import { absUrl } from "@/lib/abs-url";
@@ -83,37 +85,30 @@ export default function BlogArticlePage({ params }: Props) {
   return (
     <main id="main" className="pb-24">
       <JsonLd data={articleJson} />
-      <section className="border-b border-[var(--neutral-200)] bg-[var(--surface)] py-10 lg:py-14">
-        <div className="mx-auto max-w-[800px] px-4 sm:px-6 lg:px-8">
-          <p className="text-sm text-[var(--neutral-500)]">
-            <Link className="font-medium text-[var(--accent)] hover:underline" href="/blog">
-              ← {back}
-            </Link>
-            {" · "}
-            <Link
-              className="font-medium text-[var(--accent)] hover:underline"
-              href={`/blog/category/${post.category}`}
-            >
-              {catLabel}
-            </Link>
-          </p>
-          <h1 className="font-display mt-6 text-balance text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-5xl md:leading-[1.08]">
-            {title}
-          </h1>
-          <div className="mt-4 flex flex-wrap gap-4 text-sm text-[var(--neutral-500)]">
-            <time dateTime={post.publishedAt}>
-              {new Date(post.publishedAt).toLocaleDateString("ru-RU")}
-            </time>
-            <span>
-              {post.readingTime} мин чтения
-            </span>
-            <span>{author}</span>
-          </div>
-          <p className="type-lead mt-8">{excerpt}</p>
+      <MarketingHeroChrome innerClassName="mx-auto max-w-[800px] px-4 sm:px-6 lg:px-8">
+        <p className="text-sm text-[var(--neutral-500)]">
+          <Link className="font-medium text-[var(--accent)] hover:underline" href="/blog">
+            ← {back}
+          </Link>
+          {" · "}
+          <Link className="font-medium text-[var(--accent)] hover:underline" href={`/blog/category/${post.category}`}>
+            {catLabel}
+          </Link>
+        </p>
+        <h1 className="font-display mt-6 text-balance text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-5xl md:leading-[1.08]">
+          {title}
+        </h1>
+        <div className="mt-4 flex flex-wrap gap-4 text-sm text-[var(--neutral-500)]">
+          <time dateTime={post.publishedAt}>{new Date(post.publishedAt).toLocaleDateString("ru-RU")}</time>
+          <span>{post.readingTime} мин чтения</span>
+          <span>{author}</span>
         </div>
-      </section>
+        <p className="type-lead mt-8">{excerpt}</p>
+      </MarketingHeroChrome>
+      <SectionDivider className="py-5 sm:py-6" />
 
-      <div className="mx-auto max-w-[800px] px-4 py-10 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-[800px] px-4 py-10 sm:px-6 lg:px-8">
+        <div className="ux-page-body-subtle pointer-events-none absolute inset-x-0 top-0 -z-10 h-[min(120vh,52rem)] opacity-45 dark:opacity-35" aria-hidden />
         <nav
           aria-label="Содержание"
           className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-5 text-sm dark:border-white/10"

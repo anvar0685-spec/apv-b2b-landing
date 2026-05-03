@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { MarketingHubShell } from "@/components/layout/marketing-hub-shell";
 import { Button } from "@/components/ui/button";
 import { site } from "@/config/site";
 import { buildPageMetadata } from "@/lib/seo";
@@ -42,21 +43,13 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <section className="border-b border-[var(--neutral-200)] bg-[var(--surface)] py-10 lg:py-14">
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <p className="type-kicker">Связь</p>
-          <h1 className="font-display mt-3 max-w-3xl text-balance text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
-            Контакты
-          </h1>
-          <p className="type-lead mt-5 max-w-2xl">
-            Реквизиты и контакты централизованы в конфигурации сайта и переменных окружения. Значения ниже соответствуют
-            текущему окружению публикации.
-          </p>
-        </div>
-      </section>
-
-      <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
+      <MarketingHubShell
+        kicker="Связь"
+        title="Контакты"
+        description="Реквизиты и контакты централизованы в конфигурации сайта и переменных окружения. Значения ниже соответствуют текущему окружению публикации."
+      >
+        <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+          <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
           <div>
             <ul className="space-y-6 text-[var(--neutral-950)]">
               <li className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 shadow-[var(--card-shadow)]">
@@ -168,8 +161,9 @@ export default function Page() {
               </div>
             </div>
           </div>
+          </div>
         </div>
-      </div>
+      </MarketingHubShell>
     </main>
   );
 }

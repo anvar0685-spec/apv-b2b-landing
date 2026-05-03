@@ -1,8 +1,10 @@
 import type { ReactNode } from "react";
-import { Breadcrumbs, type Crumb } from "@/components/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Link } from "@/i18n/navigation";
+import { OperationalDarkHero } from "@/components/layout/operational-dark-hero";
 import { PRIORITY_PAGE_TEASERS } from "@/content/priority-pages-teasers";
+import { cn } from "@/lib/utils";
+import type { Crumb } from "@/components/seo/breadcrumbs";
 
 type Props = {
   crumbs: Crumb[];
@@ -10,12 +12,10 @@ type Props = {
   title: string;
   lead: string;
   jsonLd?: Record<string, unknown>;
-  /** Локализованные абзацы вместо заглушки «полный текст позже» */
   editorialParagraphs?: string[];
-  /** Доп. контент под лидом (карточки, списки ссылок) */
   children?: ReactNode;
-  /** Показать блок перелинковки по приоритетным URL */
   showPriorityTeasers?: boolean;
+  bodyTone?: "default" | "geo";
 };
 
 export function CommercialSeoPage({
@@ -27,34 +27,37 @@ export function CommercialSeoPage({
   editorialParagraphs,
   children,
   showPriorityTeasers = false,
+  bodyTone = "default",
 }: Props) {
   const foot = "Полный текст подключается из my-guide/content по 6-недельному плану (нед. 2–4).";
-
   const relatedTitle = "Приоритетные разделы";
 
   return (
     <main id="main" className="pb-20">
-      <section className="grain-dark relative overflow-hidden border-b border-white/[0.08] bg-[var(--primary-dark)] text-white">
-        <div className="hero-ambient pointer-events-none absolute inset-0 opacity-70" />
-        <div className="relative mx-auto max-w-content px-4 pb-12 pt-10 sm:px-6 sm:pb-14 sm:pt-12 lg:px-8">
-          {jsonLd ? <JsonLd data={jsonLd} /> : null}
-          <Breadcrumbs items={crumbs} variant="dark" />
-          {kicker ? (
-            <p className="type-kicker mt-8 text-[var(--accent-soft)] opacity-95">{kicker}</p>
-          ) : null}
-          <h1
-            className={`font-display max-w-[20ch] text-balance text-4xl font-bold leading-[1.12] tracking-[-0.035em] text-white md:text-5xl lg:max-w-[24ch] lg:text-[2.75rem] ${kicker ? "mt-4" : "mt-8"}`}
-          >
-            {title}
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80 md:text-xl md:leading-[1.55]">
-            {lead}
-          </p>
-        </div>
-      </section>
+      {jsonLd ? <JsonLd data={jsonLd} /> : null}
+      <OperationalDarkHero
+        crumbs={crumbs}
+        kicker={kicker}
+        kickerAsText
+        title={title}
+        description={<p>{lead}</p>}
+        titleClassName="font-display max-w-[20ch] text-balance text-4xl font-bold leading-[1.12] tracking-[-0.035em] text-white md:text-5xl lg:max-w-[24ch] lg:text-[2.75rem]"
+        containerClassName="relative mx-auto max-w-content px-4 pb-12 pt-10 sm:px-6 sm:pb-14 sm:pt-12 lg:px-8"
+      />
 
-      <section className="border-b border-[var(--neutral-200)] bg-[var(--background)] dark:border-white/10">
-        <div className="mx-auto max-w-content px-4 py-10 sm:px-6 lg:px-8">
+      <section
+        className={cn(
+          "relative overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--background)] dark:border-white/10",
+          bodyTone === "geo" && "ux-geo-chapter",
+        )}
+      >
+        {bodyTone === "geo" ? null : (
+          <div
+            className="ux-page-body-subtle pointer-events-none absolute inset-0 -z-10 min-h-full opacity-[0.55] dark:opacity-[0.4]"
+            aria-hidden
+          />
+        )}
+        <div className="relative mx-auto max-w-content px-4 py-10 sm:px-6 lg:px-8">
           {editorialParagraphs?.length ? (
             <div className="type-body max-w-3xl space-y-4 text-[var(--neutral-700)]">
               {editorialParagraphs.map((para, i) => (
@@ -79,9 +82,7 @@ export function CommercialSeoPage({
                       <span className="font-display text-base font-semibold text-[var(--primary)] group-hover:text-[var(--accent)]">
                         {p.ru.title}
                       </span>
-                      <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-700)]">
-                        {p.ru.teaser}
-                      </p>
+                      <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-700)]">{p.ru.teaser}</p>
                     </Link>
                   </li>
                 ))}

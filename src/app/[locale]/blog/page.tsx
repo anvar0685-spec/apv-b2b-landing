@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { BLOG_PAGE_SIZE, paginatePosts } from "@/content/blog-stub";
+import { MarketingHubShell } from "@/components/layout/marketing-hub-shell";
 import { PremiumBlogCard } from "@/components/marketing/premium-list-cards";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -60,27 +61,23 @@ export default async function BlogIndexPage({ params, searchParams }: PageProps)
 
   return (
     <main id="main" className="pb-24">
-      <section className="border-b border-[var(--neutral-200)] bg-[var(--surface)] py-10 lg:py-14">
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <p className="type-kicker">{t("kicker")}</p>
-          <h1 className="font-display mt-3 max-w-3xl text-balance text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
-            {t("title")}
-          </h1>
-          <p className="type-lead mt-5 max-w-2xl">{t("lead", { pageSize: BLOG_PAGE_SIZE })}</p>
+      <MarketingHubShell
+        kicker={t("kicker")}
+        title={t("title")}
+        description={t("lead", { pageSize: BLOG_PAGE_SIZE })}
+      >
+        <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+          <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((p) => (
+              <li key={p.slug}>
+                <PremiumBlogCard p={p} locale={params.locale} />
+              </li>
+            ))}
+          </ul>
+
+          <Pagination page={current} totalPages={totalPages} path="/blog" ariaLabel={t("paginationAria")} />
         </div>
-      </section>
-
-      <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((p) => (
-            <li key={p.slug}>
-              <PremiumBlogCard p={p} locale={params.locale} />
-            </li>
-          ))}
-        </ul>
-
-        <Pagination page={current} totalPages={totalPages} path="/blog" ariaLabel={t("paginationAria")} />
-      </div>
+      </MarketingHubShell>
     </main>
   );
 }

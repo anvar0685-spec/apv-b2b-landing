@@ -90,6 +90,10 @@ export function HeroSection() {
           </motion.div>
         </div>
       </div>
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-1 bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent shadow-[0_0_24px_-2px_var(--accent)]"
+        aria-hidden
+      />
     </section>
   );
 }

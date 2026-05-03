@@ -37,13 +37,16 @@ export function ContactStack() {
 
   return (
     <>
-      <nav
+      <div
         className={cn(
-          "fixed bottom-5 right-5 z-40 flex flex-col-reverse items-end gap-2",
-          "motion-reduce:transform-none",
+          "fixed bottom-5 right-5 z-40 rounded-[2rem] border border-[var(--neutral-200)]/90 bg-[var(--card)]/93 p-2 shadow-[0_20px_55px_-14px_rgba(7,21,37,0.38)] backdrop-blur-md",
+          "dark:border-white/18 dark:bg-[var(--primary-dark)]/78 dark:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.55)]",
         )}
-        aria-label="Связаться: звонок, заявка, мессенджеры"
       >
+        <nav
+          className={cn("flex flex-col-reverse items-center gap-2", "motion-reduce:transform-none")}
+          aria-label="Связаться: звонок, заявка, мессенджеры"
+        >
         <a
           href={telHref}
           className={cn(dockBtn, "bg-[var(--primary)] hover:ring-[var(--accent)]")}
@@ -93,7 +96,8 @@ export function ContactStack() {
           <Headphones className="h-5 w-5" aria-hidden />
           <span className="sr-only">Обратный звонок</span>
         </button>
-      </nav>
+        </nav>
+      </div>
 
       {dialogOpen ? (
         <div

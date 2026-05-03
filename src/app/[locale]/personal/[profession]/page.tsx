@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
+import type { Crumb } from "@/components/seo/breadcrumbs";
+import { OperationalDarkHero } from "@/components/layout/operational-dark-hero";
+import { ProfessionIcon } from "@/content/profession-icons";
 import { CITIES, PROFESSIONS, getProfession } from "@/content/professions-cities";
 import { buildPageMetadata } from "@/lib/seo";
+import { slugVisualVariant, variantClass } from "@/lib/slug-visual-seed";
+import { cn } from "@/lib/utils";
 
 type Props = { params: { locale: string; profession: string } };
 
@@ -27,29 +32,65 @@ export default function ProfessionHubPage({ params }: Props) {
   const prof = getProfession(params.profession);
   if (!prof) notFound();
 
+  const crumbs: Crumb[] = [
+    { href: "/", label: "Главная" },
+    { href: "/personal", label: "Персонал" },
+    { href: `/personal/${prof.slug}`, label: prof.titleRu },
+  ];
+
+  const v = slugVisualVariant(prof.slug);
+
   return (
-    <main
-      id="main"
-      className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
-    >
-      <h1 className="font-display text-4xl font-bold text-[var(--primary)] md:text-5xl">
-        {prof.titleRu}
-      </h1>
-      <p className="mt-4 text-lg text-[var(--neutral-700)]">
-        Выберите город для локальной посадочной (контекст ставок, ссылка в калькулятор, документы и допуски).
-      </p>
-      <ul className="mt-8 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {CITIES.map((c) => (
-          <li key={c.slug}>
-            <Link
-              className="text-sm font-medium text-[var(--accent)] hover:underline"
-              href={`/personal/${prof.slug}/${c.slug}`}
-            >
-              {c.nameRu}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <main id="main" className="pb-24">
+      <OperationalDarkHero
+        crumbs={crumbs}
+        kickerAsText={false}
+        kicker={
+          <p className="inline-flex items-center gap-3">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] text-[var(--accent-soft)]">
+              <ProfessionIcon slug={prof.slug} className="h-6 w-6" />
+            </span>
+            <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent-soft)]">
+              Профессия · города МО
+            </span>
+          </p>
+        }
+        title={`${prof.titleRu} — Москва и Московская область`}
+        description={
+          <p>
+            Выберите город для локальной посадочной: контекст ставок, калькулятор с параметрами, документы и допуски на
+            площадке.
+          </p>
+        }
+        decoration={<div className={cn("ux-prog-angled", variantClass(v))} aria-hidden />}
+      />
+
+      <div className="relative">
+        <div
+          className="ux-page-body-subtle pointer-events-none absolute inset-0 -z-10 min-h-full opacity-[0.55] dark:opacity-[0.38]"
+          aria-hidden
+        />
+        <div className="relative mx-auto max-w-[1280px] px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+          <ul className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {CITIES.map((c) => (
+              <li key={c.slug}>
+                <Link
+                  href={`/personal/${prof.slug}/${c.slug}`}
+                  className="group flex h-full flex-col rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] p-5 shadow-[var(--card-shadow)] transition hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--accent)_38%,var(--neutral-200))] hover:shadow-[var(--card-shadow-hover)] motion-reduce:transform-none dark:border-white/10 dark:bg-[var(--card)]"
+                >
+                  <span className="font-display text-lg font-semibold tracking-tight text-[var(--primary)] group-hover:text-[var(--accent)]">
+                    {c.nameRu}
+                  </span>
+                  <span className="mt-3 text-xs leading-relaxed text-[var(--neutral-600)]">
+                    Локальная страница под SEO и закупки · калькулятор с контекстом города
+                  </span>
+                  <span className="mt-4 text-sm font-medium text-[var(--accent)] group-hover:underline">Открыть →</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </main>
   );
 }

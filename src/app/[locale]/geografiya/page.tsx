@@ -24,6 +24,7 @@ export default function Page({ params }: Props) {
 
   return (
     <CommercialSeoPage
+      bodyTone="geo"
       editorialParagraphs={geoHubEditorial()}
       crumbs={[{ href: "/", label: "Главная" }, { href: "/geografiya", label: title }]}
       kicker={kicker}

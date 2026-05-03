@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { BLOG_CATEGORY_SLUGS, BLOG_PAGE_SIZE, paginatePostsByCategory } from "@/content/blog-stub";
+import { MarketingHeroChrome } from "@/components/marketing/marketing-hero-chrome";
+import { SectionDivider } from "@/components/marketing/section-divider";
 import { PremiumBlogCard } from "@/components/marketing/premium-list-cards";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -75,21 +77,21 @@ export default async function BlogCategoryPage({ params, searchParams }: Props) 
 
   return (
     <main id="main" className="pb-24">
-      <section className="border-b border-[var(--neutral-200)] bg-[var(--surface)] py-10 lg:py-14">
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <p className="text-sm text-[var(--neutral-500)]">
-            <Link className="font-medium text-[var(--accent)] hover:underline" href="/blog">
-              {t("backToBlog")}
-            </Link>
-          </p>
-          <h1 className="font-display mt-4 max-w-3xl text-balance text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
-            {t("headingPrefix")} {categoryLabel}
-          </h1>
-          <p className="type-lead mt-4 max-w-2xl">{t("lead", { count: total })}</p>
-        </div>
-      </section>
+      <MarketingHeroChrome innerClassName="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+        <p className="text-sm text-[var(--neutral-500)]">
+          <Link className="font-medium text-[var(--accent)] hover:underline" href="/blog">
+            {t("backToBlog")}
+          </Link>
+        </p>
+        <h1 className="font-display mt-4 max-w-3xl text-balance text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
+          {t("headingPrefix")} {categoryLabel}
+        </h1>
+        <p className="type-lead mt-4 max-w-2xl">{t("lead", { count: total })}</p>
+      </MarketingHeroChrome>
+      <SectionDivider className="py-5 sm:py-6" />
 
-      <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+      <div className="relative mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <div className="ux-page-body-subtle pointer-events-none absolute inset-0 -z-10 min-h-full opacity-50 dark:opacity-40" aria-hidden />
         <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((p) => (
             <li key={p.slug}>
