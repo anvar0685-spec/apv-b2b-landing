@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";
+import { HUB_STEPS_PLATFORM } from "@/content/hub-visual-presets";
 import { PLOSHCHADKI_SLUGS } from "@/lib/site-structure";
 
 type Props = { params: { locale: string } };
@@ -22,6 +23,8 @@ export default function Page({ params }: Props) {
 
   return (
     <CommercialSeoPage
+      heroVariant="vertical"
+      hubSteps={HUB_STEPS_PLATFORM}
       crumbs={[{ href: "/", label: "Главная" }, { href: "/ploshchadki", label: title }]}
       kicker={kicker}
       title={title}

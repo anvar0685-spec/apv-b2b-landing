@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";
+import { HUB_STEPS_INDUSTRY } from "@/content/hub-visual-presets";
 import { OTRASLI_SLUGS } from "@/lib/site-structure";
 
 type Props = { params: { locale: string } };
@@ -23,6 +24,8 @@ export default function Page({ params }: Props) {
 
   return (
     <CommercialSeoPage
+      heroVariant="vertical"
+      hubSteps={HUB_STEPS_INDUSTRY}
       crumbs={[{ href: "/", label: "Главная" }, { href: "/otrasli", label: title }]}
       kicker={kicker}
       title={title}
