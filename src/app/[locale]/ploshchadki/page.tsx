@@ -16,7 +16,8 @@ export function generateMetadata({ params }: Props): Metadata {
 export default function Page({ params }: Props) {
   const { locale } = params;
   const title = "Площадки";
-  const lead = "SEO-хаб под посадочные «персонал под конкретную площадку» (мастер-документ §5).";
+  const lead =
+    "Маркетплейсы и логистические бренды задают свои правила допуска и графики — ниже отдельные страницы под персонал конкретной площадки.";
   const kicker = "Площадки";
 
   return (

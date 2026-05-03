@@ -18,8 +18,7 @@ export function generateMetadata({ params }: Props): Metadata {
 export default function Page({ params }: Props) {
   const { locale } = params;
   const title = "География";
-  const lead =
-    "Округа Москвы и ключевые города МО — каркас посадочных по §5 мастер-документа.";
+  const lead = "Округа Москвы и ключевые города Московской области — выберите локацию, чтобы перейти к странице с контекстом по региону.";
   const kicker = "География";
 
   return (

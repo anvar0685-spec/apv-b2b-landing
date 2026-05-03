@@ -29,7 +29,9 @@ export function CommercialSeoPage({
   showPriorityTeasers = false,
   bodyTone = "default",
 }: Props) {
-  const foot = "Полный текст подключается из my-guide/content по 6-недельному плану (нед. 2–4).";
+  /** Только если нет ни редактораских абзацев, ни блока со ссылками — крайний случай */
+  const emptyBodyFallback =
+    "Раздел скоро дополним расширенным описанием. По объекту и персоналу можно сразу запросить расчёт через калькулятор или заявку.";
   const relatedTitle = "Приоритетные разделы";
 
   return (
@@ -64,10 +66,12 @@ export function CommercialSeoPage({
                 <p key={i}>{para}</p>
               ))}
             </div>
-          ) : (
-            <p className="type-body max-w-2xl text-[var(--neutral-700)]">{foot}</p>
+          ) : children ? null : (
+            <p className="type-body max-w-2xl text-[var(--neutral-700)]">{emptyBodyFallback}</p>
           )}
-          {children ? <div className="mt-10">{children}</div> : null}
+          {children ? (
+            <div className={editorialParagraphs?.length ? "mt-10" : "mt-6"}>{children}</div>
+          ) : null}
 
           {showPriorityTeasers ? (
             <div className="mt-14 border-t border-[var(--neutral-200)] pt-10 dark:border-white/10">

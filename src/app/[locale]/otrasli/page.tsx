@@ -9,7 +9,8 @@ type Props = { params: { locale: string } };
 export function generateMetadata({ params }: Props): Metadata {
   const { locale } = params;
   const title = "Отрасли: складская логистика";
-  const description = "E-commerce, ритейл, 3PL, фарма и склады класса А — структура раздела под SEO.";
+  const description =
+    "Отраслевые направления складской логистики: e-commerce, ритейл, 3PL, фарма, FMCG и склады класса А — с отдельными страницами под ваш контекст.";
   return buildPageMetadata({ locale, pathname: "/otrasli", title, description });
 }
 
@@ -17,7 +18,7 @@ export default function Page({ params }: Props) {
   const { locale } = params;
   const title = "Складские отрасли";
   const lead =
-    "Хаб отраслевых посадочных (раздел 5 мастер-документа). Уникальные тексты подключаются из content/industries.";
+    "Выберите профиль склада или цепочки — на каждой странице ниже собраны ориентиры по персоналу, SLA и типичным сценариям закупки под ваш объект.";
   const kicker = "Отрасли";
 
   return (
