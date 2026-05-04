@@ -1,5 +1,8 @@
+import { createHash } from "crypto";
 import { buildSiteAssistantSystemPrompt } from "@/lib/site-assistant-system-prompt";
 import { CHAT_LIMIT_REPLY, CHAT_TOXIC_REPLY, isLikelyAbusiveUserText } from "@/lib/site-assistant-chat-policy";
+import { logger } from "@/lib/logger";
+import { rateLimitOrThrow } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -7,13 +10,9 @@ const UPSTREAM_FETCH_MS = 75_000;
 const MAX_MESSAGES = 18;
 const MAX_USER_CHARS = 3500;
 const MAX_ASSISTANT_CHARS = 12_000;
-const CHAT_WINDOW_MS = 15 * 60 * 1000;
-const CHAT_MAX_TURNS_PER_WINDOW = 5;
 
 type ChatRole = "user" | "assistant" | "system";
 type IncomingMessage = { role: string; content: unknown };
-
-const chatTurnBucket = new Map<string, { count: number; resetAt: number }>();
 
 function getClientIp(req: Request): string {
   const xf = req.headers.get("x-forwarded-for");
@@ -24,16 +23,8 @@ function getClientIp(req: Request): string {
   return req.headers.get("x-real-ip") ?? "unknown";
 }
 
-function allowChatTurn(ip: string): boolean {
-  const now = Date.now();
-  const row = chatTurnBucket.get(ip);
-  if (!row || now > row.resetAt) {
-    chatTurnBucket.set(ip, { count: 1, resetAt: now + CHAT_WINDOW_MS });
-    return true;
-  }
-  if (row.count >= CHAT_MAX_TURNS_PER_WINDOW) return false;
-  row.count += 1;
-  return true;
+function ipFingerprint(ip: string): string {
+  return createHash("sha256").update(ip).digest("hex").slice(0, 20);
 }
 
 function streamPlainText(text: string): Response {
@@ -92,14 +83,31 @@ export async function POST(req: Request) {
   if (!lastUser) return jsonError("messages_required", 400);
 
   const ip = getClientIp(req);
-  if (!allowChatTurn(ip)) {
-    return streamPlainText(CHAT_LIMIT_REPLY);
+
+  try {
+    await rateLimitOrThrow({ ip, route: "site-assistant:15m", limit: 10, windowSec: 900 });
+    await rateLimitOrThrow({ ip, route: "site-assistant:1h", limit: 48, windowSec: 3600 });
+    await rateLimitOrThrow({ ip, route: "site-assistant:24h", limit: 150, windowSec: 86_400 });
+  } catch (e) {
+    if (e instanceof Error && e.message === "RATE_LIMITED") {
+      return streamPlainText(CHAT_LIMIT_REPLY);
+    }
+    logger.error({ err: e, msg: "site_assistant_rate_limit_error" });
+    return jsonError("rate_limit_unavailable", 503);
   }
+
   if (isLikelyAbusiveUserText(lastUser.content)) {
     return streamPlainText(CHAT_TOXIC_REPLY);
   }
 
   if (!apiKey) return jsonError("assistant_unconfigured", 503);
+
+  logger.info({
+    msg: "site_assistant_turn",
+    ipSha: ipFingerprint(ip),
+    userChars: lastUser.content.length,
+    historyPairs: messages.length,
+  });
 
   const systemPrompt = buildSiteAssistantSystemPrompt();
   const outbound = [{ role: "system" as const, content: systemPrompt }, ...messages];
@@ -118,7 +126,7 @@ export async function POST(req: Request) {
         model,
         messages: outbound,
         temperature: 0.4,
-        max_tokens: 1100,
+        max_tokens: 1200,
         stream: true,
       }),
       signal,
@@ -131,6 +139,7 @@ export async function POST(req: Request) {
 
   if (!upstream.ok) {
     const text = await upstream.text().catch(() => "");
+    logger.warn({ msg: "site_assistant_upstream_http", status: upstream.status, detail: text.slice(0, 200) });
     return jsonError("upstream_error", 502, { status: upstream.status, detail: text.slice(0, 400) });
   }
 

@@ -1,5 +1,6 @@
 import { createHash } from "crypto";
 import { getRedis } from "./redis";
+import { logger } from "./logger";
 
 const memory = new Map<string, { count: number; resetAt: number }>();
 
@@ -17,12 +18,17 @@ export async function rateLimitOrThrow(opts: {
   const redis = getRedis();
 
   if (redis) {
-    const n = await redis.incr(key);
-    if (n === 1) await redis.expire(key, opts.windowSec);
-    if (n > opts.limit) {
-      throw new Error("RATE_LIMITED");
+    try {
+      const n = await redis.incr(key);
+      if (n === 1) await redis.expire(key, opts.windowSec);
+      if (n > opts.limit) {
+        throw new Error("RATE_LIMITED");
+      }
+      return;
+    } catch (e) {
+      if (e instanceof Error && e.message === "RATE_LIMITED") throw e;
+      logger.warn({ err: e, msg: "rate_limit_redis_fallback_memory", route: opts.route });
     }
-    return;
   }
 
   const now = Date.now();

@@ -26,6 +26,9 @@ export function SiteAssistantDock() {
   const t = useTranslations("siteAssistant");
   const panelId = useId();
   const welcomeTitleId = useId();
+  const chatTitleId = useId();
+  const disclaimerId = useId();
+  const panelRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
   const welcomeBubble: Msg = useMemo(
@@ -87,6 +90,47 @@ export function SiteAssistantDock() {
     const el = listRef.current;
     if (el) el.scrollTop = el.scrollHeight;
   }, []);
+
+  const resetChat = useCallback(() => {
+    setMessages([welcomeBubble]);
+    setError(null);
+    setInput("");
+    void trackEvent("site_assistant_new_chat", {});
+  }, [welcomeBubble]);
+
+  useEffect(() => {
+    if (!chatOpen || !panelRef.current) return;
+    const focusTimer = window.setTimeout(() => {
+      panelRef.current?.querySelector<HTMLTextAreaElement>("textarea")?.focus();
+    }, 40);
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Tab" || !panelRef.current?.contains(e.target as Node)) return;
+      const root = panelRef.current;
+      const focusables = Array.from(
+        root.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((el) => !el.hasAttribute("hidden") && el.tabIndex !== -1);
+      if (focusables.length === 0) return;
+      const first = focusables[0]!;
+      const last = focusables[focusables.length - 1]!;
+      if (e.shiftKey) {
+        if (e.target === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else if (e.target === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey, true);
+    return () => {
+      window.clearTimeout(focusTimer);
+      document.removeEventListener("keydown", onKey, true);
+    };
+  }, [chatOpen]);
 
   const mdComponents: Components = useMemo(
     () => ({
@@ -178,6 +222,8 @@ export function SiteAssistantDock() {
         const data = (await res.json().catch(() => ({}))) as { error?: string };
         if (res.status === 503 && data.error === "assistant_unconfigured") {
           setError(t("errUnconfigured"));
+        } else if (res.status === 503 && data.error === "rate_limit_unavailable") {
+          setError(t("rateLimitServer"));
         } else if (res.status === 504) {
           setError(t("errTimeout"));
         } else if (res.status === 502 && data.error === "upstream_error") {
@@ -349,9 +395,11 @@ export function SiteAssistantDock() {
           {chatOpen ? (
             <motion.div
               key="panel"
+              ref={panelRef}
               id={panelId}
               role="dialog"
-              aria-label={t("dialogLabel")}
+              aria-modal="true"
+              aria-labelledby={chatTitleId}
               initial={{ opacity: 0, y: 16, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 12, scale: 0.98 }}
@@ -365,9 +413,19 @@ export function SiteAssistantDock() {
               <div className="flex shrink-0 items-center justify-between border-b border-[var(--neutral-200)]/90 px-4 py-3 dark:border-white/10">
                 <div>
                   <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">{t("statusOnline")}</p>
-                  <p className="font-display text-sm font-bold text-[var(--primary)] dark:text-white">{t("chatTitle")}</p>
+                  <p id={chatTitleId} className="font-display text-sm font-bold text-[var(--primary)] dark:text-white">
+                    {t("chatTitle")}
+                  </p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={resetChat}
+                    disabled={pending}
+                    className="rounded-lg border border-[var(--neutral-200)] bg-[var(--surface)]/90 px-2.5 py-1 text-xs font-medium text-[var(--neutral-700)] transition hover:border-[var(--accent)] hover:text-[var(--primary)] disabled:opacity-40 dark:border-white/12 dark:bg-white/5 dark:text-slate-300 dark:hover:border-[var(--accent)]"
+                  >
+                    {t("newChat")}
+                  </button>
                   <Link
                     href="/kontakty"
                     className="rounded-lg border border-[var(--accent)]/35 bg-[color-mix(in_srgb,var(--accent)_12%,transparent)] px-2.5 py-1 text-xs font-medium text-[var(--accent)] transition hover:bg-[color-mix(in_srgb,var(--accent)_22%,transparent)]"
@@ -387,6 +445,9 @@ export function SiteAssistantDock() {
 
               <div
                 ref={listRef}
+                role="region"
+                aria-label={t("messagesRegion")}
+                aria-busy={pending || !!streamingId}
                 className="min-h-0 flex-1 max-h-[min(52dvh,22rem)] space-y-3 overflow-y-auto overscroll-contain px-4 py-3 sm:max-h-[min(54dvh,24rem)]"
               >
                 {messages.map((m) => (
@@ -444,13 +505,14 @@ export function SiteAssistantDock() {
                     }}
                     rows={2}
                     placeholder={t("placeholder")}
+                    aria-label={t("inputLabel")}
+                    aria-describedby={disclaimerId}
                     className={cn(
                       "min-h-[2.75rem] flex-1 resize-none rounded-xl border px-3 py-2 text-sm placeholder:text-[var(--neutral-500)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/35",
                       "border-[var(--neutral-200)] bg-[var(--background)] text-[var(--primary)]",
                       "dark:border-white/12 dark:bg-[var(--primary-dark)] dark:text-slate-100",
                     )}
                     disabled={pending}
-                    aria-label={t("inputLabel")}
                   />
                   <button
                     type="button"
@@ -461,12 +523,15 @@ export function SiteAssistantDock() {
                     {t("send")}
                   </button>
                 </div>
-                <p className="mt-2 text-[10px] leading-relaxed text-[var(--neutral-500)]">
-                  {t("disclaimer")}{" "}
-                  <Link href="/zayavka" className="text-[var(--accent)] underline-offset-2 hover:underline">
-                    {t("disclaimerLead")}
-                  </Link>
-                </p>
+                <div id={disclaimerId} className="mt-2 space-y-1 text-[10px] leading-relaxed text-[var(--neutral-500)]">
+                  <p>
+                    {t("disclaimer")}{" "}
+                    <Link href="/zayavka" className="text-[var(--accent)] underline-offset-2 hover:underline">
+                      {t("disclaimerLead")}
+                    </Link>
+                  </p>
+                  <p>{t("disclaimerAi")}</p>
+                </div>
               </div>
             </motion.div>
           ) : null}
