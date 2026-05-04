@@ -31,7 +31,7 @@ npm run build:vps
    git clone <repo> /var/www/apv-b2b-landing
    cd /var/www/apv-b2b-landing
    ```
-5. Скопировать `deploy/pm2.ecosystem.example.cjs` → **`ecosystem.config.cjs`** в корне проекта (рядом с `package.json`), поправить пути при необходимости.
+5. **`ecosystem.config.cjs`** уже в корне репозитория (подхватывает `.env.production`); при своём варианте ориентируйся на `deploy/pm2.ecosystem.example.cjs`.
 6. Создать **`.env.production`** в корне репо на сервере (`chmod 600`). Минимум для SEO/канона:
    - `NEXT_PUBLIC_SITE_URL=https://твой-домен.ru`
    - плюс всё из корневого `.env.example`, что реально нужно на бою (БД, Redis, секреты API и т.д.).
@@ -48,13 +48,12 @@ npm run build:vps
 ## Переменные окружения
 
 - **`NEXT_PUBLIC_*`** задаются **до** `npm run build` — они попадают в клиентский бандл.
-- Серверные (`DATABASE_URL`, `JWT_SECRET`, …) читаются **в рантайме**; их можно менять без пересборки, но после правок нужен **`pm2 reload … --update-env`** (и файл `.env.production` должен подхватываться — см. ниже).
+- Серверные (`DATABASE_URL`, `JWT_SECRET`, …) читаются **в рантайме**; их можно менять без пересборки, но после правок `.env.production` нужен **`pm2 reload ecosystem.config.cjs --only apv-b2b-landing --update-env`** (конфиг перечитывает файл при reload).
 
-PM2 **не подставляет** `.env.production` сам. Варианты:
+PM2 **не подставляет** `.env.production` сам по умолчанию. В этом репозитории **`ecosystem.config.cjs` в корне** при старте PM2 парсит `.env.production` из корня репо и передаёт пары `KEY=VAL` в `env` процесса (в т.ч. `DEEPSEEK_API_KEY`). Альтернативы при кастомном конфиге:
 
 - экспортировать переменные в shell перед `pm2 start`, или
-- использовать `env` в `ecosystem.config.cjs` только для несекретного минимума, а секреты передавать через **systemd drop-in** / обёртку, или
-- `dotenv-cli`: `dotenv -e .env.production -- pm2 start ecosystem.config.cjs` (пакет поставить глобально или в devDependencies).
+- `dotenv-cli`: `dotenv -e .env.production -- pm2 start ecosystem.config.cjs`.
 
 Скрипт `deploy-remote.example.sh` использует `set -a; . ./.env.production` перед `npm ci` / сборкой — так подтягиваются и **NEXT_PUBLIC_*** для билда.
 
@@ -72,5 +71,3 @@ bash deploy/deploy-remote.example.sh
 ```
 
 В скрипте деплоя **`npm ci` выполняется до `source .env.production`**: иначе при `NODE_ENV=production` в `.env.production` npm не ставит devDependencies, и `next build` падает на typecheck/ESLint.
-
-Перед этым скопируй на сервер рабочий `ecosystem.config.cjs`, если ещё не сделал.

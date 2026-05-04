@@ -1,6 +1,6 @@
 /**
- * Скопировать в КОРЕНЬ репозитория как `ecosystem.config.cjs` (рядом с package.json).
- * В репозитории уже лежит готовый `ecosystem.config.cjs` с подгрузкой `.env.production` — этот файл дублирует его для bootstrap-скриптов.
+ * PM2: Next standalone. Подмешивает переменные из `.env.production` в корне репозитория
+ * (PM2 сам файл не читает — без этого серверные ключи вроде DEEPSEEK_API_KEY не попадают в process.env).
  */
 const fs = require("fs");
 const path = require("path");
@@ -8,6 +8,7 @@ const path = require("path");
 const appRoot = __dirname;
 const standalone = path.join(appRoot, ".next", "standalone");
 
+/** Минимальный парсер KEY=VAL без внешних зависимостей */
 function loadDotenvFile(absPath) {
   const env = {};
   if (!fs.existsSync(absPath)) return env;

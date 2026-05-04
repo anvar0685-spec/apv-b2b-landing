@@ -32,7 +32,7 @@ npm run build:vps
 
 # PM2: первый раз — start; дальше — reload
 if pm2 describe apv-b2b-landing >/dev/null 2>&1; then
-  pm2 reload apv-b2b-landing --update-env
+  pm2 reload ecosystem.config.cjs --only apv-b2b-landing --update-env
 else
   pm2 start ecosystem.config.cjs --only apv-b2b-landing
 fi
