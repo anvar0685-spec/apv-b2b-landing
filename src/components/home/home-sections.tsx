@@ -1,5 +1,4 @@
 import { CASES, caseCardFields } from "@/content/cases-stub";
-import { BLOG_POSTS, blogCardFields } from "@/content/blog-stub";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -9,10 +8,10 @@ import { CaseSparkline } from "@/components/home/case-sparkline";
 import { ProcessStickySplit } from "@/components/home/process-sticky-split";
 import { HomeProfessionsHubs } from "@/components/home/home-professions-hubs";
 import { HomeWhyUs } from "@/components/home/home-why-us";
+import { ThankYouLettersGallery } from "@/components/home/thank-you-letters-gallery";
 import { getTranslations } from "next-intl/server";
 
 type FaqItem = { q: string; a: string };
-type ReviewItem = { initials: string; name: string; role: string; quote: string };
 type TechTile = { t: string; d: string };
 
 export async function HomeSections() {
@@ -20,10 +19,8 @@ export async function HomeSections() {
   const ts = await getTranslations("homePage.sections");
 
   const faq = t.raw("faq") as FaqItem[];
-  const reviews = t.raw("reviews") as ReviewItem[];
   const techItems = ts.raw("techItems") as TechTile[];
   const calcBullets = ts.raw("calcBullets") as string[];
-  const blogCategories = t.raw("blogCategories") as Record<string, string>;
 
   const faqJson = {
     "@context": "https://schema.org",
@@ -165,71 +162,9 @@ export async function HomeSections() {
         </div>
       </section>
 
-      <section id="reviews" className="bg-[var(--surface)] py-32 lg:py-36">
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
-            {ts("reviewsTitle")}
-          </h2>
-          <p className="mt-4 max-w-2xl text-[var(--neutral-700)]">{ts("reviewsLead")}</p>
-          <div className="mt-14 columns-1 gap-5 md:columns-2 lg:columns-3">
-            {reviews.map((r, idx) => (
-              <figure
-                key={`${r.name}-${idx}`}
-                className="mb-5 break-inside-avoid rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 shadow-[var(--card-shadow)] transition-shadow duration-300 hover:shadow-[var(--card-shadow-hover)]"
-              >
-                <div className="flex items-start gap-4">
-                  <div
-                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] font-mono-nums text-sm font-bold text-[var(--primary)]"
-                    aria-hidden
-                  >
-                    {r.initials}
-                  </div>
-                  <div>
-                    <figcaption className="font-semibold text-[var(--primary)]">{r.name}</figcaption>
-                    <p className="text-xs text-[var(--neutral-500)]">{r.role}</p>
-                  </div>
-                </div>
-                <blockquote className="mt-5 text-sm leading-relaxed text-[var(--neutral-700)] md:text-base">
-                  «{r.quote}»
-                </blockquote>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ThankYouLettersGallery />
 
       <HomeWhyUs />
-
-      <section id="blog" className="mx-auto max-w-[1280px] px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="font-display text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
-            {ts("blogTitle")}
-          </h2>
-          <Button asChild variant="secondary" size="sm">
-            <Link href="/blog">{ts("blogAll")}</Link>
-          </Button>
-        </div>
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {BLOG_POSTS.slice(0, 3).map((b) => {
-            const card = blogCardFields(b);
-            const catLabel = blogCategories[b.category] ?? b.category;
-            return (
-              <Card key={b.slug}>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">
-                  {catLabel}
-                </p>
-                <CardTitle className="mt-2 text-lg">{card.title}</CardTitle>
-                <CardDescription>{card.excerpt}</CardDescription>
-                <div className="mt-5">
-                  <Link className="text-sm font-semibold text-[var(--accent)] hover:underline" href={`/blog/${b.slug}`}>
-                    {ts("readMore")}
-                  </Link>
-                </div>
-              </Card>
-            );
-          })}
-        </div>
-      </section>
 
       <section id="faq" className="border-t border-[var(--neutral-200)] bg-white py-20 lg:py-32">
         <div className="mx-auto max-w-[880px] px-4 sm:px-6 lg:px-8">
