@@ -2,7 +2,8 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { MessageCircle, Sparkles, X } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
+import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import type { Components } from "react-markdown";
 import ReactMarkdown from "react-markdown";
@@ -13,7 +14,10 @@ import { linkifyBarePathsForMarkdown, sameSitePathOrNull } from "@/lib/site-assi
 import { cn } from "@/lib/utils";
 
 const WELCOME_SESSION_KEY = "apv-session-assistant-welcome-v1";
+const THREAD_KEY = "apv-site-assistant-thread-v1";
+const AI_CHAT_CONSENT_LS = "apv-ai-chat-consent-v1";
 const CLIENT_CHAT_MS = 88_000;
+const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
 
 type Role = "user" | "assistant";
 type Msg = { id: string; role: Role; content: string };
@@ -24,12 +28,15 @@ function uid() {
 
 export function SiteAssistantDock() {
   const t = useTranslations("siteAssistant");
+  const locale = useLocale();
   const panelId = useId();
   const welcomeTitleId = useId();
   const chatTitleId = useId();
   const disclaimerId = useId();
+  const aiConsentId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+  const turnstileRef = useRef<TurnstileInstance | null>(null);
 
   const welcomeBubble: Msg = useMemo(
     () => ({
@@ -47,6 +54,16 @@ export function SiteAssistantDock() {
   const [pending, setPending] = useState(false);
   const [streamingId, setStreamingId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [aiConsent, setAiConsent] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(AI_CHAT_CONSENT_LS) === "1") setAiConsent(true);
+    } catch {
+      /* ignore */
+    }
+  }, []);
 
   useEffect(() => {
     try {
@@ -95,6 +112,13 @@ export function SiteAssistantDock() {
     setMessages([welcomeBubble]);
     setError(null);
     setInput("");
+    try {
+      sessionStorage.removeItem(THREAD_KEY);
+    } catch {
+      /* ignore */
+    }
+    setTurnstileToken(null);
+    turnstileRef.current?.reset();
     void trackEvent("site_assistant_new_chat", {});
   }, [welcomeBubble]);
 
@@ -190,6 +214,14 @@ export function SiteAssistantDock() {
   const send = useCallback(async () => {
     const text = input.trim();
     if (!text || pending) return;
+    if (!aiConsent) {
+      setError(t("errConsentRequired"));
+      return;
+    }
+    if (turnstileSiteKey && !turnstileToken) {
+      setError(t("errTurnstileRequired"));
+      return;
+    }
     setInput("");
     setError(null);
     const userMsg: Msg = { id: uid(), role: "user", content: text };
@@ -205,22 +237,46 @@ export function SiteAssistantDock() {
     const kill = window.setTimeout(() => ac.abort(), CLIENT_CHAT_MS);
     const assistantId = uid();
 
+    let threadId: string | undefined;
+    try {
+      threadId = sessionStorage.getItem(THREAD_KEY) ?? undefined;
+    } catch {
+      threadId = undefined;
+    }
+
     try {
       const res = await fetch("/api/site-assistant", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: history.length ? history : [{ role: "user" as const, content: text }],
+          threadId,
+          locale,
+          aiConsent: true,
+          turnstileToken: turnstileToken ?? undefined,
         }),
         signal: ac.signal,
       });
+
+      try {
+        const tid = res.headers.get("x-assistant-thread-id");
+        if (tid) sessionStorage.setItem(THREAD_KEY, tid);
+      } catch {
+        /* ignore */
+      }
 
       const ct = res.headers.get("content-type") ?? "";
       const isStream = ct.includes("text/plain");
 
       if (!res.ok) {
         const data = (await res.json().catch(() => ({}))) as { error?: string };
-        if (res.status === 503 && data.error === "assistant_unconfigured") {
+        if (res.status === 400 && data.error === "consent_required") {
+          setError(t("errConsentRequired"));
+        } else if (res.status === 400 && data.error === "turnstile_required") {
+          setError(t("errTurnstileRequired"));
+        } else if (res.status === 400 && data.error === "turnstile_invalid") {
+          setError(t("errTurnstileInvalid"));
+        } else if (res.status === 503 && data.error === "assistant_unconfigured") {
           setError(t("errUnconfigured"));
         } else if (res.status === 503 && data.error === "rate_limit_unavailable") {
           setError(t("rateLimitServer"));
@@ -273,8 +329,12 @@ export function SiteAssistantDock() {
       window.clearTimeout(kill);
       setPending(false);
       setStreamingId(null);
+      if (turnstileSiteKey) {
+        setTurnstileToken(null);
+        turnstileRef.current?.reset();
+      }
     }
-  }, [input, messages, pending, scrollDown, t]);
+  }, [aiConsent, input, locale, messages, pending, scrollDown, t, turnstileToken]);
 
   useEffect(() => {
     if (!chatOpen) return;
@@ -493,6 +553,48 @@ export function SiteAssistantDock() {
               </div>
 
               <div className="shrink-0 border-t border-[var(--neutral-200)]/90 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] dark:border-white/10">
+                {turnstileSiteKey ? (
+                  <div className="mb-2 flex justify-center">
+                    <Turnstile
+                      ref={turnstileRef}
+                      siteKey={turnstileSiteKey}
+                      options={{ size: "flexible" }}
+                      onSuccess={(tok) => setTurnstileToken(tok)}
+                      onExpire={() => setTurnstileToken(null)}
+                      onError={() => setTurnstileToken(null)}
+                    />
+                  </div>
+                ) : null}
+                <label htmlFor={aiConsentId} className="mb-2 flex cursor-pointer gap-2 text-[11px] leading-snug text-[var(--neutral-600)] dark:text-slate-400">
+                  <input
+                    id={aiConsentId}
+                    type="checkbox"
+                    checked={aiConsent}
+                    onChange={(e) => {
+                      const v = e.target.checked;
+                      setAiConsent(v);
+                      try {
+                        if (v) localStorage.setItem(AI_CHAT_CONSENT_LS, "1");
+                        else localStorage.removeItem(AI_CHAT_CONSENT_LS);
+                      } catch {
+                        /* ignore */
+                      }
+                      if (v) setError(null);
+                    }}
+                    className="mt-0.5 h-3.5 w-3.5 shrink-0 rounded border-[var(--neutral-300)] text-[var(--accent)] focus:ring-[var(--accent)]/40 dark:border-white/25"
+                  />
+                  <span>
+                    {t("aiConsentLabel")}
+                    <Link
+                      href="/politika-konfidencialnosti"
+                      className="font-medium text-[var(--accent)] underline-offset-2 hover:underline"
+                      onClick={() => void trackEvent("site_assistant_policy_link", {})}
+                    >
+                      {t("aiConsentPolicyLink")}
+                    </Link>
+                    {t("aiConsentLabelEnd")}
+                  </span>
+                </label>
                 <div className="flex gap-2">
                   <textarea
                     value={input}
@@ -506,7 +608,7 @@ export function SiteAssistantDock() {
                     rows={2}
                     placeholder={t("placeholder")}
                     aria-label={t("inputLabel")}
-                    aria-describedby={disclaimerId}
+                    aria-describedby={`${disclaimerId} ${aiConsentId}`}
                     className={cn(
                       "min-h-[2.75rem] flex-1 resize-none rounded-xl border px-3 py-2 text-sm placeholder:text-[var(--neutral-500)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/35",
                       "border-[var(--neutral-200)] bg-[var(--background)] text-[var(--primary)]",

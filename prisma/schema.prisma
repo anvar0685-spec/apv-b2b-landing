@@ -377,3 +377,27 @@ model WebhookSubscription {
 
   @@index([tenantId, active])
 }
+
+/// Публичный AI-чат на лендинге: тред привязан к обезличенному отпечатку IP (не к tenant CRM).
+model SiteAssistantThread {
+  id        String   @id @default(cuid())
+  ipHash    String   @db.VarChar(64)
+  locale    String   @default("ru") @db.VarChar(16)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  messages SiteAssistantMessage[]
+
+  @@index([ipHash, updatedAt])
+}
+
+model SiteAssistantMessage {
+  id        String              @id @default(cuid())
+  threadId  String
+  thread    SiteAssistantThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  role      String              @db.VarChar(16)
+  content   String              @db.Text
+  createdAt DateTime            @default(now())
+
+  @@index([threadId, createdAt])
+}

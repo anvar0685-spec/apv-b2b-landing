@@ -3,6 +3,8 @@ import { buildSiteAssistantSystemPrompt } from "@/lib/site-assistant-system-prom
 import { CHAT_LIMIT_REPLY, CHAT_TOXIC_REPLY, isLikelyAbusiveUserText } from "@/lib/site-assistant-chat-policy";
 import { logger } from "@/lib/logger";
 import { rateLimitOrThrow } from "@/lib/rate-limit";
+import { appendAssistantMessage, resolveAssistantThread } from "@/lib/site-assistant-persist";
+import { verifyTurnstileToken } from "@/lib/verify-turnstile";
 
 export const runtime = "nodejs";
 
@@ -13,6 +15,14 @@ const MAX_ASSISTANT_CHARS = 12_000;
 
 type ChatRole = "user" | "assistant" | "system";
 type IncomingMessage = { role: string; content: unknown };
+
+type SiteAssistantBody = {
+  messages?: unknown;
+  threadId?: unknown;
+  locale?: unknown;
+  aiConsent?: unknown;
+  turnstileToken?: unknown;
+};
 
 function getClientIp(req: Request): string {
   const xf = req.headers.get("x-forwarded-for");
@@ -66,8 +76,20 @@ export async function POST(req: Request) {
   }
   if (!body || typeof body !== "object") return jsonError("invalid_body", 400);
 
-  const rawMessages = (body as { messages?: unknown }).messages;
+  const b = body as SiteAssistantBody;
+  const rawMessages = b.messages;
   if (!Array.isArray(rawMessages) || rawMessages.length === 0) return jsonError("messages_required", 400);
+
+  if (b.aiConsent !== true) {
+    return jsonError("consent_required", 400);
+  }
+
+  const ip = getClientIp(req);
+  const turn = await verifyTurnstileToken(typeof b.turnstileToken === "string" ? b.turnstileToken : undefined, ip);
+  if (!turn.ok) {
+    if (turn.reason === "missing_token") return jsonError("turnstile_required", 400);
+    return jsonError("turnstile_invalid", 400);
+  }
 
   const sliced = rawMessages.slice(-MAX_MESSAGES) as IncomingMessage[];
   const messages: { role: ChatRole; content: string }[] = [];
@@ -81,8 +103,6 @@ export async function POST(req: Request) {
 
   const lastUser = [...messages].reverse().find((m) => m.role === "user");
   if (!lastUser) return jsonError("messages_required", 400);
-
-  const ip = getClientIp(req);
 
   try {
     await rateLimitOrThrow({ ip, route: "site-assistant:15m", limit: 10, windowSec: 900 });
@@ -102,11 +122,21 @@ export async function POST(req: Request) {
 
   if (!apiKey) return jsonError("assistant_unconfigured", 503);
 
+  const ipHash = ipFingerprint(ip);
+  const locale = typeof b.locale === "string" && b.locale.length > 0 ? b.locale.slice(0, 16) : "ru";
+  const threadIdFromClient = typeof b.threadId === "string" && b.threadId.length > 0 ? b.threadId : undefined;
+
+  const resolved = await resolveAssistantThread(threadIdFromClient, ipHash, locale);
+  if (resolved) {
+    await appendAssistantMessage(resolved.threadId, "user", lastUser.content);
+  }
+
   logger.info({
     msg: "site_assistant_turn",
-    ipSha: ipFingerprint(ip),
+    ipSha: ipHash,
     userChars: lastUser.content.length,
     historyPairs: messages.length,
+    threadPersisted: !!resolved,
   });
 
   const systemPrompt = buildSiteAssistantSystemPrompt();
@@ -147,6 +177,17 @@ export async function POST(req: Request) {
 
   const reader = upstream.body.getReader();
   const decoder = new TextDecoder();
+  const persistId = resolved?.threadId;
+  let assistantAcc = "";
+  let assistantPersisted = false;
+
+  const persistAssistantOnce = async () => {
+    if (assistantPersisted) return;
+    assistantPersisted = true;
+    if (persistId && assistantAcc.trim()) {
+      await appendAssistantMessage(persistId, "assistant", assistantAcc);
+    }
+  };
 
   const stream = new ReadableStream({
     async pull(controller) {
@@ -156,6 +197,7 @@ export async function POST(req: Request) {
         const { done, value } = await reader.read();
         if (done) {
           streamDone = true;
+          await persistAssistantOnce();
           controller.close();
           return;
         }
@@ -169,6 +211,7 @@ export async function POST(req: Request) {
           if (!trimmed || !trimmed.startsWith("data: ")) continue;
           const payload = trimmed.slice(6);
           if (payload === "[DONE]") {
+            await persistAssistantOnce();
             controller.close();
             return;
           }
@@ -178,6 +221,7 @@ export async function POST(req: Request) {
             };
             const chunk = parsed.choices?.[0]?.delta?.content;
             if (chunk) {
+              assistantAcc += chunk;
               controller.enqueue(new TextEncoder().encode(chunk));
             }
           } catch {
@@ -191,11 +235,14 @@ export async function POST(req: Request) {
     },
   });
 
-  return new Response(stream, {
-    headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "no-cache",
-      "X-Content-Type-Options": "nosniff",
-    },
-  });
+  const headers: Record<string, string> = {
+    "Content-Type": "text/plain; charset=utf-8",
+    "Cache-Control": "no-cache",
+    "X-Content-Type-Options": "nosniff",
+  };
+  if (resolved?.threadId) {
+    headers["X-Assistant-Thread-Id"] = resolved.threadId;
+  }
+
+  return new Response(stream, { headers });
 }
