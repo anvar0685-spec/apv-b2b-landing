@@ -9,6 +9,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Link } from "@/i18n/navigation";
 import { trackEvent } from "@/lib/analytics";
+import { linkifyBarePathsForMarkdown, sameSitePathOrNull } from "@/lib/site-assistant-linkify";
 import { cn } from "@/lib/utils";
 
 const WELCOME_SESSION_KEY = "apv-session-assistant-welcome-v1";
@@ -105,16 +106,30 @@ export function SiteAssistantDock() {
         </ol>
       ),
       li: ({ children }) => <li className="my-0.5">{children}</li>,
-      a: ({ href, children }) => (
-        <a
-          href={href}
-          target={href?.startsWith("http") ? "_blank" : undefined}
-          rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
-          className="font-medium text-[var(--accent)] underline decoration-[var(--accent)]/35 underline-offset-2 hover:decoration-[var(--accent)]/70"
-        >
-          {children}
-        </a>
-      ),
+      a: ({ href, children }) => {
+        const internal = sameSitePathOrNull(href ?? undefined);
+        if (internal) {
+          return (
+            <Link
+              href={internal as never}
+              className="font-medium text-[var(--accent)] underline decoration-[var(--accent)]/35 underline-offset-2 hover:decoration-[var(--accent)]/70"
+              onClick={() => void trackEvent("site_assistant_markdown_link", { href: internal })}
+            >
+              {children}
+            </Link>
+          );
+        }
+        return (
+          <a
+            href={href}
+            target={href?.startsWith("http") ? "_blank" : undefined}
+            rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
+            className="font-medium text-[var(--accent)] underline decoration-[var(--accent)]/35 underline-offset-2 hover:decoration-[var(--accent)]/70"
+          >
+            {children}
+          </a>
+        );
+      },
       strong: ({ children }) => (
         <strong className="font-semibold text-[var(--primary)] dark:text-slate-100">{children}</strong>
       ),
@@ -386,7 +401,7 @@ export function SiteAssistantDock() {
                     >
                       {m.role === "assistant" ? (
                         <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
-                          {m.content || "…"}
+                          {linkifyBarePathsForMarkdown(m.content || "…")}
                         </ReactMarkdown>
                       ) : (
                         <p className="whitespace-pre-wrap text-[var(--primary)] dark:text-slate-100">{m.content}</p>
