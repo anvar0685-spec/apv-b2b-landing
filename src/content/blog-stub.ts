@@ -1,5 +1,6 @@
 import type { BlogArticle } from "@/content/blog-published";
 import { PUBLISHED_BLOG_ARTICLES } from "@/content/blog-published";
+import { absUrl } from "@/lib/abs-url";
 
 /** Карточка списка (блог-хаб); полная статья — `blog-published.ts`. */
 export type BlogStub = Pick<BlogArticle, "slug" | "title" | "excerpt" | "category" | "publishedAt" | "readingTime"> & {
@@ -34,12 +35,32 @@ export const BLOG_CATEGORY_SLUGS = [
   "migracionnyy-uchet",
 ] as const;
 
+/** Заголовок/лид карточки списка: только русские `title` и `excerpt` (сайт только RU). */
 export function blogCardFields(b: BlogStub) {
   return {
     slug: b.slug,
     title: b.title,
     excerpt: b.excerpt,
     category: b.category,
+  };
+}
+
+/** ItemList для страницы списка: `name` совпадает с карточкой (русский заголовок), `inLanguage` ru-RU. */
+export function blogListingItemListJsonLd(posts: BlogStub[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    inLanguage: "ru-RU",
+    numberOfItems: posts.length,
+    itemListElement: posts.map((p, i) => {
+      const { title } = blogCardFields(p);
+      return {
+        "@type": "ListItem",
+        position: i + 1,
+        name: title,
+        url: absUrl(`/blog/${p.slug}`),
+      };
+    }),
   };
 }
 

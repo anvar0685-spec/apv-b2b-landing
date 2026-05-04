@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { BLOG_PAGE_SIZE, paginatePosts } from "@/content/blog-stub";
+import { BLOG_PAGE_SIZE, blogListingItemListJsonLd, paginatePosts } from "@/content/blog-stub";
 import { MarketingHubShell } from "@/components/layout/marketing-hub-shell";
 import { PremiumBlogCard } from "@/components/marketing/premium-list-cards";
+import { JsonLd } from "@/components/seo/json-ld";
 import { buildPageMetadata } from "@/lib/seo";
 
 type PageProps = {
@@ -58,9 +59,11 @@ export default async function BlogIndexPage({ params, searchParams }: PageProps)
   const parsed = raw ? Number.parseInt(raw, 10) : 1;
   const page = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
   const { posts, totalPages, page: current } = paginatePosts(page);
+  const listLd = blogListingItemListJsonLd(posts);
 
   return (
     <main id="main" className="pb-24">
+      <JsonLd data={listLd} />
       <MarketingHubShell
         kicker={t("kicker")}
         title={t("title")}

@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { BLOG_CATEGORY_SLUGS, BLOG_PAGE_SIZE, paginatePostsByCategory } from "@/content/blog-stub";
+import { BLOG_CATEGORY_SLUGS, BLOG_PAGE_SIZE, blogListingItemListJsonLd, paginatePostsByCategory } from "@/content/blog-stub";
 import { MarketingHeroChrome } from "@/components/marketing/marketing-hero-chrome";
 import { SectionDivider } from "@/components/marketing/section-divider";
 import { PremiumBlogCard } from "@/components/marketing/premium-list-cards";
+import { JsonLd } from "@/components/seo/json-ld";
 import { buildPageMetadata } from "@/lib/seo";
 
 const VALID = new Set<string>(BLOG_CATEGORY_SLUGS);
@@ -74,9 +75,11 @@ export default async function BlogCategoryPage({ params, searchParams }: Props) 
   const { posts, totalPages, page, total } = paginatePostsByCategory(params.category, pageNum);
 
   const basePath = `/blog/category/${params.category}`;
+  const listLd = blogListingItemListJsonLd(posts);
 
   return (
     <main id="main" className="pb-24">
+      <JsonLd data={listLd} />
       <MarketingHeroChrome innerClassName="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <p className="text-sm text-[var(--neutral-500)]">
           <Link className="font-medium text-[var(--accent)] hover:underline" href="/blog">

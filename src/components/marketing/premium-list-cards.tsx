@@ -54,7 +54,10 @@ export async function PremiumBlogCard({ p, locale }: { p: BlogStub; locale: stri
   const fields = blogCardFields(p);
   const catLabel = blogCategories[p.category] ?? p.category.replace(/-/g, " ");
   return (
-    <Card className="group flex h-full flex-col transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/25 hover:shadow-[var(--card-shadow-hover)] motion-reduce:transform-none">
+    <Card
+      lang="ru"
+      className="group flex h-full flex-col transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/25 hover:shadow-[var(--card-shadow-hover)] motion-reduce:transform-none"
+    >
       <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">{catLabel}</p>
       <CardTitle className="mt-2 text-lg">
         <Link className="transition hover:text-[var(--accent)]" href={`/blog/${p.slug}`}>

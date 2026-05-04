@@ -16,7 +16,7 @@ export const HUB_STEPS_INDUSTRY = [
 
 export const HUB_STEPS_PLATFORM = [
   "Требования площадки",
-  "Профили под слоты",
+  "Профили под окна ворот",
   "Выход на линию",
   "Единый контакт подрядчика",
 ] as const;
