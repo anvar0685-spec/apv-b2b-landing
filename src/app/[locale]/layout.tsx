@@ -13,6 +13,7 @@ import { CookieBanner } from "@/components/layout/cookie-banner";
 import { PageTransition } from "@/components/layout/page-transition";
 import { ContactStack } from "@/components/layout/contact-stack";
 import { ThemeProvider } from "@/components/layout/theme-provider";
+import { SiteAssistantDock } from "@/components/assistant/site-assistant-dock";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -57,6 +58,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <SiteFooter />
         <CookieBanner />
         <ContactStack />
+        <SiteAssistantDock />
       </NextIntlClientProvider>
       <YandexMetrika />
     </>
