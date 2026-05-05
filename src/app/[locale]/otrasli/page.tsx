@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
+import { hubDirectoryLinkClass } from "@/components/marketing/hub-premium-classes";
+import { ListingGridShell } from "@/components/marketing/listing-grid-shell";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";
 import { HUB_STEPS_INDUSTRY } from "@/content/hub-visual-presets";
@@ -40,21 +42,20 @@ export default function Page({ params }: Props) {
         description: lead,
       })}
     >
-      <h2 className="type-kicker">Разделы</h2>
-      <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-        {OTRASLI_SLUGS.map((o) => (
-          <li key={o.slug}>
-            <Link
-              className="group block rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] p-5 text-[var(--primary)] shadow-[var(--card-shadow)] transition hover:border-[color-mix(in_srgb,var(--accent)_40%,var(--neutral-200))] hover:shadow-[var(--card-shadow-hover)] dark:border-white/10 dark:bg-[var(--card)]"
-              href={`/otrasli/${o.slug}`}
-            >
-              <span className="font-display text-lg font-semibold tracking-tight group-hover:text-[var(--accent)]">
-                {o.title.ru}
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <ListingGridShell className="max-w-full px-0 py-6 sm:py-8 lg:py-10">
+        <h2 className="type-kicker">Разделы</h2>
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2 sm:gap-5">
+          {OTRASLI_SLUGS.map((o) => (
+            <li key={o.slug}>
+              <Link className={hubDirectoryLinkClass} href={`/otrasli/${o.slug}`}>
+                <span className="font-display text-lg font-semibold tracking-tight group-hover:text-[var(--accent)]">
+                  {o.title.ru}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </ListingGridShell>
     </CommercialSeoPage>
   );
 }

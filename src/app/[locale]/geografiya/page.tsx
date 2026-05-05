@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
+import { hubDirectoryLinkClass } from "@/components/marketing/hub-premium-classes";
+import { ListingGridShell } from "@/components/marketing/listing-grid-shell";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";
 import { MoDistrictMap } from "@/components/marketing/mo-district-map";
@@ -40,20 +42,20 @@ export default function Page({ params }: Props) {
       })}
     >
       <MoDistrictMap />
-      <ul className="mt-10 grid gap-3 sm:grid-cols-2">
-        {GEO_REGION_SLUGS.map((slug) => (
-          <li key={slug}>
-            <Link
-              className="group block rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] p-5 text-[var(--primary)] shadow-[var(--card-shadow)] transition hover:border-[color-mix(in_srgb,var(--accent)_40%,var(--neutral-200))] hover:shadow-[var(--card-shadow-hover)] dark:border-white/10 dark:bg-[var(--card)]"
-              href={`/geografiya/${slug}`}
-            >
-              <span className="font-display text-lg font-semibold tracking-tight group-hover:text-[var(--accent)]">
-                {geoLabel(slug).ru}
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <ListingGridShell className="max-w-full px-0 py-8 sm:py-10 lg:py-12">
+        <p className="type-kicker">Регионы</p>
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2 sm:gap-5">
+          {GEO_REGION_SLUGS.map((slug) => (
+            <li key={slug}>
+              <Link className={hubDirectoryLinkClass} href={`/geografiya/${slug}`}>
+                <span className="font-display text-lg font-semibold tracking-tight group-hover:text-[var(--accent)]">
+                  {geoLabel(slug).ru}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </ListingGridShell>
     </CommercialSeoPage>
   );
 }

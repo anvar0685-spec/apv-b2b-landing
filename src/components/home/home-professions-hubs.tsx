@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { hubHomeClusterCardClass } from "@/components/marketing/hub-premium-classes";
+import { ListingGridShell } from "@/components/marketing/listing-grid-shell";
 import { PROFESSIONS } from "@/content/professions-cities";
 import { OTRASLI_SLUGS, PLOSHCHADKI_SLUGS } from "@/lib/site-structure";
 import { getTranslations } from "next-intl/server";
@@ -45,76 +46,78 @@ export async function HomeProfessionsHubs() {
       </ul>
 
       <div className="mt-20 border-t border-[var(--neutral-200)] pt-16">
-        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">
-          {t("industriesBlockKicker")}
-        </p>
-        <h2 className="font-display mt-3 text-2xl font-bold tracking-tight text-[var(--primary)] md:text-3xl">
+        <p className="type-kicker text-center sm:text-left">{t("industriesBlockKicker")}</p>
+        <h2 className="font-display mt-3 text-center text-2xl font-bold tracking-tight text-[var(--primary)] sm:text-left md:text-3xl">
           {t("industriesBlockTitle")}
         </h2>
-        <p className="mt-4 max-w-2xl text-[var(--neutral-700)]">{t("industriesBlockLead")}</p>
-        <div className="mt-10 grid gap-5 lg:grid-cols-3">
-          <Card className="border-[var(--neutral-200)] bg-[var(--surface)]">
-            <CardTitle className="text-lg">{t("industriesTitle")}</CardTitle>
-            <CardDescription className="mt-2">{t("industriesDesc")}</CardDescription>
-            <ul className="mt-4 space-y-2 text-sm">
-              {OTRASLI_SLUGS.slice(0, 4).map((o) => (
-                <li key={o.slug}>
-                  <Link className="text-[var(--accent)] hover:underline" href={`/otrasli/${o.slug}`}>
-                    {o.title.ru}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-5">
-              <Button asChild variant="secondary" size="sm">
-                <Link href="/otrasli">{t("allIndustries")}</Link>
-              </Button>
-            </div>
-          </Card>
-          <Card className="border-[var(--neutral-200)] bg-[var(--surface)]">
-            <CardTitle className="text-lg">{t("platformsTitle")}</CardTitle>
-            <CardDescription className="mt-2">{t("platformsDesc")}</CardDescription>
-            <ul className="mt-4 space-y-2 text-sm">
-              {PLOSHCHADKI_SLUGS.map((p) => (
-                <li key={p.slug}>
-                  <Link className="text-[var(--accent)] hover:underline" href={`/ploshchadki/${p.slug}`}>
-                    {p.title.ru}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-5">
-              <Button asChild variant="secondary" size="sm">
-                <Link href="/ploshchadki">{t("allPlatforms")}</Link>
-              </Button>
-            </div>
-          </Card>
-          <Card className="border-[var(--neutral-200)] bg-[var(--surface)]">
-            <CardTitle className="text-lg">{t("geoTitle")}</CardTitle>
-            <CardDescription className="mt-2">{t("geoDesc")}</CardDescription>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li>
-                <Link className="text-[var(--accent)] hover:underline" href="/geografiya/moskva">
-                  {t("geoMoscow")}
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[var(--accent)] hover:underline" href="/geografiya/moskovskaya-oblast/khimki">
-                  {t("geoKhimki")}
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[var(--accent)] hover:underline" href="/geografiya/moskovskaya-oblast/podolsk">
-                  {t("geoPodolsk")}
-                </Link>
-              </li>
-            </ul>
-            <div className="mt-5">
-              <Button asChild variant="secondary" size="sm">
-                <Link href="/geografiya">{t("geoMap")}</Link>
-              </Button>
-            </div>
-          </Card>
+        <p className="mx-auto mt-4 max-w-2xl text-center text-[var(--neutral-700)] sm:mx-0 sm:text-left">{t("industriesBlockLead")}</p>
+        <div className="mt-10">
+          <ListingGridShell className="max-w-full px-0 py-6 sm:py-8 lg:py-10">
+            <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
+                <div className={hubHomeClusterCardClass}>
+                  <h3 className="font-display text-lg font-semibold text-[var(--primary)]">{t("industriesTitle")}</h3>
+                  <p className="mt-2 text-base leading-relaxed text-[var(--neutral-700)]">{t("industriesDesc")}</p>
+                  <ul className="mt-4 space-y-2 text-sm">
+                    {OTRASLI_SLUGS.slice(0, 4).map((o) => (
+                      <li key={o.slug}>
+                        <Link className="font-medium text-[var(--accent)] underline-offset-4 hover:underline" href={`/otrasli/${o.slug}`}>
+                          {o.title.ru}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-5">
+                    <Button asChild variant="secondary" size="sm">
+                      <Link href="/otrasli">{t("allIndustries")}</Link>
+                    </Button>
+                  </div>
+                </div>
+                <div className={hubHomeClusterCardClass}>
+                  <h3 className="font-display text-lg font-semibold text-[var(--primary)]">{t("platformsTitle")}</h3>
+                  <p className="mt-2 text-base leading-relaxed text-[var(--neutral-700)]">{t("platformsDesc")}</p>
+                  <ul className="mt-4 space-y-2 text-sm">
+                    {PLOSHCHADKI_SLUGS.map((p) => (
+                      <li key={p.slug}>
+                        <Link className="font-medium text-[var(--accent)] underline-offset-4 hover:underline" href={`/ploshchadki/${p.slug}`}>
+                          {p.title.ru}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-5">
+                    <Button asChild variant="secondary" size="sm">
+                      <Link href="/ploshchadki">{t("allPlatforms")}</Link>
+                    </Button>
+                  </div>
+                </div>
+                <div className={hubHomeClusterCardClass}>
+                  <h3 className="font-display text-lg font-semibold text-[var(--primary)]">{t("geoTitle")}</h3>
+                  <p className="mt-2 text-base leading-relaxed text-[var(--neutral-700)]">{t("geoDesc")}</p>
+                  <ul className="mt-4 space-y-2 text-sm">
+                    <li>
+                      <Link className="font-medium text-[var(--accent)] underline-offset-4 hover:underline" href="/geografiya/moskva">
+                        {t("geoMoscow")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="font-medium text-[var(--accent)] underline-offset-4 hover:underline" href="/geografiya/moskovskaya-oblast/khimki">
+                        {t("geoKhimki")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="font-medium text-[var(--accent)] underline-offset-4 hover:underline" href="/geografiya/moskovskaya-oblast/podolsk">
+                        {t("geoPodolsk")}
+                      </Link>
+                    </li>
+                  </ul>
+                  <div className="mt-5">
+                    <Button asChild variant="secondary" size="sm">
+                      <Link href="/geografiya">{t("geoMap")}</Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+          </ListingGridShell>
         </div>
       </div>
     </section>

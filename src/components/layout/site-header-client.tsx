@@ -149,9 +149,9 @@ export function SiteHeaderClient({
                   key={l.href}
                   href={l.href}
                   className={cn(
-                    "interactive-hover-ring relative shrink-0 whitespace-nowrap rounded-lg px-2 py-2 text-xs font-medium text-[var(--neutral-700)] transition-colors hover:text-[var(--primary)] sm:px-2.5 sm:text-[13px] lg:px-3 lg:text-sm",
+                    "interactive-hover-ring relative shrink-0 whitespace-nowrap rounded-full px-3 py-2 text-xs font-semibold tracking-tight text-[var(--neutral-600)] transition-[color,background-color,box-shadow,transform] duration-200 hover:bg-[color-mix(in_srgb,var(--neutral-500)_08%,transparent)] hover:text-[var(--primary)] dark:text-white/72 dark:hover:bg-white/10 dark:hover:text-white sm:px-3.5 sm:text-[13px] lg:px-4 lg:text-sm",
                     active &&
-                      "bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] text-[var(--primary)] mix-blend-multiply ring-1 ring-[color-mix(in_srgb,var(--accent)_22%,transparent)]",
+                      "bg-[color-mix(in_srgb,var(--accent)_13%,var(--card))] text-[var(--primary)] shadow-[0_1px_0_rgba(255,255,255,0.55),inset_0_0_0_1px_color-mix(in_srgb,var(--accent)_28%,transparent)] dark:bg-[color-mix(in_srgb,var(--accent)_16%,transparent)] dark:text-white dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.09),0_0_0_1px_color-mix(in_srgb,var(--accent)_42%,transparent)]",
                   )}
                 >
                   {l.label}
@@ -242,9 +242,9 @@ export function SiteHeaderClient({
                             href={l.href}
                             onClick={() => setMenuOpen(false)}
                             className={cn(
-                              "block min-h-[44px] rounded-xl px-3 py-3 text-sm font-medium leading-snug text-[var(--neutral-800)] dark:text-white/90",
+                              "block min-h-[44px] rounded-full px-3 py-3 text-sm font-semibold leading-snug tracking-tight text-[var(--neutral-800)] transition-colors dark:text-white/90",
                               active &&
-                                "bg-[color-mix(in_srgb,var(--accent)_12%,transparent)] text-[var(--primary)] dark:text-white",
+                                "bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] text-[var(--primary)] shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--accent)_30%,transparent)] dark:bg-[color-mix(in_srgb,var(--accent)_18%,transparent)] dark:text-white dark:shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--accent)_38%,transparent)]",
                             )}
                           >
                             {l.label}
