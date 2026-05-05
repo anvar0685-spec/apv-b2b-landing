@@ -19,7 +19,7 @@ export function MarketingPageHero({
   return (
     <MarketingHeroChrome innerClassName={containerClass} surface={surface}>
       <p className="type-kicker">{kicker}</p>
-      <h1 className="font-display mt-3 max-w-4xl text-balance text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] md:text-[2.625rem] md:leading-[1.12]">
+      <h1 className="font-display mt-3 max-w-4xl text-balance text-3xl font-bold tracking-[-0.04em] text-[var(--primary)] md:text-[2.75rem] md:leading-[1.12] dark:text-white">
         {title}
       </h1>
       {description ? <p className="type-lead mt-5 max-w-2xl">{description}</p> : null}

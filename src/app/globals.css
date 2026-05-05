@@ -520,6 +520,51 @@ html.dark .ux-page-body-subtle {
   opacity: 0.32;
 }
 
+/**
+ * Внутренние страницы: тот же контракт цвета, что у главной —
+ * мягкий «навес» и свечение без смены палитры.
+ */
+.ux-inner-page-cluster {
+  position: relative;
+  isolation: isolate;
+}
+
+.ux-inner-page-cluster::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.42;
+  background-image:
+    radial-gradient(ellipse 120% 45% at 18% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 55%),
+    radial-gradient(ellipse 90% 50% at 96% 12%, color-mix(in srgb, var(--primary) 9%, transparent), transparent 48%);
+}
+
+html.dark .ux-inner-page-cluster::after {
+  opacity: 0.28;
+}
+
+.ux-inner-section-canopy {
+  position: relative;
+}
+
+.ux-inner-section-canopy::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
+  background-image:
+    radial-gradient(ellipse 110% 48% at 50% -8%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 58%),
+    radial-gradient(ellipse 70% 42% at 8% 100%, color-mix(in srgb, var(--primary) 7%, transparent), transparent 52%);
+}
+
+html.dark .ux-inner-section-canopy::before {
+  opacity: 0.34;
+}
+
 /** Акцент второго экрана для географии */
 .ux-geo-chapter {
   background-image:

@@ -38,16 +38,15 @@ export default function Page() {
             связаны.
           </p>
         }
-        titleClassName="font-display max-w-4xl text-balance text-4xl font-bold tracking-tight text-white md:text-5xl"
         decoration={<div className={cn("ux-prog-angled", variantClass(v))} aria-hidden />}
       />
 
-      <div className="relative">
+      <div className="relative ux-inner-page-cluster">
         <div
           className="ux-page-body-subtle pointer-events-none absolute inset-0 -z-10 min-h-full opacity-[0.55] dark:opacity-[0.38]"
           aria-hidden
         />
-        <div className="relative mx-auto max-w-[1280px] px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+        <div className="relative mx-auto max-w-[1280px] px-4 py-14 sm:px-6 lg:px-8 lg:py-20 ux-inner-section-canopy">
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {PROFESSIONS.map((p) => (
               <li key={p.slug}>

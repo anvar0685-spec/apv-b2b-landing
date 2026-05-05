@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { MarketingHubShell } from "@/components/layout/marketing-hub-shell";
 import { CASES } from "@/content/cases-stub";
+import { ListingGridShell } from "@/components/marketing/listing-grid-shell";
 import { PremiumCaseCard } from "@/components/marketing/premium-list-cards";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -28,7 +29,7 @@ export default async function Page({ params }: PageProps) {
         belowLead={<p className="type-body text-[var(--neutral-600)]">{t("disclaimer")}</p>}
         heroSurface="cases"
       >
-        <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <ListingGridShell>
           <ul className="grid gap-8 md:grid-cols-2">
             {CASES.map((c, i) => (
               <li key={c.slug}>
@@ -36,7 +37,7 @@ export default async function Page({ params }: PageProps) {
               </li>
             ))}
           </ul>
-        </div>
+        </ListingGridShell>
       </MarketingHubShell>
     </main>
   );

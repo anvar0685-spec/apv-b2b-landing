@@ -7,23 +7,37 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { CaseSparkline } from "@/components/home/case-sparkline";
+import { cn } from "@/lib/utils";
 
 export async function PremiumCaseCard({ c, index, locale }: { c: CaseStub; index: number; locale: string }) {
   const t = await getTranslations({ locale, namespace: "caseCard" });
   const card = caseCardFields(c);
   const variant = index % 3 === 1 ? "flat" : "up";
   return (
-    <Card className="group relative flex h-full flex-col overflow-hidden border-[var(--neutral-200)]/90 bg-gradient-to-b from-[var(--card)] via-[var(--card)] to-[var(--surface)] shadow-[0_1px_0_rgba(0,0,0,0.04)] transition-[box-shadow,transform,border-color] duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/30 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.03),0_0_40px_-8px_var(--accent)] motion-reduce:transform-none">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)]">{card.industry}</p>
-      <CardTitle className="mt-3">
+    <Card
+      className={cn(
+        "group relative flex h-full flex-col overflow-hidden",
+        "border-[var(--neutral-200)]/85 bg-gradient-to-br from-[var(--card)] via-[var(--surface)] to-[var(--card)]",
+        "shadow-[0_2px_12px_rgba(7,21,37,0.07)] ring-1 ring-inset ring-black/[0.04]",
+        "transition-[box-shadow,transform,border-color] duration-300",
+        "before:pointer-events-none before:absolute before:left-0 before:top-5 before:bottom-5 before:z-0 before:w-[3px] before:rounded-full before:bg-gradient-to-b before:from-[var(--accent)] before:to-[color-mix(in_srgb,var(--primary)_58%,var(--accent))] before:opacity-[0.85] before:transition-opacity group-hover:before:opacity-100",
+        "hover:-translate-y-1 hover:border-[var(--accent)]/38 hover:shadow-[0_28px_56px_-18px_rgba(7,21,37,0.2),0_0_0_1px_color-mix(in_srgb,var(--accent)_16%,transparent),0_0_52px_-14px_color-mix(in_srgb,var(--accent)_28%,transparent)]",
+        "dark:border-white/12 dark:ring-white/[0.06]",
+        "motion-reduce:transform-none",
+      )}
+    >
+      <p className="relative z-[1] text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)]">{card.industry}</p>
+      <CardTitle className="relative z-[1] mt-3">
         <Link className="transition hover:text-[var(--accent)]" href={`/keysy/${c.slug}`}>
           {card.title}
         </Link>
       </CardTitle>
-      <CardDescription>{card.summary}</CardDescription>
-      <CaseSparkline chartId={`keysy-${c.slug}`} variant={variant} />
-      <p className="kpi-numerals mt-2 font-mono-nums text-lg font-semibold tabular-nums text-[var(--primary)]">{card.metricUp}</p>
-      <dl className="mt-6 grid flex-1 grid-cols-2 gap-3 border-t border-[var(--neutral-200)] pt-6 text-sm">
+      <CardDescription className="relative z-[1]">{card.summary}</CardDescription>
+      <div className="relative z-[1]">
+        <CaseSparkline chartId={`keysy-${c.slug}`} variant={variant} />
+      </div>
+      <p className="kpi-numerals relative z-[1] mt-2 font-mono-nums text-lg font-semibold tabular-nums text-[var(--primary)]">{card.metricUp}</p>
+      <dl className="relative z-[1] mt-6 grid flex-1 grid-cols-2 gap-3 border-t border-[var(--neutral-200)] pt-6 text-sm">
         <div>
           <dt className="text-[var(--neutral-500)]">{t("staff")}</dt>
           <dd className="font-semibold text-[var(--primary)]">{c.staff}</dd>
@@ -37,7 +51,7 @@ export async function PremiumCaseCard({ c, index, locale }: { c: CaseStub; index
           <dd className="font-medium text-[var(--neutral-700)]">{card.city}</dd>
         </div>
       </dl>
-      <div className="mt-auto pt-5">
+      <div className="relative z-[1] mt-auto pt-5">
         <Button asChild variant="secondary" size="sm">
           <Link href={`/keysy/${c.slug}`}>{t("cta")}</Link>
         </Button>
@@ -56,22 +70,37 @@ export async function PremiumBlogCard({ p, locale }: { p: BlogStub; locale: stri
   return (
     <Card
       lang="ru"
-      className="group flex h-full flex-col transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/25 hover:shadow-[var(--card-shadow-hover)] motion-reduce:transform-none"
+      className={cn(
+        "group relative flex h-full flex-col overflow-hidden",
+        "border-[var(--neutral-200)]/85 bg-gradient-to-br from-[var(--card)] via-[var(--surface)]/88 to-[var(--card)]",
+        "shadow-[0_2px_12px_rgba(7,21,37,0.06)] ring-1 ring-inset ring-black/[0.035]",
+        "transition-[box-shadow,transform,border-color] duration-300",
+        "hover:-translate-y-[5px] hover:border-[var(--accent)]/30 hover:shadow-[0_24px_52px_-16px_rgba(7,21,37,0.16),0_0_0_1px_color-mix(in_srgb,var(--accent)_12%,transparent)]",
+        "dark:border-white/11 dark:ring-white/[0.05]",
+        "motion-reduce:transform-none",
+      )}
     >
-      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">{catLabel}</p>
-      <CardTitle className="mt-2 text-lg">
+      <div className="flex items-center gap-2">
+        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[color-mix(in_srgb,var(--accent)_78%,var(--neutral-500))] shadow-[0_0_0_3px_color-mix(in_srgb,var(--accent)_18%,transparent)]" aria-hidden />
+        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[color-mix(in_srgb,var(--accent)_72%,var(--neutral-600))] dark:text-[color-mix(in_srgb,var(--accent)_65%,var(--neutral-400))]">
+          {catLabel}
+        </p>
+      </div>
+      <CardTitle className="relative z-[1] mt-3 text-lg">
         <Link className="transition hover:text-[var(--accent)]" href={`/blog/${p.slug}`}>
           {fields.title}
         </Link>
       </CardTitle>
-      <CardDescription className="flex-1">{fields.excerpt}</CardDescription>
-      <div className="mt-5 flex items-center justify-between text-xs text-[var(--neutral-500)]">
-        <time dateTime={p.publishedAt}>{new Date(p.publishedAt).toLocaleDateString("ru-RU")}</time>
+      <CardDescription className="relative z-[1] flex-1">{fields.excerpt}</CardDescription>
+      <div className="relative z-[1] mt-5 flex items-center justify-between text-xs tabular-nums text-[var(--neutral-600)]">
+        <time className="font-mono text-[11px] tracking-tight" dateTime={p.publishedAt}>
+          {new Date(p.publishedAt).toLocaleDateString("ru-RU")}
+        </time>
         <span>
           {p.readingTime} {tCard("min")}
         </span>
       </div>
-      <div className="mt-4">
+      <div className="relative z-[1] mt-4">
         <Link className="text-sm font-semibold text-[var(--accent)] underline-offset-4 hover:underline" href={`/blog/${p.slug}`}>
           {ts("readMore")}
         </Link>

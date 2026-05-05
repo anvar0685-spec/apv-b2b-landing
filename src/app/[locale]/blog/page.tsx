@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { BLOG_PAGE_SIZE, blogListingItemListJsonLd, paginatePosts } from "@/content/blog-stub";
 import { MarketingHubShell } from "@/components/layout/marketing-hub-shell";
+import { ListingGridShell } from "@/components/marketing/listing-grid-shell";
 import { PremiumBlogCard } from "@/components/marketing/premium-list-cards";
 import { JsonLd } from "@/components/seo/json-ld";
 import { buildPageMetadata } from "@/lib/seo";
@@ -70,7 +71,7 @@ export default async function BlogIndexPage({ params, searchParams }: PageProps)
         description={t("lead", { pageSize: BLOG_PAGE_SIZE })}
         heroSurface="blog"
       >
-        <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <ListingGridShell>
           <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((p) => (
               <li key={p.slug}>
@@ -80,7 +81,7 @@ export default async function BlogIndexPage({ params, searchParams }: PageProps)
           </ul>
 
           <Pagination page={current} totalPages={totalPages} path="/blog" ariaLabel={t("paginationAria")} />
-        </div>
+        </ListingGridShell>
       </MarketingHubShell>
     </main>
   );

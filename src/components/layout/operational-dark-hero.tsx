@@ -36,7 +36,7 @@ export function OperationalDarkHero({
   className,
   sectionClassName,
   ambientClassName = "opacity-70",
-  containerClassName = "relative mx-auto max-w-[1280px] px-4 pb-12 pt-8 sm:px-6 sm:pb-14 sm:pt-10 lg:px-8",
+  containerClassName = "relative mx-auto max-w-[1280px] px-4 pb-14 pt-10 sm:px-6 sm:pb-16 sm:pt-12 lg:px-8",
   titleClassName,
 }: Props) {
   const hasCrumbs = Boolean(crumbs?.length);
@@ -54,7 +54,7 @@ export function OperationalDarkHero({
       <h1
         className={cn(
           titleClassName ??
-            "font-display max-w-4xl text-balance text-3xl font-bold tracking-[-0.035em] text-white md:text-[2.75rem] md:leading-[1.1]",
+            "font-display max-w-[min(100%,42ch)] text-balance text-3xl font-bold tracking-[-0.04em] text-white md:text-5xl md:leading-[1.06] md:tracking-[-0.045em] lg:text-[2.85rem] lg:tracking-[-0.048em]",
           kicker != null ? "mt-4" : hasCrumbs ? "mt-8" : "mt-0",
         )}
       >
@@ -77,6 +77,11 @@ export function OperationalDarkHero({
       )}
     >
       <div className={cn("hero-ambient pointer-events-none absolute inset-0", ambientClassName)} />
+      <div className="ux-pattern-hero pointer-events-none absolute inset-0 opacity-[0.14] dark:opacity-[0.11]" aria-hidden />
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 z-[2] h-px bg-gradient-to-r from-transparent via-[color-mix(in_srgb,var(--accent)_52%,transparent)] to-transparent"
+        aria-hidden
+      />
       {decoration}
       <div className={cn(containerClassName, aside && "min-w-0")}>
         {aside ? (

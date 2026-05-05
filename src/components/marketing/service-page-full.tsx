@@ -117,7 +117,7 @@ export function ServicePageFull({ model, scrollStory = false }: Props) {
         }
       />
 
-      <article className="relative mx-auto max-w-[800px] px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+      <article className="relative z-[1] mx-auto max-w-[800px] rounded-[1.5rem] px-4 py-10 sm:px-6 sm:py-12 lg:px-8 ux-inner-section-canopy">
         <div className="ux-page-body-subtle pointer-events-none absolute inset-x-0 top-0 -z-10 h-[min(100%,48rem)] opacity-[0.45] dark:opacity-[0.32]" aria-hidden />
 
         <ServiceSectionWrap motionEnabled={motion}>

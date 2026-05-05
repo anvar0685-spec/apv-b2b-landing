@@ -26,7 +26,7 @@ export function ConversionPageShell({ header, children, footerNote, className, v
         />
         <div className="relative z-[2] mx-auto max-w-[960px] px-4 py-10 sm:px-6 lg:py-14">{header}</div>
       </section>
-      <div className="relative mx-auto max-w-[960px] min-w-0 px-4 py-10 sm:px-6 lg:py-14">{children}</div>
+      <div className="relative z-[1] mx-auto max-w-[960px] min-w-0 px-4 py-10 sm:px-6 lg:py-14">{children}</div>
       {footerNote ? (
         <div className="mx-auto max-w-[960px] px-4 pb-14 text-center sm:px-6">
           <div className="text-xs leading-relaxed text-[var(--neutral-500)] dark:text-white/45">{footerNote}</div>

@@ -96,9 +96,9 @@ export function ProgrammaticStaffingPage({ profession, city }: Props) {
         decoration={<div className={cn("ux-prog-angled", variantClass(v))} aria-hidden />}
       />
 
-      <div className="relative">
+      <div className="relative ux-inner-page-cluster">
         <div className="ux-page-body-subtle pointer-events-none absolute inset-0 -z-10 min-h-full opacity-[0.55] dark:opacity-[0.38]" aria-hidden />
-        <div className="relative mx-auto max-w-[720px] px-4 py-16 sm:px-6 lg:max-w-[760px] lg:py-24">
+        <div className="relative mx-auto max-w-[720px] px-4 py-16 sm:px-6 lg:max-w-[760px] lg:py-24 ux-inner-section-canopy">
           <h2 className="type-headline">{t.h2}</h2>
           <div className="type-editorial-dropcap type-body mt-6 space-y-4">
             {headParas.map((para, i) => (

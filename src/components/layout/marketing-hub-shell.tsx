@@ -33,7 +33,7 @@ export function MarketingHubShell({
       <MarketingHeroChrome innerClassName={heroContainerClass} surface={heroSurface}>
         <div className="min-w-0 max-w-3xl">
           <p className="type-kicker">{kicker}</p>
-          <h1 className="font-display mt-3 max-w-4xl text-balance text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] dark:text-white md:text-[2.625rem] md:leading-[1.12]">
+          <h1 className="font-display mt-3 max-w-4xl text-balance text-3xl font-bold tracking-[-0.04em] text-[var(--primary)] dark:text-white md:text-[2.75rem] md:leading-[1.12]">
             {title}
           </h1>
           {description ? <p className="type-lead mt-5 max-w-2xl">{description}</p> : null}
@@ -41,7 +41,7 @@ export function MarketingHubShell({
         </div>
       </MarketingHeroChrome>
       {showDivider ? <SectionDivider className="py-5 sm:py-6" /> : null}
-      <div className={cn("relative min-w-0", bodyWrapperClassName)}>
+      <div className={cn("relative min-w-0 ux-inner-page-cluster", bodyWrapperClassName)}>
         <div className="ux-page-body-subtle pointer-events-none absolute inset-0 -z-10 min-h-full" aria-hidden />
         {children}
       </div>

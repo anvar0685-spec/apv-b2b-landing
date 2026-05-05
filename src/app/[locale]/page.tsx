@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { HeroSection } from "@/components/home/hero-section";
 import { TrustMarquee } from "@/components/home/trust-marquee";
-import { PartnersStrip } from "@/components/home/partners-strip";
 import { HomePersonas } from "@/components/home/home-personas";
 import { StatsCounters } from "@/components/home/stats-counters";
 import { HomeSections } from "@/components/home/home-sections";
@@ -92,7 +91,6 @@ export default async function HomePage() {
       <JsonLd data={websiteJsonLd} />
       <HeroSection />
       <TrustMarquee kicker={t("trust")} lead={t("trustLead")} />
-      <PartnersStrip />
       <HomePersonas />
       <PainSolutionBento />
       <SectionDivider className="py-6 sm:py-8" />

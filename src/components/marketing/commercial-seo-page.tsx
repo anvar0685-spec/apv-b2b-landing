@@ -130,6 +130,7 @@ export async function CommercialSeoPage({
         className={cn(
           "relative overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--background)] dark:border-white/10",
           bodyTone === "geo" && "ux-geo-chapter",
+          bodyTone !== "geo" && "ux-inner-section-canopy",
         )}
       >
         {bodyTone === "geo" ? null : (
