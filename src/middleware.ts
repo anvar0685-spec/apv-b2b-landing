@@ -6,7 +6,9 @@ const intl = createMiddleware(routing);
 
 /** За nginx на 127.0.0.1:3000 Host внутри Next — localhost; без правки next-intl отдаёт Location на localhost. */
 function withPublicOrigin(request: NextRequest): NextRequest {
-  const xfHost = request.headers.get("x-forwarded-host")?.split(",")[0]?.trim();
+  const xfHost =
+    request.headers.get("x-forwarded-host")?.split(",")[0]?.trim() ||
+    request.headers.get("host")?.split(",")[0]?.trim();
   if (!xfHost) return request;
 
   const xfProto = request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim();
