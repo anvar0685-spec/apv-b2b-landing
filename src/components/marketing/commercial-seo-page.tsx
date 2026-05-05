@@ -115,7 +115,6 @@ export async function CommercialSeoPage({
             {heroRail}
           </>
         }
-        titleClassName="font-display max-w-[20ch] text-balance text-4xl font-bold leading-[1.12] tracking-[-0.035em] text-white md:text-5xl lg:max-w-[24ch] lg:text-[2.75rem]"
         containerClassName="relative mx-auto max-w-content px-4 pb-12 pt-10 sm:px-6 sm:pb-14 sm:pt-12 lg:px-8"
       />
     );
