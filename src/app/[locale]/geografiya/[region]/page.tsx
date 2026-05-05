@@ -4,7 +4,6 @@ import { Link } from "@/i18n/navigation";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";
 import { geoRegionEditorial } from "@/content/commercial-editorial";
-import { HUB_STEPS_GEO } from "@/content/hub-visual-presets";
 import {
   GEO_MOSCOW_DISTRICTS,
   GEO_MO_CITIES,
@@ -53,7 +52,6 @@ export default function Page({ params }: Props) {
   return (
     <CommercialSeoPage
       heroVariant="vertical"
-      hubSteps={HUB_STEPS_GEO}
       editorialParagraphs={editorial}
       crumbs={[
         { href: "/", label: "Главная" },

@@ -6,6 +6,9 @@
   color-scheme: light;
   --primary: #071525;
   --primary-dark: #030a12;
+  /** Тёмные hero услуг/OPS: глубокий лесной teal, без «чёрной плиты» */
+  --hero-operational-top: #0d1917;
+  --hero-operational-bottom: #081412;
   --accent: #0d9488;
   --accent-soft: #ccfbf1;
   --success: #059669;
@@ -25,6 +28,8 @@ html.dark {
   color-scheme: dark;
   --primary: #e8eef4;
   --primary-dark: #020617;
+  --hero-operational-top: #0f221f;
+  --hero-operational-bottom: #091815;
   --accent: #2dd4bf;
   --accent-soft: #134e4a;
   --success: #34d399;

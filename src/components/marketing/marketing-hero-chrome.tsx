@@ -27,7 +27,7 @@ export function MarketingHeroChrome({
   return (
     <section
       className={cn(
-        "ux-tech-field-light relative overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--surface)] py-12 lg:py-16 dark:border-white/10 dark:bg-[var(--primary-dark)]",
+        "ux-tech-field-light relative overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--surface)] py-12 lg:py-16 dark:border-[color-mix(in_srgb,var(--accent)_18%,transparent)] dark:bg-gradient-to-b dark:from-[var(--hero-operational-top)] dark:to-[var(--hero-operational-bottom)]",
         surface !== "default" && `ux-hero-surface--${surface}`,
         className,
       )}

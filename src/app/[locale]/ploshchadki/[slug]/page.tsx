@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { buildPageMetadata, buildServiceJsonLd } from "@/lib/seo";
 import { platformEditorialBundle } from "@/content/commercial-editorial";
-import { HUB_STEPS_PLATFORM } from "@/content/hub-visual-presets";
 import { PLOSHCHADKI_SLUGS } from "@/lib/site-structure";
 
 type Props = { params: { locale: string; slug: string } };
@@ -39,7 +38,6 @@ export default function Page({ params }: Props) {
   return (
     <CommercialSeoPage
       heroVariant="atlas"
-      hubSteps={HUB_STEPS_PLATFORM}
       showComparisonStrip
       editorialParagraphs={editorial.paragraphs}
       editorialCalloutParagraphIndex={editorial.calloutParagraphIndex}

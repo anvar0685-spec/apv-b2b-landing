@@ -31,7 +31,7 @@ export function CommercialAtlasHero({ crumbs, kicker, title, lead, children }: H
 /** Вертикальный акцент слева — отрасли и площадки, без полноэкранной тёмной плиты */
 export function CommercialVerticalHero({ crumbs, kicker, title, lead, children }: HeroProps) {
   return (
-    <section className="ux-tech-field-light relative overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--surface)] dark:border-white/10 dark:bg-[var(--primary-dark)]">
+    <section className="ux-tech-field-light relative overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--surface)] dark:border-[color-mix(in_srgb,var(--accent)_18%,transparent)] dark:bg-gradient-to-b dark:from-[var(--hero-operational-top)] dark:to-[var(--hero-operational-bottom)]">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 z-[2] h-px bg-gradient-to-r from-transparent via-[color-mix(in_srgb,var(--accent)_48%,transparent)] to-transparent"
         aria-hidden

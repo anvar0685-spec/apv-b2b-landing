@@ -29,7 +29,7 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="grain-dark relative overflow-hidden bg-[var(--primary-dark)] text-white"
+      className="grain-dark relative overflow-hidden bg-gradient-to-b from-[var(--hero-operational-top)] to-[var(--hero-operational-bottom)] text-white"
     >
       <div className="hero-ambient pointer-events-none absolute inset-0 opacity-80" />
       <div className="ux-pattern-hero pointer-events-none absolute inset-0" aria-hidden />

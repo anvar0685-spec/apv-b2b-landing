@@ -71,7 +71,7 @@ export function OperationalDarkHero({
   return (
     <section
       className={cn(
-        "grain-dark relative overflow-hidden border-b border-white/[0.08] bg-[var(--primary-dark)] text-white",
+        "grain-dark relative overflow-hidden border-b border-[color-mix(in_srgb,var(--accent)_22%,transparent)] bg-gradient-to-b from-[var(--hero-operational-top)] to-[var(--hero-operational-bottom)] text-white",
         sectionClassName,
         className,
       )}

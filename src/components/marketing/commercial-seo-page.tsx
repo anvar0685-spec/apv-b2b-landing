@@ -4,7 +4,6 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { Link } from "@/i18n/navigation";
 import { OperationalDarkHero } from "@/components/layout/operational-dark-hero";
 import { CommercialAtlasHero, CommercialVerticalHero } from "@/components/marketing/commercial-light-heroes";
-import { HubOpsRail } from "@/components/marketing/hub-ops-rail";
 import { CommercialVsStrip } from "@/components/marketing/commercial-vs-strip";
 import { SectionDivider } from "@/components/marketing/section-divider";
 import { PRIORITY_PAGE_TEASERS } from "@/content/priority-pages-teasers";
@@ -28,8 +27,6 @@ type Props = {
   showPriorityTeasers?: boolean;
   bodyTone?: "default" | "geo";
   heroVariant?: CommercialHeroVariant;
-  hubSteps?: readonly string[];
-  hubStepsCaption?: string;
   showSectionDivider?: boolean;
   showComparisonStrip?: boolean;
   /** CTA под rail на светлых hero (по умолчанию true) */
@@ -48,8 +45,6 @@ export async function CommercialSeoPage({
   showPriorityTeasers = false,
   bodyTone = "default",
   heroVariant = "ops",
-  hubSteps,
-  hubStepsCaption,
   showSectionDivider,
   showComparisonStrip = false,
   showHeroCtas = true,
@@ -59,12 +54,6 @@ export async function CommercialSeoPage({
 
   const emptyBodyFallback = t("sectionSoon");
   const relatedTitle = t("prioritySections");
-  const railCaption = hubStepsCaption ?? t("hubStepsCaption");
-
-  const heroRail =
-    hubSteps && hubSteps.length > 0 ? (
-      <HubOpsRail steps={hubSteps} caption={railCaption} />
-    ) : null;
 
   const lightHeroCtas =
     showHeroCtas && (heroVariant === "atlas" || heroVariant === "vertical") ? (
@@ -95,12 +84,10 @@ export async function CommercialSeoPage({
   const hero =
     heroVariant === "atlas" ? (
       <CommercialAtlasHero crumbs={crumbs} kicker={kicker} title={title} lead={lead}>
-        {heroRail}
         {lightHeroCtas}
       </CommercialAtlasHero>
     ) : heroVariant === "vertical" ? (
       <CommercialVerticalHero crumbs={crumbs} kicker={kicker} title={title} lead={lead}>
-        {heroRail}
         {lightHeroCtas}
       </CommercialVerticalHero>
     ) : (
@@ -109,12 +96,7 @@ export async function CommercialSeoPage({
         kicker={kicker}
         kickerAsText
         title={title}
-        description={
-          <>
-            <p>{lead}</p>
-            {heroRail}
-          </>
-        }
+        description={<p>{lead}</p>}
         containerClassName="relative mx-auto max-w-content px-4 pb-12 pt-10 sm:px-6 sm:pb-14 sm:pt-12 lg:px-8"
       />
     );

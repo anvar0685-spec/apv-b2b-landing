@@ -6,7 +6,6 @@ import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";
 import { MoDistrictMap } from "@/components/marketing/mo-district-map";
 import { geoHubEditorial } from "@/content/commercial-editorial";
-import { HUB_STEPS_GEO } from "@/content/hub-visual-presets";
 import { GEO_REGION_SLUGS, geoLabel } from "@/lib/site-structure";
 
 type Props = { params: { locale: string } };
@@ -27,7 +26,6 @@ export default function Page({ params }: Props) {
   return (
     <CommercialSeoPage
       heroVariant="atlas"
-      hubSteps={HUB_STEPS_GEO}
       bodyTone="geo"
       editorialParagraphs={geoHubEditorial()}
       crumbs={[{ href: "/", label: "Главная" }, { href: "/geografiya", label: title }]}

@@ -4,7 +4,6 @@ import { hubDirectoryLinkClass } from "@/components/marketing/hub-premium-classe
 import { ListingGridShell } from "@/components/marketing/listing-grid-shell";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";
-import { HUB_STEPS_INDUSTRY } from "@/content/hub-visual-presets";
 import { industryHubEditorial } from "@/content/commercial-editorial";
 import { OTRASLI_SLUGS } from "@/lib/site-structure";
 
@@ -28,7 +27,6 @@ export default function Page({ params }: Props) {
   return (
     <CommercialSeoPage
       heroVariant="vertical"
-      hubSteps={HUB_STEPS_INDUSTRY}
       editorialParagraphs={industryHubEditorial()}
       editorialCalloutParagraphIndex={1}
       crumbs={[{ href: "/", label: "Главная" }, { href: "/otrasli", label: title }]}

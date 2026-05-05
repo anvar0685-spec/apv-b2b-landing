@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { geoCityEditorial } from "@/content/commercial-editorial";
-import { HUB_STEPS_GEO } from "@/content/hub-visual-presets";
 import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";
 import {
   GEO_MOSCOW_DISTRICTS,
@@ -56,7 +55,6 @@ export default function Page({ params }: Props) {
   return (
     <CommercialSeoPage
       heroVariant="ops"
-      hubSteps={HUB_STEPS_GEO}
       editorialParagraphs={editorial}
       editorialCalloutParagraphIndex={1}
       crumbs={[

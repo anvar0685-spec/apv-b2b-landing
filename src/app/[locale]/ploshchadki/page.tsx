@@ -4,7 +4,6 @@ import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
 import { hubDirectoryLinkClass } from "@/components/marketing/hub-premium-classes";
 import { ListingGridShell } from "@/components/marketing/listing-grid-shell";
 import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";
-import { HUB_STEPS_PLATFORM } from "@/content/hub-visual-presets";
 import { platformHubEditorial } from "@/content/commercial-editorial";
 import { PLOSHCHADKI_SLUGS } from "@/lib/site-structure";
 
@@ -27,7 +26,6 @@ export default function Page({ params }: Props) {
   return (
     <CommercialSeoPage
       heroVariant="ops"
-      hubSteps={HUB_STEPS_PLATFORM}
       editorialParagraphs={platformHubEditorial()}
       editorialCalloutParagraphIndex={1}
       crumbs={[{ href: "/", label: "Главная" }, { href: "/ploshchadki", label: title }]}

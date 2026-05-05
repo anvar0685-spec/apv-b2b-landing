@@ -202,7 +202,7 @@ export async function HomeSections() {
         </div>
       </section>
 
-      <section id="cta" className="grain-dark bg-[var(--primary-dark)] py-24 text-white lg:py-36">
+      <section id="cta" className="grain-dark border-t border-[color-mix(in_srgb,var(--accent)_20%,transparent)] bg-gradient-to-b from-[var(--hero-operational-top)] to-[var(--hero-operational-bottom)] py-24 text-white lg:py-36">
         <div className="mx-auto max-w-[720px] px-4 text-center sm:px-6">
           <h2 className="font-display text-2xl font-bold tracking-tight md:text-4xl md:leading-[1.15]">{ts("ctaTitle")}</h2>
           <p className="mt-5 text-sm leading-relaxed text-white/75 md:text-base">{ts("ctaLead")}</p>
