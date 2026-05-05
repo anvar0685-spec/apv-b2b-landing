@@ -90,6 +90,9 @@ export function TrustMarquee({ kicker, lead }: TrustMarqueeProps) {
           </motion.div>
         )}
       </div>
+      <p className="relative z-[1] mx-auto mt-6 max-w-3xl px-4 text-center text-[11px] leading-snug text-[var(--neutral-500)] sm:px-6">
+        {t("trustDisclaimerVisible")}
+      </p>
     </div>
   );
 }

@@ -24,7 +24,7 @@ export default function Page({ params }: Props) {
 
   return (
     <CommercialSeoPage
-      heroVariant="vertical"
+      heroVariant="ops"
       hubSteps={HUB_STEPS_PLATFORM}
       editorialParagraphs={platformHubEditorial()}
       editorialCalloutParagraphIndex={1}

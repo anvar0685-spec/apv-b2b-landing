@@ -21,6 +21,7 @@ export default async function Page({ params }: Props) {
   const t = await getTranslations({ locale: params.locale, namespace: "pagesSeo" });
   return (
     <ConversionPageShell
+      variant="calc"
       header={
         <>
           <p className="type-kicker text-[var(--accent)] dark:text-[var(--accent-soft)]">{t("kalkulyator.heroKicker")}</p>

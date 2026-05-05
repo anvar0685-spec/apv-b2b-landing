@@ -87,17 +87,14 @@ export function HeroSlaDashboard() {
           </div>
         </div>
 
+        <p className="text-[10px] leading-relaxed text-white/42">{t("kpiExplainer")}</p>
+
         <div className="rounded-2xl border border-white/15 bg-black/25 p-4 ring-1 ring-white/[0.06]">
           <div className="flex items-end justify-between gap-2">
             <p className="text-[11px] font-medium text-white/60">{t("throughput")}</p>
-            <motion.span
-              className="text-[10px] font-semibold text-[var(--success)]"
-              initial={reduce ? undefined : { opacity: 0, y: 4 }}
-              animate={reduce ? undefined : { opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.4 }}
-            >
-              +18%
-            </motion.span>
+            <span className="max-w-[14rem] text-right text-[10px] font-medium leading-snug text-white/45">
+              {t("throughputTrendNote")}
+            </span>
           </div>
           <svg viewBox="0 0 280 72" className="mt-3 h-[80px] w-full" preserveAspectRatio="none">
             <defs>
@@ -143,7 +140,7 @@ export function HeroSlaDashboard() {
         </div>
 
         <figcaption className="relative border-t border-white/[0.07] pt-4 text-center text-[10px] leading-snug text-white/45">
-          {t("demoDisclaimer")}
+          {t("reportingDisclaimer")}
         </figcaption>
       </div>
     </figure>

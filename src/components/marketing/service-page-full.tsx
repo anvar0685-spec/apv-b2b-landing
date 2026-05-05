@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { ServiceScrollStory } from "@/components/marketing/service-scroll-story";
 import { ServiceSectionWrap } from "@/components/marketing/service-section-wrap";
+import { cn } from "@/lib/utils";
+import { slugVisualVariant, variantClass } from "@/lib/slug-visual-seed";
 const WAREHOUSE_PROFESSIONS = PROFESSIONS.slice(0, 10);
 
 type Props = { model: ServicePageModel; /** Горизонтальный scroll-story + reveal секций (включаем точечно на 1–2 URL) */ scrollStory?: boolean };
@@ -50,6 +52,8 @@ export function ServicePageFull({ model, scrollStory = false }: Props) {
   const base = site.url.replace(/\/$/, "");
   const path = `/uslugi/${model.slug}`;
   const motion = scrollStory;
+  const decorV = slugVisualVariant(model.slug);
+  const heroAmbient = (["opacity-[0.62]", "opacity-[0.70]", "opacity-[0.78]"] as const)[decorV];
 
   const serviceJson = {
     "@context": "https://schema.org",
@@ -93,6 +97,10 @@ export function ServicePageFull({ model, scrollStory = false }: Props) {
         kicker={t.kicker}
         title={model.h1}
         description={model.subtitle}
+        ambientClassName={heroAmbient}
+        decoration={
+          <div className={cn("ux-prog-angled", variantClass(decorV))} aria-hidden />
+        }
         actions={
           <>
             <Button asChild>

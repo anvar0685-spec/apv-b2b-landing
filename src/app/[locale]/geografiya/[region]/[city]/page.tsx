@@ -55,7 +55,7 @@ export default function Page({ params }: Props) {
 
   return (
     <CommercialSeoPage
-      heroVariant="atlas"
+      heroVariant="ops"
       hubSteps={HUB_STEPS_GEO}
       editorialParagraphs={editorial}
       editorialCalloutParagraphIndex={1}

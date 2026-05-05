@@ -6,13 +6,20 @@ type Props = {
   children: ReactNode;
   footerNote?: ReactNode;
   className?: string;
+  /** Визуально разделить калькулятор и заявку в одной оболочке */
+  variant?: "calc" | "lead";
 };
 
 /** Общая «техно»-оболочка для калькулятора и заявки: поле без бокового карточного виджета */
-export function ConversionPageShell({ header, children, footerNote, className }: Props) {
+export function ConversionPageShell({ header, children, footerNote, className, variant = "calc" }: Props) {
   return (
     <main id="main" className={cn("min-w-0 pb-20", className)}>
-      <section className="ux-tech-field-light relative overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--surface)] dark:border-white/10 dark:bg-[var(--primary-dark)]">
+      <section
+        className={cn(
+          "ux-tech-field-light relative overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--surface)] dark:border-white/10 dark:bg-[var(--primary-dark)]",
+          variant === "calc" ? "ux-conv-calc" : "ux-conv-lead",
+        )}
+      >
         <div
           className="pointer-events-none absolute inset-x-0 top-0 z-[2] h-px bg-gradient-to-r from-transparent via-[color-mix(in_srgb,var(--accent)_48%,transparent)] to-transparent"
           aria-hidden

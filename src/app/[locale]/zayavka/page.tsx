@@ -21,6 +21,7 @@ export default async function Page({ params }: PageProps) {
   const t = await getTranslations({ locale: params.locale, namespace: "leadPage" });
   return (
     <ConversionPageShell
+      variant="lead"
       header={
         <>
           <p className="type-kicker text-[var(--accent)] dark:text-[var(--accent-soft)]">{t("kicker")}</p>

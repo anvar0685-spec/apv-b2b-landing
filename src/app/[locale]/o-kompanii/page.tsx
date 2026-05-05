@@ -52,7 +52,7 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <main id="main" className="pb-24">
-      <MarketingPageHero kicker={t("heroKicker")} title={site.brandName} description={t("heroDescription")} />
+      <MarketingPageHero kicker={t("heroKicker")} title={site.brandName} description={t("heroDescription")} surface="about" />
 
       <section className="border-b border-[var(--neutral-200)] bg-[var(--background)] py-12 lg:py-16">
         <div className="mx-auto grid max-w-[1280px] gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">

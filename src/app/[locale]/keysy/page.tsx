@@ -26,6 +26,7 @@ export default async function Page({ params }: PageProps) {
         title={t("title")}
         description={t("lead")}
         belowLead={<p className="type-body text-[var(--neutral-600)]">{t("disclaimer")}</p>}
+        heroSurface="cases"
       >
         <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
           <ul className="grid gap-8 md:grid-cols-2">

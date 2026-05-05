@@ -1,21 +1,34 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
+export type MarketingHeroSurface =
+  | "default"
+  | "blog"
+  | "cases"
+  | "contacts"
+  | "faq"
+  | "garantii"
+  | "about";
+
 /** Общая «премиальная рубашка» светлых хабов: паттерн + акцентная линия сверху */
 export function MarketingHeroChrome({
   children,
   className,
   innerClassName,
+  surface = "default",
 }: {
   children: ReactNode;
   className?: string;
   /** контейнер контента (отступы / max-width) */
   innerClassName?: string;
+  /** Визуальный ритм в рамках одной дизайн-системы (фон/градиент) */
+  surface?: MarketingHeroSurface;
 }) {
   return (
     <section
       className={cn(
         "ux-tech-field-light relative overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--surface)] py-10 lg:py-14 dark:border-white/10 dark:bg-[var(--primary-dark)]",
+        surface !== "default" && `ux-hero-surface--${surface}`,
         className,
       )}
     >

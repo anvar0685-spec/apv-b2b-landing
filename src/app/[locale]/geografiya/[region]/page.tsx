@@ -52,7 +52,7 @@ export default function Page({ params }: Props) {
 
   return (
     <CommercialSeoPage
-      heroVariant="atlas"
+      heroVariant="vertical"
       hubSteps={HUB_STEPS_GEO}
       editorialParagraphs={editorial}
       crumbs={[

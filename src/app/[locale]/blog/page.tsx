@@ -68,6 +68,7 @@ export default async function BlogIndexPage({ params, searchParams }: PageProps)
         kicker={t("kicker")}
         title={t("title")}
         description={t("lead", { pageSize: BLOG_PAGE_SIZE })}
+        heroSurface="blog"
       >
         <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
           <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

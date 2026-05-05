@@ -38,7 +38,7 @@ export default function Page({ params }: Props) {
 
   return (
     <CommercialSeoPage
-      heroVariant="vertical"
+      heroVariant="atlas"
       hubSteps={HUB_STEPS_PLATFORM}
       showComparisonStrip
       editorialParagraphs={editorial.paragraphs}

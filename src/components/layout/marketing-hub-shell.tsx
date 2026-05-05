@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { MarketingHeroChrome } from "@/components/marketing/marketing-hero-chrome";
+import { MarketingHeroChrome, type MarketingHeroSurface } from "@/components/marketing/marketing-hero-chrome";
 import { SectionDivider } from "@/components/marketing/section-divider";
 import { cn } from "@/lib/utils";
 
@@ -13,6 +13,8 @@ type Props = {
   bodyWrapperClassName?: string;
   /** Доп. блок под лидом (дисклеймеры и т.п.) */
   belowLead?: ReactNode;
+  /** Разный фокус фона hero при едином стиле */
+  heroSurface?: MarketingHeroSurface;
 };
 
 export function MarketingHubShell({
@@ -24,10 +26,11 @@ export function MarketingHubShell({
   showDivider = true,
   bodyWrapperClassName,
   belowLead,
+  heroSurface = "default",
 }: Props) {
   return (
     <>
-      <MarketingHeroChrome innerClassName={heroContainerClass}>
+      <MarketingHeroChrome innerClassName={heroContainerClass} surface={heroSurface}>
         <div className="min-w-0 max-w-3xl">
           <p className="type-kicker">{kicker}</p>
           <h1 className="font-display mt-3 max-w-4xl text-balance text-3xl font-bold tracking-[-0.035em] text-[var(--primary)] dark:text-white md:text-[2.625rem] md:leading-[1.12]">

@@ -27,6 +27,7 @@ export default function Page() {
         kicker="SLA"
         title="Гарантии и уровень сервиса"
         description="Коммерческие и операционные обязательства фиксируются в договоре и приложении SLA. Ниже — рамочные принципы; числовые целевые значения согласуются под каждый проект."
+        surface="garantii"
       />
 
       <section className="mx-auto max-w-[1280px] px-4 py-12 sm:px-6 lg:px-8 lg:py-16">

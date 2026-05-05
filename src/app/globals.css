@@ -204,6 +204,94 @@ body {
     z-index: 1;
   }
 
+  /** Варианты светлого hero в одной системе токенов — разный фокус градиента/сетки */
+  .ux-hero-surface--blog.ux-tech-field-light::before {
+    opacity: 0.44;
+    background-image:
+      radial-gradient(circle at 90% 12%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 50%),
+      radial-gradient(circle at 10% 85%, color-mix(in srgb, var(--primary) 12%, transparent), transparent 58%),
+      linear-gradient(122deg, transparent 0%, color-mix(in srgb, var(--accent) 9%, transparent) 48%, transparent 76%);
+  }
+
+  .ux-hero-surface--cases.ux-tech-field-light::before {
+    opacity: 0.5;
+    background-image:
+      radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 52%),
+      radial-gradient(circle at 78% 72%, color-mix(in srgb, var(--primary) 14%, transparent), transparent 48%),
+      linear-gradient(96deg, transparent 10%, color-mix(in srgb, var(--accent) 8%, transparent) 52%, transparent 82%);
+  }
+
+  .ux-hero-surface--contacts.ux-tech-field-light::before {
+    opacity: 0.36;
+    background-image:
+      radial-gradient(circle at 50% -8%, color-mix(in srgb, var(--primary) 16%, transparent), transparent 55%),
+      radial-gradient(circle at 95% 92%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 45%),
+      linear-gradient(108deg, transparent 0%, color-mix(in srgb, var(--neutral-500) 5%, transparent) 40%, transparent 70%);
+  }
+
+  .ux-hero-surface--faq.ux-tech-field-light::after {
+    opacity: 0.3;
+    background-size: 22px 22px;
+  }
+
+  .ux-hero-surface--garantii.ux-tech-field-light::before {
+    opacity: 0.5;
+    background-image:
+      radial-gradient(circle at 22% 28%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 50%),
+      radial-gradient(circle at 88% 70%, color-mix(in srgb, var(--primary) 10%, transparent), transparent 52%),
+      linear-gradient(104deg, transparent 0%, color-mix(in srgb, var(--accent) 8%, transparent) 44%, transparent 72%);
+  }
+
+  .ux-hero-surface--about.ux-tech-field-light::before {
+    opacity: 0.46;
+    background-image:
+      radial-gradient(ellipse 90% 70% at 50% -18%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 68%),
+      radial-gradient(circle at 6% 60%, color-mix(in srgb, var(--primary) 8%, transparent), transparent 55%),
+      linear-gradient(112deg, transparent 0%, color-mix(in srgb, var(--accent) 6%, transparent) 50%, transparent 78%);
+  }
+
+  html.dark .ux-hero-surface--blog.ux-tech-field-light::before {
+    opacity: 0.3;
+  }
+
+  html.dark .ux-hero-surface--cases.ux-tech-field-light::before {
+    opacity: 0.32;
+  }
+
+  html.dark .ux-hero-surface--contacts.ux-tech-field-light::before {
+    opacity: 0.28;
+  }
+
+  html.dark .ux-hero-surface--garantii.ux-tech-field-light::before {
+    opacity: 0.36;
+  }
+
+  html.dark .ux-hero-surface--about.ux-tech-field-light::before {
+    opacity: 0.32;
+  }
+
+  /** Conversion: калькулятор — холоднее; заявка — теплее (тот же слой токенов) */
+  .ux-conv-calc.ux-tech-field-light::before {
+    opacity: 0.4;
+    background-image:
+      radial-gradient(circle at 8% 20%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 48%),
+      radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--primary) 12%, transparent), transparent 50%),
+      linear-gradient(100deg, transparent 0%, color-mix(in srgb, var(--accent) 5%, transparent) 46%, transparent 76%);
+  }
+
+  .ux-conv-lead.ux-tech-field-light::before {
+    opacity: 0.48;
+    background-image:
+      radial-gradient(circle at 75% 15%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 52%),
+      radial-gradient(circle at 12% 88%, color-mix(in srgb, var(--primary) 10%, transparent), transparent 55%),
+      linear-gradient(116deg, transparent 0%, color-mix(in srgb, var(--accent) 7%, transparent) 44%, transparent 72%);
+  }
+
+  html.dark .ux-conv-calc.ux-tech-field-light::before,
+  html.dark .ux-conv-lead.ux-tech-field-light::before {
+    opacity: 0.3;
+  }
+
   /** Края ленты trust: мягкое затухание к фону секции */
   .trust-marquee-fade {
     position: relative;

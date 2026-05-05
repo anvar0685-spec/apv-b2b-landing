@@ -26,6 +26,7 @@ export default function Page() {
         kicker="Поддержка"
         title="Частые вопросы"
         description="Сжатые ответы по схеме работы по договору, срокам, замене персонала и прозрачности цены. Детали фиксируются в договоре и КП под ваш объект."
+        surface="faq"
       />
 
       <div className="mx-auto max-w-[880px] px-4 py-14 sm:px-6 lg:px-8 lg:py-20">

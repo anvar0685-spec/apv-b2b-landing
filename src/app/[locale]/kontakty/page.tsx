@@ -47,6 +47,7 @@ export default function Page() {
         kicker="Связь"
         title="Контакты"
         description="Реквизиты и контакты централизованы в конфигурации сайта и переменных окружения. Значения ниже соответствуют текущему окружению публикации."
+        heroSurface="contacts"
       >
         <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
           <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
