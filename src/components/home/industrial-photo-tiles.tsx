@@ -16,8 +16,13 @@ export function IndustrialPhotoTiles({ photos }: { photos: readonly IndustrialPh
   );
 }
 
+function isRemoteImageUrl(src: string) {
+  return src.startsWith("http");
+}
+
 function IndustrialPhotoTile({ photo }: { photo: IndustrialPhoto }) {
   const { src, label } = photo;
+  const unoptimized = isRemoteImageUrl(src);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const open = useCallback(() => {
@@ -41,6 +46,7 @@ function IndustrialPhotoTile({ photo }: { photo: IndustrialPhoto }) {
           src={src}
           alt=""
           fill
+          unoptimized={unoptimized}
           sizes="(max-width: 768px) 50vw, 25vw"
           className="object-cover transition duration-500 motion-reduce:transition-none motion-reduce:group-hover:scale-100 scale-100 group-hover:scale-[1.03] brightness-[0.72] group-hover:brightness-100"
         />
@@ -73,7 +79,14 @@ function IndustrialPhotoTile({ photo }: { photo: IndustrialPhoto }) {
         </div>
         <div className="relative flex max-h-[min(78vh,880px)] items-center justify-center bg-[#060b14] p-4 sm:p-6">
           <div className="relative h-[min(72vh,820px)] w-full max-w-[1100px]">
-            <Image src={src} alt="" fill className="object-contain" sizes="(max-width: 1200px) 92vw, 1100px" />
+            <Image
+              src={src}
+              alt=""
+              fill
+              unoptimized={unoptimized}
+              className="object-contain"
+              sizes="(max-width: 1200px) 92vw, 1100px"
+            />
           </div>
         </div>
       </dialog>

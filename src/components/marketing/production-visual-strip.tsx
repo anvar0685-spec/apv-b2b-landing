@@ -29,6 +29,7 @@ export async function ProductionVisualStrip() {
               src={shot.src}
               alt=""
               fill
+              unoptimized
               sizes="(max-width: 640px) 100vw, 50vw"
               className="object-cover transition duration-300 motion-reduce:transition-none brightness-[0.74] group-hover:brightness-100"
             />

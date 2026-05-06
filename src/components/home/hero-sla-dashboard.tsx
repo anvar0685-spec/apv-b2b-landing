@@ -62,7 +62,7 @@ export function HeroSlaDashboard() {
           </motion.span>
         </div>
 
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           <motion.div
             className="relative rounded-2xl border border-[var(--accent)]/45 bg-white/[0.1] p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.06),0_12px_40px_-12px_rgba(13,148,136,0.35)]"
             initial={reduce ? undefined : { scale: 0.98, opacity: 0.9 }}
