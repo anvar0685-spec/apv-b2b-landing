@@ -13,7 +13,7 @@ export function YandexMoMapWidget() {
   const labelId = useId();
   return (
     <figure className="space-y-2">
-      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] shadow-[var(--card-shadow)] dark:border-white/12 dark:bg-[var(--card)]">
+      <div className="relative min-h-[min(58vh,520px)] w-full overflow-hidden rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] shadow-[var(--card-shadow)] sm:min-h-[min(62vh,600px)] dark:border-white/12 dark:bg-[var(--card)]">
         <iframe
           title="Карта: Москва и Московская область"
           aria-labelledby={labelId}
