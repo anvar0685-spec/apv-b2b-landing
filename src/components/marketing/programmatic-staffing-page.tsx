@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { OperationalDarkHero } from "@/components/layout/operational-dark-hero";
 import { ProgrammaticFlowRail } from "@/components/marketing/programmatic-flow-rail";
 import { ProfessionIcon } from "@/content/profession-icons";
+import { commercialProductionStripFromSlug } from "@/lib/commercial-seo-variant";
+import { ProductionVisualStrip } from "@/components/marketing/production-visual-strip";
 import { pairingVisualVariant, variantClass } from "@/lib/slug-visual-seed";
 import { cn } from "@/lib/utils";
 
@@ -18,10 +20,12 @@ type Props = {
   city: CityDef;
 };
 
-export function ProgrammaticStaffingPage({ profession, city }: Props) {
+export async function ProgrammaticStaffingPage({ profession, city }: Props) {
   const cityName = city.nameRu;
   const roleName = profession.titleRu;
   const priority = isPriorityCross(profession.slug, city.slug);
+  const productionSeed = `${profession.slug}-${city.slug}`;
+  const showProductionStrip = commercialProductionStripFromSlug(productionSeed);
   const longread = getProgrammaticLongreadParagraphs(profession, city);
   const localNarrative = getProgrammaticLocalNarrative(profession.slug, city.slug);
   const v = pairingVisualVariant(profession.slug, city.slug);
@@ -98,13 +102,26 @@ export function ProgrammaticStaffingPage({ profession, city }: Props) {
 
       <div className="relative ux-inner-page-cluster">
         <div className="ux-page-body-subtle pointer-events-none absolute inset-0 -z-10 min-h-full opacity-[0.55] dark:opacity-[0.38]" aria-hidden />
-        <div className="relative mx-auto max-w-[720px] px-4 py-16 sm:px-6 lg:max-w-[760px] lg:py-24 ux-inner-section-canopy">
+        <div
+          className={cn(
+            "relative mx-auto px-4 py-16 sm:px-6 lg:py-24 ux-inner-section-canopy",
+            v === 0 && "max-w-[720px] lg:max-w-[700px]",
+            v === 1 && "max-w-[720px] lg:max-w-[780px]",
+            v === 2 && "max-w-[720px] lg:max-w-[660px]",
+          )}
+        >
           <h2 className="type-headline">{t.h2}</h2>
           <div className="type-editorial-dropcap type-body mt-6 space-y-4">
             {headParas.map((para, i) => (
               <p key={`h-${i}`}>{para}</p>
             ))}
           </div>
+
+          {showProductionStrip ? (
+            <div className="mt-10">
+              <ProductionVisualStrip />
+            </div>
+          ) : null}
 
           <ProgrammaticFlowRail
             variant="mid"

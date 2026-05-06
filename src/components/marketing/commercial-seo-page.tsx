@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import type { Crumb } from "@/components/seo/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { COMMERCIAL_CALLOUT_DISABLED } from "@/content/commercial-editorial";
+import { ProductionVisualStrip } from "@/components/marketing/production-visual-strip";
 
 export type CommercialHeroVariant = "ops" | "atlas" | "vertical";
 
@@ -31,6 +32,8 @@ type Props = {
   showComparisonStrip?: boolean;
   /** CTA под rail на светлых hero (по умолчанию true) */
   showHeroCtas?: boolean;
+  /** Промышленная фото-полоса после редакционного блока */
+  showProductionVisualStrip?: boolean;
 };
 
 export async function CommercialSeoPage({
@@ -48,6 +51,7 @@ export async function CommercialSeoPage({
   showSectionDivider,
   showComparisonStrip = false,
   showHeroCtas = true,
+  showProductionVisualStrip = false,
 }: Props) {
   const t = await getTranslations("commercial");
   const tc = await getTranslations("cta");
@@ -140,6 +144,7 @@ export async function CommercialSeoPage({
           ) : children ? null : (
             <p className="type-body max-w-2xl text-[var(--neutral-700)] dark:text-[var(--neutral-200)]">{emptyBodyFallback}</p>
           )}
+          {showProductionVisualStrip ? <ProductionVisualStrip /> : null}
           {showComparisonStrip ? (
             <CommercialVsStrip
               title={t("vsStripTitle")}

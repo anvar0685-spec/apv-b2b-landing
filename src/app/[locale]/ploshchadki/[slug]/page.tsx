@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
+import {
+  commercialHeroFromSlug,
+  commercialProductionStripFromSlug,
+  commercialSectionDividerFromSlug,
+  commercialVsStripFromSlug,
+} from "@/lib/commercial-seo-variant";
 import { buildPageMetadata, buildServiceJsonLd } from "@/lib/seo";
 import { platformEditorialBundle } from "@/content/commercial-editorial";
 import { PLOSHCHADKI_SLUGS } from "@/lib/site-structure";
@@ -37,8 +43,10 @@ export default function Page({ params }: Props) {
 
   return (
     <CommercialSeoPage
-      heroVariant="atlas"
-      showComparisonStrip
+      heroVariant={commercialHeroFromSlug(def.slug)}
+      showComparisonStrip={commercialVsStripFromSlug(def.slug)}
+      showProductionVisualStrip={commercialProductionStripFromSlug(def.slug)}
+      showSectionDivider={commercialSectionDividerFromSlug(def.slug)}
       editorialParagraphs={editorial.paragraphs}
       editorialCalloutParagraphIndex={editorial.calloutParagraphIndex}
       crumbs={[

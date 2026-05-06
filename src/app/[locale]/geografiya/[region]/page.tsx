@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
+import {
+  commercialHeroFromSlug,
+  commercialProductionStripFromSlug,
+  commercialSectionDividerFromSlug,
+  commercialVsStripFromSlug,
+} from "@/lib/commercial-seo-variant";
 import { buildPageMetadata, buildWebPageJsonLd } from "@/lib/seo";
 import { geoRegionEditorial } from "@/content/commercial-editorial";
 import {
@@ -51,7 +57,10 @@ export default function Page({ params }: Props) {
 
   return (
     <CommercialSeoPage
-      heroVariant="vertical"
+      heroVariant={commercialHeroFromSlug(region)}
+      showComparisonStrip={commercialVsStripFromSlug(region)}
+      showProductionVisualStrip={commercialProductionStripFromSlug(region)}
+      showSectionDivider={commercialSectionDividerFromSlug(region)}
       editorialParagraphs={editorial}
       crumbs={[
         { href: "/", label: "Главная" },
