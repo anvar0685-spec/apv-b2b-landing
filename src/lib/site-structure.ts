@@ -183,7 +183,7 @@ export function geoLabel(slug: string): LocalizedLabel {
   return GEO_LABELS[slug] ?? { ru: slug, en: slug };
 }
 
-/** Пары для /geografiya/[region]/[city] */
+/** Пары регион/город для локальных programmatic-копирайтов (не публичные URL). */
 export function geoStaticParams(): { region: GeoRegionSlug; city: string }[] {
   const msk = GEO_MOSCOW_DISTRICTS.map((city) => ({ region: "moskva" as const, city }));
   const mo = GEO_MO_CITIES.map((city) => ({ region: "moskovskaya-oblast" as const, city }));
@@ -191,10 +191,8 @@ export function geoStaticParams(): { region: GeoRegionSlug; city: string }[] {
 }
 
 export function allMultipageSeoPaths(): string[] {
-  const paths = ["/otrasli", "/ploshchadki", "/geografiya"];
+  const paths: string[] = ["/otrasli", "/ploshchadki"];
   for (const o of OTRASLI_SLUGS) paths.push(`/otrasli/${o.slug}`);
   for (const p of PLOSHCHADKI_SLUGS) paths.push(`/ploshchadki/${p.slug}`);
-  for (const r of GEO_REGION_SLUGS) paths.push(`/geografiya/${r}`);
-  for (const { region, city } of geoStaticParams()) paths.push(`/geografiya/${region}/${city}`);
   return paths;
 }

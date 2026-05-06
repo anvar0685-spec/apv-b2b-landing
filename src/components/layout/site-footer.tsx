@@ -45,11 +45,6 @@ export async function SiteFooter() {
               </Link>
             </li>
             <li>
-              <Link className="flex min-h-11 items-center py-2 hover:text-white" href="/geografiya">
-                {tn("geo")}
-              </Link>
-            </li>
-            <li>
               <Link className="flex min-h-11 items-center py-2 hover:text-white" href="/blog">
                 {tn("blog")}
               </Link>

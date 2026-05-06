@@ -24,16 +24,21 @@ export async function ProductionVisualStrip() {
       </div>
       <div className="grid gap-0 sm:grid-cols-2">
         {SHOTS.map((shot) => (
-          <div key={shot.key} className="relative aspect-[16/10] sm:aspect-[5/3]">
+          <div key={shot.key} className="group relative aspect-[16/10] overflow-hidden sm:aspect-[5/3]">
             <Image
               src={shot.src}
               alt=""
               fill
               sizes="(max-width: 640px) 100vw, 50vw"
-              className="object-cover"
+              className="object-cover transition duration-300 motion-reduce:transition-none brightness-[0.74] group-hover:brightness-100"
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 to-transparent" aria-hidden />
-            <p className="absolute inset-x-0 bottom-0 px-4 pb-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/95">{t(shot.key)}</p>
+            <div
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--primary-dark)]/70 via-[var(--primary-dark)]/20 to-[var(--primary-dark)]/40 transition-opacity duration-300 group-hover:opacity-20 motion-reduce:transition-none motion-reduce:group-hover:opacity-100"
+              aria-hidden
+            />
+            <p className="absolute inset-x-0 bottom-0 z-[1] px-4 pb-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/95 drop-shadow">
+              {t(shot.key)}
+            </p>
           </div>
         ))}
       </div>

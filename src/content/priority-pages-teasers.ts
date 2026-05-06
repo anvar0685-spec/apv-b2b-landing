@@ -50,14 +50,14 @@ export const PRIORITY_PAGE_TEASERS: readonly PageTeaser[] = [
     en: { title: "WB sites", teaser: "Staffing aligned with large-site requirements." },
   },
   {
-    path: "/geografiya/moskva",
-    ru: { title: "Москва", teaser: "Округа и логистика выхода на объект." },
-    en: { title: "Moscow", teaser: "Districts and mobilisation logistics." },
+    path: "/personal/gruzchiki/moskva",
+    ru: { title: "Грузчики в Москве", teaser: "Выход бригад и резерв под столицу и ключевые склады." },
+    en: { title: "Laborers in Moscow", teaser: "Teams and reserve for the capital and major DCs." },
   },
   {
-    path: "/geografiya/moskovskaya-oblast/khimki",
-    ru: { title: "Химки", teaser: "Складской кластер и время реакции бригад." },
-    en: { title: "Khimki", teaser: "Warehouse cluster and crew response time." },
+    path: "/personal/komplektovschiki/himki",
+    ru: { title: "Комплектовщики, Химки", teaser: "Персонал под кластер склада и время реакции бригад." },
+    en: { title: "Pickers, Khimki", teaser: "Staff for the warehouse cluster and crew response." },
   },
   {
     path: "/kalkulyator",

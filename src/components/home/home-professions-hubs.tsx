@@ -53,7 +53,7 @@ export async function HomeProfessionsHubs() {
         <p className="mx-auto mt-4 max-w-2xl text-center text-[var(--neutral-700)] sm:mx-0 sm:text-left">{t("industriesBlockLead")}</p>
         <div className="mt-10">
           <ListingGridShell className="max-w-full px-0 py-6 sm:py-8 lg:py-10">
-            <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
+            <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
                 <div className={hubHomeClusterCardClass}>
                   <h3 className="font-display text-lg font-semibold text-[var(--primary)]">{t("industriesTitle")}</h3>
                   <p className="mt-2 text-base leading-relaxed text-[var(--neutral-700)]">{t("industriesDesc")}</p>
@@ -87,32 +87,6 @@ export async function HomeProfessionsHubs() {
                   <div className="mt-5">
                     <Button asChild variant="secondary" size="sm">
                       <Link href="/ploshchadki">{t("allPlatforms")}</Link>
-                    </Button>
-                  </div>
-                </div>
-                <div className={hubHomeClusterCardClass}>
-                  <h3 className="font-display text-lg font-semibold text-[var(--primary)]">{t("geoTitle")}</h3>
-                  <p className="mt-2 text-base leading-relaxed text-[var(--neutral-700)]">{t("geoDesc")}</p>
-                  <ul className="mt-4 space-y-2 text-sm">
-                    <li>
-                      <Link className="font-medium text-[var(--accent)] underline-offset-4 hover:underline" href="/geografiya/moskva">
-                        {t("geoMoscow")}
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="font-medium text-[var(--accent)] underline-offset-4 hover:underline" href="/geografiya/moskovskaya-oblast/khimki">
-                        {t("geoKhimki")}
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="font-medium text-[var(--accent)] underline-offset-4 hover:underline" href="/geografiya/moskovskaya-oblast/podolsk">
-                        {t("geoPodolsk")}
-                      </Link>
-                    </li>
-                  </ul>
-                  <div className="mt-5">
-                    <Button asChild variant="secondary" size="sm">
-                      <Link href="/geografiya">{t("geoMap")}</Link>
                     </Button>
                   </div>
                 </div>

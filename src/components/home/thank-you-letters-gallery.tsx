@@ -9,6 +9,10 @@ import type { ThankYouLetterItem } from "@/content/thank-you-letters";
 import { THANK_YOU_LETTERS } from "@/content/thank-you-letters";
 import { cn } from "@/lib/utils";
 
+function isRasterPublicImage(src: string) {
+  return !/\.svg($|[?#])/i.test(src);
+}
+
 type Props = {
   items?: ThankYouLetterItem[];
 };
@@ -126,18 +130,38 @@ export function ThankYouLettersGallery({ items = THANK_YOU_LETTERS }: Props) {
                 <ChevronLeft className="h-5 w-5" aria-hidden />
               </button>
 
-              <div className="relative min-h-[min(52vw,340px)] w-full overflow-hidden rounded-2xl border border-[color-mix(in_srgb,var(--neutral-200)_90%,var(--accent))] bg-[color-mix(in_srgb,var(--neutral-200)_22%,var(--surface))] dark:border-white/12 dark:bg-white/[0.06] sm:min-h-[300px] md:min-h-[320px]">
-                <Image
-                  src={active.imageSrc}
-                  alt={active.alt}
-                  fill
-                  sizes="(max-width: 720px) 92vw, 640px"
-                  className="object-cover object-top"
-                  priority={idx === 0}
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-90" aria-hidden />
+              <div className="group relative min-h-[min(52vw,340px)] w-full overflow-hidden rounded-2xl border border-[color-mix(in_srgb,var(--neutral-200)_90%,var(--accent))] bg-[color-mix(in_srgb,var(--neutral-200)_22%,var(--surface))] dark:border-white/12 dark:bg-white/[0.06] sm:min-h-[300px] md:min-h-[320px]">
+                {isRasterPublicImage(active.imageSrc) ? (
+                  <Image
+                    src={active.imageSrc}
+                    alt={active.alt}
+                    fill
+                    sizes="(max-width: 720px) 92vw, 640px"
+                    className="object-cover object-top brightness-[0.88] transition-[filter] duration-300 group-hover:brightness-100"
+                    priority={idx === 0}
+                  />
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element -- локальные SVG из public; next/image с fill для svg часто даёт пустой кадр
+                  <img
+                    src={active.imageSrc}
+                    alt={active.alt}
+                    className="absolute inset-0 h-full w-full object-cover object-top brightness-[0.88] transition-[filter] duration-300 group-hover:brightness-100"
+                  />
+                )}
                 <div
-                  className="pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-multiply dark:opacity-[0.2]"
+                  className={cn(
+                    "pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent transition-opacity duration-300 group-hover:opacity-60",
+                    isRasterPublicImage(active.imageSrc) ? "opacity-90" : "opacity-40 group-hover:opacity-25",
+                  )}
+                  aria-hidden
+                />
+                <div
+                  className={cn(
+                    "pointer-events-none absolute inset-0 mix-blend-multiply transition-opacity duration-300",
+                    isRasterPublicImage(active.imageSrc)
+                      ? "opacity-[0.12] dark:opacity-[0.2]"
+                      : "opacity-0",
+                  )}
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.5'/%3E%3C/svg%3E")`,
                   }}
@@ -251,15 +275,24 @@ export function ThankYouLettersGallery({ items = THANK_YOU_LETTERS }: Props) {
         {active ? (
           <div className="flex max-h-[min(84vh,940px)] w-full items-center justify-center overflow-auto bg-[#060b14] p-3 sm:p-6">
             <div className="relative inline-block max-h-full max-w-full">
-              <Image
-                src={active.imageSrc}
-                alt={active.alt}
-                width={1400}
-                height={1800}
-                className="max-h-[min(78vh,900px)] w-auto max-w-full object-contain shadow-[0_24px_80px_-20px_rgba(0,0,0,0.65)]"
-                sizes="(max-width: 1180px) 96vw, 1180px"
-                priority
-              />
+              {isRasterPublicImage(active.imageSrc) ? (
+                <Image
+                  src={active.imageSrc}
+                  alt={active.alt}
+                  width={1400}
+                  height={1800}
+                  className="max-h-[min(78vh,900px)] w-auto max-w-full object-contain shadow-[0_24px_80px_-20px_rgba(0,0,0,0.65)]"
+                  sizes="(max-width: 1180px) 96vw, 1180px"
+                  priority
+                />
+              ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={active.imageSrc}
+                  alt={active.alt}
+                  className="max-h-[min(78vh,900px)] w-auto max-w-full object-contain shadow-[0_24px_80px_-20px_rgba(0,0,0,0.65)]"
+                />
+              )}
             </div>
           </div>
         ) : null}

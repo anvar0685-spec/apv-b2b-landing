@@ -15,7 +15,6 @@ export async function SiteHeader() {
         { href: "/personal", label: t("personal") },
         { href: "/otrasli", label: t("industries") },
         { href: "/ploshchadki", label: t("platforms") },
-        { href: "/geografiya", label: t("geo") },
       ],
     },
     {

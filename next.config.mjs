@@ -22,6 +22,16 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: "/ru/geografiya",
+        destination: "/ru/personal",
+        permanent: true,
+      },
+      {
+        source: "/ru/geografiya/:path*",
+        destination: "/ru/personal",
+        permanent: true,
+      },
+      {
         source: "/uslugi/autstaffing",
         destination: "/blog/autsorsing-i-autstaffing-v-chem-raznitsa",
         permanent: true,

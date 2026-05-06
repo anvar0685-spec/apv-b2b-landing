@@ -16,9 +16,9 @@ function main() {
   lines.push(`- Slug городов в персонале: ${CITIES.map((c) => c.slug).join(", ")}.`);
   lines.push(`- Отрасли /otrasli/* (${OTRASLI_SLUGS.length}): ${OTRASLI_SLUGS.map((o) => o.slug).join(", ")}.`);
   lines.push(`- Площадки /ploshchadki/* (${PLOSHCHADKI_SLUGS.length}): ${PLOSHCHADKI_SLUGS.map((p) => p.slug).join(", ")}.`);
-  const geo = allMultipageSeoPaths();
+  const hubs = allMultipageSeoPaths();
   lines.push(
-    `- География и отрасли (пути /geografiya/..., /otrasli/..., /ploshchadki/...): всего ${geo.length} URL; примеры: ${geo.slice(0, 24).join(", ")}${geo.length > 24 ? " …" : ""}.`,
+    `- Хабы /otrasli/* и /ploshchadki/* в sitemap: ${hubs.length} путей; примеры: ${hubs.slice(0, 20).join(", ")}${hubs.length > 20 ? " …" : ""}.`,
   );
 
   const outPath = join(process.cwd(), "src/lib/site-assistant-knowledge.generated.ts");

@@ -24,7 +24,7 @@
 
 **Репозиторий:** только каталог **`apv-b2b-landing/`** (git `main`). Родительская папка «АПВ - СИСТЕМА» в git не трекается.
 
-**2026-05-06 (индустриальный визуал + география):** главная — **`IndustrialLogisticsBand`** (фото Unsplash + схема цикла смены), компактная карусель **`ThankYouLettersGallery`** (стрелки в узком окне), фото-фон в **`HeroSection`**. **`/geografiya`** — **`MoGeoCoverage`**: встроенный виджет Яндекс.Карт (iframe, без API-ключа) + SVG-схема МО. В репозитории нет папки Stavsonar — использован публичный embed; опционально **`NEXT_PUBLIC_YANDEX_MAPS_API_KEY`** в `.env.example` для будущего JS API карт.
+**2026-05-06 (фото/благодарности + без раздела география):** главная — **`IndustrialLogisticsBand`**: сетка из **четырёх** разных кадров Unsplash; превью приглушены под палитру сайта (**brightness + градиент**), при наведении и в лайтбоксе — «как оригинал». **`ThankYouLettersGallery`**: демо-SVG из **`public/thank-you-letters/`** рендерятся через **`<img>`** (fix пустого кадра у `next/image` + fill); лёгкое затемнение в карусели, полная яркость в модалке. Раздел **`/geografiya`** убран из навигации и билда; старые URL **301 → `/ru/personal`** (`next.config.mjs`). Удалены **`MoGeoCoverage`**, **`YandexMoMapWidget`**, **`MoDistrictMap`** и роуты приложения под географию.
 
 **Последнее крупное обновление трекера (2026-05-03):** **UI без повторяющихся боковых «дашборд-карточек»** — удалены компактные tech-widget’ы с внутренних hero/hub; вместо них **фоновое поле** `ux-tech-field-light` (сетка + градиенты) на светлых секциях и **полноширинные рельсы** `ProgrammaticFlowRail` на programmatic (середина лонгрида + компактный футер ссылок). Страницы **`/kalkulyator`** и **`/zayavka`** обёрнуты в **`ConversionPageShell`** (тот же визуальный контракт + дисклеймеры в `ru.json`). Каталог **`/uslugi`**: флагман без `Card` — вертикальный акцент и типографика. Зафиксировано здесь по запросу заказчика (видимая запись в трекере).
 
@@ -40,7 +40,7 @@
 |--------|--------|
 | Услуги | Страницы `/uslugi/*`: `autsorsing`, `upravlyaemyy-podryad`, `migracionnyy-uchet`, `podbor-personala`, `postoyannyy-personal`, `nochnye-smeny`; контент в `src/content/service-pages/*`, `getServicePage`, `ServicePageFull`, JSON-LD Service+FAQ. **`autsorsing`**: расширенный текст + SEO-поля в data, мета и ключевые слова. Редирект `/uslugi/autstaffing` → статья блога про отличие моделей. |
 | Персонал | Хаб `/personal`, programmatic `/personal/[profession]/[city]` **на RU**, `profession-icons.tsx`; приоритетные 30 — расширенный текст; **остальные пары** — **`getProgrammaticLocalNarrative`** + городские абзацы **`programmatic-city-local.ts`** в **`ProgrammaticStaffingPage`**. |
-| Отрасли / площадки / гео | `CommercialSeoPage` + **`editorialParagraphs`** из `commercial-editorial.ts`; **`MoDistrictMap`** на `/geografiya`. |
+| Отрасли / площадки | `CommercialSeoPage` + **`editorialParagraphs`** из `commercial-editorial.ts`. Отдельного хаба «География» в проде нет — география покрыта текстами и **`/personal/{профессия}/{город}`**. |
 | Блог | **40** статей в **`blog-published.ts`**, хаб **`/blog`** и категории; **`BlogPosting` JSON-LD**; карточки через **`PremiumBlogCard`** (интерфейс RU). Контент: лонгриды под аутсорсинг складских смен (закупка, SLA, ТБ, роли, TCO, миграция, compliance); даты публикаций апрель–июнь 2026 (по данным в коде). |
 | Шапка | `site-header-client.tsx`: grid, навигация, drawer. |
 | Футер | **`site-footer.tsx`**: бренд **АПВ - СИСТЕМА**, полное наименование **ИП Махмадов**, ИНН/ОГРНИП, юр. адрес (Люберцы). |
