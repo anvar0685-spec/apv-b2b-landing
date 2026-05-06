@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,17 @@ export function HeroSection() {
       id="hero"
       className="grain-dark relative overflow-hidden bg-gradient-to-b from-[var(--hero-operational-top)] to-[var(--hero-operational-bottom)] text-white"
     >
+      <div className="hero-backdrop" aria-hidden>
+        <Image
+          src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2400&q=78"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-[0.22]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--hero-operational-top)]/93 via-[var(--hero-operational-bottom)]/88 to-[var(--hero-operational-bottom)]" />
+      </div>
       <div className="hero-ambient pointer-events-none absolute inset-0 opacity-80" />
       <div className="ux-pattern-hero pointer-events-none absolute inset-0" aria-hidden />
       <div className="relative mx-auto max-w-[1440px] px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-28 lg:pt-24">

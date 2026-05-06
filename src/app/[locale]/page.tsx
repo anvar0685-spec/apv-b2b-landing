@@ -6,6 +6,7 @@ import { HomePersonas } from "@/components/home/home-personas";
 import { StatsCounters } from "@/components/home/stats-counters";
 import { HomeSections } from "@/components/home/home-sections";
 import { PainSolutionBento } from "@/components/home/pain-solution-bento";
+import { IndustrialLogisticsBand } from "@/components/home/industrial-logistics-band";
 import { FullBleedOperations } from "@/components/home/full-bleed-operations";
 import { SectionDivider } from "@/components/marketing/section-divider";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -93,6 +94,7 @@ export default async function HomePage() {
       <TrustMarquee kicker={t("trust")} lead={t("trustLead")} />
       <HomePersonas />
       <PainSolutionBento />
+      <IndustrialLogisticsBand />
       <SectionDivider className="py-6 sm:py-8" />
       <StatsCounters />
       <FullBleedOperations />

@@ -13,6 +13,11 @@ const nextConfig = {
   trailingSlash: false,
   poweredByHeader: false,
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
+    ],
+  },
   /** Старые slug блога → актуальные 10 материалов (мастер-док, 2026-04). */
   async redirects() {
     return [
