@@ -29,8 +29,8 @@
 
 ## Закрытие
 
-- [x] `npm run build` зелёный.
-- [x] Git commit + push `main`.
-- [x] Деплой на VPS по `06-deploy-vps-pm2.mdc`.
+- [x] `npm run build` зелёный (локально и на VPS).
+- [x] Git commit `f423ae0` + push `main`.
+- [x] Деплой на VPS: `git pull`, `npm ci`, `build:vps`, `pm2 reload apv-b2b-landing`; `curl -sI http://127.0.0.1:3000/` → **307** на `/ru` (ожидаемо).
 
 **Итог 100% по коду:** выполнено. **Итог 100% по бизнес/прод:** после выставления env и смоук-тестов на сервере (чеклист в `PROGRESS.md`).
