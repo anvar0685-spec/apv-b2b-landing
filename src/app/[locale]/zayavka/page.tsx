@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
-import { LeadMultistepForm } from "@/components/forms/lead-multistep-form";
 import { ConversionPageShell } from "@/components/layout/conversion-page-shell";
 import { buildPageMetadata } from "@/lib/seo";
+
+const LeadMultistepForm = dynamic(
+  () => import("@/components/forms/lead-multistep-form").then((m) => m.LeadMultistepForm),
+  { ssr: true },
+);
 
 type PageProps = { params: { locale: string } };
 

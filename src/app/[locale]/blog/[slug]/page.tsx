@@ -64,7 +64,7 @@ export default function BlogArticlePage({ params }: Props) {
   const excerpt = post.excerpt;
   const author = post.authorRu;
   const brand = site.brandName.replace(/_/g, " ");
-  const canonical = absUrl(`/blog/${post.slug}`);
+  const canonical = absUrl(`/blog/${post.slug}`, params.locale);
 
   const articleJson = {
     "@context": "https://schema.org",
@@ -72,8 +72,8 @@ export default function BlogArticlePage({ params }: Props) {
     headline: title,
     description: excerpt,
     datePublished: post.publishedAt,
-    author: { "@type": "Organization", name: brand, url: site.url.replace(/\/$/, "") },
-    publisher: { "@type": "Organization", name: brand, url: site.url.replace(/\/$/, "") },
+    author: { "@type": "Organization", name: brand, url: absUrl("/", params.locale) },
+    publisher: { "@type": "Organization", name: brand, url: absUrl("/", params.locale) },
     inLanguage: "ru-RU",
     mainEntityOfPage: canonical,
   };

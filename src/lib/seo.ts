@@ -22,7 +22,7 @@ export function buildServiceJsonLd(input: {
   name: string;
   description: string;
 }) {
-  const { pathname, name, description } = input;
+  const { locale, pathname, name, description } = input;
   const brand = site.brandName.replace(/_/g, " ");
   return {
     "@context": "https://schema.org",
@@ -30,11 +30,11 @@ export function buildServiceJsonLd(input: {
     serviceType: "Аутсорсинг складского персонала",
     name,
     description,
-    url: absUrl(pathname),
+    url: absUrl(pathname, locale),
     provider: {
       "@type": "Organization",
       name: brand,
-      url: site.url.replace(/\/$/, ""),
+      url: absUrl("/", locale),
     },
     areaServed: {
       "@type": "AdministrativeArea",
@@ -49,22 +49,28 @@ export function buildWebPageJsonLd(input: {
   name: string;
   description: string;
 }) {
-  const { pathname, name, description } = input;
+  const { locale, pathname, name, description } = input;
   return {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name,
     description,
-    url: absUrl(pathname),
+    url: absUrl(pathname, locale),
     inLanguage: "ru-RU",
   };
 }
 
-export function buildPageMetadata({ pathname, title, description, keywords }: PageSeoInput): Metadata {
-  const canonical = absUrl(pathname);
+export function buildPageMetadata({
+  locale,
+  pathname,
+  title,
+  description,
+  keywords,
+}: PageSeoInput): Metadata {
+  const canonical = absUrl(pathname, locale);
   const brand = site.brandName.replace(/_/g, " ");
   const fullTitle = title.includes(brand) ? title : `${title} | ${brand}`;
-  const ogImage = absUrl("/opengraph-image");
+  const ogImage = absUrl("/opengraph-image", locale);
 
   return {
     title: fullTitle,

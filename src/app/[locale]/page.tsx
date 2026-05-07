@@ -11,40 +11,29 @@ import { FullBleedOperations } from "@/components/home/full-bleed-operations";
 import { SectionDivider } from "@/components/marketing/section-divider";
 import { JsonLd } from "@/components/seo/json-ld";
 import { site } from "@/config/site";
+import { absUrl } from "@/lib/abs-url";
 import { buildPageMetadata } from "@/lib/seo";
+import { getLocale } from "next-intl/server";
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const { locale } = params;
   const t = await getTranslations({ locale, namespace: "home" });
-  const base = buildPageMetadata({
+  return buildPageMetadata({
     locale,
     pathname: "/",
     title: t("heroTitle"),
     description: t("heroSubtitle"),
   });
-  const siteBase = site.url.replace(/\/$/, "");
-  const ogPath = "/opengraph-image";
-  const ogTitle = typeof base.openGraph?.title === "string" ? base.openGraph.title : t("heroTitle");
-  return {
-    ...base,
-    openGraph: {
-      ...base.openGraph,
-      images: [{ url: `${siteBase}${ogPath}`, width: 1200, height: 630, alt: ogTitle }],
-    },
-    twitter: {
-      ...base.twitter,
-      images: [`${siteBase}${ogPath}`],
-    },
-  };
 }
 
 export default async function HomePage() {
+  const locale = await getLocale();
   const t = await getTranslations("home");
-  const base = site.url.replace(/\/$/, "");
+  const homeUrl = absUrl("/", locale);
   const orgDescription =
     "Аутсорсинг персонала на склады Москвы и МО с 2023 года: смены, SLA, прозрачные ставки, документы и требования площадки. Более 100 сотрудников в штате.";
 
-  const orgId = `${base}#organization`;
+  const orgId = `${homeUrl}#organization`;
 
   const orgJsonLd = {
     "@context": "https://schema.org",
@@ -52,7 +41,7 @@ export default async function HomePage() {
     "@id": orgId,
     name: site.brandName,
     legalName: site.legalEntityFullName,
-    url: base,
+    url: homeUrl,
     description: orgDescription,
     foundingDate: "2023",
     identifier: [
@@ -81,7 +70,7 @@ export default async function HomePage() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: site.brandName,
-    url: base,
+    url: homeUrl,
     inLanguage: "ru-RU",
     publisher: { "@id": orgId },
   };

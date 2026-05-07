@@ -10,7 +10,9 @@ import { allMultipageSeoPaths, OTRASLI_SLUGS, PLOSHCHADKI_SLUGS } from "../src/l
 
 function main() {
   const lines: string[] = [];
-  lines.push("Маршруты programmatic и SEO (в Markdown ссылки без префикса локали — как на сайте):");
+  lines.push(
+    "Маршруты programmatic и SEO. Публичные URL с префиксом локали /ru (localePrefix: always); в Markdown для чата допускаются ссылки вида /ru/...",
+  );
   lines.push("- Хаб персонала: /personal; варианты /personal/{профессия} и /personal/{профессия}/{город}.");
   lines.push(`- Slug профессий: ${PROFESSIONS.map((p) => p.slug).join(", ")}.`);
   lines.push(`- Slug городов в персонале: ${CITIES.map((c) => c.slug).join(", ")}.`);

@@ -1,6 +1,7 @@
 import type { BlogArticle } from "@/content/blog-published";
 import { PUBLISHED_BLOG_ARTICLES } from "@/content/blog-published";
 import { absUrl } from "@/lib/abs-url";
+import { routing } from "@/i18n/routing";
 
 /** Карточка списка (блог-хаб); полная статья — `blog-published.ts`. */
 export type BlogStub = Pick<BlogArticle, "slug" | "title" | "excerpt" | "category" | "publishedAt" | "readingTime"> & {
@@ -46,7 +47,7 @@ export function blogCardFields(b: BlogStub) {
 }
 
 /** ItemList для страницы списка: `name` совпадает с карточкой (русский заголовок), `inLanguage` ru-RU. */
-export function blogListingItemListJsonLd(posts: BlogStub[]) {
+export function blogListingItemListJsonLd(posts: BlogStub[], locale: string = routing.defaultLocale) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -58,7 +59,7 @@ export function blogListingItemListJsonLd(posts: BlogStub[]) {
         "@type": "ListItem",
         position: i + 1,
         name: title,
-        url: absUrl(`/blog/${p.slug}`),
+        url: absUrl(`/blog/${p.slug}`, locale),
       };
     }),
   };

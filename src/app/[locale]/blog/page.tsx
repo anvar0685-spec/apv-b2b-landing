@@ -60,7 +60,7 @@ export default async function BlogIndexPage({ params, searchParams }: PageProps)
   const parsed = raw ? Number.parseInt(raw, 10) : 1;
   const page = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
   const { posts, totalPages, page: current } = paginatePosts(page);
-  const listLd = blogListingItemListJsonLd(posts);
+  const listLd = blogListingItemListJsonLd(posts, params.locale);
 
   return (
     <main id="main" className="pb-24">

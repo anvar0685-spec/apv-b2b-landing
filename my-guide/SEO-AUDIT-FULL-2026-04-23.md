@@ -32,11 +32,9 @@
 
 - Есть постоянные редиректы со старых slug блога и услуги `/uslugi/autstaffing` на статью — **плюс** для сохранения ссылочного веса и единого каноникала.
 
-### 1.3 Локаль (`next-intl`)
+### 1.3 Локаль (`next-intl`) — обновление 2026-05-07
 
-- `localePrefix: "as-needed"`, единственная локаль `ru` — публичные URL **без** префикса `/ru`, что согласовано с `absUrl()` и canonical в `buildPageMetadata`.
-
----
+- **`localePrefix: "always"`** (из‑за `output: standalone`, см. `src/i18n/routing.ts`): публичные страницы открываются как **`/ru/...`**. **`absUrl()`** и **canonical / sitemap / JSON-LD** приведены к тем же путям (префикс `/ru` в абсолютных URL).
 
 ## 2. Canonical, метаданные, Open Graph
 

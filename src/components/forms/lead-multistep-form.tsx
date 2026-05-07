@@ -3,7 +3,7 @@
 import { useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useForm, type FieldPath } from "react-hook-form";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -50,6 +50,7 @@ function applyFieldErrors(
 
 export function LeadMultistepForm() {
   const t = useTranslations("leadForm");
+  const locale = useLocale();
   const sp = useSearchParams();
   const [step, setStep] = useState(0);
   const [doneId, setDoneId] = useState<string | null>(null);
@@ -223,8 +224,8 @@ export function LeadMultistepForm() {
       "@type": "WebPage",
       name: t("thanksJsonLdName"),
       description: t("thanksJsonLdDesc"),
-      url: absUrl("/zayavka"),
-      isPartOf: { "@type": "WebSite", name: site.brandName, url: site.url.replace(/\/$/, "") },
+      url: absUrl("/zayavka", locale),
+      isPartOf: { "@type": "WebSite", name: site.brandName, url: absUrl("/", locale) },
     };
 
     return (

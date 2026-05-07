@@ -2,7 +2,9 @@ import { PROFESSIONS } from "@/content/professions-cities";
 import type { ServicePageModel } from "@/content/service-page-data";
 import { ProfessionIcon } from "@/content/profession-icons";
 import { site } from "@/config/site";
+import { absUrl } from "@/lib/abs-url";
 import { JsonLd } from "@/components/seo/json-ld";
+import { getLocale } from "next-intl/server";
 import { OperationalDarkHero } from "@/components/layout/operational-dark-hero";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -48,8 +50,8 @@ const t = {
   areaServed: "Москва и Московская область",
 };
 
-export function ServicePageFull({ model, scrollStory = false }: Props) {
-  const base = site.url.replace(/\/$/, "");
+export async function ServicePageFull({ model, scrollStory = false }: Props) {
+  const locale = await getLocale();
   const path = `/uslugi/${model.slug}`;
   const motion = scrollStory;
   const decorV = slugVisualVariant(model.slug);
@@ -60,10 +62,11 @@ export function ServicePageFull({ model, scrollStory = false }: Props) {
     "@type": "Service",
     name: model.h1,
     description: model.metaDescription ?? model.subtitle,
+    url: absUrl(path, locale),
     provider: {
       "@type": "Organization",
       name: site.brandName,
-      url: base,
+      url: absUrl("/", locale),
     },
     areaServed: {
       "@type": "AdministrativeArea",

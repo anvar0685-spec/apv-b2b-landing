@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { MarketingHubShell } from "@/components/layout/marketing-hub-shell";
 import { Button } from "@/components/ui/button";
 import { site } from "@/config/site";
+import { absUrl } from "@/lib/abs-url";
 import { buildPageMetadata } from "@/lib/seo";
 
 type Props = { params: { locale: string } };
@@ -18,13 +19,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-export default function Page() {
+export default async function Page({ params }: Props) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: site.brandName,
     legalName: site.legalEntityFullName,
-    url: site.url,
+    url: absUrl("/", params.locale),
     telephone: site.phone,
     email: site.emailHello,
     address: {

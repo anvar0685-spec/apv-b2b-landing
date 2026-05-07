@@ -16,7 +16,7 @@ const ROUTE_LABELS: Record<string, string> = {
   "/ru/personal": "Персонал",
   "/ru/otrasli": "Отрасли",
   "/ru/ploshchadki": "Площадки",
-  "/ru/kejsy": "Кейсы",
+  "/ru/keysy": "Кейсы",
   "/ru/blog": "Блог",
   "/ru/faq": "FAQ",
   "/ru/garantii": "Гарантии",

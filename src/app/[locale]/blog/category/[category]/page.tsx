@@ -75,7 +75,7 @@ export default async function BlogCategoryPage({ params, searchParams }: Props) 
   const { posts, totalPages, page, total } = paginatePostsByCategory(params.category, pageNum);
 
   const basePath = `/blog/category/${params.category}`;
-  const listLd = blogListingItemListJsonLd(posts);
+  const listLd = blogListingItemListJsonLd(posts, params.locale);
 
   return (
     <main id="main" className="pb-24">
