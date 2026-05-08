@@ -36,7 +36,7 @@
 
 - Отрасли: `/otrasli`, `/otrasli/[slug]`  
 - Площадки: `/ploshchadki`, `/ploshchadki/[slug]`  
-- География: `/geografiya`, `/geografiya/[slug]`  
+- География как отдельный хаб **снят**; старые URL **`/geografiya` и вложенные** редиректят на **`/personal`** (см. `next.config.mjs`). Локальное сравнение городов — в программатике **`/personal/[profession]/[city]`**.  
 - Кейсы: `/keysy`, `/keysy/[slug]`  
 - Блог: `/blog`, `/blog/[slug]`  
 - Калькулятор: `/kalkulyator`  

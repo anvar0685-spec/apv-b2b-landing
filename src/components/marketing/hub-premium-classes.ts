@@ -1,4 +1,4 @@
-/** Общие классы для хабов «Отрасли / Площадки / География» — один визуальный контракт с листингами блога/кейсов. */
+/** Общие классы для хабов «Отрасли / Площадки» и сопутствующих листингов (блог, кейсы) — единый визуальный контракт. География покрыта программатикой «профессия × город» в разделе «Персонал». */
 export const hubDirectoryLinkClass =
   "group relative block overflow-hidden rounded-2xl border border-[var(--neutral-200)]/85 bg-gradient-to-br from-[var(--card)] via-[var(--surface)] to-[var(--card)] p-5 text-[var(--primary)] shadow-[0_2px_12px_rgba(7,21,37,0.06)] ring-1 ring-inset ring-black/[0.04] transition-[box-shadow,transform,border-color] duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/35 hover:shadow-[0_22px_44px_-14px_rgba(7,21,37,0.14)] motion-reduce:transform-none dark:border-white/11 dark:bg-[var(--card)] dark:ring-white/[0.06]";
 
