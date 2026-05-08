@@ -132,7 +132,7 @@ const PLATFORM: Record<string, { ru: string[]; en: string[] }> = {
       "Высокая интенсивность линий Ozon чувствительна к явке и скорости ввода замены в смену.",
       "В договор входят обучение первой смены, менторинг и контрольные точки первой недели.",
       "Документы и миграционный учёт — в рамках договора с подрядчиком, без «серых зон» в закупке.",
-      "Первая неделя после массового набора — критична: менторинг и чек-лист первой смены дешевле, чем переделка ошибок в outbound.",
+      "Первая неделя после массового набора — критична: менторинг и чек-лист первой смены дешевле, чем переделка ошибок на отгрузке.",
     ],
     en: [
       "High-intensity Ozon lines are sensitive to attendance and replacement onboarding speed.",
@@ -187,14 +187,14 @@ const PLATFORM: Record<string, { ru: string[]; en: string[] }> = {
 
 const GEO_HUB: { ru: string[]; en: string[] } = {
   ru: [
-    "Раздел «География» — опорный хаб для локального поиска: Москва по округам и ключевые города Московской области.",
-    "Каждая карточка ведёт на посадочную с ЧПУ; программатика профессий × города доступна из раздела «Персонал».",
-    "Ниже — схематичная карта МО (статика): ориентир зоны присутствия, не навигационный сервис.",
+    "Локальный поиск по Москве (округа) и ключевым городам Московской области — через хаб «Персонал» и посадочные «профессия × город» с ЧПУ.",
+    "Каждая карточка ведёт на посадочную с ЧПУ; сравнение логистики выхода и резерва между локациями — в той же программатике из раздела «Персонал».",
+    "При необходимости схематичная карта МО (статика) иллюстрирует зону присутствия и не является навигационным сервисом.",
   ],
   en: [
-    "Geography is the anchor hub for local search: Moscow by district and key cities in the Moscow Oblast.",
-    "Each card links to a clean-URL landing; profession × city programmatic pages live under Workforce.",
-    "Below is a schematic MO map (static): a presence-zone hint, not a navigation product.",
+    "Local search for Moscow (districts) and key cities in the Moscow Oblast — via the Workforce hub and profession × city clean-URL landings.",
+    "Each card links to a dedicated landing; compare mobilisation and replacement reserves across locations in the same programmatic set under Workforce.",
+    "Where used, a schematic MO map (static) illustrates the presence zone and is not a navigation product.",
   ],
 };
 
@@ -239,7 +239,7 @@ const PLATFORM_TAIL: string[] = [
 
 const GEO_TAIL: string[] = [
     "Программатика «профессия × город» доступна из раздела «Персонал»: каждая пара URL получает своё ЧПУ и согласованный коммерческий и SEO-каркас под закупку и поиск.",
-    "Схематичная карта в хабе «География» иллюстрирует зону присутствия и не является навигационным сервисом.",
+    "Схематичная карта МО (если используется на странице) иллюстрирует зону присутствия и не является навигационным сервисом.",
   ];
 
 export function industryEditorial(slug: string): string[] | undefined {
