@@ -7,7 +7,7 @@ export function CaseSparkline({ chartId, variant = "up" }: Props) {
 
   if (variant === "flat") {
     return (
-      <svg viewBox="0 0 200 48" className="mt-4 h-12 w-full" preserveAspectRatio="none" aria-hidden>
+      <svg viewBox="0 0 200 48" className="mt-4 h-12 w-full min-w-0 max-w-full" preserveAspectRatio="none" aria-hidden>
         <defs>
           <linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={stroke} stopOpacity="0.2" />
@@ -30,7 +30,7 @@ export function CaseSparkline({ chartId, variant = "up" }: Props) {
   }
 
   return (
-    <svg viewBox="0 0 200 48" className="mt-4 h-12 w-full" preserveAspectRatio="none" aria-hidden>
+    <svg viewBox="0 0 200 48" className="mt-4 h-12 w-full min-w-0 max-w-full" preserveAspectRatio="none" aria-hidden>
       <defs>
         <linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={stroke} stopOpacity="0.35" />

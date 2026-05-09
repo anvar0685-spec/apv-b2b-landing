@@ -30,7 +30,7 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="grain-dark relative overflow-hidden bg-gradient-to-b from-[var(--hero-operational-top)] to-[var(--hero-operational-bottom)] text-white"
+      className="grain-dark relative overflow-x-clip overflow-hidden bg-gradient-to-b from-[var(--hero-operational-top)] to-[var(--hero-operational-bottom)] text-white"
     >
       <div className="hero-backdrop" aria-hidden>
         <Image
@@ -49,7 +49,7 @@ export function HeroSection() {
       <div className="relative mx-auto max-w-[1440px] px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-28 lg:pt-24">
         <div className="grid min-w-0 items-center gap-10 lg:grid-cols-12 lg:gap-10">
           <motion.div
-            className="lg:col-span-7"
+            className="min-w-0 lg:col-span-7"
             initial={reduce ? undefined : { opacity: 0, y: 28 }}
             animate={reduce ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
@@ -94,7 +94,7 @@ export function HeroSection() {
           </motion.div>
 
           <motion.div
-            className="lg:col-span-5"
+            className="min-w-0 max-w-full lg:col-span-5"
             initial={reduce ? undefined : { opacity: 0, y: 20, scale: 0.98 }}
             animate={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}

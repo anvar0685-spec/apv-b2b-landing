@@ -46,15 +46,17 @@ export function HeroSlaDashboard() {
 
   return (
     <figure
-      className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.45)] backdrop-blur-md"
+      className="relative w-full min-w-0 max-w-full overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-4 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.45)] backdrop-blur-md sm:p-6"
       aria-label={t("figureAriaLabel")}
     >
       <div className="absolute inset-0 hero-ambient opacity-90" aria-hidden />
       <div className="relative flex flex-col gap-5">
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">{t("slaKicker")}</p>
+        <div className="flex min-w-0 flex-wrap items-center justify-between gap-2 gap-y-2">
+          <p className="min-w-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">
+            {t("slaKicker")}
+          </p>
           <motion.span
-            className="rounded-full border border-[var(--accent)]/50 bg-[var(--accent)]/20 px-2.5 py-0.5 text-[10px] font-semibold text-[var(--accent-soft)] shadow-[0_0_12px_-2px_var(--accent)]"
+            className="shrink-0 rounded-full border border-[var(--accent)]/50 bg-[var(--accent)]/20 px-2.5 py-0.5 text-[10px] font-semibold text-[var(--accent-soft)] shadow-[0_0_12px_-2px_var(--accent)]"
             animate={reduce ? undefined : { scale: [1, 1.06, 1], opacity: [0.85, 1, 0.85] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
           >
@@ -62,7 +64,7 @@ export function HeroSlaDashboard() {
           </motion.span>
         </div>
 
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-3">
           <motion.div
             className="relative rounded-2xl border border-[var(--accent)]/45 bg-white/[0.1] p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.06),0_12px_40px_-12px_rgba(13,148,136,0.35)]"
             initial={reduce ? undefined : { scale: 0.98, opacity: 0.9 }}
@@ -87,16 +89,16 @@ export function HeroSlaDashboard() {
           </div>
         </div>
 
-        <p className="text-[10px] leading-relaxed text-white/42">{t("kpiExplainer")}</p>
+        <p className="break-words text-[10px] leading-relaxed text-white/42">{t("kpiExplainer")}</p>
 
-        <div className="rounded-2xl border border-white/15 bg-black/25 p-4 ring-1 ring-white/[0.06]">
-          <div className="flex items-end justify-between gap-2">
-            <p className="text-[11px] font-medium text-white/60">{t("throughput")}</p>
-            <span className="max-w-[14rem] text-right text-[10px] font-medium leading-snug text-white/45">
+        <div className="min-w-0 overflow-hidden rounded-2xl border border-white/15 bg-black/25 p-3 ring-1 ring-white/[0.06] sm:p-4">
+          <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-end sm:justify-between sm:gap-2">
+            <p className="min-w-0 text-[11px] font-medium text-white/60">{t("throughput")}</p>
+            <span className="min-w-0 text-[10px] font-medium leading-snug text-white/45 sm:max-w-[14rem] sm:text-right">
               {t("throughputTrendNote")}
             </span>
           </div>
-          <svg viewBox="0 0 280 72" className="mt-3 h-[80px] w-full" preserveAspectRatio="none">
+          <svg viewBox="0 0 280 72" className="mt-3 h-[72px] w-full min-w-0 max-w-full sm:h-[80px]" preserveAspectRatio="none">
             <defs>
               <linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.55" />
