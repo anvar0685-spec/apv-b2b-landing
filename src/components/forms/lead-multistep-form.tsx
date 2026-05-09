@@ -29,6 +29,7 @@ type FormValues = {
   contactName: string;
   companyName: string;
   contactPhone: string;
+  contactEmail: string;
   serviceType: string;
   profession: string;
   city: string;
@@ -53,7 +54,7 @@ export function LeadMultistepForm() {
   const locale = useLocale();
   const sp = useSearchParams();
   const [step, setStep] = useState(0);
-  const [doneId, setDoneId] = useState<string | null>(null);
+  const [doneMeta, setDoneMeta] = useState<{ id: string; kpEmailSent?: boolean } | null>(null);
   const [loading, setLoading] = useState(false);
   const [submitErr, setSubmitErr] = useState<string | null>(null);
 
@@ -63,6 +64,7 @@ export function LeadMultistepForm() {
         nameMin: t("errors.nameMin"),
         companyMin: t("errors.companyMin"),
         phone: t("errors.phone"),
+        emailInvalid: t("errors.emailInvalid"),
       }),
     [t],
   );
@@ -91,6 +93,7 @@ export function LeadMultistepForm() {
       contactName: "",
       companyName: "",
       contactPhone: "",
+      contactEmail: "",
       serviceType,
       profession: sp.get("profession") ?? "gruzchiki",
       city: sp.get("city") ?? "moskva",
@@ -127,6 +130,7 @@ export function LeadMultistepForm() {
       "contactName",
       "companyName",
       "contactPhone",
+      "contactEmail",
       "serviceType",
       "profession",
       "headcount",
@@ -181,6 +185,7 @@ export function LeadMultistepForm() {
       companyName: data.companyName,
       contactName: data.contactName,
       contactPhone: data.contactPhone,
+      contactEmail: data.contactEmail.trim() || undefined,
       serviceType: data.serviceType,
       profession: data.profession,
       city: data.city,
@@ -204,9 +209,9 @@ export function LeadMultistepForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(parsed.data),
       });
-      const json = (await res.json()) as { id?: string; error?: string };
+      const json = (await res.json()) as { id?: string; error?: string; kpEmailSent?: boolean };
       if (!res.ok) throw new Error(json.error ?? t("errors.submit"));
-      setDoneId(json.id ?? "—");
+      setDoneMeta({ id: json.id ?? "—", kpEmailSent: json.kpEmailSent });
       void trackEvent("form_submit_main", { form: "zayavka", id: json.id });
     } catch (e) {
       setSubmitErr(e instanceof Error ? e.message : t("errors.submit"));
@@ -218,7 +223,7 @@ export function LeadMultistepForm() {
   const profLabel = (p: (typeof PROFESSIONS)[number]) => p.titleRu;
   const cityLabel = (c: (typeof CITIES)[number]) => c.nameRu;
 
-  if (doneId) {
+  if (doneMeta) {
     const thanksJson = {
       "@context": "https://schema.org",
       "@type": "WebPage",
@@ -237,7 +242,10 @@ export function LeadMultistepForm() {
       >
         <JsonLd data={thanksJson} />
         <p className="font-display text-xl font-semibold text-[var(--primary)]">{t("successTitle")}</p>
-        <p className="mt-3 text-sm text-[var(--neutral-700)]">{t("successBody", { id: doneId })}</p>
+        <p className="mt-3 text-sm text-[var(--neutral-700)]">{t("successBody", { id: doneMeta.id })}</p>
+        {doneMeta.kpEmailSent ? (
+          <p className="mt-3 text-sm font-medium text-[var(--accent)]">{t("successKpLine")}</p>
+        ) : null}
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <Button asChild variant="secondary" size="sm">
             <Link href="/kalkulyator">Калькулятор</Link>
@@ -319,6 +327,25 @@ export function LeadMultistepForm() {
             {errors.contactPhone ? (
               <p className="mt-1 text-xs text-red-600" role="alert">
                 {errors.contactPhone.message}
+              </p>
+            ) : null}
+          </div>
+          <div>
+            <Label htmlFor="em">{t("email")}</Label>
+            <Input
+              id="em"
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              placeholder={t("emailPlaceholder")}
+              aria-invalid={errors.contactEmail ? true : undefined}
+              className="mt-2"
+              {...register("contactEmail")}
+            />
+            <p className="mt-1 text-xs text-[var(--neutral-500)]">{t("emailHint")}</p>
+            {errors.contactEmail ? (
+              <p className="mt-1 text-xs text-red-600" role="alert">
+                {errors.contactEmail.message}
               </p>
             ) : null}
           </div>

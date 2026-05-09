@@ -4,8 +4,11 @@ import { getTenantForApi } from "@/lib/api-tenant";
 import { prisma } from "@/lib/prisma";
 import { rateLimitOrThrow } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
+import { renderKpDraftPdfBuffer } from "@/lib/kp-draft/render-kp-pdf";
+import { sendKpDraftEmail } from "@/lib/kp-draft/send-kp-draft-email";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 function clientIp(req: Request) {
   const xf = req.headers.get("x-forwarded-for");
@@ -73,7 +76,66 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({ id: lead.id, status: lead.status });
+    let kpEmailSent = false;
+    if (lead.contactEmail) {
+      try {
+        const pdf = await renderKpDraftPdfBuffer({
+          id: lead.id,
+          companyName: lead.companyName,
+          contactName: lead.contactName,
+          contactPhone: lead.contactPhone,
+          contactEmail: lead.contactEmail,
+          serviceType: lead.serviceType,
+          profession: lead.profession,
+          city: lead.city,
+          headcount: lead.headcount,
+          comment: lead.comment,
+          createdAt: lead.createdAt,
+        });
+        const mail = await sendKpDraftEmail({
+          to: lead.contactEmail,
+          pdfBuffer: pdf,
+          leadId: lead.id,
+          contactName: lead.contactName,
+        });
+        kpEmailSent = mail.ok;
+        if (mail.ok) {
+          await prisma.leadEvent.create({
+            data: {
+              leadId: lead.id,
+              type: "kp_draft_emailed",
+              payload: {},
+              actorType: "system",
+            },
+          });
+        } else {
+          await prisma.leadEvent.create({
+            data: {
+              leadId: lead.id,
+              type: "kp_draft_email_failed",
+              payload: { reason: mail.reason },
+              actorType: "system",
+            },
+          });
+        }
+      } catch (e) {
+        logger.error({ err: e, msg: "kp_draft_pipeline_failed", leadId: lead.id });
+        await prisma.leadEvent.create({
+          data: {
+            leadId: lead.id,
+            type: "kp_draft_failed",
+            payload: { error: e instanceof Error ? e.message : "unknown" },
+            actorType: "system",
+          },
+        });
+      }
+    }
+
+    return NextResponse.json({
+      id: lead.id,
+      status: lead.status,
+      kpEmailSent,
+    });
   } catch (e) {
     if (e instanceof Error && e.message === "RATE_LIMITED") {
       return NextResponse.json({ error: "rate_limited" }, { status: 429 });

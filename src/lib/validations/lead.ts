@@ -5,11 +5,12 @@ export type LeadValidationCopy = {
   nameMin: string;
   companyMin: string;
   phone: string;
+  emailInvalid: string;
   headcountMin: string;
   consent: string;
 };
 
-export type LeadStep0Copy = Pick<LeadValidationCopy, "nameMin" | "companyMin" | "phone">;
+export type LeadStep0Copy = Pick<LeadValidationCopy, "nameMin" | "companyMin" | "phone" | "emailInvalid">;
 
 /** Шаги мультистеп-формы `/zayavka` (клиентская валидация перед API). */
 export function createLeadMultistepStep0Schema(m: LeadStep0Copy) {
@@ -17,6 +18,10 @@ export function createLeadMultistepStep0Schema(m: LeadStep0Copy) {
     contactName: z.string().min(2, m.nameMin).max(120),
     companyName: z.string().min(2, m.companyMin).max(200),
     contactPhone: z.string().min(5, m.phone).max(40),
+    contactEmail: z.preprocess(
+      (val) => (typeof val === "string" && val.trim() === "" ? undefined : val),
+      z.string().email(m.emailInvalid).max(200).optional(),
+    ),
   });
 }
 
@@ -42,7 +47,10 @@ export const leadCreateSchema = z.object({
   companyName: z.string().min(2).max(200),
   contactName: z.string().min(2).max(120),
   contactPhone: z.string().min(5).max(40),
-  contactEmail: z.string().max(200).optional(),
+  contactEmail: z.preprocess(
+    (val) => (typeof val === "string" && val.trim() === "" ? undefined : val),
+    z.string().email().max(200).optional(),
+  ),
   serviceType: z.string().min(2).max(64),
   profession: z.string().min(2).max(64),
   city: z.string().min(2).max(120),
