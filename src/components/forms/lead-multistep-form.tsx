@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { useForm, type FieldPath } from "react-hook-form";
+import { Controller, useForm, type FieldPath } from "react-hook-form";
 import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -108,9 +108,8 @@ export function LeadMultistepForm() {
     handleSubmit,
     setError,
     clearErrors,
-    setValue,
     setFocus,
-    watch,
+    control,
     getValues,
     formState: { errors },
   } = useForm<FormValues>({
@@ -118,8 +117,6 @@ export function LeadMultistepForm() {
   });
 
   const formRef = useRef<HTMLFormElement>(null);
-
-  const consent = watch("consent");
   const pct = ((step + 1) / 3) * 100;
 
   const firstFieldError = (err: ZodError): FieldPath<FormValues> | null => {
@@ -426,24 +423,32 @@ export function LeadMultistepForm() {
             ) : null}
           </div>
           <div>
-            <label className="flex items-start gap-3 text-sm text-[var(--neutral-700)]">
-              <Checkbox
-                checked={consent}
-                className="mt-1"
-                onCheckedChange={(v) => setValue("consent", v === true, { shouldValidate: true })}
-              />
-              <span>
-                {t("consentBefore")}{" "}
-                <Link className="text-[var(--accent)] underline" href="/politika-konfidencialnosti">
-                  {t("consentPrivacy")}
-                </Link>{" "}
-                {t("consentAnd")}{" "}
-                <Link className="text-[var(--accent)] underline" href="/soglasie-na-obrabotku-pd">
-                  {t("consentPd")}
-                </Link>
-                {t("consentAfter")}
-              </span>
-            </label>
+            <Controller
+              name="consent"
+              control={control}
+              render={({ field }) => (
+                <label className="flex items-start gap-3 text-sm text-[var(--neutral-700)]">
+                  <Checkbox
+                    ref={field.ref}
+                    checked={field.value}
+                    className="mt-1"
+                    onBlur={field.onBlur}
+                    onCheckedChange={(v) => field.onChange(v === true)}
+                  />
+                  <span>
+                    {t("consentBefore")}{" "}
+                    <Link className="text-[var(--accent)] underline" href="/politika-konfidencialnosti">
+                      {t("consentPrivacy")}
+                    </Link>{" "}
+                    {t("consentAnd")}{" "}
+                    <Link className="text-[var(--accent)] underline" href="/soglasie-na-obrabotku-pd">
+                      {t("consentPd")}
+                    </Link>
+                    {t("consentAfter")}
+                  </span>
+                </label>
+              )}
+            />
             {errors.consent ? (
               <p className="mt-2 text-xs text-red-600" role="alert">
                 {errors.consent.message}
