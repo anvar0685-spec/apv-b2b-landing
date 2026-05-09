@@ -1,24 +1,8 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { getServicePage } from "@/content/service-page-data";
-import { ServicePageFull } from "@/components/marketing/service-page-full";
-import { buildPageMetadata } from "@/lib/seo";
+import { permanentRedirect } from "next/navigation";
 
 type Props = { params: { locale: string } };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const m = getServicePage("migracionnyy-uchet");
-  if (!m) return {};
-  return buildPageMetadata({
-    locale: params.locale,
-    pathname: `/uslugi/${m.slug}`,
-    title: m.h1,
-    description: m.subtitle,
-  });
-}
-
-export default function Page() {
-  const m = getServicePage("migracionnyy-uchet");
-  if (!m) notFound();
-  return <ServicePageFull model={m} />;
+/** Раньше отдельная услуга; позиционируем только складской аутсорсинг — см. `/uslugi/autsorsing`. */
+export default function Page({ params }: Props) {
+  permanentRedirect(`/${params.locale}/uslugi/autsorsing`);
 }

@@ -11,16 +11,14 @@ export function ServicesHub() {
     h1: "Услуги",
     lead: (
       <>
-        Основной продукт — <strong>аутсорсинг персонала на склады</strong>. Миграционный учёт и подбор закрываем{" "}
-        <strong>в рамках договора с подрядчиком</strong> — без отдельной «поставки замен» как маркетингового ярлыка.
+        Основной продукт — <strong>аутсорсинг персонала на склады</strong>. Подбор и закрытие смен —{" "}
+        <strong>в рамках договора с подрядчиком</strong>, без отдельной «поставки замен» как маркетингового ярлыка.
         Ниже — страницы под закупку и SEO.
       </>
     ),
     flagship: "Флагман",
     cta: "Подробнее и условия в КП",
     blockTitle: "В рамках складского договора",
-    migration: "Миграционный учёт",
-    migrationDesc: "документы и сроки под ваш объект.",
     recruiting: "Подбор персонала",
     recruitingDesc: "отбор и проверка людей под профили склада.",
     managed: "Управляемый подряд",
@@ -65,15 +63,6 @@ export function ServicesHub() {
           <div className="space-y-4 lg:col-span-5">
             <p className="text-sm font-semibold text-[var(--primary)]">{t.blockTitle}</p>
             <ul className="space-y-3 text-sm leading-relaxed text-[var(--neutral-700)]">
-              <li>
-                <Link
-                  className="font-medium text-[var(--accent)] underline-offset-4 hover:underline"
-                  href="/uslugi/migracionnyy-uchet"
-                >
-                  {t.migration}
-                </Link>{" "}
-                — {t.migrationDesc}
-              </li>
               <li>
                 <Link
                   className="font-medium text-[var(--accent)] underline-offset-4 hover:underline"

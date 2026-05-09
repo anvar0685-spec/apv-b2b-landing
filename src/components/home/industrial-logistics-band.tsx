@@ -26,6 +26,7 @@ const PHOTOS = [
 export async function IndustrialLogisticsBand() {
   const t = await getTranslations("homePage.industrialBand");
   const tiles = PHOTOS.map((ph) => ({ src: ph.src, label: t(ph.key) }));
+  const schematicSteps = t.raw("schematicSteps") as readonly { n: string; title: string; hint: string }[];
 
   return (
     <section
@@ -45,7 +46,7 @@ export async function IndustrialLogisticsBand() {
         <div className="mt-12 space-y-10">
           {/* Всегда показываем все кадры: 2×2 на узком экране, 4 в ряд на md+ */}
           <IndustrialPhotoTiles photos={tiles} />
-          <ShiftCycleSchematic title={t("schematicTitle")} caption={t("schematicCaption")} />
+          <ShiftCycleSchematic title={t("schematicTitle")} caption={t("schematicCaption")} steps={schematicSteps} />
         </div>
       </div>
     </section>

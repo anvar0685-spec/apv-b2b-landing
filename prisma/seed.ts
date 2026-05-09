@@ -90,7 +90,7 @@ async function main() {
   const services = [
     { slug: "autsorsing", title: "Складской аутсорсинг" },
     { slug: "upravlyaemyy-podryad", title: "Управляемый подряд" },
-    { slug: "migracionnyy-uchet", title: "Миграционный учёт" },
+    { slug: "nochnye-smeny", title: "Ночные смены" },
     { slug: "podbor-personala", title: "Подбор персонала" },
   ];
 

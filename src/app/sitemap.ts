@@ -10,7 +10,6 @@ const STATIC_BASE = [
   "/uslugi",
   "/uslugi/autsorsing",
   "/uslugi/upravlyaemyy-podryad",
-  "/uslugi/migracionnyy-uchet",
   "/uslugi/podbor-personala",
   "/uslugi/postoyannyy-personal",
   "/uslugi/nochnye-smeny",

@@ -34,7 +34,7 @@ export const autsorsingPage: ServicePageBilingual = {
       "Для закупки и финдиректора важна одна плоскость сравнения между подрядчиками: одинаковые допущения по WMS/TMS, окну пика, дороге до объекта и сценарию «что делаем при массовой неявке». Это защищает от ситуации, когда три участника тендера отвечают на один RFP с несопоставимыми KPI и потом «доигрываются» в приложениях.",
       "На пиках приёмки и отгрузки (промо маркетплейса, распродажи, сезонный товар) модель аутсорсинга позволяет наращивать пул без немедленного раздувания штата: закладываем резервные бригады, очередность подключения и понятный триггер перехода «наращиваем / режем» без конфликта с постоянными ТД.",
       "Согласование с вашими системами: на этапе аудита выясняем, нужны ли интеграции по API со складской системой, достаточно ли экспорта CSV или сводных таблиц из нашей отчётности. Глубина айти‑шага — предмет дорожной карты после техосмотра; базово безопасный минимум — единый регламент именования смен и кодировки операций.",
-      "Требования по охране труда и технике, противопожарный минимум, миграционный учёт и патенты — в стандартной модели цепочка документов со стороны подрядчика прозрачна для вашего юриста до подписания; отраслевые особые требования выносим в приложения.",
+      "Требования по охране труда и технике, противопожарный минимум, документы на допуск к работам и патенты по профилю объекта — в стандартной модели цепочка документов со стороны подрядчика прозрачна для вашего юриста до подписания; отраслевые особые требования выносим в приложения.",
       "Если у вас уже есть внутренний штат ключевых специалистов, аутсорсинг часто встраивается как гибрид: мы закрываем пики и ночь, вы сохраняете «ядро» процессов и методологию 5S/Lean — без войны между «своими» и «пришлыми»: регламентируем зоны ответственности и общие стендапы по качеству смены.",
       "Отдельно проговариваем ночные, предпраздничные и воскресные смены: ставка и резерв людей завязаны на транспортную доступность и окладную модель; при необходимости подключаем разные профили в одной смене (ведущий комплектовщик + усиление грузчиками), чтобы не платить завышенный средний чек за простые операции.",
       "Тексты на странице носят информационный характер и не заменяют индивидуальную юридическую консультацию. Объёмные обязательства, штрафы, форс‑мажор и порядок приёмки закрепляются в договоре, приложениях к SLA и внутренних регламентах качества — здесь мы сознательно не воспроизводим полный юридический текст.",
@@ -150,8 +150,8 @@ export const autsorsingPage: ServicePageBilingual = {
         a: "Да, при явном разделении зон ответственности и регламенте взаимодействия на смене — чтобы не было дублирования управления и конфликта KPI между «своими» и подрядчиком.",
       },
       {
-        q: "Кто ведёт миграционный учёт и патенты?",
-        a: "В типовой модели подрядчика оформление документов и регламент ведём на нашей стороне; условия и формулировки утверждает ваш юрист при подписании.",
+        q: "Кто готовит документы для допуска на объект?",
+        a: "В типовой модели пакет под выход на смену и требования площадки ведём на стороне подрядчика; условия и исключения утверждает ваш юрист при подписании.",
       },
       {
         q: "Как быстро можно вывести людей на объект после подписания?",
@@ -194,7 +194,7 @@ export const autsorsingPage: ServicePageBilingual = {
       "Hourly benchmarks (RUB/h, day shift, Moscow/MO): loaders and general labour from 600, pickers from 650, warehouse clerks from 680, PRT drivers from 800, cleaners from 600. Nights, 24/7 windows and marketplace peaks use coefficients in the commercial proposal; final pricing depends on task profile, schedule and distance.",
       "The calculator gives a fast estimate; the multi-step form feeds the CRM for a proposal with rate breakdown, night coefficients, replacement SLA and reporting cadence.",
       "For procurement: keep one comparison plane across bidders (WMS/TMS assumptions, peak window, travel time, mass no-show scenario).",
-      "Compliance: OT, fire safety basics, migration paperwork — the contractor-side loop is transparent for your counsel before signature; industry extras go into annexes.",
+      "Compliance: OT, fire safety basics, site-access paperwork — the contractor-side loop is transparent for your counsel before signature; industry extras go into annexes.",
       "Hybrid with internal staff is common: we cover peaks and nights, you keep methodology and lean anchors — with clear zone ownership.",
       "Copy is informational, not legal advice. Material terms live in the contract and SLA annexes.",
       "Below: fit, process, inclusions, comparison, expanded FAQ and profession links. Blog: outsourcing vs outstaffing for tender language.",
@@ -279,8 +279,8 @@ export const autsorsingPage: ServicePageBilingual = {
         a: "Yes, with explicit zone ownership and interaction rules on the shift to avoid duplicate command chains.",
       },
       {
-        q: "Who handles migration paperwork?",
-        a: "In the standard contractor model the document loop sits with us; legal signs off wording.",
+        q: "Who prepares site-access paperwork?",
+        a: "In the standard model the contractor owns the shift-ready pack and site rules alignment; legal wording is signed off by your counsel.",
       },
       {
         q: "How fast can people show up after signature?",

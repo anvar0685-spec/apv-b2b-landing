@@ -32,6 +32,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/:locale/uslugi/migracionnyy-uchet",
+        destination: "/:locale/uslugi/autsorsing",
+        permanent: true,
+      },
+      {
         source: "/uslugi/autstaffing",
         destination: "/blog/autsorsing-i-autstaffing-v-chem-raznitsa",
         permanent: true,

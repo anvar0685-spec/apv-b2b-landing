@@ -22,7 +22,6 @@ const CORE = [
   "/uslugi",
   "/uslugi/autsorsing",
   "/uslugi/upravlyaemyy-podryad",
-  "/uslugi/migracionnyy-uchet",
   "/uslugi/podbor-personala",
   "/personal",
   "/keysy",

@@ -34,9 +34,9 @@ export async function HomeSections() {
 
   const serviceTiles = [
     {
-      href: "/uslugi/migracionnyy-uchet",
-      title: ts("tileMigrationTitle"),
-      desc: ts("tileMigrationDesc"),
+      href: "/uslugi/nochnye-smeny",
+      title: ts("tileNightTitle"),
+      desc: ts("tileNightDesc"),
     },
     {
       href: "/uslugi/podbor-personala",

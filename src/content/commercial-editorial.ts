@@ -29,13 +29,13 @@ const INDUSTRY: Record<string, { ru: string[]; en: string[] }> = {
   "sklady-riteyla": {
     ru: [
       "Ритейл-DC живут циклами промо и сезонности: важны резерв смен, дисциплина ночных окон и согласованные KPI по ошибке и скорости линии.",
-      "Совмещаем аутсорсинг смен с вашими WMS-процессами и внутренними регламентами безопасности; миграционный учёт и кадровые документы — в рамках договора с подрядчиком.",
+      "Совмещаем аутсорсинг смен с вашими WMS-процессами и внутренними регламентами безопасности; пакет документов на допуск и кадровое сопровождение вывода на линию — в рамках договора с подрядчиком.",
       "Для сетей с несколькими площадками в МО — единая модель отчётности и масштабирования между объектами.",
       "Ночные и предпраздничные недели закладывайте отдельной строкой в КП: иначе «средняя ставка» не переживёт ноябрь без споров с финансами.",
     ],
     en: [
       "Retail DCs run on promo and seasonality: shift reserves, night-window discipline, and aligned KPIs for error rate and line speed matter.",
-      "We align shift outsourcing with your WMS flows and safety rules; documents and migration compliance sit inside the supply contract.",
+      "We align shift outsourcing with your WMS flows and safety rules; contractor-side paperwork for site access sits inside the supply contract.",
       "For multi-site retailers in the Moscow Oblast — one reporting model and scaling pattern across locations.",
       "Price night shifts and pre-holiday weeks as separate lines in the proposal — otherwise an “average rate” will not survive November without finance arguments.",
     ],
@@ -72,13 +72,13 @@ const INDUSTRY: Record<string, { ru: string[]; en: string[] }> = {
     ru: [
       "Фарма требует дисциплины документов, серийности и доступа: смены выводятся под регламенты площадки и согласованную программу инструктажей.",
       "Мы не подменяем QA продукции заказчика, но обеспечиваем предсказуемую явку и замены без нарушения ваших SOP.",
-      "Миграционный учёт и кадровые документы — в рамках договора на персонал для смен; детали фиксируются в приложениях.",
+      "Пакет документов на допуск к работам и кадровое сопровождение смен — в рамках договора на персонал; детали фиксируются в приложениях.",
       "Версии приказов и допусков к зонам хранения — отдельный контрольный список: фарма не прощает рассинхрон между «бумагой» и фактическим выходом.",
     ],
     en: [
       "Pharma needs document discipline, serialization, and access control: shifts are deployed to site rules with agreed training paths.",
       "We do not replace the customer’s product QA, but we deliver predictable attendance and replacements without breaking your SOPs.",
-      "Migration and HR document flows sit inside the shift-supply contract; specifics live in annexes.",
+      "Shift-supply contracts bundle HR paperwork for line roles; annexes capture specifics.",
       "Permit versions and zone access lists need their own checklist — pharma punishes any mismatch between paperwork and who actually showed up.",
     ],
   },
@@ -131,13 +131,13 @@ const PLATFORM: Record<string, { ru: string[]; en: string[] }> = {
     ru: [
       "Высокая интенсивность линий Ozon чувствительна к явке и скорости ввода замены в смену.",
       "В договор входят обучение первой смены, менторинг и контрольные точки первой недели.",
-      "Документы и миграционный учёт — в рамках договора с подрядчиком, без «серых зон» в закупке.",
+      "Документы на допуск к работам и контроль версий регламентов — в рамках договора с подрядчиком, без «серых зон» в закупке.",
       "Первая неделя после массового набора — критична: менторинг и чек-лист первой смены дешевле, чем переделка ошибок на отгрузке.",
     ],
     en: [
       "High-intensity Ozon lines are sensitive to attendance and replacement onboarding speed.",
       "Shift supply includes first-shift training, mentoring, and week-one checkpoints.",
-      "Documents and migration compliance are inside the supply contract — no grey zones for procurement.",
+      "Site-access paperwork and controlled procedure versions stay inside the supply contract — no procurement grey zones.",
       "Week one after a bulk hire is where projects win or lose — mentoring and first-shift checklists beat rework in outbound.",
     ],
   },

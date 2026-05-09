@@ -49,6 +49,105 @@ export function caseDetailFields(c: CaseStub) {
 
 export const CASES: CaseStub[] = [
   {
+    slug: "mebelnyy-rc-pogruzochnye-raboty",
+    title: "Мебельный РЦ известного бренда: ПРР и разнорабочие «под ключ»",
+    industry: "Мебель / распределительный центр",
+    city: "Москва",
+    staff: 48,
+    durationMonths: 11,
+    metricUp: "−32% простоя у рампы",
+    summary:
+      "Региональный центр крупного мебельного ритейла: аутсорсинг погрузочно-разгрузочных работ и такелажа КГТ — стабильные бригады у ворот вместо разрозненных подрядчиков «на звонок».",
+    challenge:
+      "Пики приёмки фуры и отгрузки мягкой коробки; простои у рампы и очередь машин, когда бригады не укладываются в окно.",
+    solution:
+      "Закрепили состав ПРР под профиль мебели и ваш стандарт безопасности, бригадира на смену и регламент замен; синхронизация с экспедицией и слотами.",
+    outcome:
+      "Простой транспорта у ворот сократился примерно на треть; слоты отгрузки перестали «плавить» из‑за неявки разнорабочих.",
+    clientQuote:
+      "Нужны были предсказуемые люди у трапа и внутри фуры — без этого слот маркетплейса не закрыть.",
+    titleEn: "Furniture DC for a major brand: outsourced loading & unloading",
+    industryEn: "Furniture / regional DC",
+    metricUpEn: "−32% dock idle time",
+    summaryEn:
+      "Regional hub for a large furniture retailer: outsourced loading/unloading and bulky handling — steady dock crews instead of ad-hoc labour.",
+    cityEn: "Moscow",
+    challengeEn:
+      "Inbound peaks and outbound soft-pack loads; ramp idle time and truck queues when crews missed the slot.",
+    solutionEn:
+      "Dedicated L/U crews briefed for furniture handling and your safety rules, shift lead and replacement playbook aligned with dock slots.",
+    outcomeEn:
+      "Roughly one-third less transport idle at the gate; outbound slots stopped slipping because labour showed up.",
+    clientQuoteEn:
+      "We needed predictable people at the ramp and inside the trailer — otherwise marketplace slots do not close.",
+  },
+  {
+    slug: "sklad-avtozapchastej-mytishchi",
+    title: "Склад автозапчастей: комплектация и контроль явки в пике",
+    industry: "Автозапчасти / склад",
+    city: "Мытищи",
+    staff: 72,
+    durationMonths: 8,
+    metricUp: "+19% строк комплектации за смену",
+    summary:
+      "Оптовый склад автозапчастей с высокой смешанностью SKU: выровняли явку на отборе и отгрузке, чтобы не «есть» окно доставки в сервисы.",
+    challenge:
+      "Много мелких позиций, ошибки отбора и нестабильная явка в дневном окне — сервисы получали заказы с задержкой.",
+    solution:
+      "Пул комплектовщиков и грузчиков под профиль автозапчастей, двойной контроль по ячейкам на старте, единый контакт по заменам.",
+    outcome:
+      "Темп комплектации за смену вырос около на пятую при той же численности; возвраты по ошибке отбора снизились.",
+    clientQuote:
+      "Для нас главное — выдать заказ в слот курьера; с явкой по сменам перестали воевать.",
+    titleEn: "Auto parts warehouse: picking throughput and attendance",
+    industryEn: "Auto parts / warehouse",
+    metricUpEn: "+19% pick lines per shift",
+    summaryEn:
+      "Wholesale auto parts with mixed SKU depth: steadier attendance on picking and dispatch so service bays keep their delivery windows.",
+    cityEn: "Mytishchi",
+    challengeEn:
+      "Small-item complexity, pick errors and uneven day-shift attendance — downstream bays saw delays.",
+    solutionEn:
+      "Picker and loader pool tuned to parts flows, early-stage bin discipline and one replacement owner.",
+    outcomeEn:
+      "Roughly a fifth more pick lines per shift at the same headcount; mis-picks dropped.",
+    clientQuoteEn:
+      "We need the parcel in the courier slot — we stopped fighting attendance every morning.",
+  },
+  {
+    slug: "stroitelnye-materialy-sklad-obrabotka",
+    title: "Стройматериалы: хранение, перекладка и отгрузка в проектные окна",
+    industry: "Стройматериалы / склад",
+    city: "Одинцово",
+    staff: 60,
+    durationMonths: 14,
+    metricUp: "96%+ закрытие смен по графику",
+    summary:
+      "Склад хранения и обработки отделочных и общестроительных материалов: аутсорсинг ПРР, перекладки и комплектации под выдачу на объект.",
+    challenge:
+      "Тяжёлые паллеты, сезонные всплески и жёсткие окна самовывоза; простои фуры били по стройграфику клиентов.",
+    solution:
+      "Смены ПРР и разнорабочих под вашу разметку зон, бригадир на объекте, резерв на пик выдачи в выходные.",
+    outcome:
+      "Закрытие смен по графику держится выше 95%; очередь самовывоза перестала раздуваться из‑за неявки.",
+    clientQuote:
+      "Стройка не ждёт — нам нужны люди на вилках и на выдаче одновременно.",
+    titleEn: "Building materials: storage, replenishment and dispatch windows",
+    industryEn: "Construction supplies / warehouse",
+    metricUpEn: "96%+ shifts covered",
+    summaryEn:
+      "Finishing and bulk materials warehouse: outsourced loading, replenishment and picking for contractor pickup slots.",
+    cityEn: "Odintsovo",
+    challengeEn:
+      "Heavy pallets, seasonal spikes and tight pickup windows; truck idle time hit downstream construction schedules.",
+    solutionEn:
+      "L/U and labour shifts mapped to your zoning, on-site lead and weekend surge reserve.",
+    outcomeEn:
+      "Shift coverage stayed above 95%; contractor queues stopped ballooning from no-shows.",
+    clientQuoteEn:
+      "Construction does not wait — we need fork drivers and dispatch staff at the same time.",
+  },
+  {
     slug: "marketplace-sklad-moskva",
     title: "Склад маркетплейса: стабильные смены в пике",
     industry: "Логистика / маркетплейс",
@@ -116,36 +215,36 @@ export const CASES: CaseStub[] = [
   },
   {
     slug: "farma-sklad-himki",
-    title: "Фарм-склад: усиленный контроль документов и миграции",
+    title: "Фарм-склад: серийность, зоны хранения и дисциплина смен",
     industry: "Фарма / склад",
     city: "Химки",
     staff: 40,
     durationMonths: 12,
-    metricUp: "0 нарушений по миграционному учёту",
+    metricUp: "100% соблюдение зон хранения и серий в аудите",
     summary:
-      "Усилили документальный след и контроль сроков уведомлений — без переноса риска на заказчика.",
+      "Усилили соблюдение регламентов хранения и серийности при высокой сменности линейки — без перекладывания операционного риска на службу качества заказчика.",
     challenge:
-      "Строгие требования к документам и срокам; любая ошибка в миграционном учёте — операционный и репутационный риск.",
+      "Строгие требования к зонам и сериям; любая ошибка перекладки или отбора — стоп-фактор для отгрузки и проверок.",
     solution:
-      "Внедрили чек-листы, версионирование документов и SLA по эскалации до выхода на объект.",
+      "Выделенный пул под фарм-профиль, усиленный инструктаж первых смен, контрольные точки с бригадиром и понятная эскалация замен.",
     outcome:
-      "Нарушений по миграционному учёту не зафиксировано; аудит прошёл без критических замечаний по персоналу.",
+      "Внешний аудит по складским процессам без критических замечаний по персоналу на линии; серии и зоны хранения соблюдались по журналам.",
     clientQuote:
-      "Для нас важно не «галочка», а предсказуемость: мы заранее знаем статус каждого сотрудника на линии.",
-    titleEn: "Pharma warehouse: stronger compliance loop",
+      "Нам важна повторяемость смены: одинаковый стандарт у стеллажа и у ворот.",
+    titleEn: "Pharma warehouse: serialisation, zones and shift discipline",
     industryEn: "Pharma / warehouse",
-    metricUpEn: "0 migration paperwork violations",
+    metricUpEn: "100% zone & serial compliance in audit",
     summaryEn:
-      "Tighter document trail and notification deadlines — without quietly shifting risk to the client.",
+      "Stricter discipline on storage zones and serial tracking with shift-heavy staffing — operational risk stays with the contractor playbook.",
     cityEn: "Khimki",
     challengeEn:
-      "Strict paperwork and deadlines; any slip in the migration loop meant operational and reputational risk.",
+      "Strict zone and serial rules; any mis-pick or mis-placement stops outbound and inspections.",
     solutionEn:
-      "Introduced checklists, document versioning and an escalation SLA before anyone goes on site.",
+      "Dedicated pharma-skilled pool, reinforced first-shift briefings and named checkpoints with the shift lead.",
     outcomeEn:
-      "No migration paperwork violations on record; the audit raised no critical findings on workforce compliance.",
+      "External audit raised no critical workforce findings on the line; journals showed zones and serials respected.",
     clientQuoteEn:
-      "We care about predictability, not a checkbox — we know each line worker's status in advance.",
+      "We need repeatable shifts — the same standard at the rack and at the gate.",
   },
   {
     slug: "regionalnyj-rc-pik",
