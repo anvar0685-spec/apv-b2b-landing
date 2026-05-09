@@ -6,6 +6,19 @@ function smtpConfigured(): boolean {
   return Boolean(process.env.SMTP_HOST?.trim() && process.env.SMTP_USER?.trim() && process.env.SMTP_PASSWORD?.trim());
 }
 
+/** Скрытые копии: SMTP_BCC и ADMIN_KP_NOTIFY_EMAIL (через запятую). */
+function collectBcc(): string | string[] | undefined {
+  const raw = [
+    ...(process.env.SMTP_BCC?.split(",") ?? []),
+    ...(process.env.ADMIN_KP_NOTIFY_EMAIL?.split(",") ?? []),
+  ];
+  const emails = raw.map((s) => s.trim()).filter(Boolean);
+  const unique = Array.from(new Set(emails));
+  if (unique.length === 0) return undefined;
+  if (unique.length === 1) return unique[0];
+  return unique;
+}
+
 export async function sendKpDraftEmail(params: {
   to: string;
   pdfBuffer: Buffer;
@@ -39,7 +52,7 @@ export async function sendKpDraftEmail(params: {
     await transporter.sendMail({
       from,
       to: params.to,
-      bcc: process.env.SMTP_BCC?.trim() || undefined,
+      bcc: collectBcc(),
       subject: `${brand}: черновик коммерческого предложения по заявке`,
       text: [
         `Здравствуйте${params.contactName ? `, ${params.contactName}` : ""}.`,
