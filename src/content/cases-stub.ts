@@ -52,7 +52,7 @@ export const CASES: CaseStub[] = [
     slug: "mebelnyy-rc-pogruzochnye-raboty",
     title: "Мебельный РЦ известного бренда: ПРР и разнорабочие «под ключ»",
     industry: "Мебель / распределительный центр",
-    city: "Москва",
+    city: "Софино",
     staff: 48,
     durationMonths: 11,
     metricUp: "−32% простоя у рампы",
@@ -71,7 +71,7 @@ export const CASES: CaseStub[] = [
     metricUpEn: "−32% dock idle time",
     summaryEn:
       "Regional hub for a large furniture retailer: outsourced loading/unloading and bulky handling — steady dock crews instead of ad-hoc labour.",
-    cityEn: "Moscow",
+    cityEn: "Sofino, Moscow Oblast",
     challengeEn:
       "Inbound peaks and outbound soft-pack loads; ramp idle time and truck queues when crews missed the slot.",
     solutionEn:
@@ -82,10 +82,10 @@ export const CASES: CaseStub[] = [
       "We needed predictable people at the ramp and inside the trailer — otherwise marketplace slots do not close.",
   },
   {
-    slug: "sklad-avtozapchastej-mytishchi",
+    slug: "sklad-avtozapchastej-krekshino",
     title: "Склад автозапчастей: комплектация и контроль явки в пике",
     industry: "Автозапчасти / склад",
-    city: "Мытищи",
+    city: "Крекшино",
     staff: 72,
     durationMonths: 8,
     metricUp: "+19% строк комплектации за смену",
@@ -104,7 +104,7 @@ export const CASES: CaseStub[] = [
     metricUpEn: "+19% pick lines per shift",
     summaryEn:
       "Wholesale auto parts with mixed SKU depth: steadier attendance on picking and dispatch so service bays keep their delivery windows.",
-    cityEn: "Mytishchi",
+    cityEn: "Krekshino, Moscow Oblast",
     challengeEn:
       "Small-item complexity, pick errors and uneven day-shift attendance — downstream bays saw delays.",
     solutionEn:
@@ -118,7 +118,7 @@ export const CASES: CaseStub[] = [
     slug: "stroitelnye-materialy-sklad-obrabotka",
     title: "Стройматериалы: хранение, перекладка и отгрузка в проектные окна",
     industry: "Стройматериалы / склад",
-    city: "Одинцово",
+    city: "Софино",
     staff: 60,
     durationMonths: 14,
     metricUp: "96%+ закрытие смен по графику",
@@ -137,7 +137,7 @@ export const CASES: CaseStub[] = [
     metricUpEn: "96%+ shifts covered",
     summaryEn:
       "Finishing and bulk materials warehouse: outsourced loading, replenishment and picking for contractor pickup slots.",
-    cityEn: "Odintsovo",
+    cityEn: "Sofino, Moscow Oblast",
     challengeEn:
       "Heavy pallets, seasonal spikes and tight pickup windows; truck idle time hit downstream construction schedules.",
     solutionEn:

@@ -32,6 +32,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/:locale/keysy/sklad-avtozapchastej-mytishchi",
+        destination: "/:locale/keysy/sklad-avtozapchastej-krekshino",
+        permanent: true,
+      },
+      {
         source: "/:locale/uslugi/migracionnyy-uchet",
         destination: "/:locale/uslugi/autsorsing",
         permanent: true,
