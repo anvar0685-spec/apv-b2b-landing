@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { CONSENT_KEY, readConsent, writeConsent } from "@/lib/cookie-consent";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 
 export function CookieBanner() {
   const [open, setOpen] = useState(false);
@@ -29,7 +30,11 @@ export function CookieBanner() {
         Мы используем cookies
       </p>
       <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-700)]">
-        Необходимые cookies нужны для работы сайта. Аналитика (Яндекс.Метрика) — только с согласия. При включённой защите чата от ботов может подгружаться виджет Cloudflare Turnstile. Подробности — в политике конфиденциальности.
+        Необходимые cookies нужны для работы сайта. Аналитика (Яндекс.Метрика) — только с согласия. При включённой защите чата от ботов может подгружаться виджет Cloudflare Turnstile. Подробности — в{" "}
+        <Link href="/politika-konfidencialnosti" className="text-[var(--accent)] underline underline-offset-2">
+          политике конфиденциальности
+        </Link>
+        .
       </p>
       <div className="mt-4 flex flex-wrap gap-2">
         <Button

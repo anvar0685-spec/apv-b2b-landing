@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { site } from "@/config/site";
+import { site, siteHasValidAdErid } from "@/config/site";
 import { Button } from "@/components/ui/button";
 import { TrackedTelLink } from "@/components/contact/tracked-tel-link";
 
@@ -9,6 +9,7 @@ const displayBrand = site.brandName.replace(/_/g, " ");
 export async function SiteFooter() {
   const t = await getTranslations("footer");
   const tn = await getTranslations("nav");
+  const showAdErid = siteHasValidAdErid();
 
   return (
     <footer className="border-t border-[var(--neutral-200)] bg-[var(--primary-dark)] text-[var(--neutral-200)]">
@@ -131,8 +132,18 @@ export async function SiteFooter() {
         </p>
       </div>
 
-      <div className="border-t border-white/10 py-6 text-center text-xs text-[var(--neutral-500)]">
-        © {new Date().getFullYear()} {displayBrand} · {site.domain}
+      <div className="border-t border-white/10 px-4 py-6 text-center text-[11px] leading-relaxed text-[var(--neutral-500)] sm:px-6">
+        <p>{t("legalStripB2b")}</p>
+        {showAdErid ? (
+          <p className="mt-2">
+            {t("adMarkingLine", { advertiser: site.legalEntityFullName, erid: site.erid.trim() })}
+          </p>
+        ) : (
+          <p className="mt-2">{t("adMarkingPending")}</p>
+        )}
+        <p className="mt-4 text-xs">
+          © {new Date().getFullYear()} {displayBrand} · {site.domain}
+        </p>
       </div>
     </footer>
   );

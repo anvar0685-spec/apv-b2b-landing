@@ -37,3 +37,9 @@ export const site = {
     process.env.NEXT_PUBLIC_BANK_LEGAL_ADDRESS ??
     "127287, г. Москва, ул. Хуторская 2-я, д. 38А, стр. 26",
 } as const;
+
+/** Для футера: маркировка рекламы в ЕРИР выводится только после подстановки реального erid из ОРД (не плейсхолдер). */
+export function siteHasValidAdErid(): boolean {
+  const e = site.erid.trim();
+  return e.length > 0 && !e.toUpperCase().includes("TBD");
+}
