@@ -48,7 +48,7 @@ function IndustrialPhotoTile({ photo }: { photo: IndustrialPhoto }) {
           fill
           unoptimized={unoptimized}
           sizes="(max-width: 768px) 50vw, 25vw"
-          className="object-cover transition duration-500 motion-reduce:transition-none motion-reduce:group-hover:scale-100 scale-100 group-hover:scale-[1.03] brightness-[0.72] group-hover:brightness-100"
+          className="object-cover grayscale contrast-[1.08] transition duration-500 motion-reduce:transition-none motion-reduce:group-hover:scale-100 scale-100 group-hover:scale-[1.03] brightness-[0.78] group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100 motion-reduce:grayscale motion-reduce:group-hover:grayscale"
         />
         <div
           className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[var(--primary-dark)]/80 via-[var(--primary-dark)]/30 to-[var(--primary-dark)]/45 opacity-100 transition-opacity duration-300 group-hover:opacity-0 motion-reduce:transition-none motion-reduce:group-hover:opacity-100"
@@ -84,7 +84,7 @@ function IndustrialPhotoTile({ photo }: { photo: IndustrialPhoto }) {
               alt=""
               fill
               unoptimized={unoptimized}
-              className="object-contain"
+              className="object-contain grayscale-0"
               sizes="(max-width: 1200px) 92vw, 1100px"
             />
           </div>

@@ -9,7 +9,8 @@ const PHOTOS = [
     key: "photo1Label" as const,
   },
   {
-    src: "https://images.unsplash.com/photo-1494412574643-ff11b0a5e972?auto=format&fit=crop&w=1600&q=78",
+    /** Замена: прежний photo-1494412574643 отдаёт 404 в imgix */
+    src: "https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&w=1600&q=78",
     key: "photo2Label" as const,
   },
   {
