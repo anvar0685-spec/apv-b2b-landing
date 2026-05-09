@@ -28,7 +28,7 @@ export function ShiftCycleSchematic({ title, caption, steps }: Props) {
         <div className="mt-10 hidden md:block">
           <div className="relative grid grid-cols-4 gap-4 lg:gap-6">
             <div
-              className="pointer-events-none absolute left-[10%] right-[10%] top-[30px] z-0 h-[2px] rounded-full bg-gradient-to-r from-transparent via-[color-mix(in_srgb,var(--accent)_55%,var(--neutral-400))] to-transparent opacity-90 dark:via-[color-mix(in_srgb,var(--accent)_70%,white)]"
+              className="shift-cycle-line-track pointer-events-none absolute left-[10%] right-[10%] top-[30px] z-0 h-[2px]"
               aria-hidden
             />
             {steps.map((s, i) => {
@@ -56,7 +56,7 @@ export function ShiftCycleSchematic({ title, caption, steps }: Props) {
               <li key={s.n} className="relative flex gap-4 pb-10 last:pb-0">
                 {!isLast ? (
                   <div
-                    className="absolute left-[23px] top-[52px] h-[calc(100%-12px)] w-px bg-gradient-to-b from-[var(--accent)]/55 via-[var(--accent)]/25 to-transparent"
+                    className="shift-cycle-line-vertical absolute left-[23px] top-[52px] h-[calc(100%-12px)] w-[2px]"
                     aria-hidden
                   />
                 ) : null}
