@@ -51,7 +51,7 @@
 | SEO-мета | **`generateMetadata` + `buildPageMetadata`**; опционально **`keywords`** в `buildPageMetadata`; тексты в **`pagesSeo`** и **`ru.json`**. Для **`autsorsing`** — переопределение title/description из **`autsorsing.data.ts`**. |
 | Правила Cursor | **`00`–`05`** в корне воркспейса и в **`apv-b2b-landing/.cursor/rules/`**; деплой/VPS — в **`00-agent-workflow`**; финальная вычитка текстов — **`05-copywriter-outsourcing-auditor`**. |
 | Прод (техника) | VPS: **nginx** прокси на **127.0.0.1:3000**, **PM2** крутит **`.next/standalone/server.js`**; скрипты **`deploy/*`**; **git pull + `npm run build:vps`** на сервере после пуша в **`main`**. |
-| Прайс и контакты | **`warehouse-hourly-rates.ts`**: 600 грузчики/разнорабочие, 650 комплектовщики (+ упаковщики/сборщики-упаковщики как смежная линейка), 680 кладовщики, 800 водители ПРТ; остальные slug — ориентиры в коде. **`site`**: телефон **+7 (925) 437-12-11**, WhatsApp, Telegram **@LVHanter**; синхрон текстов: главная (услуги), FAQ, калькулятор, мета калькулятора, `autsorsing.data`. |
+| Прайс и контакты | **`warehouse-hourly-rates.ts`**: 600 грузчики/разнорабочие/уборщики; 650 комплектовщики, упаковщики, сборщики-упаковщики; 680 кладовщики; **800 водители ПРТ и погрузчиков** (единая линейка; старый slug `operatory-pogruzchika` в расчёте КП мапится на неё). Промоутеры и водители кат. B с витрины сняты (редиректы на хаб/ПРТ). **`site`**: телефон **+7 (925) 437-12-11**, WhatsApp, Telegram **@LVHanter**; синхрон текстов: главная (услуги), FAQ, калькулятор, мета калькулятора, `autsorsing.data`. |
 
 ### Не сделано или не закрыто без заказчика (не врать новому агенту)
 
@@ -188,7 +188,7 @@
 
 ## Отчёт: программатика — локальный контекст на всех парах (2026-04-23)
 
-**Код:** `src/content/cross-priority-narratives.ts` — **`getProgrammaticLocalNarrative(professionSlug, citySlug)`**: для приоритетных 30 возвращает **`getPriorityCrossNarrative`**; иначе **3 абзаца профиля** из `BY_PRO` или **`defaultProParagraphs`**, **2 абзаца города** из **`programmatic-city-local.ts`** (`getCityLocalParagraphs`), закрывающий абзац с CTA на калькулятор/КП. В **`BY_PRO`** добавлен профиль **`promoutery`**.
+**Код:** `src/content/cross-priority-narratives.ts` — **`getProgrammaticLocalNarrative(professionSlug, citySlug)`**: для приоритетных cross возвращает **`getPriorityCrossNarrative`**; иначе **3 абзаца профиля** из `BY_PRO` или **`defaultProParagraphs`**, **2 абзаца города** из **`programmatic-city-local.ts`** (`getCityLocalParagraphs`), закрывающий абзац с CTA на калькулятор/КП. Каталог профессий без промоутеров и кат. B; ПРТ объединён с операторами погрузчика в одну карточку **`voditeli-prt`**.
 
 **UI:** `ProgrammaticStaffingPage` — блок «Локальный контекст» рендерится для **каждой** сгенерированной пары; бейдж «Приоритетный кластер» только для `isPriorityCross`.
 

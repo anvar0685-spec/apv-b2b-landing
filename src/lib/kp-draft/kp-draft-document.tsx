@@ -102,46 +102,42 @@ const styles = StyleSheet.create({
     borderColor: RULE,
     borderRadius: 4,
     padding: 10,
-    minHeight: 52,
+    minHeight: 58,
   },
   numLabel: {
     fontSize: 8,
     color: MUTED,
     marginBottom: 6,
   },
-  /** Только цифры — «₽» выносим отдельным Text, иначе в PDF наезжают глифы */
+  /** Крупные цифры; единицы — второй строкой в CardMoney (без ₽ в одной строке с числом). */
   numFigures: {
-    fontSize: 12,
-    fontWeight: 700,
-    color: ACCENT,
-    paddingRight: 5,
-  },
-  numCurrency: {
     fontSize: 11,
     fontWeight: 700,
     color: ACCENT,
   },
-  moneyRow: {
-    flexDirection: "row",
-    alignItems: "baseline",
-    flexWrap: "nowrap",
-    justifyContent: "flex-end",
+  numUnitLine: {
+    fontSize: 7.5,
+    fontWeight: 600,
+    color: ACCENT,
+    marginTop: 3,
+    letterSpacing: 0.2,
+  },
+  cardMoneyCol: {
     width: "100%",
+    alignItems: "flex-end",
   },
   cellMoneyWrap: {
-    flexDirection: "row",
-    alignItems: "baseline",
-    justifyContent: "flex-end",
     width: "100%",
+    alignItems: "flex-end",
   },
   cellMoneyFigures: {
     fontSize: 10,
     fontWeight: 400,
-    paddingRight: 5,
   },
   cellMoneySuffix: {
-    fontSize: 9,
+    fontSize: 8,
     color: PRIMARY,
+    marginTop: 2,
   },
   disclaimer: {
     marginTop: 18,
@@ -166,7 +162,7 @@ function formatMoneyRu(n: number): string {
   return n.toLocaleString("ru-RU");
 }
 
-/** Строка «цифры + суффикс» в правой колонке таблицы */
+/** Строка таблицы: сумма отдельно, подпись ниже — без наложения символов в PDF/почте */
 function CellMoneyLine(props: { figures: string; suffix: string }) {
   return (
     <View style={styles.cellMoneyWrap}>
@@ -176,11 +172,12 @@ function CellMoneyLine(props: { figures: string; suffix: string }) {
   );
 }
 
+/** Карточки вилки: крупные цифры + текст «руб. в мес» второй строкой (не ₽ в одной строке с числом). */
 function CardMoney(props: { amount: number }) {
   return (
-    <View style={styles.moneyRow}>
+    <View style={styles.cardMoneyCol}>
       <Text style={styles.numFigures}>{formatMoneyRu(props.amount)}</Text>
-      <Text style={styles.numCurrency}>₽</Text>
+      <Text style={styles.numUnitLine}>руб. в мес</Text>
     </View>
   );
 }
@@ -284,20 +281,19 @@ export function KpDraftDocument(props: KpDraftPdfProps): ReactElement {
 
         <Text style={styles.sectionTitle}>Ориентир по фонду (упрощённо)</Text>
         <Text style={{ fontSize: 9, color: MUTED, marginBottom: 6 }}>
-          Базовая ставка из прайса витрины (день, Москва/МО). Расчёт: 40 ч/нед × 4,3 нед/мес × численность,
-          без ночных коэффициентов и надбавок за пик — как стартовая вилка калькулятора на сайте.
+          Базовая ставка ₽/ч берётся из прайса витрины (как в калькуляторе на сайте): для каждого профиля своё значение в файле ставок; если профиль не размечен — ориентир 600 ₽/ч. Фонд в месяц: ставка × 40 ч в неделю × 4,3 недели в месяце × численность (день, Москва/МО, без ночи и пика). Нижняя и верхняя границы вилки — условно −10% и +10% от этой месячной оценки как упрощённый разброс рисков по объекту, не цена по договору.
         </Text>
         <View style={styles.box}>
           <View style={styles.row}>
             <Text style={styles.cellLabel}>Базовая ставка</Text>
             <View style={{ width: "58%" }}>
-              <CellMoneyLine figures={formatMoneyRu(props.hourlyBase)} suffix="₽/час" />
+              <CellMoneyLine figures={formatMoneyRu(props.hourlyBase)} suffix="руб./час" />
             </View>
           </View>
           <View style={[styles.row, styles.rowLast]}>
             <Text style={styles.cellLabel}>Оценка фонда «в середине»</Text>
             <View style={{ width: "58%" }}>
-              <CellMoneyLine figures={formatMoneyRu(props.monthlyMid)} suffix="₽/мес" />
+              <CellMoneyLine figures={formatMoneyRu(props.monthlyMid)} suffix="руб./мес" />
             </View>
           </View>
           <View style={styles.numbersRow}>

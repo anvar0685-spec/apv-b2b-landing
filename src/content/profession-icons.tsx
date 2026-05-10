@@ -1,17 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import {
-  Boxes,
-  CarFront,
-  ClipboardList,
-  Forklift,
-  Hammer,
-  Megaphone,
-  PackageOpen,
-  Layers,
-  Sparkles,
-  Truck,
-  Warehouse,
-} from "lucide-react";
+import { Boxes, ClipboardList, Forklift, Hammer, PackageOpen, Layers, Sparkles, Warehouse } from "lucide-react";
 import type { ProfessionSlug } from "@/content/professions-cities";
 
 /** Пиктограммы для карточек профессий (Lucide, единый размер снаружи). */
@@ -19,14 +7,11 @@ export const PROFESSION_ICONS: Record<ProfessionSlug, LucideIcon> = {
   gruzchiki: Boxes,
   komplektovschiki: ClipboardList,
   kladovschiki: PackageOpen,
-  "voditeli-prt": Truck,
-  "operatory-pogruzchika": Forklift,
+  "voditeli-prt": Forklift,
   upakovschiki: Warehouse,
   razdorabochie: Hammer,
   klinery: Sparkles,
-  "voditeli-kategorii-b": CarFront,
   "sborschiki-upakovschiki": Layers,
-  promoutery: Megaphone,
 };
 
 export function ProfessionIcon({

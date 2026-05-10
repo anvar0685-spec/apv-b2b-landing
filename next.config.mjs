@@ -67,6 +67,36 @@ const nextConfig = {
       { source: "/blog/blog-programmatika-gorodov", destination: "/blog/chto-takoe-autsorsing-personala-na-sklade", permanent: true },
       { source: "/keysy/horeca-set", destination: "/keysy/regionalnyj-rc-pik", permanent: true },
       { source: "/keysy/stroitelstvo-obekt", destination: "/keysy/sklad-rasshirenie-mo", permanent: true },
+      {
+        source: "/:locale/personal/operatory-pogruzchika",
+        destination: "/:locale/personal/voditeli-prt",
+        permanent: true,
+      },
+      {
+        source: "/:locale/personal/operatory-pogruzchika/:city",
+        destination: "/:locale/personal/voditeli-prt/:city",
+        permanent: true,
+      },
+      {
+        source: "/:locale/personal/voditeli-kategorii-b",
+        destination: "/:locale/personal/voditeli-prt",
+        permanent: true,
+      },
+      {
+        source: "/:locale/personal/voditeli-kategorii-b/:city",
+        destination: "/:locale/personal/voditeli-prt/:city",
+        permanent: true,
+      },
+      {
+        source: "/:locale/personal/promoutery",
+        destination: "/:locale/personal",
+        permanent: true,
+      },
+      {
+        source: "/:locale/personal/promoutery/:city",
+        destination: "/:locale/personal",
+        permanent: true,
+      },
     ];
   },
   /** В dev отключаем filesystem cache webpack: иначе после сбоев/EMFILE часто «Cannot find module './NNNN.js'». */

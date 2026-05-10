@@ -8,11 +8,10 @@ export const PROFESSIONS = [
     titleEn: "Pickers",
   },
   { slug: "kladovschiki", titleRu: "Кладовщики", titleEn: "Warehouse clerks" },
-  { slug: "voditeli-prt", titleRu: "Водители ПРТ", titleEn: "PRT drivers" },
   {
-    slug: "operatory-pogruzchika",
-    titleRu: "Операторы погрузчика",
-    titleEn: "Forklift operators",
+    slug: "voditeli-prt",
+    titleRu: "Водители ПРТ и погрузчиков",
+    titleEn: "PRT & forklift operators",
   },
   { slug: "upakovschiki", titleRu: "Упаковщики", titleEn: "Packers" },
   {
@@ -22,16 +21,10 @@ export const PROFESSIONS = [
   },
   { slug: "klinery", titleRu: "Уборщики (склад)", titleEn: "Warehouse cleaners" },
   {
-    slug: "voditeli-kategorii-b",
-    titleRu: "Водители категории B",
-    titleEn: "Category B drivers",
-  },
-  {
     slug: "sborschiki-upakovschiki",
     titleRu: "Сборщики-упаковщики",
     titleEn: "Assembler-packers",
   },
-  { slug: "promoutery", titleRu: "Промоутеры", titleEn: "Promoters" },
 ] as const;
 
 export const CITIES = [
