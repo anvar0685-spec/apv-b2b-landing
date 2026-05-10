@@ -10,6 +10,23 @@ const defaultLegalEntity =
 const defaultLegalAddress =
   "140125, Россия, Московская обл., г. Люберцы, мкр. Новые Островцы (д. Островцы), ул. Лётчика Волчкова, д. 2, кв. 155";
 
+const defaultPhone = process.env.NEXT_PUBLIC_PHONE ?? "+7 (925) 437-12-11";
+
+/** Российский номер → E.164 вида +7XXXXXXXXXX для deep-link MAX. */
+function ruPhoneToE164Plus(displayOrDigits: string): string {
+  const digits = displayOrDigits.replace(/\D/g, "");
+  if (digits.length === 11 && digits.startsWith("8")) return `+7${digits.slice(1)}`;
+  if (digits.length === 11 && digits.startsWith("7")) return `+${digits}`;
+  if (digits.length === 10) return `+7${digits}`;
+  return digits.length > 0 ? `+${digits}` : "+79254371211";
+}
+
+const maxFromEnv = (process.env.NEXT_PUBLIC_MAX ?? "").trim();
+/** Чат в MAX по номеру из конфига; переопределение — NEXT_PUBLIC_MAX (например персональная max.ru/u/…). */
+const maxResolved =
+  maxFromEnv ||
+  `https://max.ru/chat?phone=${encodeURIComponent(ruPhoneToE164Plus(defaultPhone))}`;
+
 export const site = {
   url,
   brandName: process.env.NEXT_PUBLIC_BRAND_NAME ?? "АПВ - СИСТЕМА",
@@ -20,13 +37,12 @@ export const site = {
   /** ОГРНИП (для ИП) */
   ogrn: process.env.NEXT_PUBLIC_OGRN ?? "325508100185182",
   legalAddress: process.env.NEXT_PUBLIC_LEGAL_ADDRESS ?? defaultLegalAddress,
-  phone: process.env.NEXT_PUBLIC_PHONE ?? "+7 (925) 437-12-11",
+  phone: defaultPhone,
   emailHello: process.env.NEXT_PUBLIC_EMAIL_HELLO ?? "mahmadov.personal@yandex.ru",
   emailSales: process.env.NEXT_PUBLIC_EMAIL_SALES ?? "mahmadov.personal@yandex.ru",
   telegram: process.env.NEXT_PUBLIC_TELEGRAM ?? "https://t.me/LVHanter",
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "https://wa.me/79254371211",
-  /** Персональная ссылка на профиль в MAX (из приложения: «Поделиться»). Пусто — в доке клона FAB ведёт на /zayavka. */
-  max: (process.env.NEXT_PUBLIC_MAX ?? "").trim(),
+  max: maxResolved,
   /** ERID / маркировка рекламы (значение по умолчанию до выдачи в ОРД) */
   erid: process.env.NEXT_PUBLIC_AD_ERID ?? "ERID-TBD",
   /** Расчётный счёт */

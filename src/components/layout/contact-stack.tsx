@@ -1,7 +1,6 @@
 "use client";
 
 import { MessageCircle, MessagesSquare, Phone, Send } from "lucide-react";
-import { Link } from "@/i18n/navigation";
 import { site } from "@/config/site";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
@@ -11,7 +10,6 @@ import { cn } from "@/lib/utils";
  */
 export function ContactStack() {
   const telHref = `tel:${site.phone.replace(/[^\d+]/g, "")}`;
-  const maxHref = site.max;
 
   const dockBtn =
     "flex h-12 w-12 items-center justify-center rounded-full text-white shadow-lg ring-2 ring-white/30 transition hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] motion-reduce:hover:scale-100";
@@ -58,29 +56,17 @@ export function ContactStack() {
         >
           <Send className="h-5 w-5" aria-hidden />
         </a>
-        {maxHref ? (
-          <a
-            href={maxHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(dockBtn, "bg-[#7c3aed] hover:ring-[#c4b5fd]")}
-            aria-label="Написать в MAX"
-            title="Написать в MAX"
-            onClick={() => void trackEvent("contact_stack_max", { source: "dock" })}
-          >
-            <MessagesSquare className="h-5 w-5" aria-hidden />
-          </a>
-        ) : (
-          <Link
-            href="/zayavka?topic=messenger-max"
-            className={cn(dockBtn, "bg-[#7c3aed] hover:ring-[#c4b5fd]")}
-            aria-label="Заявка — подключим MAX или другой канал"
-            title="Заявка"
-            onClick={() => void trackEvent("contact_stack_max_fallback_zayavka", { source: "dock" })}
-          >
-            <MessagesSquare className="h-5 w-5" aria-hidden />
-          </Link>
-        )}
+        <a
+          href={site.max}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(dockBtn, "bg-[#7c3aed] hover:ring-[#c4b5fd]")}
+          aria-label="Написать в MAX"
+          title="Написать в MAX"
+          onClick={() => void trackEvent("contact_stack_max", { source: "dock" })}
+        >
+          <MessagesSquare className="h-5 w-5" aria-hidden />
+        </a>
       </nav>
     </div>
   );
