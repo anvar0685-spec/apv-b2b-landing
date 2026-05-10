@@ -25,6 +25,8 @@ export const site = {
   emailSales: process.env.NEXT_PUBLIC_EMAIL_SALES ?? "mahmadov.personal@yandex.ru",
   telegram: process.env.NEXT_PUBLIC_TELEGRAM ?? "https://t.me/LVHanter",
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "https://wa.me/79254371211",
+  /** Персональная ссылка на профиль в MAX (из приложения: «Поделиться»). Пусто — в доке клона FAB ведёт на /zayavka. */
+  max: (process.env.NEXT_PUBLIC_MAX ?? "").trim(),
   /** ERID / маркировка рекламы (значение по умолчанию до выдачи в ОРД) */
   erid: process.env.NEXT_PUBLIC_AD_ERID ?? "ERID-TBD",
   /** Расчётный счёт */

@@ -1,52 +1,32 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState } from "react";
-import { Headphones, MessageCircle, Phone, Send } from "lucide-react";
+import { MessageCircle, MessagesSquare, Phone, Send } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { site } from "@/config/site";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 /**
- * Единый блок быстрых контактов: звонок, обратный звонок (диалог), WhatsApp, Telegram.
- * Заменяет пару CallbackFab + QuickContactDock — один столбец справа снизу.
+ * Единый блок быстрых контактов: звонок, WhatsApp, Telegram, MAX.
  */
 export function ContactStack() {
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const panelRef = useRef<HTMLDivElement>(null);
-  const titleId = useId();
-  const close = useCallback(() => setDialogOpen(false), []);
-
   const telHref = `tel:${site.phone.replace(/[^\d+]/g, "")}`;
-
-  useEffect(() => {
-    if (!dialogOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-    };
-    document.addEventListener("keydown", onKey);
-    const t = window.setTimeout(() => panelRef.current?.querySelector("a")?.focus(), 0);
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      window.clearTimeout(t);
-    };
-  }, [dialogOpen, close]);
+  const maxHref = site.max;
 
   const dockBtn =
     "flex h-12 w-12 items-center justify-center rounded-full text-white shadow-lg ring-2 ring-white/30 transition hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] motion-reduce:hover:scale-100";
 
   return (
-    <>
-      <div
-        className={cn(
-          "fixed bottom-5 right-5 z-40 rounded-[2rem] border border-[var(--neutral-200)]/90 bg-[var(--card)]/93 p-2 shadow-[0_20px_55px_-14px_rgba(7,21,37,0.38)] backdrop-blur-md",
-          "dark:border-white/18 dark:bg-[var(--primary-dark)]/78 dark:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.55)]",
-        )}
+    <div
+      className={cn(
+        "fixed bottom-5 right-5 z-40 rounded-[2rem] border border-[var(--neutral-200)]/90 bg-[var(--card)]/93 p-2 shadow-[0_20px_55px_-14px_rgba(7,21,37,0.38)] backdrop-blur-md",
+        "dark:border-white/18 dark:bg-[var(--primary-dark)]/78 dark:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.55)]",
+      )}
+    >
+      <nav
+        className={cn("flex flex-col-reverse items-center gap-2", "motion-reduce:transform-none")}
+        aria-label="Связаться: звонок, MAX, мессенджеры"
       >
-        <nav
-          className={cn("flex flex-col-reverse items-center gap-2", "motion-reduce:transform-none")}
-          aria-label="Связаться: звонок, заявка, мессенджеры"
-        >
         <a
           href={telHref}
           className={cn(dockBtn, "bg-[var(--primary)] hover:ring-[var(--accent)]")}
@@ -78,74 +58,30 @@ export function ContactStack() {
         >
           <Send className="h-5 w-5" aria-hidden />
         </a>
-        <button
-          type="button"
-          aria-haspopup="dialog"
-          aria-expanded={dialogOpen}
-          aria-controls={dialogOpen ? titleId : undefined}
-          className={cn(
-            dockBtn,
-            "bg-[color-mix(in_srgb,var(--accent)_92%,var(--primary))] ring-[color-mix(in_srgb,var(--accent)_55%,white)] hover:ring-[var(--accent)]",
-          )}
-          title="Обратный звонок"
-          onClick={() => {
-            setDialogOpen((v) => !v);
-            void trackEvent("callback_fab_open", { source: "contact_stack" });
-          }}
-        >
-          <Headphones className="h-5 w-5" aria-hidden />
-          <span className="sr-only">Обратный звонок</span>
-        </button>
-        </nav>
-      </div>
-
-      {dialogOpen ? (
-        <div
-          className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 p-4 sm:items-center"
-          role="presentation"
-          onClick={close}
-        >
-          <div
-            ref={panelRef}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={titleId}
-            className="w-full max-w-md rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 shadow-2xl dark:border-white/10"
-            onClick={(e) => e.stopPropagation()}
+        {maxHref ? (
+          <a
+            href={maxHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(dockBtn, "bg-[#7c3aed] hover:ring-[#c4b5fd]")}
+            aria-label="Написать в MAX"
+            title="Написать в MAX"
+            onClick={() => void trackEvent("contact_stack_max", { source: "dock" })}
           >
-            <h2 id={titleId} className="text-lg font-semibold text-[var(--primary)]">
-              Свяжитесь с нами
-            </h2>
-            <p className="type-body mt-2 text-sm text-[var(--neutral-700)]">
-              Позвоните по телефону или оставьте заявку — укажем детали по объекту, срокам и SLA в КП. Номер и мессенджеры
-              также в шапке и в блоке контактов справа внизу.
-            </p>
-            <div className="mt-5 flex flex-col gap-2">
-              <a
-                href={telHref}
-                className="inline-flex items-center justify-center rounded-xl bg-[var(--accent)] px-4 py-3 text-center text-sm font-medium text-white hover:opacity-95"
-                onClick={() => void trackEvent("callback_fab_tel", { source: "contact_stack" })}
-              >
-                {site.phone}
-              </a>
-              <Link
-                href="/zayavka?topic=obratnyy-zvonok"
-                className="inline-flex items-center justify-center rounded-xl border border-[var(--neutral-200)] bg-[var(--surface)] px-4 py-3 text-center text-sm font-medium text-[var(--primary)] hover:border-[var(--accent)]"
-                onClick={() => void trackEvent("callback_fab_lead", { source: "contact_stack" })}
-              >
-                Оставить заявку на обратный звонок
-              </Link>
-            </div>
-            <button
-              type="button"
-              className="mt-4 w-full text-sm text-[var(--neutral-500)] underline-offset-2 hover:underline"
-              onClick={close}
-            >
-              Закрыть
-            </button>
-          </div>
-        </div>
-      ) : null}
-    </>
+            <MessagesSquare className="h-5 w-5" aria-hidden />
+          </a>
+        ) : (
+          <Link
+            href="/zayavka?topic=messenger-max"
+            className={cn(dockBtn, "bg-[#7c3aed] hover:ring-[#c4b5fd]")}
+            aria-label="Заявка — подключим MAX или другой канал"
+            title="Заявка"
+            onClick={() => void trackEvent("contact_stack_max_fallback_zayavka", { source: "dock" })}
+          >
+            <MessagesSquare className="h-5 w-5" aria-hidden />
+          </Link>
+        )}
+      </nav>
+    </div>
   );
 }

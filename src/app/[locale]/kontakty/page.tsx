@@ -85,6 +85,11 @@ export default async function Page({ params }: Props) {
               <li className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 shadow-[var(--card-shadow)]">
                 <span className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">Мессенджеры</span>
                 <div className="mt-3 flex flex-wrap gap-4">
+                  {site.max ? (
+                    <a className="font-medium text-[var(--accent)] hover:underline" href={site.max} rel="noopener noreferrer">
+                      MAX
+                    </a>
+                  ) : null}
                   <a className="font-medium text-[var(--accent)] hover:underline" href={site.telegram} rel="noopener noreferrer">
                     Telegram
                   </a>
