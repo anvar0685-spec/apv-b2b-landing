@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Controller, useForm, type FieldPath } from "react-hook-form";
+import { Controller, useFieldArray, useForm, useWatch, type FieldPath } from "react-hook-form";
 import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,15 +25,19 @@ import {
 import { Urgency } from "@prisma/client";
 import type { ZodError } from "zod";
 
+type ProfessionLineValues = {
+  slug: string;
+  headcount: number;
+};
+
 type FormValues = {
   contactName: string;
   companyName: string;
   contactPhone: string;
   contactEmail: string;
   serviceType: string;
-  profession: string;
+  professionLines: ProfessionLineValues[];
   city: string;
-  headcount: number;
   comment: string;
   consent: boolean;
 };
@@ -42,10 +46,10 @@ function applyFieldErrors(
   err: ZodError,
   setError: (name: FieldPath<FormValues>, error: { message: string }) => void,
 ) {
-  const flat = err.flatten().fieldErrors;
-  for (const key of Object.keys(flat) as (keyof typeof flat)[]) {
-    const msg = flat[key]?.[0];
-    if (msg) setError(key as FieldPath<FormValues>, { message: msg });
+  for (const issue of err.issues) {
+    if (issue.path.length === 0) continue;
+    const name = issue.path.map(String).join(".") as FieldPath<FormValues>;
+    setError(name, { message: issue.message });
   }
 }
 
@@ -73,6 +77,7 @@ export function LeadMultistepForm() {
     () =>
       createLeadMultistepStep1Schema({
         headcountMin: t("errors.headcountMin"),
+        duplicateProfession: t("errors.duplicateProfession"),
       }),
     [t],
   );
@@ -93,9 +98,13 @@ export function LeadMultistepForm() {
       contactPhone: "",
       contactEmail: "",
       serviceType: "autsorsing",
-      profession: sp.get("profession") ?? "gruzchiki",
+      professionLines: [
+        {
+          slug: sp.get("profession") ?? "gruzchiki",
+          headcount: Number(sp.get("headcount") ?? 20) || 20,
+        },
+      ],
       city: sp.get("city") ?? "moskva",
-      headcount: Number(sp.get("headcount") ?? 20) || 20,
       comment: commentPrefix,
       consent: false,
     };
@@ -114,27 +123,17 @@ export function LeadMultistepForm() {
     defaultValues: defaults,
   });
 
+  const { fields, append, remove } = useFieldArray({ control, name: "professionLines" });
+  const watchedLines = useWatch({ control, name: "professionLines" });
+
   const formRef = useRef<HTMLFormElement>(null);
   const pct = ((step + 1) / 3) * 100;
 
   const firstFieldError = (err: ZodError): FieldPath<FormValues> | null => {
-    const f = err.flatten().fieldErrors as Partial<
-      Record<keyof FormValues, string[] | undefined>
-    >;
-    const order: FieldPath<FormValues>[] = [
-      "contactName",
-      "companyName",
-      "contactPhone",
-      "contactEmail",
-      "serviceType",
-      "profession",
-      "headcount",
-      "city",
-      "comment",
-      "consent",
-    ];
-    for (const k of order) {
-      if (f[k]?.[0]) return k;
+    for (const issue of err.issues) {
+      if (issue.path.length > 0) {
+        return issue.path.map(String).join(".") as FieldPath<FormValues>;
+      }
     }
     return null;
   };
@@ -182,9 +181,8 @@ export function LeadMultistepForm() {
       contactPhone: data.contactPhone,
       contactEmail: data.contactEmail.trim() || undefined,
       serviceType: data.serviceType,
-      profession: data.profession,
+      professionLines: data.professionLines,
       city: data.city,
-      headcount: data.headcount,
       comment: data.comment.trim() || undefined,
       source: "multistep_form",
       urgency: Urgency.NORMAL,
@@ -217,6 +215,27 @@ export function LeadMultistepForm() {
 
   const profLabel = (p: (typeof PROFESSIONS)[number]) => p.titleRu;
   const cityLabel = (c: (typeof CITIES)[number]) => c.nameRu;
+
+  const professionsForRow = (rowIndex: number) => {
+    const lines = watchedLines ?? [];
+    const cur = lines[rowIndex]?.slug;
+    const taken = new Set(
+      lines.map((l, i) => (i !== rowIndex ? l.slug : null)).filter((s): s is string => Boolean(s)),
+    );
+    return PROFESSIONS.filter((p) => p.slug === cur || !taken.has(p.slug));
+  };
+
+  const addProfessionLine = () => {
+    const current = getValues("professionLines");
+    const used = new Set(current.map((l) => l.slug));
+    const next = PROFESSIONS.find((p) => !used.has(p.slug));
+    if (next) append({ slug: next.slug, headcount: 10 });
+  };
+
+  const maxProfessionRows = Math.min(8, PROFESSIONS.length);
+  const usedSlugs = new Set((watchedLines ?? []).map((l) => l.slug));
+  const canAddProfessionLine =
+    fields.length < maxProfessionRows && PROFESSIONS.some((p) => !usedSlugs.has(p.slug));
 
   if (doneMeta) {
     const thanksJson = {
@@ -354,33 +373,84 @@ export function LeadMultistepForm() {
             <input type="hidden" {...register("serviceType")} />
           </div>
           <div>
-            <Label htmlFor="pr">{t("profession")}</Label>
-            <select
-              id="pr"
-              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-white px-3 text-sm dark:bg-[var(--card)]"
-              {...register("profession")}
-            >
-              {PROFESSIONS.map((p) => (
-                <option key={p.slug} value={p.slug}>
-                  {profLabel(p)}
-                </option>
+            <div className="flex flex-wrap items-end justify-between gap-2">
+              <Label className="block">{t("profession")}</Label>
+              <p className="text-xs text-[var(--neutral-500)]">{t("professionLinesHint")}</p>
+            </div>
+            <div className="mt-3 space-y-4">
+              {fields.map((field, index) => (
+                <div
+                  key={field.id}
+                  className="rounded-xl border border-[var(--neutral-200)] bg-[var(--neutral-50)]/40 p-4 dark:bg-transparent"
+                >
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
+                    <div className="min-w-0 flex-1">
+                      <Label className="text-xs font-normal text-[var(--neutral-600)]" htmlFor={`pr-${field.id}`}>
+                        {t("profession")}
+                      </Label>
+                      <select
+                        id={`pr-${field.id}`}
+                        className="mt-1.5 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-white px-3 text-sm dark:bg-[var(--card)]"
+                        {...register(`professionLines.${index}.slug` as const)}
+                      >
+                        {professionsForRow(index).map((p) => (
+                          <option key={p.slug} value={p.slug}>
+                            {profLabel(p)}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.professionLines?.[index]?.slug?.message ? (
+                        <p className="mt-1 text-xs text-red-600" role="alert">
+                          {errors.professionLines[index]?.slug?.message}
+                        </p>
+                      ) : null}
+                    </div>
+                    <div className="w-full sm:w-36">
+                      <Label className="text-xs font-normal text-[var(--neutral-600)]" htmlFor={`hc-${field.id}`}>
+                        {t("headcount")}
+                      </Label>
+                      <Input
+                        id={`hc-${field.id}`}
+                        type="number"
+                        min={1}
+                        className="mt-1.5"
+                        {...register(`professionLines.${index}.headcount` as const, { valueAsNumber: true })}
+                      />
+                      {errors.professionLines?.[index]?.headcount?.message ? (
+                        <p className="mt-1 text-xs text-red-600" role="alert">
+                          {errors.professionLines[index]?.headcount?.message}
+                        </p>
+                      ) : null}
+                    </div>
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      size="sm"
+                      className="shrink-0 sm:mb-0.5"
+                      disabled={fields.length <= 1}
+                      onClick={() => remove(index)}
+                    >
+                      {t("removeProfessionLine")}
+                    </Button>
+                  </div>
+                </div>
               ))}
-            </select>
-          </div>
-          <div>
-            <Label htmlFor="hc">{t("headcount")}</Label>
-            <Input
-              id="hc"
-              type="number"
-              min={1}
-              className="mt-2"
-              {...register("headcount", { valueAsNumber: true })}
-            />
-            {errors.headcount ? (
-              <p className="mt-1 text-xs text-red-600" role="alert">
-                {errors.headcount.message}
+            </div>
+            {typeof errors.professionLines?.message === "string" ? (
+              <p className="mt-2 text-xs text-red-600" role="alert">
+                {errors.professionLines.message}
               </p>
             ) : null}
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              className="mt-3 border border-[var(--neutral-200)] dark:border-white/15"
+              disabled={!canAddProfessionLine}
+              onClick={addProfessionLine}
+            >
+              {t("addProfessionLine")}
+            </Button>
           </div>
           <div>
             <Label htmlFor="ci">{t("city")}</Label>

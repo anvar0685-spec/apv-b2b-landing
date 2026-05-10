@@ -1,5 +1,6 @@
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 import type { ReactElement } from "react";
+import type { KpFundLine } from "@/lib/kp-draft/estimate";
 
 const ACCENT = "#0d9488";
 const PRIMARY = "#071525";
@@ -12,8 +13,8 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 10,
     paddingTop: 36,
-    /** Запас под абсолютный футер (fixed), чтобы поток не заходил под реквизиты при переносе на 2-ю страницу */
-    paddingBottom: 56,
+    /** Запас под fixed-футер + дисклеймер у нижнего края */
+    paddingBottom: 80,
     paddingHorizontal: 44,
     color: PRIMARY,
     lineHeight: 1.45,
@@ -83,6 +84,12 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: 400,
   },
+  cellValueMuted: {
+    width: "58%",
+    fontSize: 8,
+    color: MUTED,
+    lineHeight: 1.35,
+  },
   box: {
     backgroundColor: SURFACE,
     borderWidth: 1,
@@ -95,6 +102,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 8,
+  },
+  forkCluster: {
+    marginTop: 0,
   },
   numCol: {
     width: "31%",
@@ -110,7 +120,6 @@ const styles = StyleSheet.create({
     color: MUTED,
     marginBottom: 6,
   },
-  /** Крупные цифры; единицы — второй строкой в CardMoney (без ₽ в одной строке с числом). */
   numFigures: {
     fontSize: 11,
     fontWeight: 700,
@@ -141,10 +150,10 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   disclaimer: {
-    marginTop: 18,
-    fontSize: 8,
+    marginTop: 14,
+    fontSize: 7.5,
     color: MUTED,
-    lineHeight: 1.55,
+    lineHeight: 1.5,
   },
   footer: {
     position: "absolute",
@@ -163,7 +172,6 @@ function formatMoneyRu(n: number): string {
   return n.toLocaleString("ru-RU");
 }
 
-/** Строка таблицы: сумма отдельно, подпись ниже — без наложения символов в PDF/почте */
 function CellMoneyLine(props: { figures: string; suffix: string }) {
   return (
     <View style={styles.cellMoneyWrap}>
@@ -173,7 +181,6 @@ function CellMoneyLine(props: { figures: string; suffix: string }) {
   );
 }
 
-/** Карточки вилки: крупные цифры + текст «руб. в мес» второй строкой (не ₽ в одной строке с числом). */
 function CardMoney(props: { amount: number }) {
   return (
     <View style={styles.cardMoneyCol}>
@@ -192,12 +199,13 @@ export type KpDraftPdfProps = {
   contactName: string;
   contactPhone: string;
   contactEmail?: string;
-  professionRu: string;
+  professionSummaryRu: string;
   cityRu: string;
-  headcount: number;
+  headcountTotal: number;
   serviceRu: string;
   comment?: string;
-  hourlyBase: number;
+  fundLines: KpFundLine[];
+  weightedHourly: number;
   monthlyMid: number;
   low: number;
   high: number;
@@ -209,6 +217,8 @@ export function KpDraftDocument(props: KpDraftPdfProps): ReactElement {
     month: "long",
     year: "numeric",
   });
+
+  const multi = props.fundLines.length > 1;
 
   return (
     <Document>
@@ -259,7 +269,7 @@ export function KpDraftDocument(props: KpDraftPdfProps): ReactElement {
           </View>
           <View style={styles.row}>
             <Text style={styles.cellLabel}>Профиль</Text>
-            <Text style={styles.cellValue}>{props.professionRu}</Text>
+            <Text style={styles.cellValue}>{props.professionSummaryRu}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.cellLabel}>Локация</Text>
@@ -267,7 +277,7 @@ export function KpDraftDocument(props: KpDraftPdfProps): ReactElement {
           </View>
           <View style={[styles.row, styles.rowLast]}>
             <Text style={styles.cellLabel}>Численность (ориентир)</Text>
-            <Text style={styles.cellValue}>{props.headcount} чел.</Text>
+            <Text style={styles.cellValue}>{props.headcountTotal} чел. суммарно</Text>
           </View>
         </View>
 
@@ -280,49 +290,85 @@ export function KpDraftDocument(props: KpDraftPdfProps): ReactElement {
           </>
         ) : null}
 
-        {/*
-          wrap={false}: заголовок, пояснение и блок с тремя карточками вилки не режутся между страницами.
-        */}
-        <View wrap={false}>
-          <Text style={styles.sectionTitle}>Ориентир по фонду (упрощённо)</Text>
-          <Text style={{ fontSize: 9, color: MUTED, marginBottom: 6 }}>
-            Базовая ставка ₽/ч берётся из прайса витрины (как в калькуляторе на сайте): для каждого профиля своё значение в файле ставок; если профиль не размечен — ориентир 600 ₽/ч. Фонд в месяц: ставка × 40 ч в неделю × 4,3 недели в месяце × численность (день, Москва/МО, без ночи и пика). Нижняя и верхняя границы вилки — условно −10% и +10% от этой месячной оценки как упрощённый разброс рисков по объекту, не цена по договору.
-          </Text>
-          <View style={styles.box}>
-            <View style={styles.row}>
-              <Text style={styles.cellLabel}>Базовая ставка</Text>
-              <View style={{ width: "58%" }}>
-                <CellMoneyLine figures={formatMoneyRu(props.hourlyBase)} suffix="руб./час" />
+        <Text style={styles.sectionTitle}>Ориентир по фонду (упрощённо)</Text>
+        <Text style={{ fontSize: 9, color: MUTED, marginBottom: 6 }}>
+          {multi
+            ? "По каждой строке профиля: ставка из прайса витрины × 40 ч в неделю × 4,3 недели в месяце × численность по строке; итоговый фонд — сумма строк. Нижняя и верхняя границы вилки — условно −10% и +10% от суммарной месячной оценки (день, Москва/МО, без ночи и пика), не цена по договору."
+            : "Базовая ставка ₽/ч берётся из прайса витрины (как в калькуляторе на сайте): для каждого профиля своё значение в файле ставок; если профиль не размечен — ориентир 600 ₽/ч. Фонд в месяц: ставка × 40 ч в неделю × 4,3 недели в месяце × численность (день, Москва/МО, без ночи и пика). Нижняя и верхняя границы вилки — условно −10% и +10% от этой месячной оценки как упрощённый разброс рисков по объекту, не цена по договору."}
+        </Text>
+
+        <View style={styles.box}>
+          {multi ? (
+            <>
+              {props.fundLines.map((ln, idx) => (
+                <View key={`${ln.slug}-${idx}`} style={styles.row}>
+                  <View style={styles.cellLabel}>
+                    <Text>{ln.titleRu}</Text>
+                    <Text style={{ fontSize: 8, color: MUTED, marginTop: 2 }}>
+                      {formatMoneyRu(ln.hourlyBase)} руб./ч · {ln.headcount} чел.
+                    </Text>
+                  </View>
+                  <View style={{ width: "58%" }}>
+                    <CellMoneyLine figures={formatMoneyRu(ln.monthlyMid)} suffix="руб./мес по строке" />
+                  </View>
+                </View>
+              ))}
+              <View style={styles.row}>
+                <Text style={styles.cellLabel}>Средневзвешенная ставка (ориентир)</Text>
+                <View style={{ width: "58%" }}>
+                  <CellMoneyLine figures={formatMoneyRu(props.weightedHourly)} suffix="руб./час" />
+                </View>
               </View>
+              <View style={[styles.row, styles.rowLast]}>
+                <Text style={styles.cellLabel}>Итого фонд в месяц (ориентир)</Text>
+                <View style={{ width: "58%" }}>
+                  <CellMoneyLine figures={formatMoneyRu(props.monthlyMid)} suffix="руб./мес" />
+                </View>
+              </View>
+            </>
+          ) : (
+            <>
+              <View style={styles.row}>
+                <Text style={styles.cellLabel}>Базовая ставка</Text>
+                <View style={{ width: "58%" }}>
+                  <CellMoneyLine figures={formatMoneyRu(props.fundLines[0]?.hourlyBase ?? 0)} suffix="руб./час" />
+                </View>
+              </View>
+              <View style={[styles.row, styles.rowLast]}>
+                <Text style={styles.cellLabel}>Оценка фонда «в середине»</Text>
+                <View style={{ width: "58%" }}>
+                  <CellMoneyLine figures={formatMoneyRu(props.monthlyMid)} suffix="руб./мес" />
+                </View>
+              </View>
+            </>
+          )}
+        </View>
+
+        {/* Отдельный блок: карточки вилки не делят страницу с длинной таблицей; minPresenceAhead уводит на след. страницу при нехватке места. */}
+        <View wrap={false} minPresenceAhead={140} style={[styles.box, styles.forkCluster]}>
+          <View style={styles.numbersRow}>
+            <View style={styles.numCol}>
+              <Text style={styles.numLabel}>Нижняя граница вилки</Text>
+              <CardMoney amount={props.low} />
             </View>
-            <View style={[styles.row, styles.rowLast]}>
-              <Text style={styles.cellLabel}>Оценка фонда «в середине»</Text>
-              <View style={{ width: "58%" }}>
-                <CellMoneyLine figures={formatMoneyRu(props.monthlyMid)} suffix="руб./мес" />
-              </View>
+            <View style={styles.numCol}>
+              <Text style={styles.numLabel}>Верхняя граница вилки</Text>
+              <CardMoney amount={props.high} />
             </View>
-            <View style={styles.numbersRow}>
-              <View style={styles.numCol}>
-                <Text style={styles.numLabel}>Нижняя граница вилки</Text>
-                <CardMoney amount={props.low} />
-              </View>
-              <View style={styles.numCol}>
-                <Text style={styles.numLabel}>Верхняя граница вилки</Text>
-                <CardMoney amount={props.high} />
-              </View>
-              <View style={styles.numCol}>
-                <Text style={styles.numLabel}>Месяц (ориентир)</Text>
-                <CardMoney amount={props.monthlyMid} />
-              </View>
+            <View style={styles.numCol}>
+              <Text style={styles.numLabel}>Месяц (ориентир)</Text>
+              <CardMoney amount={props.monthlyMid} />
             </View>
           </View>
         </View>
 
-        <Text style={styles.disclaimer}>
-          Документ сформирован автоматически для ускорения коммуникации. Цифры не включают НДС и особые условия
-          объекта. Ночные смены, сутки, усиленный комплаенс, резерв замены и транспортная доступность могут
-          изменить модель — финальный пакет согласуется с менеджером после уточнения ТЗ.
-        </Text>
+        <View wrap={false} minPresenceAhead={72}>
+          <Text style={styles.disclaimer}>
+            Документ сформирован автоматически для ускорения коммуникации. Цифры не включают НДС и особые условия
+            объекта. Ночные смены, сутки, усиленный комплаенс, резерв замены и транспортная доступность могут
+            изменить модель — финальный пакет согласуется с менеджером после уточнения ТЗ.
+          </Text>
+        </View>
 
         <View style={styles.footer} fixed>
           <Text>{props.legalLine}</Text>

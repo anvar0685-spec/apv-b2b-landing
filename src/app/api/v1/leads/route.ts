@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { Prisma } from "@prisma/client";
 import { leadCreateSchema } from "@/lib/validations/lead";
 import { getTenantForApi } from "@/lib/api-tenant";
 import { prisma } from "@/lib/prisma";
@@ -45,6 +46,9 @@ export async function POST(req: Request) {
 
     const data = parsed.data;
 
+    const professionJoined = data.professionLines.map((l) => l.slug).join(",");
+    const headcountSum = data.professionLines.reduce((s, l) => s + l.headcount, 0);
+
     const lead = await prisma.lead.create({
       data: {
         tenantId: tenant.id,
@@ -53,9 +57,10 @@ export async function POST(req: Request) {
         contactPhone: data.contactPhone,
         contactEmail: data.contactEmail?.trim() || undefined,
         serviceType: data.serviceType,
-        profession: data.profession,
+        profession: professionJoined,
+        professionLines: data.professionLines as unknown as Prisma.InputJsonValue,
         city: data.city,
-        headcount: data.headcount,
+        headcount: headcountSum,
         budgetMonthly: data.budgetMonthly,
         urgency: data.urgency,
         comment: data.comment,
@@ -89,6 +94,7 @@ export async function POST(req: Request) {
           profession: lead.profession,
           city: lead.city,
           headcount: lead.headcount,
+          professionLines: lead.professionLines,
           comment: lead.comment,
           createdAt: lead.createdAt,
         });

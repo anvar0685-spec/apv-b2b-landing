@@ -240,6 +240,8 @@ model Lead {
   contactEmail         String?
   serviceType          String
   profession           String
+  /// Состав заявки: [{ "slug": "gruzchiki", "headcount": 10 }, …]. Если null — трактуем как одну строку profession + headcount.
+  professionLines      Json?
   city                 String
   headcount            Int
   budgetMonthly        Int?
