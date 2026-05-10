@@ -12,25 +12,11 @@ const defaultLegalAddress =
 
 const defaultPhone = process.env.NEXT_PUBLIC_PHONE ?? "+7 (925) 437-12-11";
 
-/** Российский номер → E.164 вида +7XXXXXXXXXX для deep-link MAX. */
-function ruPhoneToE164Plus(displayOrDigits: string): string {
-  const digits = displayOrDigits.replace(/\D/g, "");
-  if (digits.length === 11 && digits.startsWith("8")) return `+7${digits.slice(1)}`;
-  if (digits.length === 11 && digits.startsWith("7")) return `+${digits}`;
-  if (digits.length === 10) return `+7${digits}`;
-  return digits.length > 0 ? `+${digits}` : "+79254371211";
-}
-
 const maxFromEnv = (process.env.NEXT_PUBLIC_MAX ?? "").trim();
-/**
- * Ссылка на чат/профиль в MAX.
- * 1) NEXT_PUBLIC_MAX — лучший вариант: «Поделиться» из профиля в приложении (max.ru/u/…).
- * 2) Иначе max.ru/chat?phone= — открывается сценарий «чат по номеру» (кнопка max://), не веб-вход web.max.ru
- *    (тот уводит в загрузку/QR).
- */
-const maxResolved =
-  maxFromEnv ||
-  `https://max.ru/chat?phone=${encodeURIComponent(ruPhoneToE164Plus(defaultPhone))}`;
+/** Ссылка «поделиться профилем» в MAX. NEXT_PUBLIC_MAX переопределяет (стейджинг / смена ссылки). */
+const defaultMaxProfile =
+  "https://max.ru/u/f9LHodD0cOJgLZ4W7M6zakOCdisOFfmF4VYsM8axfLkvWvtC35pm4ljfHI4";
+const maxResolved = maxFromEnv || defaultMaxProfile;
 
 export const site = {
   url,
