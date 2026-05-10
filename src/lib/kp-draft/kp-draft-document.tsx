@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 10,
     paddingTop: 36,
-    paddingBottom: 40,
+    /** Запас под абсолютный футер (fixed), чтобы поток не заходил под реквизиты при переносе на 2-ю страницу */
+    paddingBottom: 56,
     paddingHorizontal: 44,
     color: PRIMARY,
     lineHeight: 1.45,
@@ -279,35 +280,40 @@ export function KpDraftDocument(props: KpDraftPdfProps): ReactElement {
           </>
         ) : null}
 
-        <Text style={styles.sectionTitle}>Ориентир по фонду (упрощённо)</Text>
-        <Text style={{ fontSize: 9, color: MUTED, marginBottom: 6 }}>
-          Базовая ставка ₽/ч берётся из прайса витрины (как в калькуляторе на сайте): для каждого профиля своё значение в файле ставок; если профиль не размечен — ориентир 600 ₽/ч. Фонд в месяц: ставка × 40 ч в неделю × 4,3 недели в месяце × численность (день, Москва/МО, без ночи и пика). Нижняя и верхняя границы вилки — условно −10% и +10% от этой месячной оценки как упрощённый разброс рисков по объекту, не цена по договору.
-        </Text>
-        <View style={styles.box}>
-          <View style={styles.row}>
-            <Text style={styles.cellLabel}>Базовая ставка</Text>
-            <View style={{ width: "58%" }}>
-              <CellMoneyLine figures={formatMoneyRu(props.hourlyBase)} suffix="руб./час" />
+        {/*
+          wrap={false}: заголовок, пояснение и блок с тремя карточками вилки не режутся между страницами.
+        */}
+        <View wrap={false}>
+          <Text style={styles.sectionTitle}>Ориентир по фонду (упрощённо)</Text>
+          <Text style={{ fontSize: 9, color: MUTED, marginBottom: 6 }}>
+            Базовая ставка ₽/ч берётся из прайса витрины (как в калькуляторе на сайте): для каждого профиля своё значение в файле ставок; если профиль не размечен — ориентир 600 ₽/ч. Фонд в месяц: ставка × 40 ч в неделю × 4,3 недели в месяце × численность (день, Москва/МО, без ночи и пика). Нижняя и верхняя границы вилки — условно −10% и +10% от этой месячной оценки как упрощённый разброс рисков по объекту, не цена по договору.
+          </Text>
+          <View style={styles.box}>
+            <View style={styles.row}>
+              <Text style={styles.cellLabel}>Базовая ставка</Text>
+              <View style={{ width: "58%" }}>
+                <CellMoneyLine figures={formatMoneyRu(props.hourlyBase)} suffix="руб./час" />
+              </View>
             </View>
-          </View>
-          <View style={[styles.row, styles.rowLast]}>
-            <Text style={styles.cellLabel}>Оценка фонда «в середине»</Text>
-            <View style={{ width: "58%" }}>
-              <CellMoneyLine figures={formatMoneyRu(props.monthlyMid)} suffix="руб./мес" />
+            <View style={[styles.row, styles.rowLast]}>
+              <Text style={styles.cellLabel}>Оценка фонда «в середине»</Text>
+              <View style={{ width: "58%" }}>
+                <CellMoneyLine figures={formatMoneyRu(props.monthlyMid)} suffix="руб./мес" />
+              </View>
             </View>
-          </View>
-          <View style={styles.numbersRow}>
-            <View style={styles.numCol}>
-              <Text style={styles.numLabel}>Нижняя граница вилки</Text>
-              <CardMoney amount={props.low} />
-            </View>
-            <View style={styles.numCol}>
-              <Text style={styles.numLabel}>Верхняя граница вилки</Text>
-              <CardMoney amount={props.high} />
-            </View>
-            <View style={styles.numCol}>
-              <Text style={styles.numLabel}>Месяц (ориентир)</Text>
-              <CardMoney amount={props.monthlyMid} />
+            <View style={styles.numbersRow}>
+              <View style={styles.numCol}>
+                <Text style={styles.numLabel}>Нижняя граница вилки</Text>
+                <CardMoney amount={props.low} />
+              </View>
+              <View style={styles.numCol}>
+                <Text style={styles.numLabel}>Верхняя граница вилки</Text>
+                <CardMoney amount={props.high} />
+              </View>
+              <View style={styles.numCol}>
+                <Text style={styles.numLabel}>Месяц (ориентир)</Text>
+                <CardMoney amount={props.monthlyMid} />
+              </View>
             </View>
           </View>
         </View>
