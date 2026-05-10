@@ -2,12 +2,11 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { ChevronDown, Menu, Moon, Sun, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { BrandMark } from "@/components/brand/brand-mark";
 import { cn } from "@/lib/utils";
-import { toggleTheme } from "@/components/layout/theme-provider";
 
 export type SiteHeaderLink = { href: string; label: string };
 
@@ -24,8 +23,6 @@ type SiteHeaderClientProps = {
   menuOpenLabel: string;
   menuCloseLabel: string;
   menuNavLabel: string;
-  themeLightLabel: string;
-  themeDarkLabel: string;
 };
 
 function pathMatches(pathname: string, href: string) {
@@ -45,13 +42,10 @@ export function SiteHeaderClient({
   menuOpenLabel,
   menuCloseLabel,
   menuNavLabel,
-  themeLightLabel,
-  themeDarkLabel,
 }: SiteHeaderClientProps) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [dark, setDark] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
@@ -67,14 +61,6 @@ export function SiteHeaderClient({
   useEffect(() => {
     setMegaOpen(false);
   }, [pathname]);
-
-  useEffect(() => {
-    const sync = () => setDark(document.documentElement.classList.contains("dark"));
-    sync();
-    const obs = new MutationObserver(sync);
-    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-    return () => obs.disconnect();
-  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -195,18 +181,6 @@ export function SiteHeaderClient({
               onClick={() => setMenuOpen((o) => !o)}
             >
               {menuOpen ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                toggleTheme();
-                setDark(document.documentElement.classList.contains("dark"));
-              }}
-              className="interactive-hover-ring inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--neutral-200)] bg-[var(--surface)] text-sm text-[var(--primary)] transition hover:bg-[var(--card)] dark:border-white/15 dark:bg-white/5 dark:text-white"
-              aria-label={dark ? themeLightLabel : themeDarkLabel}
-              title={dark ? themeLightLabel : themeDarkLabel}
-            >
-              {dark ? <Sun className="h-4 w-4" aria-hidden /> : <Moon className="h-4 w-4" aria-hidden />}
             </button>
             <Button asChild variant="secondary" size="sm" className="hidden sm:inline-flex">
               <Link href="/zayavka">{ctaProposal}</Link>

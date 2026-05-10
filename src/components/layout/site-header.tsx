@@ -49,8 +49,6 @@ export async function SiteHeader() {
       menuOpenLabel={t("menuOpen")}
       menuCloseLabel={t("menuClose")}
       menuNavLabel={t("menuNav")}
-      themeLightLabel={t("themeLight")}
-      themeDarkLabel={t("themeDark")}
     />
   );
 }
