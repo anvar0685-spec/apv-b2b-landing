@@ -102,22 +102,52 @@ const styles = StyleSheet.create({
     borderColor: RULE,
     borderRadius: 4,
     padding: 10,
+    minHeight: 52,
   },
   numLabel: {
     fontSize: 8,
     color: MUTED,
-    marginBottom: 4,
+    marginBottom: 6,
   },
-  numValue: {
-    fontSize: 13,
+  /** Только цифры — «₽» выносим отдельным Text, иначе в PDF наезжают глифы */
+  numFigures: {
+    fontSize: 12,
     fontWeight: 700,
     color: ACCENT,
+    paddingRight: 5,
+  },
+  numCurrency: {
+    fontSize: 11,
+    fontWeight: 700,
+    color: ACCENT,
+  },
+  moneyRow: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    flexWrap: "nowrap",
+    justifyContent: "flex-end",
+    width: "100%",
+  },
+  cellMoneyWrap: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    justifyContent: "flex-end",
+    width: "100%",
+  },
+  cellMoneyFigures: {
+    fontSize: 10,
+    fontWeight: 400,
+    paddingRight: 5,
+  },
+  cellMoneySuffix: {
+    fontSize: 9,
+    color: PRIMARY,
   },
   disclaimer: {
     marginTop: 18,
     fontSize: 8,
     color: MUTED,
-    lineHeight: 1.5,
+    lineHeight: 1.55,
   },
   footer: {
     position: "absolute",
@@ -131,6 +161,29 @@ const styles = StyleSheet.create({
     color: MUTED,
   },
 });
+
+function formatMoneyRu(n: number): string {
+  return n.toLocaleString("ru-RU");
+}
+
+/** Строка «цифры + суффикс» в правой колонке таблицы */
+function CellMoneyLine(props: { figures: string; suffix: string }) {
+  return (
+    <View style={styles.cellMoneyWrap}>
+      <Text style={styles.cellMoneyFigures}>{props.figures}</Text>
+      <Text style={styles.cellMoneySuffix}>{props.suffix}</Text>
+    </View>
+  );
+}
+
+function CardMoney(props: { amount: number }) {
+  return (
+    <View style={styles.moneyRow}>
+      <Text style={styles.numFigures}>{formatMoneyRu(props.amount)}</Text>
+      <Text style={styles.numCurrency}>₽</Text>
+    </View>
+  );
+}
 
 export type KpDraftPdfProps = {
   brandName: string;
@@ -237,24 +290,28 @@ export function KpDraftDocument(props: KpDraftPdfProps): ReactElement {
         <View style={styles.box}>
           <View style={styles.row}>
             <Text style={styles.cellLabel}>Базовая ставка</Text>
-            <Text style={styles.cellValue}>{props.hourlyBase.toLocaleString("ru-RU")} ₽/час</Text>
+            <View style={{ width: "58%" }}>
+              <CellMoneyLine figures={formatMoneyRu(props.hourlyBase)} suffix="₽/час" />
+            </View>
           </View>
           <View style={[styles.row, styles.rowLast]}>
             <Text style={styles.cellLabel}>Оценка фонда «в середине»</Text>
-            <Text style={styles.cellValue}>{props.monthlyMid.toLocaleString("ru-RU")} ₽/мес</Text>
+            <View style={{ width: "58%" }}>
+              <CellMoneyLine figures={formatMoneyRu(props.monthlyMid)} suffix="₽/мес" />
+            </View>
           </View>
           <View style={styles.numbersRow}>
             <View style={styles.numCol}>
               <Text style={styles.numLabel}>Нижняя граница вилки</Text>
-              <Text style={styles.numValue}>{props.low.toLocaleString("ru-RU")} ₽</Text>
+              <CardMoney amount={props.low} />
             </View>
             <View style={styles.numCol}>
               <Text style={styles.numLabel}>Верхняя граница вилки</Text>
-              <Text style={styles.numValue}>{props.high.toLocaleString("ru-RU")} ₽</Text>
+              <CardMoney amount={props.high} />
             </View>
             <View style={styles.numCol}>
               <Text style={styles.numLabel}>Месяц (ориентир)</Text>
-              <Text style={styles.numValue}>{props.monthlyMid.toLocaleString("ru-RU")} ₽</Text>
+              <CardMoney amount={props.monthlyMid} />
             </View>
           </View>
         </View>
