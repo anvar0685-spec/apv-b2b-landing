@@ -22,10 +22,15 @@ function ruPhoneToE164Plus(displayOrDigits: string): string {
 }
 
 const maxFromEnv = (process.env.NEXT_PUBLIC_MAX ?? "").trim();
-/** Чат в веб-клиенте MAX по номеру из конфига (удобно с сайта); переопределение — NEXT_PUBLIC_MAX. */
+/**
+ * Ссылка на чат/профиль в MAX.
+ * 1) NEXT_PUBLIC_MAX — лучший вариант: «Поделиться» из профиля в приложении (max.ru/u/…).
+ * 2) Иначе max.ru/chat?phone= — открывается сценарий «чат по номеру» (кнопка max://), не веб-вход web.max.ru
+ *    (тот уводит в загрузку/QR).
+ */
 const maxResolved =
   maxFromEnv ||
-  `https://web.max.ru/chat?phone=${encodeURIComponent(ruPhoneToE164Plus(defaultPhone))}`;
+  `https://max.ru/chat?phone=${encodeURIComponent(ruPhoneToE164Plus(defaultPhone))}`;
 
 export const site = {
   url,
