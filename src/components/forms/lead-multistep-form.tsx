@@ -85,8 +85,6 @@ export function LeadMultistepForm() {
   );
 
   const defaults = useMemo<FormValues>(() => {
-    const svc = sp.get("service");
-    const serviceType = svc === "autstaffing" || !svc ? "autsorsing" : svc.length >= 2 ? svc : "autsorsing";
     const topic = sp.get("topic");
     const commentPrefix = topic ? `Тема: ${topic}\n` : "";
     return {
@@ -94,7 +92,7 @@ export function LeadMultistepForm() {
       companyName: "",
       contactPhone: "",
       contactEmail: "",
-      serviceType,
+      serviceType: "autsorsing",
       profession: sp.get("profession") ?? "gruzchiki",
       city: sp.get("city") ?? "moskva",
       headcount: Number(sp.get("headcount") ?? 20) || 20,
@@ -351,20 +349,9 @@ export function LeadMultistepForm() {
       {step === 1 ? (
         <div className="mt-6 space-y-4">
           <div>
-            <Label htmlFor="svc">{t("serviceType")}</Label>
-            <select
-              id="svc"
-              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-white px-3 text-sm dark:bg-[var(--card)]"
-              {...register("serviceType")}
-            >
-              <option value="autsorsing">{t("serviceAutsorsing")}</option>
-              <option value="managed">{t("serviceManaged")}</option>
-            </select>
-            {errors.serviceType ? (
-              <p className="mt-1 text-xs text-red-600" role="alert">
-                {errors.serviceType.message}
-              </p>
-            ) : null}
+            <p className="text-sm font-medium text-[var(--neutral-800)]">{t("serviceProductTitle")}</p>
+            <p className="mt-2 text-xs leading-relaxed text-[var(--neutral-600)]">{t("serviceProductFocus")}</p>
+            <input type="hidden" {...register("serviceType")} />
           </div>
           <div>
             <Label htmlFor="pr">{t("profession")}</Label>

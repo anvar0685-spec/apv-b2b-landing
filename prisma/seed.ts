@@ -88,8 +88,7 @@ async function main() {
   });
 
   const services = [
-    { slug: "autsorsing", title: "Складской аутсорсинг" },
-    { slug: "upravlyaemyy-podryad", title: "Управляемый подряд" },
+    { slug: "autsorsing", title: "Складской аутсорсинг (ПРР)" },
     { slug: "nochnye-smeny", title: "Ночные смены" },
     { slug: "podbor-personala", title: "Подбор персонала" },
   ];

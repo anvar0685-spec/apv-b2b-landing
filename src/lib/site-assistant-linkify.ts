@@ -11,7 +11,6 @@ const ROUTE_LABELS: Record<string, string> = {
   "/ru/uslugi/nochnye-smeny": "Ночные смены",
   "/ru/uslugi/podbor-personala": "Подбор персонала",
   "/ru/uslugi/postoyannyy-personal": "Постоянный персонал",
-  "/ru/uslugi/upravlyaemyy-podryad": "Управляемый подряд",
   "/ru/personal": "Персонал",
   "/ru/otrasli": "Отрасли",
   "/ru/ploshchadki": "Площадки",

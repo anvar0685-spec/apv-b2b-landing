@@ -21,7 +21,6 @@ const CORE = [
   "/",
   "/uslugi",
   "/uslugi/autsorsing",
-  "/uslugi/upravlyaemyy-podryad",
   "/uslugi/podbor-personala",
   "/personal",
   "/keysy",

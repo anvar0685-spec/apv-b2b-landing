@@ -1,13 +1,11 @@
 import type { ServicePageBilingual } from "./types";
 import { autsorsingPage } from "./autsorsing.data";
-import { managedPage } from "./managed.data";
 import { nochnyeSmenyPage } from "./nochnye-smeny.data";
 import { postoyannyyPersonalPage } from "./postoyannyy-personal.data";
 import { recruitingPage } from "./recruiting.data";
 
 export const SERVICE_PAGES_BILINGUAL: Record<string, ServicePageBilingual> = {
   autsorsing: autsorsingPage,
-  "upravlyaemyy-podryad": managedPage,
   "podbor-personala": recruitingPage,
   "postoyannyy-personal": postoyannyyPersonalPage,
   "nochnye-smeny": nochnyeSmenyPage,

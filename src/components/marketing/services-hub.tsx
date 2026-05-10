@@ -21,8 +21,8 @@ export function ServicesHub() {
     blockTitle: "В рамках складского договора",
     recruiting: "Подбор персонала",
     recruitingDesc: "отбор и проверка людей под профили склада.",
-    managed: "Управляемый подряд",
-    managedDesc: "для зрелых распределительных центров с жёсткими KPI (по запросу).",
+    prrLink: "ПРР на складе",
+    prrDesc: "погрузочно-разгрузочные работы и смежные операции под ваш объект.",
     permanent: "Постоянный персонал",
     permanentDesc: "стабильный состав и KPI для долгих контрактов.",
     night: "Ночные смены",
@@ -75,11 +75,11 @@ export function ServicesHub() {
               <li>
                 <Link
                   className="font-medium text-[var(--accent)] underline-offset-4 hover:underline"
-                  href="/uslugi/upravlyaemyy-podryad"
+                  href="/uslugi/autsorsing"
                 >
-                  {t.managed}
+                  {t.prrLink}
                 </Link>{" "}
-                — {t.managedDesc}
+                — {t.prrDesc}
               </li>
               <li>
                 <Link

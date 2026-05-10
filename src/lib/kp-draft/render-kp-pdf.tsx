@@ -20,8 +20,9 @@ export type LeadLikeForKp = {
 };
 
 function serviceLabelRu(slug: string): string {
-  if (slug === "managed") return "Управляемый подряд";
-  return "Аутсорсинг смен";
+  if (slug === "managed") return "Аутсорсинг смен на складах";
+  if (slug === "autsorsing") return "Аутсорсинг смен на складах (ПРР)";
+  return "Аутсорсинг смен на складах";
 }
 
 export async function renderKpDraftPdfBuffer(lead: LeadLikeForKp): Promise<Buffer> {

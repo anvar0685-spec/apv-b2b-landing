@@ -44,9 +44,9 @@ export async function HomeSections() {
       desc: ts("tileRecruitingDesc"),
     },
     {
-      href: "/uslugi/upravlyaemyy-podryad",
-      title: ts("tileManagedTitle"),
-      desc: ts("tileManagedDesc"),
+      href: "/personal/gruzchiki",
+      title: ts("tilePrrTitle"),
+      desc: ts("tilePrrDesc"),
     },
   ] as const;
 
