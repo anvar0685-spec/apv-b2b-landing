@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { MarketingHubShell } from "@/components/layout/marketing-hub-shell";
 import { Button } from "@/components/ui/button";
+import { MaxAppSymbol } from "@/components/icons/max-app-symbol";
 import { site } from "@/config/site";
 import { absUrl } from "@/lib/abs-url";
 import { buildPageMetadata } from "@/lib/seo";
@@ -85,7 +86,13 @@ export default async function Page({ params }: Props) {
               <li className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 shadow-[var(--card-shadow)]">
                 <span className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">Мессенджеры</span>
                 <div className="mt-3 flex flex-wrap gap-4">
-                  <a className="font-medium text-[var(--accent)] hover:underline" href={site.max} rel="noopener noreferrer">
+                  <a
+                    className="inline-flex items-center gap-2 font-medium text-[var(--accent)] hover:underline"
+                    href={site.max}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <MaxAppSymbol className="h-5 w-5 shrink-0" />
                     MAX
                   </a>
                   <a className="font-medium text-[var(--accent)] hover:underline" href={site.telegram} rel="noopener noreferrer">

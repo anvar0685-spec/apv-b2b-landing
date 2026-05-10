@@ -1,6 +1,7 @@
 "use client";
 
-import { MessageCircle, MessagesSquare, Phone, Send } from "lucide-react";
+import { MessageCircle, Phone, Send } from "lucide-react";
+import { MaxAppSymbol } from "@/components/icons/max-app-symbol";
 import { site } from "@/config/site";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
@@ -60,12 +61,15 @@ export function ContactStack() {
           href={site.max}
           target="_blank"
           rel="noopener noreferrer"
-          className={cn(dockBtn, "bg-[#7c3aed] hover:ring-[#c4b5fd]")}
+          className={cn(
+            dockBtn,
+            "bg-gradient-to-br from-[#4f8cff] via-[#7c5cff] to-[#d946ef] hover:ring-[#93c5fd]",
+          )}
           aria-label="Написать в MAX"
           title="Написать в MAX"
           onClick={() => void trackEvent("contact_stack_max", { source: "dock" })}
         >
-          <MessagesSquare className="h-5 w-5" aria-hidden />
+          <MaxAppSymbol className="h-[22px] w-[22px] shrink-0 text-white drop-shadow-sm" />
         </a>
       </nav>
     </div>
