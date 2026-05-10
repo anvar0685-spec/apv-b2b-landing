@@ -19,11 +19,7 @@ export type LeadLikeForKp = {
   createdAt: Date;
 };
 
-function serviceLabelRu(slug: string): string {
-  if (slug === "managed") return "Аутсорсинг смен на складах";
-  if (slug === "autsorsing") return "Аутсорсинг смен на складах (ПРР)";
-  return "Аутсорсинг смен на складах";
-}
+const KP_SERVICE_MODEL_RU = "Аутсорсинг линейного персонала склада";
 
 export async function renderKpDraftPdfBuffer(lead: LeadLikeForKp): Promise<Buffer> {
   registerKpDraftFonts();
@@ -46,7 +42,7 @@ export async function renderKpDraftPdfBuffer(lead: LeadLikeForKp): Promise<Buffe
       professionRu={prof?.titleRu ?? lead.profession}
       cityRu={city?.nameRu ?? lead.city}
       headcount={lead.headcount}
-      serviceRu={serviceLabelRu(lead.serviceType)}
+      serviceRu={KP_SERVICE_MODEL_RU}
       comment={lead.comment?.trim() || undefined}
       hourlyBase={est.hourlyBase}
       monthlyMid={est.monthlyMid}

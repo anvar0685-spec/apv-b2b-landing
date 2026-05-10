@@ -44,7 +44,7 @@ export async function HomeSections() {
       desc: ts("tileRecruitingDesc"),
     },
     {
-      href: "/personal/gruzchiki",
+      href: "/personal",
       title: ts("tilePrrTitle"),
       desc: ts("tilePrrDesc"),
     },

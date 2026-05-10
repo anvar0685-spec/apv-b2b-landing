@@ -21,8 +21,9 @@ export function ServicesHub() {
     blockTitle: "В рамках складского договора",
     recruiting: "Подбор персонала",
     recruitingDesc: "отбор и проверка людей под профили склада.",
-    prrLink: "ПРР на складе",
-    prrDesc: "погрузочно-разгрузочные работы и смежные операции под ваш объект.",
+    warehouseOutsourceLink: "Складской аутсорсинг",
+    warehouseOutsourceDesc:
+      "грузчики, комплектовщики, кладовщики, водители ПРТ и погрузчиков, ПРР и смежные операции — вывод и замены смен по договору.",
     permanent: "Постоянный персонал",
     permanentDesc: "стабильный состав и KPI для долгих контрактов.",
     night: "Ночные смены",
@@ -77,9 +78,9 @@ export function ServicesHub() {
                   className="font-medium text-[var(--accent)] underline-offset-4 hover:underline"
                   href="/uslugi/autsorsing"
                 >
-                  {t.prrLink}
+                  {t.warehouseOutsourceLink}
                 </Link>{" "}
-                — {t.prrDesc}
+                — {t.warehouseOutsourceDesc}
               </li>
               <li>
                 <Link
