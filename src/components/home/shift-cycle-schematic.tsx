@@ -76,7 +76,9 @@ export function ShiftCycleSchematic({ title, caption, steps }: Props) {
         <div className="mt-8 flex items-center justify-center gap-3 md:mt-10" aria-hidden>
           <span className="h-px w-10 bg-gradient-to-r from-transparent to-[var(--accent)]/50" />
           <span className="inline-flex h-2 w-2 rounded-full bg-[var(--accent)] opacity-80 shadow-[0_0_12px_color-mix(in_srgb,var(--accent)_80%,transparent)]" />
-          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--neutral-500)] dark:text-[var(--neutral-400)]">SLA · сквозной контур</span>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--neutral-500)] dark:text-[var(--neutral-400)]">
+            SLA · одна зона ответственности
+          </span>
           <span className="inline-flex h-2 w-2 rounded-full bg-[var(--accent)] opacity-80 shadow-[0_0_12px_color-mix(in_srgb,var(--accent)_80%,transparent)]" />
           <span className="h-px w-10 bg-gradient-to-l from-transparent to-[var(--accent)]/50" />
         </div>

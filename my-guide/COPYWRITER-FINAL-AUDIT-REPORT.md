@@ -680,4 +680,11 @@
 
 С учётом **`VOICE-RU.md`** основной разрыв — не «слог главной», а **смешение пользовательской витрины с метаописанием продукта сайта** (SEO, сетка, CRM, программатика). Закрытие волны A+B выровняет ощущение **одного автора** между главной и хабами/формой/о компании. Пункт VI.2 про **«Inbound ночью»** в **`nochnye-smeny.data.ts`** на дату аудита **закрыт в коде**.
 
+### VII.7 Выполнено в коде (2026-05-12, роли 05 + 04)
+
+- **P0:** `personal/page.tsx` (meta title/description + hero) — ключи Москва/МО, склад, РЦ, аутсорсинг смен, без жаргона разработки; `ru.json` — `industriesDesc`, `blogIndex.lead` (сохранён плейсхолдер `{pageSize}`), `caseHub.lead`, `aboutPage.meta*`; смягчены `pagesSeo.htmlSitemap`, `komanda`, `pressa` (убраны EEAT/HTML sitemap с витрины мета).  
+- **P1:** `shift-cycle-schematic.tsx` («одна зона ответственности»), `cross-priority-narratives.ts` («на территории склада»), `ru.json` — `casesLead`, `leadPage.lead`, `lettersKicker`, `pillarPressBody`; `programmatic-longread.ts` — убрано входное «Это…» в абзаце про калькулятор.  
+- **Блог:** тела статей в `blog-published.ts` уже на русском; поля `*En` остаются для типов/будущей локали и **не рендерятся** на `/blog/[slug]` — правки корпуса не потребовались.  
+- **P3:** из `siteAssistant` удалены неиспользуемые ключи welcome-модалки.
+
 ---
