@@ -1,7 +1,7 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { MessageCircle, Sparkles, X } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { MessageCircle } from "lucide-react";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
@@ -13,7 +13,6 @@ import { trackEvent } from "@/lib/analytics";
 import { linkifyBarePathsForMarkdown, sameSitePathOrNull } from "@/lib/site-assistant-linkify";
 import { cn } from "@/lib/utils";
 
-const WELCOME_SESSION_KEY = "apv-session-assistant-welcome-v1";
 const THREAD_KEY = "apv-site-assistant-thread-v1";
 const AI_CHAT_CONSENT_LS = "apv-ai-chat-consent-v1";
 const CLIENT_CHAT_MS = 88_000;
@@ -29,8 +28,8 @@ function uid() {
 export function SiteAssistantDock() {
   const t = useTranslations("siteAssistant");
   const locale = useLocale();
+  const reduceMotion = useReducedMotion();
   const panelId = useId();
-  const welcomeTitleId = useId();
   const chatTitleId = useId();
   const disclaimerId = useId();
   const aiConsentId = useId();
@@ -47,7 +46,6 @@ export function SiteAssistantDock() {
     [t],
   );
 
-  const [welcomeOpen, setWelcomeOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Msg[]>([welcomeBubble]);
@@ -66,14 +64,6 @@ export function SiteAssistantDock() {
   }, []);
 
   useEffect(() => {
-    try {
-      if (!sessionStorage.getItem(WELCOME_SESSION_KEY)) setWelcomeOpen(true);
-    } catch {
-      setWelcomeOpen(true);
-    }
-  }, []);
-
-  useEffect(() => {
     setMessages((prev) => {
       const rest = prev.filter((m) => m.id !== "welcome");
       return [welcomeBubble, ...rest];
@@ -86,22 +76,6 @@ export function SiteAssistantDock() {
     if (!el) return;
     el.scrollTop = el.scrollHeight;
   }, [messages, chatOpen, pending]);
-
-  const dismissWelcome = useCallback(() => {
-    try {
-      sessionStorage.setItem(WELCOME_SESSION_KEY, "1");
-    } catch {
-      /* ignore */
-    }
-    setWelcomeOpen(false);
-    void trackEvent("site_assistant_welcome_dismiss", { source: "modal" });
-  }, []);
-
-  const openChatFromWelcome = useCallback(() => {
-    dismissWelcome();
-    setChatOpen(true);
-    void trackEvent("site_assistant_welcome_to_chat", {});
-  }, [dismissWelcome]);
 
   const scrollDown = useCallback(() => {
     const el = listRef.current;
@@ -345,111 +319,8 @@ export function SiteAssistantDock() {
     return () => document.removeEventListener("keydown", onKey);
   }, [chatOpen]);
 
-  useEffect(() => {
-    if (!welcomeOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") dismissWelcome();
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [welcomeOpen, dismissWelcome]);
-
   return (
     <>
-      <AnimatePresence>
-        {welcomeOpen ? (
-          <motion.div
-            key="welcome"
-            role="presentation"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[80] flex items-end justify-center bg-black/45 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur-[2px] sm:items-center"
-            onClick={dismissWelcome}
-          >
-            <motion.div
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby={welcomeTitleId}
-              initial={{ opacity: 0, y: 20, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 12, scale: 0.99 }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              onClick={(e) => e.stopPropagation()}
-              className={cn(
-                "relative w-full max-w-md overflow-hidden rounded-2xl border shadow-2xl",
-                "border-[var(--neutral-200)]/95 bg-[var(--card)]",
-                "dark:border-white/12 dark:bg-[color-mix(in_srgb,var(--primary-dark)_88%,var(--surface))]",
-              )}
-            >
-              <div
-                className={cn(
-                  "pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full blur-3xl",
-                  "bg-[color-mix(in_srgb,var(--accent)_35%,transparent)] opacity-90",
-                )}
-                aria-hidden
-              />
-              <div className="relative border-b border-[var(--neutral-200)]/80 px-5 pb-4 pt-5 dark:border-white/10">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--accent)_22%,var(--card))] text-[var(--accent)] ring-1 ring-[var(--accent)]/25 dark:bg-[color-mix(in_srgb,var(--accent)_18%,transparent)]">
-                      <Sparkles className="h-5 w-5" aria-hidden />
-                    </span>
-                    <div>
-                      <p className="type-kicker text-[var(--accent)]">{t("welcomeKicker")}</p>
-                      <h2 id={welcomeTitleId} className="font-display text-lg font-bold tracking-tight text-[var(--primary)] dark:text-white">
-                        {t("welcomeTitle")}
-                      </h2>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={dismissWelcome}
-                    className="rounded-lg p-2 text-[var(--neutral-500)] transition hover:bg-[var(--surface)] hover:text-[var(--primary)] dark:hover:bg-white/10 dark:hover:text-white"
-                    aria-label={t("close")}
-                  >
-                    <X className="h-5 w-5" />
-                  </button>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-[var(--neutral-700)] dark:text-slate-300">{t("welcomeBody")}</p>
-              </div>
-              <div className="relative flex flex-col gap-2 px-5 py-4">
-                <button
-                  type="button"
-                  onClick={openChatFromWelcome}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-[var(--accent)]/25 transition hover:opacity-[0.96]"
-                >
-                  <MessageCircle className="h-4 w-4" aria-hidden />
-                  {t("welcomeCtaChat")}
-                </button>
-                <Link
-                  href="/kalkulyator"
-                  onClick={dismissWelcome}
-                  className="inline-flex w-full items-center justify-center rounded-xl border border-[var(--neutral-200)] bg-[var(--surface)] px-4 py-3 text-center text-sm font-medium text-[var(--primary)] transition hover:border-[var(--accent)] dark:border-white/15 dark:bg-white/5 dark:text-slate-100 dark:hover:border-[var(--accent)]"
-                >
-                  {t("welcomeCtaCalc")}
-                </Link>
-                <Link
-                  href="/zayavka"
-                  onClick={dismissWelcome}
-                  className="inline-flex w-full items-center justify-center rounded-xl border border-transparent px-4 py-2.5 text-center text-sm font-medium text-[var(--accent)] underline-offset-4 hover:underline"
-                >
-                  {t("welcomeCtaLead")}
-                </Link>
-                <button
-                  type="button"
-                  onClick={dismissWelcome}
-                  className="text-center text-xs text-[var(--neutral-500)] underline-offset-2 hover:underline"
-                >
-                  {t("welcomeLater")}
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-
       <div className="pointer-events-none fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-[max(1.25rem,env(safe-area-inset-left))] z-[55] flex flex-col items-start sm:bottom-8 sm:left-8">
         <AnimatePresence>
           {chatOpen ? (
@@ -465,14 +336,16 @@ export function SiteAssistantDock() {
               exit={{ opacity: 0, y: 12, scale: 0.98 }}
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
               className={cn(
-                "pointer-events-auto mb-3 flex min-h-0 w-[min(100vw-2.5rem,22rem)] max-h-[min(86dvh,34rem)] flex-col overflow-hidden rounded-2xl border shadow-[0_28px_90px_-24px_rgba(7,21,37,0.45)] backdrop-blur-md sm:w-[min(100vw-4rem,26rem)]",
-                "border-[var(--neutral-200)]/90 bg-[var(--card)]/96",
-                "dark:border-white/12 dark:bg-[color-mix(in_srgb,var(--primary-dark)_92%,var(--surface))]/96 dark:shadow-[0_28px_80px_-20px_rgba(0,0,0,0.65)]",
+                "pointer-events-auto mb-3 flex min-h-0 w-[min(100vw-2.5rem,22rem)] max-h-[min(86dvh,34rem)] flex-col overflow-hidden rounded-2xl border shadow-lg backdrop-blur-md sm:w-[min(100vw-4rem,26rem)]",
+                "border-[var(--neutral-200)]/90 bg-[var(--card)]/98",
+                "dark:border-white/10 dark:bg-[color-mix(in_srgb,var(--primary-dark)_94%,var(--surface))]/98 dark:shadow-[0_20px_50px_-18px_rgba(0,0,0,0.5)]",
               )}
             >
               <div className="flex shrink-0 items-center justify-between border-b border-[var(--neutral-200)]/90 px-4 py-3 dark:border-white/10">
                 <div>
-                  <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">{t("statusOnline")}</p>
+                  <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--neutral-500)] dark:text-slate-400">
+                    {t("statusOnline")}
+                  </p>
                   <p id={chatTitleId} className="font-display text-sm font-bold text-[var(--primary)] dark:text-white">
                     {t("chatTitle")}
                   </p>
@@ -488,7 +361,7 @@ export function SiteAssistantDock() {
                   </button>
                   <Link
                     href="/kontakty"
-                    className="rounded-lg border border-[var(--accent)]/35 bg-[color-mix(in_srgb,var(--accent)_12%,transparent)] px-2.5 py-1 text-xs font-medium text-[var(--accent)] transition hover:bg-[color-mix(in_srgb,var(--accent)_22%,transparent)]"
+                    className="rounded-lg border border-[var(--neutral-200)] bg-[var(--surface)]/90 px-2.5 py-1 text-xs font-medium text-[var(--neutral-700)] transition hover:border-[var(--neutral-400)] dark:border-white/12 dark:bg-white/5 dark:text-slate-300 dark:hover:border-white/25"
                     onClick={() => void trackEvent("site_assistant_header_contacts", {})}
                   >
                     {t("contacts")}
@@ -516,7 +389,7 @@ export function SiteAssistantDock() {
                       className={cn(
                         "max-w-[92%] rounded-xl px-3 py-2 text-sm leading-relaxed shadow-sm",
                         m.role === "user"
-                          ? "border border-[var(--accent)]/30 bg-[color-mix(in_srgb,var(--accent)_14%,var(--card))] text-[var(--primary)] dark:text-slate-100"
+                          ? "border border-[var(--neutral-200)] bg-[var(--surface)] text-[var(--primary)] dark:border-white/12 dark:bg-white/[0.08] dark:text-slate-100"
                           : "border border-[var(--neutral-200)]/80 bg-[var(--surface)]/95 dark:border-white/10 dark:bg-white/[0.06]",
                       )}
                     >
@@ -620,7 +493,7 @@ export function SiteAssistantDock() {
                     type="button"
                     onClick={() => void send()}
                     disabled={pending || !input.trim()}
-                    className="shrink-0 self-end rounded-xl bg-[var(--accent)] px-3.5 py-2 text-sm font-semibold text-white transition hover:opacity-95 disabled:opacity-40"
+                    className="shrink-0 self-end rounded-xl border border-[var(--neutral-300)] bg-[var(--primary)] px-3.5 py-2 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-40 dark:border-white/20 dark:bg-slate-100 dark:text-[var(--primary)]"
                   >
                     {t("send")}
                   </button>
@@ -648,15 +521,15 @@ export function SiteAssistantDock() {
           }}
           aria-expanded={chatOpen}
           aria-controls={chatOpen ? panelId : undefined}
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.97 }}
+          whileHover={reduceMotion ? undefined : { scale: 1.03 }}
+          whileTap={reduceMotion ? undefined : { scale: 0.98 }}
           className={cn(
-            "pointer-events-auto relative flex h-14 w-14 items-center justify-center rounded-full border-2 text-white shadow-xl transition",
-            "border-[color-mix(in_srgb,white_35%,var(--accent))] bg-gradient-to-br from-[var(--accent)] to-[color-mix(in_srgb,var(--accent)_55%,#0f766e)]",
-            "ring-4 ring-[var(--accent)]/15 hover:ring-[var(--accent)]/25",
+            "pointer-events-auto relative flex h-11 w-11 items-center justify-center rounded-full border text-[var(--primary)] shadow-md transition sm:h-12 sm:w-12",
+            "border-[var(--neutral-200)]/95 bg-[var(--card)]/95 backdrop-blur-sm dark:border-white/12 dark:bg-[var(--primary-dark)]/92 dark:text-slate-100",
+            "hover:border-[var(--neutral-300)] hover:shadow-lg dark:hover:border-white/20",
           )}
         >
-          <MessageCircle className="h-6 w-6" aria-hidden />
+          <MessageCircle className="h-5 w-5 opacity-80 sm:h-5 sm:w-5" aria-hidden />
           <span className="sr-only">{chatOpen ? t("fabClose") : t("fabOpen")}</span>
         </motion.button>
       </div>

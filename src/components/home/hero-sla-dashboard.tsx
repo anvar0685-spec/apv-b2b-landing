@@ -6,13 +6,17 @@ import { useTranslations } from "next-intl";
 import { SPARK_AREA_PATH, SPARK_LINE_PATH } from "@/components/marketing/spark-chart-paths";
 
 function useCountUp(target: number, decimals: number, enabled: boolean, reduce: boolean) {
-  const [v, setV] = useState(reduce ? target : 0);
+  const [v, setV] = useState(target);
+
   useEffect(() => {
     if (reduce) {
       setV(target);
       return;
     }
-    if (!enabled) return;
+    if (!enabled) {
+      setV(target);
+      return;
+    }
     setV(0);
     const steps = 32;
     let frame = 0;

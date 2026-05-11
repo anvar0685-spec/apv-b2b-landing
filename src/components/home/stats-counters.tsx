@@ -5,9 +5,17 @@ import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
 function useCount(target: number, reduce: boolean) {
-  const [v, setV] = useState(reduce ? target : 0);
+  const [v, setV] = useState(0);
+
   useEffect(() => {
-    if (reduce) return;
+    if (target <= 0) {
+      setV(0);
+      return;
+    }
+    if (reduce) {
+      setV(target);
+      return;
+    }
     const steps = 40;
     const inc = target / steps;
     let cur = 0;
@@ -20,6 +28,7 @@ function useCount(target: number, reduce: boolean) {
     }, 20);
     return () => window.clearInterval(id);
   }, [target, reduce]);
+
   return v;
 }
 
@@ -69,7 +78,8 @@ export function StatsCounters() {
   const entries = t.raw("entries") as StatEntry[];
 
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-20%" });
+  /** Процент margin на iOS давал «вечный false»; amount — стабильнее на мобильных. */
+  const inView = useInView(ref, { once: true, amount: 0.12 });
 
   return (
     <section
