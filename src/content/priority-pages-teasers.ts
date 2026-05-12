@@ -75,8 +75,14 @@ export const PRIORITY_PAGE_TEASERS: readonly PageTeaser[] = [
     en: { title: "Case studies", teaser: "Problem formats and numeric outcomes." },
   },
   {
-    path: "/blog",
-    ru: { title: "Блог", teaser: "Методология аутсорсинга и рынок персонала." },
-    en: { title: "Blog", teaser: "Outsourcing methodology and labor market notes." },
+    path: "/razrabotka-saytov-dlya-autsorsinga",
+    ru: {
+      title: "Сайт для аутсорсинга",
+      teaser: "Разработка корпоративной витрины под кадровый аутсорсер: дизайн, SEO, блог, лиды — фикс от 400 тыс. ₽.",
+    },
+    en: {
+      title: "Web for staffing outsourcers",
+      teaser: "Corporate site package for staffing firms: design, SEO, blog, leads.",
+    },
   },
 ];

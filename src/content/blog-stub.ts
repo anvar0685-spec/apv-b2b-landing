@@ -34,6 +34,7 @@ export const BLOG_CATEGORY_SLUGS = [
   "hr",
   "optimizaciya",
   "migracionnyy-uchet",
+  "veb-dlya-autsorsinga",
 ] as const;
 
 /** Заголовок/лид карточки списка: только русские `title` и `excerpt` (сайт только RU). */

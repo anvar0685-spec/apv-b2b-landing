@@ -51,6 +51,11 @@ export async function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link className="flex min-h-11 items-center py-2 hover:text-white" href="/razrabotka-saytov-dlya-autsorsinga">
+                {tn("webDevOutsourcing")}
+              </Link>
+            </li>
+            <li>
               <Link className="flex min-h-11 items-center py-2 hover:text-white" href="/faq">
                 {t("linkFaq")}
               </Link>
