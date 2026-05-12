@@ -14,7 +14,8 @@ const PHOTOS = [
     key: "photo2Label" as const,
   },
   {
-    src: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1600&q=78",
+    /** Склад: люди и ТМЦ у стеллажей (подпись «Линия комплектации»). Временно Unsplash; целевые кадры — свои съёмки в `public/`, см. `my-guide/ЧТО-НУЖНО-СДЕЛАТЬ.md`. */
+    src: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1600&q=78",
     key: "photo3Label" as const,
   },
   {
