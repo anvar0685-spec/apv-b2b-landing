@@ -74,15 +74,4 @@ export const PRIORITY_PAGE_TEASERS: readonly PageTeaser[] = [
     ru: { title: "Кейсы", teaser: "Форматы задач и результаты в цифрах." },
     en: { title: "Case studies", teaser: "Problem formats and numeric outcomes." },
   },
-  {
-    path: "/razrabotka-saytov-dlya-autsorsinga",
-    ru: {
-      title: "Сайт для аутсорсинга",
-      teaser: "Уникальный дизайн и стек под вашу нишу; паттерны качества — как на этом проекте. Фикс от 400 тыс. ₽.",
-    },
-    en: {
-      title: "Web for staffing outsourcers",
-      teaser: "Unique design and stack for your niche; same engineering discipline as this build. Fixed-price anchor.",
-    },
-  },
 ];

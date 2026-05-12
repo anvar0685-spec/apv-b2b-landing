@@ -35,7 +35,6 @@ const CORE = [
   "/faq",
   "/garantii",
   "/dlya-postavschikov",
-  "/razrabotka-saytov-dlya-autsorsinga",
   "/pravovaya-informaciya",
   "/politika-konfidencialnosti",
   "/oferta",

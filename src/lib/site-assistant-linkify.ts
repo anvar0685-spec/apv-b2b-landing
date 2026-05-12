@@ -20,8 +20,6 @@ const ROUTE_LABELS: Record<string, string> = {
   "/ru/garantii": "Гарантии",
   "/ru/o-kompanii": "О компании",
   "/ru/dlya-postavschikov": "Для поставщиков",
-  "/ru/razrabotka-saytov-dlya-autsorsinga": "Разработка сайта для аутсорсинга",
-  "/ru/blog/category/veb-dlya-autsorsinga": "Блог: веб для аутсорсинга",
   "/ru/oferta": "Оферта",
 };
 

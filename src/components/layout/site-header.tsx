@@ -23,7 +23,6 @@ export async function SiteHeader() {
         { href: "/o-kompanii", label: t("about") },
         { href: "/keysy", label: t("cases") },
         { href: "/blog", label: t("blog") },
-        { href: "/razrabotka-saytov-dlya-autsorsinga", label: t("webDevOutsourcing") },
         { href: "/faq", label: t("faq") },
         { href: "/garantii", label: t("garantii") },
       ],
