@@ -13,32 +13,7 @@ type Props = { params: { locale: string } };
 
 const PATH = "/razrabotka-saytov-dlya-autsorsinga";
 
-const FEATURE_BLOCKS = [
-  {
-    title: "Премиум-витрина и единый шаблон страниц",
-    body: "Тёмный hero-блок, светлое тело, крошки, секции под закупку и операции — как на этом сайте. Адаптив, состояния форм, анимации без перегруза LCP.",
-  },
-  {
-    title: "Технический SEO и индексация",
-    body: "Единый `buildPageMetadata`: title, description, canonical, Open Graph. `robots.txt`, `sitemap.xml`, программатика под длинный хвост запросов, внутренняя перелинковка.",
-  },
-  {
-    title: "Контент и блог под органику",
-    body: "Статьи с нормальной структурой (заголовки, абзацы, внутренние ссылки), рубрики, страницы категорий. Микроразметка статей — для нормального сниппета и ответов поисковых систем.",
-  },
-  {
-    title: "Лиды и аналитика",
-    body: "Мультистеп-заявка, валидация, события в аналитике, юридические подписи к формам. При необходимости — калькулятор как у нас (ориентир по ставке до КП).",
-  },
-  {
-    title: "ИИ-ассистент на сайте (опционально)",
-    body: "Справочный чат с дисклеймерами, consent, антибот — по тому же принципу, что на этом сайте: не подменяет договор, ведёт к заявке и контактам.",
-  },
-  {
-    title: "Продакшен и поддержка",
-    body: "Next.js standalone, VPS, PM2, nginx, переменные окружения. Чеклист деплоя без «сломали прод случайным npm ci».",
-  },
-] as const;
+type FeatureBlock = { title: string; body: string };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale: params.locale, namespace: "pagesSeo" });
@@ -54,6 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const t = await getTranslations({ locale: params.locale, namespace: "pagesSeo" });
   const brand = site.brandName.replace(/_/g, " ");
+  const featureBlocks = t.raw("razrabotkaSaytovDlyaAutsorsinga.featureBlocks") as FeatureBlock[];
 
   const webPageLd = buildWebPageJsonLd({
     locale: params.locale,
@@ -124,7 +100,7 @@ export default async function Page({ params }: Props) {
           <h2 className="type-headline">{t("razrabotkaSaytovDlyaAutsorsinga.featuresTitle")}</h2>
           <p className="type-body mt-4 max-w-3xl text-[var(--neutral-700)] dark:text-[var(--neutral-200)]">{t("razrabotkaSaytovDlyaAutsorsinga.featuresLead")}</p>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURE_BLOCKS.map((f) => (
+            {featureBlocks.map((f) => (
               <Card key={f.title} className="border-[var(--neutral-200)] bg-[var(--card)] dark:border-white/10">
                 <CardTitle className="text-base">{f.title}</CardTitle>
                 <CardDescription className="mt-2 text-sm leading-relaxed">{f.body}</CardDescription>

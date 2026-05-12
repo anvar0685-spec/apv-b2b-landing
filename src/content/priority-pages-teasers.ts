@@ -78,11 +78,11 @@ export const PRIORITY_PAGE_TEASERS: readonly PageTeaser[] = [
     path: "/razrabotka-saytov-dlya-autsorsinga",
     ru: {
       title: "Сайт для аутсорсинга",
-      teaser: "Разработка корпоративной витрины под кадровый аутсорсер: дизайн, SEO, блог, лиды — фикс от 400 тыс. ₽.",
+      teaser: "Уникальный дизайн и стек под вашу нишу; паттерны качества — как на этом проекте. Фикс от 400 тыс. ₽.",
     },
     en: {
       title: "Web for staffing outsourcers",
-      teaser: "Corporate site package for staffing firms: design, SEO, blog, leads.",
+      teaser: "Unique design and stack for your niche; same engineering discipline as this build. Fixed-price anchor.",
     },
   },
 ];
