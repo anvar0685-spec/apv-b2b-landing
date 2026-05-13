@@ -2,14 +2,8 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
 const SHOTS = [
-  {
-    src: "https://images.unsplash.com/photo-1565043666747-69f107e0cc03?auto=format&fit=crop&w=1200&q=78",
-    key: "shotA" as const,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1581092160562-40aa08e73337?auto=format&fit=crop&w=1200&q=78",
-    key: "shotB" as const,
-  },
+  { src: "/home/industrial-band/01-zona-hraneniya.jpg", key: "shotA" as const },
+  { src: "/home/industrial-band/02-pogruzka-tmc.jpg", key: "shotB" as const },
 ];
 
 /** Компактная фото-дирекция для промышленных посадочных: нейтральный свет, акцент на процессе. */
@@ -29,7 +23,6 @@ export async function ProductionVisualStrip() {
               src={shot.src}
               alt=""
               fill
-              unoptimized
               sizes="(max-width: 640px) 100vw, 50vw"
               className="object-cover transition duration-300 motion-reduce:transition-none brightness-[0.74] group-hover:brightness-100"
             />

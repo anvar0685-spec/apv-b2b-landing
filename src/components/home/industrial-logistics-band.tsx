@@ -2,26 +2,15 @@ import { getTranslations } from "next-intl/server";
 import { IndustrialPhotoTiles } from "@/components/home/industrial-photo-tiles";
 import { ShiftCycleSchematic } from "@/components/home/shift-cycle-schematic";
 
-/** Разные стабильные кадры склада/РЦ (чтобы не дублировать hero и не ловить пустые ячейки сетки). */
+/**
+ * Локальные JPEG из `public/home/industrial-band/` (не Unsplash: с части RU-сетей CDN не грузится → «битые» картинки).
+ * Перегенерация абстрактных фонов: `npm run generate:industrial-band-assets`. Свои фото — заменить файлы и/или пути, см. `my-guide/ЧТО-НУЖНО-СДЕЛАТЬ.md`.
+ */
 const PHOTOS = [
-  {
-    src: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=78",
-    key: "photo1Label" as const,
-  },
-  {
-    /** Замена: прежний photo-1494412574643 отдаёт 404 в imgix */
-    src: "https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&w=1600&q=78",
-    key: "photo2Label" as const,
-  },
-  {
-    /** Склад: люди и ТМЦ у стеллажей (подпись «Линия комплектации»). Временно Unsplash; целевые кадры — свои съёмки в `public/`, см. `my-guide/ЧТО-НУЖНО-СДЕЛАТЬ.md`. */
-    src: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1600&q=78",
-    key: "photo3Label" as const,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1600&q=78",
-    key: "photo4Label" as const,
-  },
+  { src: "/home/industrial-band/01-zona-hraneniya.jpg", key: "photo1Label" as const },
+  { src: "/home/industrial-band/02-pogruzka-tmc.jpg", key: "photo2Label" as const },
+  { src: "/home/industrial-band/03-liniya-komplektacii.jpg", key: "photo3Label" as const },
+  { src: "/home/industrial-band/04-proizvodstvo-otgruzka.jpg", key: "photo4Label" as const },
 ] as const;
 
 export async function IndustrialLogisticsBand() {

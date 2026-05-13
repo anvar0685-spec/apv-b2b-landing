@@ -34,11 +34,10 @@ export function HeroSection() {
     >
       <div className="hero-backdrop" aria-hidden>
         <Image
-          src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2400&q=78"
+          src="/home/industrial-band/hero-sklad.jpg"
           alt=""
           fill
           priority
-          unoptimized
           sizes="100vw"
           className="object-cover opacity-[0.22]"
         />

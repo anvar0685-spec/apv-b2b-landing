@@ -17,6 +17,7 @@
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "generate:assistant-knowledge": "tsx scripts/generate-assistant-knowledge.ts",
+    "generate:industrial-band-assets": "node scripts/generate-industrial-band-assets.mjs",
     "postinstall": "prisma generate"
   },
   "prisma": {
