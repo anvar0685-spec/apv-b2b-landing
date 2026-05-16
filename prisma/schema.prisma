@@ -380,7 +380,9 @@ model WebhookSubscription {
   @@index([tenantId, active])
 }
 
-/// Публичный AI-чат на лендинге: тред привязан к обезличенному отпечатку IP (не к tenant CRM).
+/// @deprecated AI-чат удалён из UI (миграция P3, май 2026). Таблицы оставлены
+/// для сохранения исторических данных; в коде больше не используются. Удалить
+/// миграцией DROP TABLE отдельным релизом после ретеншна (~90 дней).
 model SiteAssistantThread {
   id        String   @id @default(cuid())
   ipHash    String   @db.VarChar(64)

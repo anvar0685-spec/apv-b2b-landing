@@ -11,9 +11,8 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { YandexMetrika } from "@/components/seo/yandex-metrika";
 import { CookieBanner } from "@/components/layout/cookie-banner";
 import { PageTransition } from "@/components/layout/page-transition";
-import { ContactStack } from "@/components/layout/contact-stack";
+import { ManagerCard } from "@/components/layout/manager-card";
 import { ThemeProvider } from "@/components/layout/theme-provider";
-import { SiteAssistantDock } from "@/components/assistant/site-assistant-dock";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -57,8 +56,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <PageTransition>{children}</PageTransition>
         <SiteFooter />
         <CookieBanner />
-        <ContactStack />
-        <SiteAssistantDock />
+        <ManagerCard />
       </NextIntlClientProvider>
       <YandexMetrika />
     </>

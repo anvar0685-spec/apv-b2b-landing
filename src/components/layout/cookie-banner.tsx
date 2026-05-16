@@ -49,7 +49,7 @@ export function CookieBanner() {
         Мы используем cookies
       </p>
       <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-700)]">
-        Необходимые cookies нужны для работы сайта. Аналитика (Яндекс.Метрика) — только с согласия. При включённой защите чата от ботов может подгружаться виджет Cloudflare Turnstile. Подробности — в{" "}
+        Необходимые cookies нужны для работы сайта. Аналитика (Яндекс.Метрика) — только с согласия. Подробности — в{" "}
         <Link href="/politika-konfidencialnosti" className="text-[var(--accent)] underline underline-offset-2">
           политике конфиденциальности
         </Link>
