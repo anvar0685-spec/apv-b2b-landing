@@ -1,8 +1,5 @@
 /** Уникальные абзацы для отраслей / площадок / гео (неделя 4 плана). */
 
-import type { GeoRegionSlug } from "@/lib/site-structure";
-import { geoLabel } from "@/lib/site-structure";
-
 /** Редакционный блок + явный индекс callout (-1 = без выделения). */
 export type EditorialBundle = {
   paragraphs: string[];
@@ -185,46 +182,6 @@ const PLATFORM: Record<string, { ru: string[]; en: string[] }> = {
   },
 };
 
-const GEO_HUB: { ru: string[]; en: string[] } = {
-  ru: [
-    "Локальный поиск по Москве (округа) и ключевым городам Московской области — через хаб «Персонал» и посадочные «профессия × город» с ЧПУ.",
-    "Каждая карточка ведёт на посадочную с ЧПУ; сравнение логистики выхода и резерва между локациями — в той же программатике из раздела «Персонал».",
-    "При необходимости схематичная карта МО (статика) иллюстрирует зону присутствия и не является навигационным сервисом.",
-  ],
-  en: [
-    "Local search for Moscow (districts) and key cities in the Moscow Oblast — via the Workforce hub and profession × city clean-URL landings.",
-    "Each card links to a dedicated landing; compare mobilisation and replacement reserves across locations in the same programmatic set under Workforce.",
-    "Where used, a schematic MO map (static) illustrates the presence zone and is not a navigation product.",
-  ],
-};
-
-const GEO_REGION: Record<string, { ru: string[]; en: string[] }> = {
-  moskva: {
-    ru: [
-      "Москва — высокая плотность объектов и трафика; критичны время выхода на смену и резерв замен в часы пик.",
-      "Округа ниже ведут на локальные страницы; контент наращивается редакцией без потери URL-стабильности.",
-      "Транспортная доступность и «час пик» на выходе влияют на стоимость смены сильнее, чем разница в паре десятков рублей к ставке — учитывайте при расчёте выхода на объект.",
-    ],
-    en: [
-      "Moscow means dense sites and traffic; shift start reliability and peak replacement reserves are critical.",
-      "Districts below link to local pages; editorial content grows without breaking URL stability.",
-      "Access corridors and rush-hour mobilisation often matter more to shift economics than a few roubles on the hourly rate — model both.",
-    ],
-  },
-  "moskovskaya-oblast": {
-    ru: [
-      "Московская область — разброс по расстояниям и транспортным коридорам; в модель закладывается логистика выхода и резерв на замену.",
-      "Список городов — рабочий периметр программатики; детальные тексты подключаются по приоритету спроса.",
-      "Для удалённых от МКАД площадок заранее проговаривайте жильё/транзит или сдвиг графика — иначе резерв замены «съедается» логистикой, а не профилем.",
-    ],
-    en: [
-      "The Moscow Oblast spans distances and transport corridors; the model includes mobilisation logistics and replacement reserves.",
-      "The city list is the working perimeter for programmatic pages; deeper copy rolls out by demand priority.",
-      "For sites far from the MKAD, align housing/transit or shift timing early — otherwise replacement reserves burn off on logistics, not profile fit.",
-    ],
-  },
-};
-
 const INDUSTRY_TAIL: string[] = [
     "Калькулятор на сайте даёт быстрый ориентир по месячному фонду с учётом роли, численности и графика; детальные ставки, резерв и SLA фиксируются в коммерческом предложении после диагностики объекта.",
     "Ограниченный пилот первых смен на зоне или по части графика снижает риск при смене подрядчика и помогает закупке и операциям согласовать единые определения KPI до промышленного масштаба.",
@@ -235,11 +192,6 @@ const PLATFORM_TAIL: string[] = [
     "Для площадочных моделей критичны окна у ворот и график экспедиции, скорость ввода замены и язык отчётности, понятный и 3PL, и сети-заказчику одновременно.",
     "Связка с разделом «Персонал» и программатикой по городам МО позволяет закупке сравнить логистику выхода и резерв между локациями до подписания договора.",
     "Ориентиры по ставкам на витрине сайта — база для первичного сравнения; итоговая экономика зависит от графика, пиков и требований площадки к документам и допускам.",
-  ];
-
-const GEO_TAIL: string[] = [
-    "Программатика «профессия × город» доступна из раздела «Персонал»: каждая пара URL получает своё ЧПУ и согласованный коммерческий и SEO-каркас под закупку и поиск.",
-    "Схематичная карта МО (если используется на странице) иллюстрирует зону присутствия и не является навигационным сервисом.",
   ];
 
 export function industryEditorial(slug: string): string[] | undefined {
@@ -291,23 +243,3 @@ export function platformHubEditorial(): string[] {
   ];
 }
 
-/** Гео-посадочная города / округа */
-export function geoCityEditorial(region: GeoRegionSlug, city: string): string[] {
-  const loc = geoLabel(city);
-  const reg = geoLabel(region);
-  return [
-    `Локальная посадочная для «${loc.ru}» в периметре «${reg.ru}»: географический контекст для закупки и поиска; детальные ставки и SLA — в коммерческом предложении после диагностики объекта.`,
-    `Связка с разделом «Персонал» и программатикой «профессия × город» даёт сравнимые ориентиры по логистике выхода и резерву замен между локациями до подписания договора.`,
-    `Публичный текст не заменяет индивидуальное КП: график пиков, окна на воротах и требования к документам закрепляются на стороне объекта и подрядчика в договорной документации.`,
-  ];
-}
-
-export function geoHubEditorial(): string[] {
-  return [...GEO_HUB.ru, ...GEO_TAIL];
-}
-
-export function geoRegionEditorial(region: string): string[] | undefined {
-  const b = GEO_REGION[region];
-  if (!b) return undefined;
-  return [...b.ru, ...GEO_TAIL];
-}

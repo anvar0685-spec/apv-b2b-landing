@@ -52,7 +52,7 @@ export const CASES: CaseStub[] = [
     slug: "mebelnyy-rc-pogruzochnye-raboty",
     title: "Мебельный РЦ известного бренда: ПРР и разнорабочие «под ключ»",
     industry: "Мебель / распределительный центр",
-    city: "Софино",
+    city: "Софьино",
     staff: 48,
     durationMonths: 11,
     metricUp: "−32% простоя у рампы",
@@ -71,7 +71,7 @@ export const CASES: CaseStub[] = [
     metricUpEn: "−32% dock idle time",
     summaryEn:
       "Regional hub for a large furniture retailer: outsourced loading/unloading and bulky handling — steady dock crews instead of ad-hoc labour.",
-    cityEn: "Sofino, Moscow Oblast",
+    cityEn: "Sofyino, Moscow Oblast",
     challengeEn:
       "Inbound peaks and outbound soft-pack loads; ramp idle time and truck queues when crews missed the slot.",
     solutionEn:
@@ -96,7 +96,7 @@ export const CASES: CaseStub[] = [
     solution:
       "Пул комплектовщиков и грузчиков под профиль автозапчастей, двойной контроль по ячейкам на старте, единый контакт по заменам.",
     outcome:
-      "Темп комплектации за смену вырос около на пятую при той же численности; возвраты по ошибке отбора снизились.",
+      "Темп комплектации за смену вырос примерно на пятую часть при той же численности; возвраты по ошибке отбора снизились.",
     clientQuote:
       "Для нас главное — выдать заказ в слот курьера; с явкой по сменам перестали воевать.",
     titleEn: "Auto parts warehouse: picking throughput and attendance",
@@ -118,7 +118,7 @@ export const CASES: CaseStub[] = [
     slug: "stroitelnye-materialy-sklad-obrabotka",
     title: "Стройматериалы: хранение, перекладка и отгрузка в проектные окна",
     industry: "Стройматериалы / склад",
-    city: "Софино",
+    city: "Софьино",
     staff: 60,
     durationMonths: 14,
     metricUp: "96%+ закрытие смен по графику",
@@ -137,7 +137,7 @@ export const CASES: CaseStub[] = [
     metricUpEn: "96%+ shifts covered",
     summaryEn:
       "Finishing and bulk materials warehouse: outsourced loading, replenishment and picking for contractor pickup slots.",
-    cityEn: "Sofino, Moscow Oblast",
+    cityEn: "Sofyino, Moscow Oblast",
     challengeEn:
       "Heavy pallets, seasonal spikes and tight pickup windows; truck idle time hit downstream construction schedules.",
     solutionEn:
