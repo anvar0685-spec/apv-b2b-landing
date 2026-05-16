@@ -57,7 +57,7 @@ export function HeroSection() {
             <h1 className="font-display mt-5 max-w-[min(100%,18ch)] text-balance text-4xl font-extrabold leading-[0.95] tracking-[-0.04em] sm:max-w-[18ch] sm:text-5xl sm:tracking-[-0.045em] md:text-6xl md:tracking-[-0.048em] lg:text-[4.25rem] lg:tracking-[-0.05em] xl:text-[4.75rem]">
               <HeroWordsReveal text={t("heroTitle")} />
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-white/78 sm:mt-7 sm:text-lg md:text-xl md:leading-[1.55]">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-[var(--text-on-dark-base)] sm:mt-7 sm:text-lg md:text-xl md:leading-[1.55]">
               {t("heroSubtitle")}
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
@@ -83,7 +83,7 @@ export function HeroSection() {
                   <a
                     key={l.href}
                     href={l.href}
-                    className="interactive-hover-ring shrink-0 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2.5 text-sm font-medium text-white/88 backdrop-blur-sm transition hover:border-[var(--accent)]/50 hover:bg-white/[0.08] hover:text-white sm:py-2 sm:text-xs"
+                    className="interactive-hover-ring shrink-0 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2.5 text-sm font-medium text-[var(--text-on-dark-strong)] backdrop-blur-sm transition hover:border-[var(--accent)]/50 hover:bg-white/[0.08] hover:text-white sm:py-2 sm:text-xs"
                   >
                     {l.label}
                   </a>

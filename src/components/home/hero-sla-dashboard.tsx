@@ -56,7 +56,7 @@ export function HeroSlaDashboard() {
       <div className="absolute inset-0 hero-ambient opacity-90" aria-hidden />
       <div className="relative flex flex-col gap-5">
         <div className="flex min-w-0 flex-wrap items-center justify-between gap-2 gap-y-2">
-          <p className="min-w-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">
+          <p className="min-w-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-on-dark-muted)]">
             {t("slaKicker")}
           </p>
           <motion.span
@@ -75,30 +75,30 @@ export function HeroSlaDashboard() {
             animate={reduce ? undefined : { scale: 1, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.15 }}
           >
-            <p className="text-[10px] font-medium text-white/55">{t("attendance")}</p>
+            <p className="text-[10px] font-medium text-[var(--text-on-dark-muted)]">{t("attendance")}</p>
             <p className="mt-1 font-mono-nums text-2xl font-bold tabular-nums text-white md:text-[1.65rem]">
               {y1}
               <span className="text-[0.65em] font-semibold text-[var(--accent-soft)]">%</span>
             </p>
           </motion.div>
           <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-3">
-            <p className="text-[10px] text-white/45">{t("replacements")}</p>
+            <p className="text-[10px] text-[var(--text-on-dark-muted)]">{t("replacements")}</p>
             <p className="mt-1 font-mono-nums text-2xl font-bold tabular-nums text-[var(--accent-soft)] md:text-[1.65rem]">
               {y2}
             </p>
           </div>
           <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-3">
-            <p className="text-[10px] text-white/45">{t("incidents")}</p>
-            <p className="mt-1 font-mono-nums text-2xl font-bold tabular-nums text-white/90 md:text-[1.65rem]">0</p>
+            <p className="text-[10px] text-[var(--text-on-dark-muted)]">{t("incidents")}</p>
+            <p className="mt-1 font-mono-nums text-2xl font-bold tabular-nums text-[var(--text-on-dark-strong)] md:text-[1.65rem]">0</p>
           </div>
         </div>
 
-        <p className="break-words text-[10px] leading-relaxed text-white/42">{t("kpiExplainer")}</p>
+        <p className="break-words text-[10px] leading-relaxed text-[var(--text-on-dark-faint)]">{t("kpiExplainer")}</p>
 
-        <div className="min-w-0 overflow-hidden rounded-2xl border border-white/15 bg-black/25 p-3 ring-1 ring-white/[0.06] sm:p-4">
+        <div className="hidden min-w-0 overflow-hidden rounded-2xl border border-white/15 bg-black/25 p-3 ring-1 ring-white/[0.06] sm:p-4 md:block">
           <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-end sm:justify-between sm:gap-2">
-            <p className="min-w-0 text-[11px] font-medium text-white/60">{t("throughput")}</p>
-            <span className="min-w-0 text-[10px] font-medium leading-snug text-white/45 sm:max-w-[14rem] sm:text-right">
+            <p className="min-w-0 text-[11px] font-medium text-[var(--text-on-dark-base)]">{t("throughput")}</p>
+            <span className="min-w-0 text-[10px] font-medium leading-snug text-[var(--text-on-dark-muted)] sm:max-w-[14rem] sm:text-right">
               {t("throughputTrendNote")}
             </span>
           </div>
@@ -134,7 +134,7 @@ export function HeroSlaDashboard() {
           {chips.map((label, i) => (
             <motion.span
               key={label}
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.05] px-2.5 py-1 text-[10px] font-medium text-white/70"
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.05] px-2.5 py-1 text-[10px] font-medium text-[var(--text-on-dark-base)]"
               initial={reduce ? undefined : { opacity: 0, y: 6 }}
               animate={reduce ? undefined : { opacity: 1, y: 0 }}
               transition={{ delay: 0.45 + i * 0.08, duration: 0.35 }}
@@ -145,7 +145,7 @@ export function HeroSlaDashboard() {
           ))}
         </div>
 
-        <figcaption className="relative border-t border-white/[0.07] pt-4 text-center text-[10px] leading-snug text-white/45">
+        <figcaption className="relative border-t border-white/[0.07] pt-4 text-center text-[10px] leading-snug text-[var(--text-on-dark-muted)]">
           {t("reportingDisclaimer")}
         </figcaption>
       </div>

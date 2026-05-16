@@ -356,7 +356,7 @@ export function LeadMultistepForm() {
               className="mt-2"
               {...register("contactEmail")}
             />
-            <p className="mt-1 text-xs text-[var(--neutral-500)]">{t("emailHint")}</p>
+            <p className="mt-1 text-[13px] text-[var(--neutral-500)]">{t("emailHint")}</p>
             {errors.contactEmail ? (
               <p className="mt-1 text-xs text-red-600" role="alert">
                 {errors.contactEmail.message}
@@ -369,13 +369,13 @@ export function LeadMultistepForm() {
         <div className="mt-6 space-y-4">
           <div>
             <p className="text-sm font-medium text-[var(--neutral-800)]">{t("serviceProductTitle")}</p>
-            <p className="mt-2 text-xs leading-relaxed text-[var(--neutral-600)]">{t("serviceProductFocus")}</p>
+            <p className="mt-2 text-[13px] leading-relaxed text-[var(--neutral-600)]">{t("serviceProductFocus")}</p>
             <input type="hidden" {...register("serviceType")} />
           </div>
           <div>
             <div className="flex flex-wrap items-end justify-between gap-2">
               <Label className="block">{t("profession")}</Label>
-              <p className="text-xs text-[var(--neutral-500)]">{t("professionLinesHint")}</p>
+              <p className="text-[13px] text-[var(--neutral-500)]">{t("professionLinesHint")}</p>
             </div>
             <div className="mt-3 space-y-4">
               {fields.map((field, index) => (

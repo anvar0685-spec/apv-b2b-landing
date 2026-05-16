@@ -63,19 +63,28 @@ export function SiteHeaderClient({
   }, [pathname]);
 
   useEffect(() => {
-    const onScroll = () => {
+    let raf = 0;
+    let pending = false;
+    const compute = () => {
+      pending = false;
       setScrolled(window.scrollY > 8);
       const doc = document.documentElement;
       const max = doc.scrollHeight - window.innerHeight;
       const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
       setProgress(p);
     };
-    onScroll();
+    const onScroll = () => {
+      if (pending) return;
+      pending = true;
+      raf = window.requestAnimationFrame(compute);
+    };
+    compute();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      if (raf) window.cancelAnimationFrame(raf);
     };
   }, []);
 
@@ -160,7 +169,7 @@ export function SiteHeaderClient({
                 "interactive-hover-ring inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold tracking-tight transition",
                 megaOpen
                   ? "border-[color-mix(in_srgb,var(--accent)_42%,var(--neutral-200))] bg-[color-mix(in_srgb,var(--accent)_12%,var(--card))] text-[var(--primary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] dark:border-[color-mix(in_srgb,var(--accent)_48%,transparent)] dark:bg-[color-mix(in_srgb,var(--accent)_18%,transparent)] dark:text-white"
-                  : "border-[var(--neutral-200)] bg-[var(--surface)] text-[var(--neutral-700)] hover:border-[color-mix(in_srgb,var(--accent)_35%,var(--neutral-200))] hover:text-[var(--primary)] dark:border-white/15 dark:bg-white/5 dark:text-white/85 dark:hover:border-[var(--accent)]/45",
+                  : "border-[var(--neutral-200)] bg-[var(--surface)] text-[var(--neutral-700)] hover:border-[color-mix(in_srgb,var(--accent)_35%,var(--neutral-200))] hover:text-[var(--primary)] dark:border-white/15 dark:bg-white/5 dark:text-[var(--text-on-dark-strong)] dark:hover:border-[var(--accent)]/45",
               )}
               aria-expanded={megaOpen}
               aria-controls="site-mega-panel"
@@ -200,7 +209,7 @@ export function SiteHeaderClient({
             <nav className="mx-auto grid max-w-[1280px] grid-cols-1 gap-8 px-4 py-8 sm:grid-cols-3 sm:px-6 lg:px-8" aria-label={menuNavLabel}>
               {groups.map((g) => (
                 <div key={g.title}>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--neutral-500)] dark:text-white/45">{g.title}</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--neutral-500)] dark:text-[var(--text-on-dark-muted)]">{g.title}</p>
                   <ul className="mt-4 space-y-1">
                     {g.links.map((l) => {
                       const active = pathMatches(pathname, l.href);
@@ -213,7 +222,7 @@ export function SiteHeaderClient({
                               "block rounded-xl px-3 py-2.5 text-sm font-semibold leading-snug transition-colors",
                               active
                                 ? "bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] text-[var(--primary)] shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--accent)_30%,transparent)] dark:bg-[color-mix(in_srgb,var(--accent)_18%,transparent)] dark:text-white"
-                                : "text-[var(--neutral-700)] hover:bg-[color-mix(in_srgb,var(--neutral-500)_08%,transparent)] hover:text-[var(--primary)] dark:text-white/78 dark:hover:bg-white/10 dark:hover:text-white",
+                                : "text-[var(--neutral-700)] hover:bg-[color-mix(in_srgb,var(--neutral-500)_08%,transparent)] hover:text-[var(--primary)] dark:text-[var(--text-on-dark-base)] dark:hover:bg-white/10 dark:hover:text-white",
                             )}
                           >
                             {l.label}
@@ -266,7 +275,7 @@ export function SiteHeaderClient({
                   className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-3 py-3 [-webkit-overflow-scrolling:touch]"
                   aria-label={menuNavLabel}
                 >
-                  <p className="px-3 pb-2 text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--neutral-500)] dark:text-white/45">
+                  <p className="px-3 pb-2 text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--neutral-500)] dark:text-[var(--text-on-dark-muted)]">
                     {menuNavLabel}
                   </p>
                   <div className="space-y-6">
@@ -284,7 +293,7 @@ export function SiteHeaderClient({
                                   href={l.href}
                                   onClick={() => setMenuOpen(false)}
                                   className={cn(
-                                    "block min-h-[44px] rounded-full px-3 py-3 text-sm font-semibold leading-snug tracking-tight text-[var(--neutral-800)] transition-colors dark:text-white/90",
+                                    "block min-h-[44px] rounded-full px-3 py-3 text-sm font-semibold leading-snug tracking-tight text-[var(--neutral-800)] transition-colors dark:text-[var(--text-on-dark-strong)]",
                                     active &&
                                       "bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] text-[var(--primary)] shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--accent)_30%,transparent)] dark:bg-[color-mix(in_srgb,var(--accent)_18%,transparent)] dark:text-white dark:shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--accent)_38%,transparent)]",
                                   )}
