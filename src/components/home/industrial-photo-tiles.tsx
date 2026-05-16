@@ -4,7 +4,7 @@ import Image from "next/image";
 import { X } from "lucide-react";
 import { useCallback, useRef } from "react";
 
-export type IndustrialPhoto = { src: string; label: string };
+export type IndustrialPhoto = { src: string; label: string; alt: string };
 
 export function IndustrialPhotoTiles({ photos }: { photos: readonly IndustrialPhoto[] }) {
   return (
@@ -21,7 +21,7 @@ function isRemoteImageUrl(src: string) {
 }
 
 function IndustrialPhotoTile({ photo }: { photo: IndustrialPhoto }) {
-  const { src, label } = photo;
+  const { src, label, alt } = photo;
   const unoptimized = isRemoteImageUrl(src);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -44,7 +44,7 @@ function IndustrialPhotoTile({ photo }: { photo: IndustrialPhoto }) {
         />
         <Image
           src={src}
-          alt=""
+          alt={alt}
           fill
           unoptimized={unoptimized}
           sizes="(max-width: 768px) 50vw, 25vw"
@@ -81,7 +81,7 @@ function IndustrialPhotoTile({ photo }: { photo: IndustrialPhoto }) {
           <div className="relative h-[min(72vh,820px)] w-full max-w-[1100px]">
             <Image
               src={src}
-              alt=""
+              alt={alt}
               fill
               unoptimized={unoptimized}
               className="object-contain grayscale-0"

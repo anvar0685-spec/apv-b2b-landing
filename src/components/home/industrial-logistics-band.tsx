@@ -3,19 +3,20 @@ import { IndustrialPhotoTiles } from "@/components/home/industrial-photo-tiles";
 import { ShiftCycleSchematic } from "@/components/home/shift-cycle-schematic";
 
 /**
- * Локальные JPEG из `public/home/industrial-band/` (не Unsplash: с части RU-сетей CDN не грузится → «битые» картинки).
- * Перегенерация абстрактных фонов: `npm run generate:industrial-band-assets`. Свои фото — заменить файлы и/или пути, см. `my-guide/ЧТО-НУЖНО-СДЕЛАТЬ.md`.
+ * Реальные фото объекта (Софьино, МО) в `public/home/industrial-band/`.
+ * Старые stock-кадры — резервная копия в `public/home/industrial-band/_old-stock/`.
+ * Замена комплекта: положить новые JPEG поверх и при необходимости запустить `node scripts/_resize-real-photos.mjs`.
  */
 const PHOTOS = [
-  { src: "/home/industrial-band/01-zona-hraneniya.jpg", key: "photo1Label" as const },
-  { src: "/home/industrial-band/02-pogruzka-tmc.jpg", key: "photo2Label" as const },
-  { src: "/home/industrial-band/03-liniya-komplektacii.jpg", key: "photo3Label" as const },
-  { src: "/home/industrial-band/04-proizvodstvo-otgruzka.jpg", key: "photo4Label" as const },
+  { src: "/home/industrial-band/01-zona-hraneniya.jpg", labelKey: "photo1Label" as const, altKey: "photo1Alt" as const },
+  { src: "/home/industrial-band/02-pogruzka-tmc.jpg", labelKey: "photo2Label" as const, altKey: "photo2Alt" as const },
+  { src: "/home/industrial-band/03-liniya-komplektacii.jpg", labelKey: "photo3Label" as const, altKey: "photo3Alt" as const },
+  { src: "/home/industrial-band/04-proizvodstvo-otgruzka.jpg", labelKey: "photo4Label" as const, altKey: "photo4Alt" as const },
 ] as const;
 
 export async function IndustrialLogisticsBand() {
   const t = await getTranslations("homePage.industrialBand");
-  const tiles = PHOTOS.map((ph) => ({ src: ph.src, label: t(ph.key) }));
+  const tiles = PHOTOS.map((ph) => ({ src: ph.src, label: t(ph.labelKey), alt: t(ph.altKey) }));
   const schematicSteps = t.raw("schematicSteps") as readonly { n: string; title: string; hint: string }[];
 
   return (

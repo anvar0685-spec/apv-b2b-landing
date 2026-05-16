@@ -20,6 +20,9 @@
 .DS_Store
 *.pem
 
+# локальный резерв старых сток-фото на главной (не идёт в прод)
+public/home/industrial-band/_old-stock/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
