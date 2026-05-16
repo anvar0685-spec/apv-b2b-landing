@@ -8,7 +8,7 @@ import { CaseSparkline } from "@/components/home/case-sparkline";
 import { ProcessStickySplit } from "@/components/home/process-sticky-split";
 import { HomeProfessionsHubs } from "@/components/home/home-professions-hubs";
 import { HomeWhyUs } from "@/components/home/home-why-us";
-import { ThankYouLettersGallery } from "@/components/home/thank-you-letters-gallery";
+// import { ThankYouLettersGallery } from "@/components/home/thank-you-letters-gallery"; // временно скрыто до получения реальных сканов
 import { getTranslations } from "next-intl/server";
 
 type FaqItem = { q: string; a: string };
@@ -162,7 +162,8 @@ export async function HomeSections() {
         </div>
       </section>
 
-      <ThankYouLettersGallery />
+      {/* TODO: вернуть на главную, когда заказчик пришлёт реальные сканы благодарственных писем (см. PROGRESS.md). */}
+      {/* <ThankYouLettersGallery /> */}
 
       <HomeWhyUs />
 
