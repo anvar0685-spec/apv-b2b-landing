@@ -47,18 +47,19 @@ export function ManagerCard() {
 
   if (hidden) return null;
 
-  const channelBtn =
-    "interactive-hover-ring flex h-10 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-xl px-2 text-[11px] font-semibold text-white shadow-sm ring-1 ring-white/15 transition hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] motion-reduce:hover:scale-100";
+  // Квадратная кнопка мессенджера: иконка сверху, лейбл снизу — текст не режется на 100–110 px
+  const msgrBtn =
+    "interactive-hover-ring group flex h-[68px] min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-1.5 text-[11px] font-semibold text-white shadow-[0_6px_18px_-8px_rgba(7,21,37,0.35)] ring-1 ring-white/15 transition hover:scale-[1.02] hover:shadow-[0_10px_22px_-8px_rgba(7,21,37,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] motion-reduce:hover:scale-100";
 
   const cardContent = (
     <div
       id={panelId}
       className={cn(
-        "pointer-events-auto flex w-[min(calc(100vw-1.5rem),21rem)] flex-col overflow-hidden rounded-2xl border bg-[var(--card)]/96 shadow-[0_24px_60px_-18px_rgba(7,21,37,0.4)] backdrop-blur-xl",
+        "pointer-events-auto flex w-[min(calc(100vw-1.5rem),22rem)] flex-col overflow-hidden rounded-2xl border bg-[var(--card)]/96 shadow-[0_24px_60px_-18px_rgba(7,21,37,0.4)] backdrop-blur-xl",
         "border-[var(--neutral-200)]/90 dark:border-white/12 dark:bg-[color-mix(in_srgb,var(--primary-dark)_94%,var(--surface))]/96",
         "max-sm:absolute max-sm:bottom-[4.5rem] max-sm:right-0",
         open ? "max-sm:flex" : "max-sm:hidden",
-        "sm:relative sm:w-[20.5rem]",
+        "sm:relative sm:w-[22rem]",
       )}
     >
       {/* Top: photo + identity */}
@@ -107,59 +108,64 @@ export function ManagerCard() {
         Напишите в&nbsp;удобном канале — пришлю ставки, документы и условия по&nbsp;вашему складу.
       </p>
 
-      {/* Channels */}
-      <nav
-        className="grid grid-cols-4 gap-2 p-3.5 pt-3"
-        aria-label="Связаться с менеджером: звонок, WhatsApp, Telegram, MAX"
-      >
+      {/* Primary CTA — звонок с реальным номером */}
+      <div className="px-3.5 pt-3">
         <a
           href={telHref}
-          className={cn(channelBtn, "bg-[var(--primary)] hover:bg-[var(--primary-dark)]")}
-          aria-label="Позвонить менеджеру"
-          title="Позвонить"
+          className="interactive-hover-ring group flex h-12 items-center justify-center gap-2.5 rounded-xl bg-[var(--primary)] px-4 text-white shadow-[0_10px_24px_-10px_rgba(7,21,37,0.55)] ring-1 ring-white/10 transition hover:bg-[var(--primary-dark)] hover:shadow-[0_14px_28px_-10px_rgba(7,21,37,0.65)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          aria-label={`Позвонить менеджеру по номеру ${site.phone}`}
           onClick={() => void trackEvent("manager_card_tel", { source: "manager_card" })}
         >
           <Phone className="h-4 w-4 shrink-0" aria-hidden />
-          <span>Звонок</span>
+          <span className="font-display text-[15px] font-semibold tracking-tight tabular-nums">
+            {site.phone}
+          </span>
         </a>
+      </div>
+
+      {/* Channels — 3 квадратные кнопки: иконка сверху, лейбл снизу */}
+      <nav
+        className="grid grid-cols-3 gap-2 px-3.5 pb-3.5 pt-2"
+        aria-label="Написать менеджеру в мессенджер: WhatsApp, Telegram, MAX"
+      >
         <a
           href={site.whatsapp}
           target="_blank"
           rel="noopener noreferrer"
-          className={cn(channelBtn, "bg-[#25D366] hover:bg-[#1eb858]")}
+          className={cn(msgrBtn, "bg-[#25D366] hover:bg-[#1eb858]")}
           aria-label="Написать в WhatsApp"
           title="WhatsApp"
           onClick={() => void trackEvent("manager_card_whatsapp", { source: "manager_card" })}
         >
-          <MessageCircle className="h-4 w-4 shrink-0" aria-hidden />
-          <span>WhatsApp</span>
+          <MessageCircle className="h-5 w-5 shrink-0" aria-hidden />
+          <span className="leading-none">WhatsApp</span>
         </a>
         <a
           href={site.telegram}
           target="_blank"
           rel="noopener noreferrer"
-          className={cn(channelBtn, "bg-[#229ED9] hover:bg-[#1e8cbf]")}
+          className={cn(msgrBtn, "bg-[#229ED9] hover:bg-[#1e8cbf]")}
           aria-label="Написать в Telegram"
           title="Telegram"
           onClick={() => void trackEvent("manager_card_telegram", { source: "manager_card" })}
         >
-          <Send className="h-4 w-4 shrink-0" aria-hidden />
-          <span>Telegram</span>
+          <Send className="h-5 w-5 shrink-0" aria-hidden />
+          <span className="leading-none">Telegram</span>
         </a>
         <a
           href={site.max}
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
-            channelBtn,
+            msgrBtn,
             "bg-gradient-to-br from-[#4f8cff] via-[#7c5cff] to-[#d946ef] hover:opacity-95",
           )}
           aria-label="Написать в MAX"
           title="MAX"
           onClick={() => void trackEvent("manager_card_max", { source: "manager_card" })}
         >
-          <MaxAppSymbol className="h-[18px] w-[18px] shrink-0 text-white" />
-          <span>MAX</span>
+          <MaxAppSymbol className="h-[22px] w-[22px] shrink-0 text-white" />
+          <span className="leading-none">MAX</span>
         </a>
       </nav>
 
