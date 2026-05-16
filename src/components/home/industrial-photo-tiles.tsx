@@ -8,7 +8,7 @@ export type IndustrialPhoto = { src: string; label: string; alt: string };
 
 export function IndustrialPhotoTiles({ photos }: { photos: readonly IndustrialPhoto[] }) {
   return (
-    <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4 md:gap-4">
       {photos.map((ph) => (
         <IndustrialPhotoTile key={ph.src} photo={ph} />
       ))}
@@ -47,7 +47,7 @@ function IndustrialPhotoTile({ photo }: { photo: IndustrialPhoto }) {
           alt={alt}
           fill
           unoptimized={unoptimized}
-          sizes="(max-width: 768px) 50vw, 25vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 25vw"
           className="object-cover grayscale contrast-[1.08] transition duration-500 motion-reduce:transition-none motion-reduce:group-hover:scale-100 scale-100 group-hover:scale-[1.03] brightness-[0.78] group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100 motion-reduce:grayscale motion-reduce:group-hover:grayscale"
         />
         <div

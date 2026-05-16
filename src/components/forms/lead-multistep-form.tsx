@@ -390,7 +390,7 @@ export function LeadMultistepForm() {
                       </Label>
                       <select
                         id={`pr-${field.id}`}
-                        className="mt-1.5 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-white px-3 text-sm dark:bg-[var(--card)]"
+                        className="mt-1.5 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-white px-3 text-base dark:bg-[var(--card)] sm:text-sm"
                         {...register(`professionLines.${index}.slug` as const)}
                       >
                         {professionsForRow(index).map((p) => (
@@ -456,7 +456,7 @@ export function LeadMultistepForm() {
             <Label htmlFor="ci">{t("city")}</Label>
             <select
               id="ci"
-              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-white px-3 text-sm dark:bg-[var(--card)]"
+              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-white px-3 text-base dark:bg-[var(--card)] sm:text-sm"
               {...register("city")}
             >
               {CITIES.map((c) => (

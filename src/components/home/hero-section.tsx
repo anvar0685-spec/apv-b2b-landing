@@ -83,7 +83,7 @@ export function HeroSection() {
                   <a
                     key={l.href}
                     href={l.href}
-                    className="interactive-hover-ring shrink-0 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-white/88 backdrop-blur-sm transition hover:border-[var(--accent)]/50 hover:bg-white/[0.08] hover:text-white"
+                    className="interactive-hover-ring shrink-0 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2.5 text-sm font-medium text-white/88 backdrop-blur-sm transition hover:border-[var(--accent)]/50 hover:bg-white/[0.08] hover:text-white sm:py-2 sm:text-xs"
                   >
                     {l.label}
                   </a>

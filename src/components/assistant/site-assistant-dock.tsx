@@ -319,6 +319,19 @@ export function SiteAssistantDock() {
     return () => document.removeEventListener("keydown", onKey);
   }, [chatOpen]);
 
+  // Скрываем док пока виден cookie banner — он перекрывал бы FAB на мобильном.
+  const [dockHidden, setDockHidden] = useState(false);
+  useEffect(() => {
+    const onHide = (e: Event) => {
+      const ce = e as CustomEvent<{ hidden?: boolean }>;
+      setDockHidden(!!ce.detail?.hidden);
+    };
+    window.addEventListener("apv-floating-docks", onHide as EventListener);
+    return () => window.removeEventListener("apv-floating-docks", onHide as EventListener);
+  }, []);
+
+  if (dockHidden) return null;
+
   return (
     <>
       <div className="pointer-events-none fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-[max(1.25rem,env(safe-area-inset-left))] z-[55] flex flex-col items-start sm:bottom-8 sm:left-8">
@@ -483,7 +496,7 @@ export function SiteAssistantDock() {
                     aria-label={t("inputLabel")}
                     aria-describedby={`${disclaimerId} ${aiConsentId}`}
                     className={cn(
-                      "min-h-[2.75rem] flex-1 resize-none rounded-xl border px-3 py-2 text-sm placeholder:text-[var(--neutral-500)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/35",
+                      "min-h-[2.75rem] flex-1 resize-none rounded-xl border px-3 py-2 text-base placeholder:text-[var(--neutral-500)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/35 sm:text-sm",
                       "border-[var(--neutral-200)] bg-[var(--background)] text-[var(--primary)]",
                       "dark:border-white/12 dark:bg-[var(--primary-dark)] dark:text-slate-100",
                     )}

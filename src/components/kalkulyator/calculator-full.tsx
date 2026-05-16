@@ -124,7 +124,7 @@ export function CalculatorFull() {
             <Label htmlFor="prof">Шаг 1. Профессия на складе</Label>
             <select
               id="prof"
-              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-sm"
+              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-base sm:text-sm"
               value={profession}
               onChange={(e) => setProfession(e.target.value)}
             >
@@ -239,7 +239,7 @@ export function CalculatorFull() {
             <Label htmlFor="city">Шаг 5. Локация (Москва / МО)</Label>
             <select
               id="city"
-              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-sm"
+              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-base sm:text-sm"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             >

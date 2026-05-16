@@ -44,7 +44,7 @@ export function CalculatorEmbed() {
             <Label htmlFor="ce-prof">{t("labelProfession")}</Label>
             <select
               id="ce-prof"
-              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-sm"
+              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-base sm:text-sm"
               value={prof}
               onChange={(e) => setProf(e.target.value)}
             >

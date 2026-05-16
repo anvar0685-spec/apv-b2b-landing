@@ -112,9 +112,9 @@ export async function SiteFooter() {
               inputMode="email"
               autoComplete="email"
               placeholder={t("digestPlaceholder")}
-              className="h-11 flex-1 rounded-xl border border-white/15 bg-white/5 px-4 text-sm text-white placeholder:text-white/40 outline-none ring-[var(--accent)] transition focus:ring-2"
+              className="h-11 flex-1 rounded-xl border border-white/15 bg-white/5 px-4 text-base text-white placeholder:text-white/40 outline-none ring-[var(--accent)] transition focus:ring-2 sm:text-sm"
             />
-            <Button type="submit" className="shrink-0 sm:w-auto">
+            <Button type="submit" className="w-full shrink-0 sm:w-auto">
               {t("digestSubmit")}
             </Button>
           </form>
