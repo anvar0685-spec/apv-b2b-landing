@@ -10,6 +10,9 @@ import { readConsent, writeConsent } from "@/lib/cookie-consent";
  * Имплицитное согласие (распространённая практика для B2B в РФ): при первом визите
  * фиксируем режим «все» (в т.ч. Яндекс.Метрика), без блокирующего диалога «принять / отказать».
  * Показываем только компактную полоску-уведомление со ссылкой на политику и «Скрыть».
+ *
+ * Режим `necessary` (старый «без аналитики»): при отсутствии футер-переключателя поднимаем до `all`,
+ * иначе Метрика навсегда выключена у возвращающихся пользователей.
  */
 export function CookieBanner() {
   const t = useTranslations("cookieBanner");
@@ -18,7 +21,13 @@ export function CookieBanner() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (readConsent() === "unset") {
+    const c = readConsent();
+    if (c === "necessary") {
+      writeConsent("all");
+      window.dispatchEvent(new Event("apv-consent-changed"));
+      return undefined;
+    }
+    if (c === "unset") {
       writeConsent("all");
       window.dispatchEvent(new Event("apv-consent-changed"));
       setStrip(true);
