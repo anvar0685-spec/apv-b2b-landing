@@ -461,7 +461,8 @@
     "adMarkingLine": "Реклама. Рекламодатель: {advertiser}. erid: {erid}",
     "adMarkingPending": "При распространении сведений о деятельности ИП в виде интернет-рекламы маркировка выполняется в ЕРИР по правилам ФЗ «О рекламе»; после получения erid в ОРД подставьте NEXT_PUBLIC_AD_ERID в настройках сайта.",
     "telegram": "Telegram",
-    "whatsapp": "WhatsApp"
+    "whatsapp": "WhatsApp",
+    "cookieSettings": "Настройки cookies и аналитики"
   },
   "blogIndex": {
     "metaTitle": "Блог — смены на складе, документы и HR",

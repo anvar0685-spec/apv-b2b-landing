@@ -15,19 +15,21 @@ export function CookieBanner() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const v = readConsent();
-    const initialOpen = v === "unset";
-    setOpen(initialOpen);
-    broadcastDocksHidden(initialOpen);
+    const sync = () => {
+      const show = readConsent() === "unset";
+      setOpen(show);
+      broadcastDocksHidden(show);
+    };
+    sync();
     const onStorage = (e: StorageEvent) => {
-      if (e.key === CONSENT_KEY) {
-        const nextOpen = readConsent() === "unset";
-        setOpen(nextOpen);
-        broadcastDocksHidden(nextOpen);
-      }
+      if (e.key === CONSENT_KEY || e.key === null) sync();
     };
     window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+    window.addEventListener("apv-consent-changed", sync);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener("apv-consent-changed", sync);
+    };
   }, []);
 
   if (!open) return null;
