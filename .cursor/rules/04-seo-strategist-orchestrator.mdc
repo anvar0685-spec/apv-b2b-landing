@@ -34,6 +34,26 @@ alwaysApply: false
 | Микроразметка | Organization/WebSite на главной; Service/WebPage на коммерции; BlogPosting в блоге — валидность и соответствие контенту. |
 | OG/Twitter | `seo.ts`, `opengraph-image.tsx`; не пустой `metadataBase` в проде. |
 | Прод-конфиг | `NEXT_PUBLIC_SITE_URL`, верификация Google/Yandex из env. |
+| GEO / AI-поиск | Публичный **`/llms.txt`**, **`robots.ts`** (явные `Allow` для AI-краулеров + `*`); без гарантий «индекса в каждой нейросети» — см. раздел ниже. |
+
+## Новый агент: Яндекс Вебмастер + Метрика за пару минут
+
+Рабочий каталог: **`apv-b2b-landing/`**. Секреты только в **gitignored** `deploy/.yandex-oauth.local.env`, **не коммитить** токены и `.env.production`.
+
+| Шаг | Действие |
+|-----|----------|
+| 1 | Убедиться, что в **`deploy/.yandex-oauth.local.env`** есть `YANDEX_OAUTH_CLIENT_ID`, `YANDEX_OAUTH_CLIENT_SECRET`, при необходимости `YANDEX_WEBMASTER_ACCESS_TOKEN` / `YANDEX_OAUTH_REFRESH_TOKEN`. |
+| 2 | **Метрика (read):** `npm run metrica:counters` — список счётчиков; `npm run metrica:goals-check` — все JS-цели из **`src/config/yandex-metrica-js-goals.json`** есть на счётчике из env (`NEXT_PUBLIC_YANDEX_METRICA_ID` / `YANDEX_METRICA_COUNTER_ID`). |
+| 3 | **Метрика (создать цели):** `npm run metrica:goals-install` — только если в OAuth приложения есть **metrika:write** и токен выдан уже с этим scope. |
+| 4 | **Смена прав в oauth.yandex.ru** (добавили metrika:*, webmaster и т.д.): нужен **новый** код → `npm run webmaster:auth-open` → одна строка кода в **`deploy/.yandex-oauth-code.local`** → **`npm run webmaster:exchange-file`** (файл с кодом удалится сам). |
+| 5 | **Вебмастер:** `npm run webmaster:recrawl-quota` / `npm run webmaster:recrawl` (список URL — **`deploy/webmaster-recrawl-priority.txt`**), `npm run webmaster:sync` для sitemap — детали в **`deploy/README-NO-DOCKER.md`**. |
+| 6 | **Счётчик на проде:** `NEXT_PUBLIC_YANDEX_METRICA_ID` в **`.env.production` на VPS до `npm run build:vps`**; тег и цели на клиенте после согласия cookies — **`src/components/seo/yandex-metrika*.tsx`**, **`src/lib/analytics-yandex.ts`**. |
+
+## GEO / нейросети (Perplexity, ассистенты, «как попасть в выдачу ИИ»)
+
+- **Нельзя** технически «прописать индекс во все нейросети»: у **Perplexity / ChatGPT / Claude** свои краулеры и политики; **Яндекс Алиса / YandexGPT** опираются на **индекс Яндекса**; **GigaChat** не даёт публичного стандарта «бот для обхода любого сайта как Googlebot». Реалистичная цель — **хороший классический SEO + структурированные данные + открытый контент**, чтобы системы, которые тянут **веб и/или сниппеты поисковиков**, могли цитировать сайт.
+- **В коде проекта:** маршрут **`/llms.txt`** (краткое описание бренда и важных URL для LLM), **`robots.ts`** с явными `Allow` для распространённых AI user-agent (дублируют правило `*`), полный **`sitemap.xml`**, валидная JSON-LD. Новые боты — добавлять в **`robots.ts`** по мере появления в официальных списках или каталогах ботов.
+- **Не обещать** заказчику «нас проиндексирует нейросеть X» без данных из кабинетов / выдачи.
 
 ## Специфика Яндекса (кратко)
 

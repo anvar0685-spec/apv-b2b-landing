@@ -15,6 +15,7 @@
 | `deploy/metrica-oauth.env.example` | Шаблон для **API Метрики** (опционально отдельный `deploy/.metrica-oauth.local.env`) |
 | `scripts/yandex-webmaster.mjs` | CLI: OAuth, sitemap, **переобход URL** (`recrawl` / `recrawl-quota`), список приоритетов `deploy/webmaster-recrawl-priority.txt` |
 | `scripts/yandex-metrica.mjs` | CLI: Management API — счётчики, карточка, **goals-check** / **goals-install** (список целей: `src/config/yandex-metrica-js-goals.json`) |
+| `src/app/llms.txt/route.ts` | GEO: публичный **`/llms.txt`** для LLM; см. `.cursor/rules/04-seo-strategist-orchestrator.mdc` |
 
 ## Яндекс OAuth (API Вебмастера, скрипты)
 
