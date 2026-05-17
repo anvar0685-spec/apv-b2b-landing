@@ -35,6 +35,9 @@ yarn-error.log*
 deploy/.vps-ssh.local.env
 deploy/.vps-smtp-append.env
 
+# Яндекс OAuth (Client secret — только локально; для скриптов API Вебмастера)
+deploy/.yandex-oauth.local.env
+
 # vercel
 .vercel
 

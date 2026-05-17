@@ -11,8 +11,19 @@
 | `deploy/nginx-site.conf.example` | Пример reverse-proxy |
 | `deploy/pm2.ecosystem.example.cjs` | Пример PM2: `cwd` = `.next/standalone`, скрипт `server.js` |
 | `deploy/deploy-remote.example.sh` | Шаблон: `git pull` на сервере → `npm ci` → `build:vps` → `pm2 reload` |
+| `deploy/yandex-oauth.env.example` | Шаблон переменных Яндекс OAuth (Вебмастер API); секреты — в `deploy/.yandex-oauth.local.env` (локально, **не в git**) |
 
-## Локально
+## Яндекс OAuth (API Вебмастера, скрипты)
+
+1. Скопируй `deploy/yandex-oauth.env.example` → `deploy/.yandex-oauth.local.env`, подставь **Client ID** и **Client secret** из [oauth.yandex.ru](https://oauth.yandex.ru/) (тип приложения: «Для доступа к API или отладки», права: **Яндекс.Вебмастер**).
+2. **Не коммить** `.yandex-oauth.local.env` — файл в `.gitignore`.
+3. Получить **access_token** (implicit, срок ~6 мес.): открой в браузере под аккаунтом, у которого сайты в Вебмастере:
+   `https://oauth.yandex.ru/authorize?response_type=token&client_id=<YANDEX_OAUTH_CLIENT_ID>`
+   После согласия скопируй `access_token` из URL (`#access_token=...`).
+4. Документация: [Как получить OAuth-токен](https://yandex.ru/dev/webmaster/doc/ru/tasks/how-to-get-oauth).
+
+Для **только верификации сайта** в интерфейсе Вебмастера OAuth **не нужен** — достаточно `NEXT_PUBLIC_YANDEX_VERIFICATION` в `.env.production` и пересборки.
+
 
 ```bash
 npm run build:vps
