@@ -6,7 +6,7 @@ declare global {
   }
 }
 
-/** Цели Яндекс.Метрики — создайте в интерфейсе Метрики с теми же идентификаторами. */
+/** Цели Яндекс.Метрики — id должны совпадать с `src/config/yandex-metrica-js-goals.json` и целями в Метрике. */
 const GOAL_BY_EVENT: Partial<Record<string, string>> = {
   form_submit_main: "lead_form_submit",
   phone_click: "phone_click",

@@ -27,6 +27,7 @@
     "metrica:counters": "node scripts/yandex-metrica.mjs counters",
     "metrica:counter": "node scripts/yandex-metrica.mjs counter",
     "metrica:goals-check": "node scripts/yandex-metrica.mjs goals-check",
+    "metrica:goals-install": "node scripts/yandex-metrica.mjs goals-install",
     "postinstall": "prisma generate"
   },
   "prisma": {

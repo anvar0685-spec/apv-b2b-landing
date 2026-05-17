@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -9,6 +10,7 @@ import { site } from "@/config/site";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { YandexMetrika } from "@/components/seo/yandex-metrika";
+import { YandexMetrikaSpaHit } from "@/components/seo/yandex-metrika-spa-hit";
 import { CookieBanner } from "@/components/layout/cookie-banner";
 import { PageTransition } from "@/components/layout/page-transition";
 import { ManagerCard } from "@/components/layout/manager-card";
@@ -59,6 +61,9 @@ export default async function LocaleLayout({ children, params }: Props) {
         <ManagerCard />
       </NextIntlClientProvider>
       <YandexMetrika />
+      <Suspense fallback={null}>
+        <YandexMetrikaSpaHit />
+      </Suspense>
     </>
   );
 }

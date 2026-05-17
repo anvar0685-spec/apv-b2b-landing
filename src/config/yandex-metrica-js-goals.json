@@ -1,0 +1,18 @@
+[
+  {
+    "id": "lead_form_submit",
+    "title": "Заявка: отправка формы (JS)"
+  },
+  {
+    "id": "phone_click",
+    "title": "Клик по телефону (JS)"
+  },
+  {
+    "id": "calculator_embed_done",
+    "title": "Мини-калькулятор: завершение (JS)"
+  },
+  {
+    "id": "calculator_full_done",
+    "title": "Калькулятор /kalkulyator: завершение (JS)"
+  }
+]
