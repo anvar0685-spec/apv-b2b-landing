@@ -1,69 +1,68 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { CONSENT_KEY, readConsent, writeConsent } from "@/lib/cookie-consent";
-import { Button } from "@/components/ui/button";
+import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
+import { X } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import { readConsent, writeConsent } from "@/lib/cookie-consent";
 
-/** Broadcast'им видимость баннера, чтобы плавающие dock'и могли временно прятаться. */
-function broadcastDocksHidden(hidden: boolean) {
-  if (typeof window === "undefined") return;
-  window.dispatchEvent(new CustomEvent("apv-floating-docks", { detail: { hidden } }));
-}
-
+/**
+ * Имплицитное согласие (распространённая практика для B2B в РФ): при первом визите
+ * фиксируем режим «все» (в т.ч. Яндекс.Метрика), без блокирующего диалога «принять / отказать».
+ * Показываем только компактную полоску-уведомление со ссылкой на политику и «Скрыть».
+ * Отключить аналитику — ссылка в футере (`CookieFooterControl`).
+ */
 export function CookieBanner() {
-  const [open, setOpen] = useState(false);
+  const t = useTranslations("cookieBanner");
+  const [strip, setStrip] = useState(false);
+  const hideTimer = useRef<number | null>(null);
 
   useEffect(() => {
-    const sync = () => {
-      const show = readConsent() === "unset";
-      setOpen(show);
-      broadcastDocksHidden(show);
-    };
-    sync();
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === CONSENT_KEY || e.key === null) sync();
-    };
-    window.addEventListener("storage", onStorage);
-    window.addEventListener("apv-consent-changed", sync);
-    return () => {
-      window.removeEventListener("storage", onStorage);
-      window.removeEventListener("apv-consent-changed", sync);
-    };
+    if (typeof window === "undefined") return;
+    if (readConsent() === "unset") {
+      writeConsent("all");
+      window.dispatchEvent(new Event("apv-consent-changed"));
+      setStrip(true);
+      hideTimer.current = window.setTimeout(() => setStrip(false), 14000);
+      return () => {
+        if (hideTimer.current != null) window.clearTimeout(hideTimer.current);
+      };
+    }
+    return undefined;
   }, []);
 
-  if (!open) return null;
-
-  const accept = (mode: "necessary" | "all") => {
-    writeConsent(mode);
-    window.dispatchEvent(new Event("apv-consent-changed"));
-    setOpen(false);
-    broadcastDocksHidden(false);
+  const dismiss = () => {
+    if (hideTimer.current != null) window.clearTimeout(hideTimer.current);
+    setStrip(false);
   };
+
+  if (!strip) return null;
 
   return (
     <div
-      role="dialog"
-      aria-label="Настройки cookies"
-      className="fixed z-[60] border border-[var(--neutral-200)] bg-[var(--card)]/95 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-xl backdrop-blur-md dark:border-white/10 max-md:inset-x-3 max-md:bottom-3 max-md:rounded-2xl max-md:px-3 md:left-auto md:right-6 md:bottom-6 md:max-w-lg md:rounded-2xl md:border md:p-4 md:pb-4 md:pt-4 md:shadow-lg"
+      role="status"
+      className="fixed inset-x-0 bottom-0 z-[50] border-t border-white/15 bg-[var(--primary-dark)]/96 px-3 py-2.5 text-[13px] leading-snug text-white shadow-[0_-8px_30px_-12px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-5 pb-[max(0.5rem,env(safe-area-inset-bottom))]"
     >
-      <p className="text-sm font-medium text-[var(--primary)]">
-        Мы используем cookies
-      </p>
-      <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-700)]">
-        Необходимые cookies нужны для работы сайта. Аналитика (Яндекс.Метрика) — только с согласия. Подробности — в{" "}
-        <Link href="/politika-konfidencialnosti" className="text-[var(--accent)] underline underline-offset-2">
-          политике конфиденциальности
-        </Link>
-        .
-      </p>
-      <div className="mt-4 flex flex-wrap gap-2">
-        <Button type="button" size="sm" onClick={() => accept("necessary")}>
-          Только необходимые
-        </Button>
-        <Button type="button" size="sm" variant="secondary" onClick={() => accept("all")}>
-          Принять всё
-        </Button>
+      <div className="mx-auto flex max-w-[1280px] items-start gap-3 sm:items-center">
+        <p className="min-w-0 flex-1 text-white/95">
+          {t("stripLead")}{" "}
+          <Link
+            href="/politika-konfidencialnosti"
+            className="font-medium text-[var(--accent)] underline underline-offset-2 hover:text-white"
+          >
+            {t("policyLink")}
+          </Link>
+          .
+          {t("stripAfterPolicy")}
+        </p>
+        <button
+          type="button"
+          className="shrink-0 rounded-lg border border-white/20 p-1.5 text-white/90 transition hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          aria-label={t("dismissAria")}
+          onClick={dismiss}
+        >
+          <X className="h-4 w-4" aria-hidden />
+        </button>
       </div>
     </div>
   );

@@ -461,8 +461,15 @@
     "adMarkingLine": "Реклама. Рекламодатель: {advertiser}. erid: {erid}",
     "adMarkingPending": "При распространении сведений о деятельности ИП в виде интернет-рекламы маркировка выполняется в ЕРИР по правилам ФЗ «О рекламе»; после получения erid в ОРД подставьте NEXT_PUBLIC_AD_ERID в настройках сайта.",
     "telegram": "Telegram",
-    "whatsapp": "WhatsApp",
-    "cookieSettings": "Настройки cookies и аналитики"
+    "whatsapp": "WhatsApp"
+  },
+  "cookieBanner": {
+    "stripLead": "Пользуясь сайтом, вы соглашаетесь на использование файлов cookie и обработку данных в целях, указанных в",
+    "policyLink": "политике конфиденциальности",
+    "stripAfterPolicy": " В том числе используется Яндекс.Метрика.",
+    "dismissAria": "Скрыть уведомление",
+    "footerDisable": "Отключить Яндекс.Метрику",
+    "footerEnable": "Включить Яндекс.Метрику"
   },
   "blogIndex": {
     "metaTitle": "Блог — смены на складе, документы и HR",

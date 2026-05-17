@@ -3,7 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { site, siteHasValidAdErid } from "@/config/site";
 import { Button } from "@/components/ui/button";
 import { TrackedTelLink } from "@/components/contact/tracked-tel-link";
-import { CookieSettingsFooterLink } from "@/components/layout/cookie-settings-footer-link";
+import { CookieFooterControl } from "@/components/layout/cookie-footer-control";
 
 const displayBrand = site.brandName.replace(/_/g, " ");
 
@@ -143,7 +143,7 @@ export async function SiteFooter() {
           <p className="mt-2">{t("adMarkingPending")}</p>
         )}
         <p className="mt-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs">
-          <CookieSettingsFooterLink />
+          <CookieFooterControl />
           <span className="text-[var(--neutral-500)]" aria-hidden>
             ·
           </span>

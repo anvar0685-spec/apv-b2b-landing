@@ -17,8 +17,9 @@ import { cn } from "@/lib/utils";
  *    Тап по пилюле → разворачивает обратно.
  *  - open (только мобайл, in-memory): развёрнута ли карточка в overlay.
  *    На десктопе карточка раскрыта по умолчанию (open игнорируется при sm+).
- *  - hidden: cookie-banner шлёт 'apv-floating-docks', карточка временно
- *    исчезает целиком, чтобы не перекрывать модалку.
+ *
+ * Появление: после прокрутки вниз (~140px) или не раньше чем через ~5 с с момента
+ * гидратации — чтобы hero не перекрывался сразу.
  *
  * Видимость на тёмных секциях: solid background + accent-halo (двойная тень
  * + постоянный ring) → карточка читается на любом фоне без зависимости от
@@ -26,6 +27,8 @@ import { cn } from "@/lib/utils";
  */
 
 const STORAGE_KEY = "apv-mc-collapsed";
+const SCROLL_UNLOCK_PX = 140;
+const FALLBACK_DELAY_MS = 5000;
 
 export function ManagerCard() {
   const telHref = `tel:${site.phone.replace(/[^\d+]/g, "")}`;
@@ -33,7 +36,7 @@ export function ManagerCard() {
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [hidden, setHidden] = useState(false);
+  const [dockVisible, setDockVisible] = useState(false);
 
   useEffect(() => {
     try {
@@ -46,13 +49,26 @@ export function ManagerCard() {
   }, []);
 
   useEffect(() => {
-    const onHide = (e: Event) => {
-      const ce = e as CustomEvent<{ hidden?: boolean }>;
-      setHidden(!!ce.detail?.hidden);
+    if (!mounted) return;
+    let done = false;
+    const unlock = () => {
+      if (done) return;
+      done = true;
+      setDockVisible(true);
     };
-    window.addEventListener("apv-floating-docks", onHide as EventListener);
-    return () => window.removeEventListener("apv-floating-docks", onHide as EventListener);
-  }, []);
+    const onScroll = () => {
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+      if (y >= SCROLL_UNLOCK_PX) unlock();
+    };
+    const tid = window.setTimeout(unlock, FALLBACK_DELAY_MS);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => {
+      done = true;
+      window.clearTimeout(tid);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [mounted]);
 
   useEffect(() => {
     if (!open) return;
@@ -84,11 +100,10 @@ export function ManagerCard() {
     void trackEvent("manager_card_expand", { source: "manager_card" });
   }, []);
 
-  // Прячем целиком, пока банальный cookie-banner перекрывает экран
-  if (hidden) return null;
   // До гидратации не рендерим ничего — иначе мигнёт «развёрнутая» карточка
   // у пользователя, который её свернул в прошлой сессии (FOUC).
   if (!mounted) return null;
+  if (!dockVisible) return null;
 
   const msgrBtn =
     "interactive-hover-ring group flex h-[68px] min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-1.5 text-[11px] font-semibold text-white shadow-[0_6px_18px_-8px_rgba(7,21,37,0.35)] ring-1 ring-white/15 transition hover:scale-[1.02] hover:shadow-[0_10px_22px_-8px_rgba(7,21,37,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] motion-reduce:hover:scale-100";
