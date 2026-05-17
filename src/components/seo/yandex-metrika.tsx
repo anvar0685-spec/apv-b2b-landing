@@ -2,7 +2,10 @@
 
 import Script from "next/script";
 import { useEffect, useMemo, useState } from "react";
-import { analyticsAllowed } from "@/lib/cookie-consent";
+import {
+  analyticsAllowed,
+  ensureAnalyticsConsentForMetrika,
+} from "@/lib/cookie-consent";
 
 const MID = process.env.NEXT_PUBLIC_YANDEX_METRICA_ID;
 const ECOMMERCE_OFF =
@@ -13,6 +16,7 @@ export function YandexMetrika() {
   const [on, setOn] = useState(false);
 
   useEffect(() => {
+    ensureAnalyticsConsentForMetrika();
     const sync = () => setOn(analyticsAllowed());
     sync();
     const handler = () => sync();

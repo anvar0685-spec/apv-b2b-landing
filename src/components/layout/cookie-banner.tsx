@@ -4,15 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { X } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { readConsent, writeConsent } from "@/lib/cookie-consent";
+import { ensureAnalyticsConsentForMetrika } from "@/lib/cookie-consent";
 
 /**
  * Имплицитное согласие (распространённая практика для B2B в РФ): при первом визите
  * фиксируем режим «все» (в т.ч. Яндекс.Метрика), без блокирующего диалога «принять / отказать».
  * Показываем только компактную полоску-уведомление со ссылкой на политику и «Скрыть».
  *
- * Режим `necessary` (старый «без аналитики»): при отсутствии футер-переключателя поднимаем до `all`,
- * иначе Метрика навсегда выключена у возвращающихся пользователей.
+ * Режим `necessary` (старый «без аналитики»): см. `ensureAnalyticsConsentForMetrika` в `cookie-consent.ts`.
  */
 export function CookieBanner() {
   const t = useTranslations("cookieBanner");
@@ -21,15 +20,8 @@ export function CookieBanner() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const c = readConsent();
-    if (c === "necessary") {
-      writeConsent("all");
-      window.dispatchEvent(new Event("apv-consent-changed"));
-      return undefined;
-    }
-    if (c === "unset") {
-      writeConsent("all");
-      window.dispatchEvent(new Event("apv-consent-changed"));
+    const before = ensureAnalyticsConsentForMetrika();
+    if (before === "unset") {
       setStrip(true);
       hideTimer.current = window.setTimeout(() => setStrip(false), 14000);
       return () => {

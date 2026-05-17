@@ -17,3 +17,18 @@ export function writeConsent(v: Exclude<ConsentValue, "unset">) {
 export function analyticsAllowed(): boolean {
   return readConsent() === "all";
 }
+
+/**
+ * Поднимает consent до `all` для Метрики (unset / устаревший necessary).
+ * Вызывать из `YandexMetrika` до чтения `analyticsAllowed`, чтобы не ловить гонку с `CookieBanner`.
+ * @returns значение consent **до** возможной записи.
+ */
+export function ensureAnalyticsConsentForMetrika(): ConsentValue {
+  if (typeof window === "undefined") return "unset";
+  const before = readConsent();
+  if (before === "unset" || before === "necessary") {
+    writeConsent("all");
+    window.dispatchEvent(new Event("apv-consent-changed"));
+  }
+  return before;
+}
