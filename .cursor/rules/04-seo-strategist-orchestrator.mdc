@@ -41,6 +41,7 @@ alwaysApply: false
 - Избегать **массовых шаблонных** текстов без локальной правды на programmatic — риск «низкокачественные страницы».
 - Вебмастер: ошибки обхода, «Дубли», «Мобильные страницы».
 - **API Вебмастера (локально, не в git):** `scripts/yandex-webmaster.mjs` — регистрация `sitemap.xml`, `recrawl` / `recrawl-quota` (квота API), OAuth через `deploy/.yandex-oauth.local.env` и одноразовый `deploy/.yandex-oauth-code.local`. Инструкция: **`deploy/README-NO-DOCKER.md`**. Приоритетные URL для переобхода: **`deploy/webmaster-recrawl-priority.txt`**. Агент при задачах по Вебмастеру **сам** запускает команды из терминала из каталога `apv-b2b-landing/`, не перекладывает на пользователя.
+- **API Метрики (локально):** `scripts/yandex-metrica.mjs` — счётчики и сверка JS-целей; OAuth с **metrika:read**, см. **`deploy/metrica-oauth.env.example`** и тот же **`deploy/README-NO-DOCKER.md`**. Счётчик на сайте: **`NEXT_PUBLIC_YANDEX_METRICA_ID`** до сборки.
 
 ## Специфика Google (кратко)
 

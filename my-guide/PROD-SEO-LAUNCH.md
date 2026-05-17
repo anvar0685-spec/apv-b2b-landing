@@ -7,7 +7,7 @@
 | `NEXT_PUBLIC_SITE_URL` | Канонический origin: `https://...` без хвостового `/`. Должен совпадать с фактическим доменом и редиректами (www vs non-www). |
 | `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Мета-тег Google Search Console (значение `content` из GSC). |
 | `NEXT_PUBLIC_YANDEX_VERIFICATION` | Код верификации Яндекс.Вебмастера. |
-| `YANDEX_METRICA_ID` | Счётчик (уже читается компонентом Метрики). |
+| `NEXT_PUBLIC_YANDEX_METRICA_ID` | Счётчик Метрики (клиентский бандл; задать до `npm run build` / `build:vps`). |
 
 ## После деплоя
 

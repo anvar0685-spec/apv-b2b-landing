@@ -39,6 +39,7 @@ deploy/.vps-smtp-append.env
 deploy/.yandex-oauth.local.env
 # одноразовый код подтверждения OAuth (вставить → npm run webmaster:exchange-file)
 deploy/.yandex-oauth-code.local
+deploy/.metrica-oauth.local.env
 
 # vercel
 .vercel
