@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { analyticsAllowed } from "@/lib/cookie-consent";
 
 const MID = process.env.NEXT_PUBLIC_YANDEX_METRICA_ID;
 
@@ -16,7 +15,7 @@ export function YandexMetrikaSpaHit() {
   const skipFirst = useRef(true);
 
   useEffect(() => {
-    if (!MID || !analyticsAllowed()) return;
+    if (!MID) return;
     const id = Number(MID);
     if (!Number.isFinite(id)) return;
     if (typeof window === "undefined" || !window.ym) return;

@@ -1,7 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { site, siteHasValidAdErid } from "@/config/site";
-import { Button } from "@/components/ui/button";
 import { TrackedTelLink } from "@/components/contact/tracked-tel-link";
 
 const displayBrand = site.brandName.replace(/_/g, " ");
@@ -91,34 +90,6 @@ export async function SiteFooter() {
               </a>
             </li>
           </ul>
-        </div>
-      </div>
-
-      <div className="border-t border-white/10 bg-black/15 px-4 py-12 sm:px-6">
-        <div className="mx-auto max-w-[1280px] lg:px-8">
-          <p className="text-center text-xs font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">{t("digestTitle")}</p>
-          <form
-            className="mx-auto mt-6 flex max-w-lg flex-col gap-3 sm:flex-row sm:items-stretch"
-            action="/zayavka"
-            method="get"
-          >
-            <label htmlFor="footer-digest-email" className="sr-only">
-              {t("digestEmailLabel")}
-            </label>
-            <input
-              id="footer-digest-email"
-              name="email_hint"
-              type="email"
-              inputMode="email"
-              autoComplete="email"
-              placeholder={t("digestPlaceholder")}
-              className="h-11 flex-1 rounded-xl border border-white/15 bg-white/5 px-4 text-base text-white placeholder:text-white/40 outline-none ring-[var(--accent)] transition focus:ring-2 sm:text-sm"
-            />
-            <Button type="submit" className="w-full shrink-0 sm:w-auto">
-              {t("digestSubmit")}
-            </Button>
-          </form>
-          <p className="mt-3 text-center text-[11px] leading-relaxed text-[var(--neutral-500)]">{t("digestDisclaimer")}</p>
         </div>
       </div>
 

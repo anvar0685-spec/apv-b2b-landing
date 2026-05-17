@@ -1,4 +1,4 @@
-import { analyticsAllowed } from "@/lib/cookie-consent";
+import { ensureAnalyticsConsentForMetrika } from "@/lib/cookie-consent";
 
 declare global {
   interface Window {
@@ -16,7 +16,7 @@ const GOAL_BY_EVENT: Partial<Record<string, string>> = {
 
 export function reachYandexGoal(eventType: string) {
   if (typeof window === "undefined") return;
-  if (!analyticsAllowed()) return;
+  ensureAnalyticsConsentForMetrika();
   const goal = GOAL_BY_EVENT[eventType];
   if (!goal) return;
   const raw = process.env.NEXT_PUBLIC_YANDEX_METRICA_ID;
