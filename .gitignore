@@ -37,6 +37,8 @@ deploy/.vps-smtp-append.env
 
 # Яндекс OAuth (Client secret — только локально; для скриптов API Вебмастера)
 deploy/.yandex-oauth.local.env
+# одноразовый код подтверждения OAuth (вставить → npm run webmaster:exchange-file)
+deploy/.yandex-oauth-code.local
 
 # vercel
 .vercel

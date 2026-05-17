@@ -1,0 +1,21 @@
+# Приоритетный переобход (Яндекс.Вебмастер): одна полная HTTPS-URL на строку.
+# Скрипт отправляет только в пределах дневной квоты API (см. recrawl-quota).
+# Редактируй список под релизы; не раздувай без нужды — квота ограничена.
+
+https://xn----7sbbgqr3atubl.xn--p1ai/ru
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/uslugi
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/uslugi/autsorsing
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/uslugi/podbor-personala
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/gruzchiki
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/komplektovschiki
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/otrasli/sklady-e-commerce
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/ploshchadki/wildberries
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/gruzchiki/moskva
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/kalkulyator
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/zayavka
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/keysy
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/blog
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/kontakty
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/o-kompanii
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/faq

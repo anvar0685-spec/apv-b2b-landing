@@ -17,6 +17,13 @@
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "generate:industrial-band-assets": "node scripts/generate-industrial-band-assets.mjs",
+    "webmaster:auth-url": "node scripts/yandex-webmaster.mjs auth-url",
+    "webmaster:auth-open": "node scripts/yandex-webmaster.mjs auth-open",
+    "webmaster:exchange": "node scripts/yandex-webmaster.mjs exchange",
+    "webmaster:exchange-file": "node scripts/yandex-webmaster.mjs exchange-file",
+    "webmaster:sync": "node scripts/yandex-webmaster.mjs sync",
+    "webmaster:recrawl-quota": "node scripts/yandex-webmaster.mjs recrawl-quota",
+    "webmaster:recrawl": "node scripts/yandex-webmaster.mjs recrawl",
     "postinstall": "prisma generate"
   },
   "prisma": {
