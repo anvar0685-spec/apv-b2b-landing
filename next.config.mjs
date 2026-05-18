@@ -33,7 +33,37 @@ const nextConfig = {
       },
       {
         source: "/:locale/keysy/sklad-avtozapchastej-mytishchi",
-        destination: "/:locale/keysy/sklad-avtozapchastej-krekshino",
+        destination: "/:locale/keysy/sklad-avtozapchastej-mo",
+        permanent: true,
+      },
+      {
+        source: "/keysy/sklad-avtozapchastej-krekshino",
+        destination: "/keysy/sklad-avtozapchastej-mo",
+        permanent: true,
+      },
+      {
+        source: "/:locale/keysy/sklad-avtozapchastej-krekshino",
+        destination: "/:locale/keysy/sklad-avtozapchastej-mo",
+        permanent: true,
+      },
+      {
+        source: "/keysy/marketplace-multiprofil-zhukovsky",
+        destination: "/keysy/marketplace-multiprofil-mo",
+        permanent: true,
+      },
+      {
+        source: "/:locale/keysy/marketplace-multiprofil-zhukovsky",
+        destination: "/:locale/keysy/marketplace-multiprofil-mo",
+        permanent: true,
+      },
+      {
+        source: "/keysy/tabachnyy-sklad-krekshino",
+        destination: "/keysy/tabachnyy-sklad-mo",
+        permanent: true,
+      },
+      {
+        source: "/:locale/keysy/tabachnyy-sklad-krekshino",
+        destination: "/:locale/keysy/tabachnyy-sklad-mo",
         permanent: true,
       },
       {
@@ -68,8 +98,8 @@ const nextConfig = {
       /** Удалённые «выдуманные» кейсы → ближайший по смыслу действующий или хаб /keysy. */
       { source: "/keysy/horeca-set", destination: "/keysy", permanent: true },
       { source: "/keysy/stroitelstvo-obekt", destination: "/keysy/stroitelnye-materialy-sklad-obrabotka", permanent: true },
-      { source: "/keysy/marketplace-sklad-moskva", destination: "/keysy/marketplace-multiprofil-zhukovsky", permanent: true },
-      { source: "/:locale/keysy/marketplace-sklad-moskva", destination: "/:locale/keysy/marketplace-multiprofil-zhukovsky", permanent: true },
+      { source: "/keysy/marketplace-sklad-moskva", destination: "/keysy/marketplace-multiprofil-mo", permanent: true },
+      { source: "/:locale/keysy/marketplace-sklad-moskva", destination: "/:locale/keysy/marketplace-multiprofil-mo", permanent: true },
       { source: "/keysy/proizvodstvo-mo", destination: "/keysy", permanent: true },
       { source: "/:locale/keysy/proizvodstvo-mo", destination: "/:locale/keysy", permanent: true },
       { source: "/keysy/farma-sklad-himki", destination: "/keysy", permanent: true },

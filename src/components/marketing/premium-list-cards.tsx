@@ -39,16 +39,12 @@ export async function PremiumCaseCard({ c, index, locale }: { c: CaseStub; index
       <p className="kpi-numerals relative z-[1] mt-2 font-mono-nums text-lg font-semibold tabular-nums text-[var(--primary)]">{card.metricUp}</p>
       <dl className="relative z-[1] mt-6 grid flex-1 grid-cols-2 gap-3 border-t border-[var(--neutral-200)] pt-6 text-sm">
         <div>
-          <dt className="text-[var(--neutral-500)]">{t("staff")}</dt>
-          <dd className="font-semibold text-[var(--primary)]">{c.staff}</dd>
-        </div>
-        <div>
           <dt className="text-[var(--neutral-500)]">{t("months")}</dt>
           <dd className="font-semibold text-[var(--primary)]">{c.durationMonths}</dd>
         </div>
-        <div className="col-span-2">
+        <div>
           <dt className="text-[var(--neutral-500)]">{t("city")}</dt>
-          <dd className="font-medium text-[var(--neutral-700)]">{card.city}</dd>
+          <dd className="font-semibold text-[var(--primary)]">{card.city}</dd>
         </div>
       </dl>
       <div className="relative z-[1] mt-auto pt-5">

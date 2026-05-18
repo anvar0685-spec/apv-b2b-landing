@@ -73,20 +73,14 @@ export default async function CasePage({ params }: Props) {
           <h2 className="font-display text-lg font-semibold text-[var(--primary)]">{t("paramsTitle")}</h2>
           <dl className="mt-6 grid gap-5 sm:grid-cols-2">
             <div>
-              <dt className="text-sm text-[var(--neutral-500)]">{t("staffDt")}</dt>
-              <dd className="mt-1 text-xl font-semibold text-[var(--primary)]">
-                {d.staff} {t("staffSuffix")}
-              </dd>
-            </div>
-            <div>
               <dt className="text-sm text-[var(--neutral-500)]">{t("durationDt")}</dt>
               <dd className="mt-1 text-xl font-semibold text-[var(--primary)]">
                 {d.durationMonths} {t("monthsSuffix")}
               </dd>
             </div>
-            <div className="sm:col-span-2">
+            <div>
               <dt className="text-sm text-[var(--neutral-500)]">{t("locationDt")}</dt>
-              <dd className="mt-1 text-lg font-medium text-[var(--neutral-700)]">{d.city}</dd>
+              <dd className="mt-1 text-xl font-semibold text-[var(--primary)]">{d.city}</dd>
             </div>
           </dl>
         </section>
