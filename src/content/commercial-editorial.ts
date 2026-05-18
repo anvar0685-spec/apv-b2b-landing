@@ -1,4 +1,4 @@
-/** Уникальные абзацы для отраслей / площадок / гео (неделя 4 плана). */
+/** Уникальные абзацы для отраслей (неделя 4 плана). */
 
 /** Редакционный блок + явный индекс callout (-1 = без выделения). */
 export type EditorialBundle = {
@@ -109,89 +109,10 @@ const INDUSTRY: Record<string, { ru: string[]; en: string[] }> = {
   },
 };
 
-const PLATFORM: Record<string, { ru: string[]; en: string[] }> = {
-  wildberries: {
-    ru: [
-      "Крупные площадки WB требуют масштабируемых команд под приёмку и отгрузку и дисциплину замен в пиковые окна.",
-      "Мы выравниваем профили под ваши зоны и график, сохраняя единый контакт подрядчика и отчётность по сменам.",
-      "Старт — диагностика и первые согласованные смены на участке; дальше — наращивание по дорожной карте.",
-      "Слоты на воротах и скорость первичного допуска людей на линию — часть коммерческого пакета: без них KPI по комплектации «плывут» не из-за людей, а из-за логистики входа.",
-    ],
-    en: [
-      "Large WB sites need scalable teams for inbound/outbound and disciplined replacements at peaks.",
-      "We align role mixes to your zones and schedule while keeping one contractor contact and shift-level reporting.",
-      "Kickoff is a process diagnostic and first agreed shifts on a bounded area; scale follows an agreed roadmap.",
-      "Gate slots and first-day onboarding speed belong in the commercial pack — without them picking KPIs drift because of inbound logistics, not headcount.",
-    ],
-  },
-  ozon: {
-    ru: [
-      "Высокая интенсивность линий Ozon чувствительна к явке и скорости ввода замены в смену.",
-      "В договор входят обучение первой смены, менторинг и контрольные точки первой недели.",
-      "Документы на допуск к работам и контроль версий регламентов — в рамках договора с подрядчиком, без «серых зон» в закупке.",
-      "Первая неделя после массового набора — критична: менторинг и чек-лист первой смены дешевле, чем переделка ошибок на отгрузке.",
-    ],
-    en: [
-      "High-intensity Ozon lines are sensitive to attendance and replacement onboarding speed.",
-      "Shift supply includes first-shift training, mentoring, and week-one checkpoints.",
-      "Site-access paperwork and controlled procedure versions stay inside the supply contract — no procurement grey zones.",
-      "Week one after a bulk hire is where projects win or lose — mentoring and first-shift checklists beat rework in outbound.",
-    ],
-  },
-  "yandex-market": {
-    ru: [
-      "Логистические хабы маркетплейса требуют предсказуемого выхода бригад и согласованных окон у ворот (график въезда).",
-      "Мы помогаем синхронизировать пул смен с вашим планом отгрузок и внутренней маршрутизацией.",
-      "Отчётность по сменам стыкуется с операционными встречами 3PL/заказчика.",
-      "Маршрутизация внутри хаба и язык KPI должны быть согласованы между 3PL и сетью — иначе «наша явка» и «ваша явка» расходятся в одной смене.",
-    ],
-    en: [
-      "Marketplace hubs need predictable crew mobilisation and aligned gate slots.",
-      "We sync the shift pool with your shipping plan and internal routing.",
-      "Shift reporting maps to joint 3PL/customer ops reviews.",
-      "Hub routing and KPI language must be aligned between 3PL and the marketplace — otherwise “our attendance” and “your attendance” diverge in the same shift.",
-    ],
-  },
-  lamoda: {
-    ru: [
-      "Fashion и обувь на складе: аккуратность при примерке/возвратах, скорость комплектации и контроль ошибок.",
-      "Смены подбираются под профиль зоны (приёмка, сток, отгрузка) с единым SLA.",
-      "Старт на одной зоне снижает риск при смене формата сортировки.",
-      "Этот сегмент чувствителен к ошибке комплектации и возвратам: AQL и выборочный контроль лучше зашить в SLA, а не обсуждать постфактум.",
-    ],
-    en: [
-      "Fashion fulfillment: careful handling for returns flows, picking speed, and error control.",
-      "Shifts are tuned to zone profiles (inbound, stock, outbound) under one SLA.",
-      "A single-zone start reduces risk when changing sortation formats.",
-      "Fashion is sensitive to picking errors and returns — bake AQL/sampling into the SLA instead of debating it after the fact.",
-    ],
-  },
-  "sber-market": {
-    ru: [
-      "Экосистемные сети требуют согласованных регламентов коммуникации между площадкой, 3PL и подрядчиком по сменам.",
-      "Мы закрепляем каналы эскалации и формат еженедельных разборов метрик.",
-      "Масштабирование между городами МО — с унифицированным шаблоном отчётности.",
-      "Экосистемные SLA требуют единого окна эскалации: иначе инцидент «зависает» между вендором смен, 3PL и сетью.",
-    ],
-    en: [
-      "Ecosystem retail needs aligned communication rules between the site, 3PL, and shift vendor.",
-      "We define escalation channels and a weekly metrics review format.",
-      "Scaling across Moscow Oblast cities uses a unified reporting template.",
-      "Ecosystem SLAs need one escalation window — otherwise incidents stall between the shift vendor, 3PL, and the retailer.",
-    ],
-  },
-};
-
 const INDUSTRY_TAIL: string[] = [
     "Калькулятор на сайте даёт быстрый ориентир по месячному фонду с учётом роли, численности и графика; детальные ставки, резерв и SLA фиксируются в коммерческом предложении после диагностики объекта.",
     "Ограниченный пилот первых смен на зоне или по части графика снижает риск при смене подрядчика и помогает закупке и операциям согласовать единые определения KPI до промышленного масштаба.",
     "Публичные тексты не заменяют индивидуальное КП и договор: штрафные механики, порядок приёмки результата и форс-мажор закрепляются в договорной документации.",
-  ];
-
-const PLATFORM_TAIL: string[] = [
-    "Для площадочных моделей критичны окна у ворот и график экспедиции, скорость ввода замены и язык отчётности, понятный и 3PL, и сети-заказчику одновременно.",
-    "Раздел «Персонал» и страницы по городам Московской области позволяют закупке сравнить логистику выхода и резерв между локациями до подписания договора.",
-    "Ориентиры по ставкам на витрине сайта — база для первичного сравнения; итоговая экономика зависит от графика, пиков и требований площадки к документам и допускам.",
   ];
 
 export function industryEditorial(slug: string): string[] | undefined {
@@ -212,19 +133,6 @@ export function industryEditorialBundle(slug: string): EditorialBundle | undefin
   return { paragraphs, calloutParagraphIndex };
 }
 
-export function platformEditorial(slug: string): string[] | undefined {
-  const b = PLATFORM[slug];
-  if (!b) return undefined;
-  return [...b.ru, ...PLATFORM_TAIL];
-}
-
-export function platformEditorialBundle(slug: string): EditorialBundle | undefined {
-  const paragraphs = platformEditorial(slug);
-  if (!paragraphs) return undefined;
-  if (paragraphs.length < 3) return { paragraphs, calloutParagraphIndex: COMMERCIAL_CALLOUT_DISABLED };
-  return { paragraphs, calloutParagraphIndex: 1 };
-}
-
 /** Хаб «Отрасли» — вводные абзацы перед списком карточек */
 export function industryHubEditorial(): string[] {
   return [
@@ -233,13 +141,3 @@ export function industryHubEditorial(): string[] {
     "Дальше свяжите выбранный профиль с калькулятором и разделом «Персонал»: так проще сравнить логистику выхода и резерв между локациями до запроса КП.",
   ];
 }
-
-/** Хаб «Площадки» */
-export function platformHubEditorial(): string[] {
-  return [
-    "Площадки и маркетплейсы задают правила допуска, окна у ворот, график экспедиции и язык отчётности — отдельные страницы ниже помогают не смешивать требования разных брендов в одной закупке.",
-    "Мы выравниваем состав смен под регламент конкретной площадки и ваш график, сохраняя единый контакт подрядчика и прозрачность по сменам.",
-    "Для сравнения фонда используйте калькулятор и страницы по городам в разделе «Персонал»: итоговая экономика всё равно фиксируется в КП после диагностики объекта.",
-  ];
-}
-

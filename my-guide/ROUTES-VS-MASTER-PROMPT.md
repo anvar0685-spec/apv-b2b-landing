@@ -35,7 +35,7 @@
 ## Прочие витрины
 
 - Отрасли: `/otrasli`, `/otrasli/[slug]`  
-- Площадки: `/ploshchadki`, `/ploshchadki/[slug]`  
+- Раздел **`/ploshchadki`** (отдельные страницы под чужие бренды маркетплейсов) **снят**; старые URL **301 →** **`/otrasli/sklady-e-commerce`** (см. `next.config.mjs`).  
 - География как отдельный хаб **снят**; старые URL **`/geografiya` и вложенные** редиректят на **`/personal`** (см. `next.config.mjs`). Локальное сравнение городов — в программатике **`/personal/[profession]/[city]`**.  
 - Кейсы: `/keysy`, `/keysy/[slug]`  
 - Блог: `/blog`, `/blog/[slug]`  

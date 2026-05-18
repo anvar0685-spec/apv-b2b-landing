@@ -38,7 +38,7 @@ const STATIC = [...STATIC_BASE, ...allMultipageSeoPaths()];
 
 function staticPriority(path: string): number {
   if (path === "") return 1;
-  if (path.startsWith("/otrasli") || path.startsWith("/ploshchadki")) return 0.78;
+  if (path.startsWith("/otrasli")) return 0.78;
   return 0.7;
 }
 

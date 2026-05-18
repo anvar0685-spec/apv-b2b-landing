@@ -31,6 +31,11 @@ const nextConfig = {
         destination: "/ru/personal",
         permanent: true,
       },
+      /** Раздел «Площадки» с брендами маркетплейсов снят — 301 на честный профиль e-commerce без чужих ТЗ. */
+      { source: "/ploshchadki", destination: "/otrasli/sklady-e-commerce", permanent: true },
+      { source: "/:locale/ploshchadki", destination: "/:locale/otrasli/sklady-e-commerce", permanent: true },
+      { source: "/ploshchadki/:slug", destination: "/otrasli/sklady-e-commerce", permanent: true },
+      { source: "/:locale/ploshchadki/:slug", destination: "/:locale/otrasli/sklady-e-commerce", permanent: true },
       {
         source: "/:locale/keysy/sklad-avtozapchastej-mytishchi",
         destination: "/:locale/keysy/sklad-avtozapchastej-mo",

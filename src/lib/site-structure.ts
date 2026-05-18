@@ -1,5 +1,5 @@
 /**
- * Каркас URL из my-guide/COMPOSER-2-MASTER-PROMPT.md §5 (отрасли, площадки, география).
+ * Каркас URL: отрасли (`/otrasli`) и география в разделе «Персонал».
  * Заголовки/описания — черновик для SSG и sitemap; полный текст — из /content и my-guide/content.
  */
 
@@ -67,50 +67,6 @@ export const OTRASLI_SLUGS: readonly SlugPageDef[] = [
     description: {
       ru: "Персонал под высокие стандарты WMS, KPI и инфраструктуры класса А.",
       en: "Teams for Class A facilities: WMS, KPIs and premium infrastructure standards.",
-    },
-  },
-] as const;
-
-/** /ploshchadki/[slug] — как в §5 (расширение под KazanExpress и т.д. — по согласованию). */
-export const PLOSHCHADKI_SLUGS: readonly SlugPageDef[] = [
-  {
-    slug: "wildberries",
-    title: { ru: "Персонал под площадки Wildberries", en: "Staffing for Wildberries sites" },
-    description: {
-      ru: "Аутсорсинг складских профессий под требования крупных площадок WB.",
-      en: "Warehouse role outsourcing aligned with large WB site requirements.",
-    },
-  },
-  {
-    slug: "ozon",
-    title: { ru: "Персонал под склады Ozon", en: "Staffing for Ozon warehouses" },
-    description: {
-      ru: "Смены, явка и замены под высокую интенсивность e-com линий.",
-      en: "Shifts, attendance and replacements for high-intensity e-com lines.",
-    },
-  },
-  {
-    slug: "yandex-market",
-    title: { ru: "Персонал под Яндекс.Маркет", en: "Staffing for Yandex Market" },
-    description: {
-      ru: "Подбор и выход бригад под логистические хабы маркетплейса.",
-      en: "Team mobilization for the marketplace logistics hubs.",
-    },
-  },
-  {
-    slug: "lamoda",
-    title: { ru: "Персонал под Lamoda", en: "Staffing for Lamoda" },
-    description: {
-      ru: "Fashion fulfillment: комплектовка, упаковка, сортировка.",
-      en: "Fashion fulfillment: picking, packing and sorting.",
-    },
-  },
-  {
-    slug: "sber-market",
-    title: { ru: "Персонал под СберМегаМаркет", en: "Staffing for SberMegaMarket" },
-    description: {
-      ru: "Аутсорсинг под распределительную сеть и логистику экосистемы.",
-      en: "Outsourcing for the ecosystem distribution and logistics network.",
     },
   },
 ] as const;
@@ -191,8 +147,7 @@ export function geoStaticParams(): { region: GeoRegionSlug; city: string }[] {
 }
 
 export function allMultipageSeoPaths(): string[] {
-  const paths: string[] = ["/otrasli", "/ploshchadki"];
+  const paths: string[] = ["/otrasli"];
   for (const o of OTRASLI_SLUGS) paths.push(`/otrasli/${o.slug}`);
-  for (const p of PLOSHCHADKI_SLUGS) paths.push(`/ploshchadki/${p.slug}`);
   return paths;
 }

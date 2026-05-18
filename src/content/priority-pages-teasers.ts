@@ -45,11 +45,6 @@ export const PRIORITY_PAGE_TEASERS: readonly PageTeaser[] = [
     en: { title: "E-commerce warehouses", teaser: "Fulfillment, sales peaks, marketplaces." },
   },
   {
-    path: "/ploshchadki/wildberries",
-    ru: { title: "Площадки WB", teaser: "Персонал под требования крупных складов." },
-    en: { title: "WB sites", teaser: "Staffing aligned with large-site requirements." },
-  },
-  {
     path: "/personal/gruzchiki/moskva",
     ru: { title: "Грузчики в Москве", teaser: "Выход бригад и резерв под столицу и ключевые склады." },
     en: { title: "Laborers in Moscow", teaser: "Teams and reserve for the capital and major DCs." },
