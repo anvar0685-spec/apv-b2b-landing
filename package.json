@@ -24,6 +24,7 @@
     "webmaster:sync": "node scripts/yandex-webmaster.mjs sync",
     "webmaster:recrawl-quota": "node scripts/yandex-webmaster.mjs recrawl-quota",
     "webmaster:recrawl": "node scripts/yandex-webmaster.mjs recrawl",
+    "webmaster:audit": "node scripts/yandex-webmaster.mjs audit",
     "metrica:counters": "node scripts/yandex-metrica.mjs counters",
     "metrica:counter": "node scripts/yandex-metrica.mjs counter",
     "metrica:goals-check": "node scripts/yandex-metrica.mjs goals-check",

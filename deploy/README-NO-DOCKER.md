@@ -13,7 +13,7 @@
 | `deploy/deploy-remote.example.sh` | Шаблон: `git pull` на сервере → `npm ci` → `build:vps` → `pm2 reload` |
 | `deploy/yandex-oauth.env.example` | Шаблон переменных Яндекс OAuth (Вебмастер API); секреты — в `deploy/.yandex-oauth.local.env` (локально, **не в git**) |
 | `deploy/metrica-oauth.env.example` | Шаблон для **API Метрики** (опционально отдельный `deploy/.metrica-oauth.local.env`) |
-| `scripts/yandex-webmaster.mjs` | CLI: OAuth, sitemap, **переобход URL** (`recrawl` / `recrawl-quota`), список приоритетов `deploy/webmaster-recrawl-priority.txt` |
+| `scripts/yandex-webmaster.mjs` | CLI: OAuth, sitemap, **переобход URL** (`recrawl` / `recrawl-quota`), **`audit`** (сводка API: диагностика, sitemap, квота), список приоритетов `deploy/webmaster-recrawl-priority.txt` |
 | `scripts/yandex-metrica.mjs` | CLI: Management API — счётчики, карточка, **goals-check** / **goals-install** (список целей: `src/config/yandex-metrica-js-goals.json`) |
 | `src/app/llms.txt/route.ts` | GEO: публичный **`/llms.txt`** для LLM; см. `.cursor/rules/04-seo-strategist-orchestrator.mdc` |
 
@@ -26,6 +26,7 @@
    - Код со страницы Яндекса — **одной строкой** в файл `deploy/.yandex-oauth-code.local` (файл в `.gitignore`).
    - `node scripts/yandex-webmaster.mjs exchange-file` — обмен кода на токены и запись в `deploy/.yandex-oauth.local.env` (файл с кодом удалится).
    - `node scripts/yandex-webmaster.mjs sync` — добавить `sitemap.xml` в Вебмастер (если ещё нет). При наличии только `YANDEX_OAUTH_REFRESH_TOKEN` скрипт сам запросит новый access.
+   - `npm run webmaster:audit` — JSON-сводка из API (хост, `verified`, диагностика, user-added sitemaps, квота переобхода, `summary` если уже загружен).
 4. **Переобход приоритетных URL** (квота API — смотри `recrawl-quota`):
    - `node scripts/yandex-webmaster.mjs recrawl-quota` — сколько осталось заявок на переобход за сегодня.
    - `node scripts/yandex-webmaster.mjs recrawl` — отправить URL из `deploy/webmaster-recrawl-priority.txt` в пределах квоты (пауза между запросами). Лимит за один запуск: `WEBMASTER_RECRAWL_LIMIT` в env.

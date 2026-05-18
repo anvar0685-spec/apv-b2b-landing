@@ -376,6 +376,53 @@ async function cmdRecrawlQuota(env) {
   console.log("recrawl quota:", JSON.stringify(q, null, 2));
 }
 
+/** Максимум данных из API без UI: хост, верификация, диагностика, sitemap, квота переобхода. */
+async function cmdAudit(env) {
+  const { access, userId, host, hid } = await getWebmasterContext(env);
+  const out = {
+    generated_at: new Date().toISOString(),
+    user_id: userId,
+    host: {
+      host_id: host.host_id,
+      verified: host.verified,
+      ascii_host_url: host.ascii_host_url,
+      unicode_host_url: host.unicode_host_url,
+    },
+  };
+
+  const hostFull = await apiGet(`/user/${userId}/hosts/${hid}`, access);
+  out.host_details = hostFull;
+
+  const diag = await apiGet(`/user/${userId}/hosts/${hid}/diagnostics`, access);
+  out.diagnostics = diag;
+
+  if (diag.problems) {
+    out.problems_present = Object.entries(diag.problems)
+      .filter(([, v]) => v && v.state === "PRESENT")
+      .map(([k, v]) => ({ code: k, severity: v.severity, last_state_update: v.last_state_update }));
+  }
+
+  const smUser = await apiGet(`/user/${userId}/hosts/${hid}/user-added-sitemaps`, access);
+  out.user_added_sitemaps = smUser;
+
+  const smAll = await apiGet(`/user/${userId}/hosts/${hid}/sitemaps`, access);
+  out.crawled_sitemaps = smAll;
+
+  const q = await apiGet(`/user/${userId}/hosts/${hid}/recrawl/quota`, access);
+  out.recrawl_quota = q;
+
+  try {
+    out.summary = await apiGet(`/user/${userId}/hosts/${hid}/summary`, access);
+  } catch (e) {
+    out.summary = { unavailable: true, message: e.message };
+  }
+
+  const sitemapUrl = resolveSitemapUrl(env);
+  out.resolved_sitemap_url_for_sync = sitemapUrl;
+
+  console.log(JSON.stringify(out, null, 2));
+}
+
 async function cmdRecrawl(env) {
   const { access, userId, hid, host } = await getWebmasterContext(env);
   const { filePath, urls } = readRecrawlUrlList(env);
@@ -447,9 +494,10 @@ try {
   else if (cmd === "sync") await cmdSync(env);
   else if (cmd === "recrawl-quota") await cmdRecrawlQuota(env);
   else if (cmd === "recrawl") await cmdRecrawl(env);
+  else if (cmd === "audit") await cmdAudit(env);
   else {
     console.error(
-      "Команды: auth-url | auth-open | exchange <code> | exchange-file | sync | recrawl-quota | recrawl",
+      "Команды: auth-url | auth-open | exchange <code> | exchange-file | sync | recrawl-quota | recrawl | audit",
     );
     process.exit(1);
   }

@@ -19,6 +19,13 @@ import { ThemeProvider } from "@/components/layout/theme-provider";
 export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(site.url),
+    icons: {
+      icon: [
+        { url: "/icon.png", sizes: "32x32", type: "image/png" },
+        { url: "/favicon-120.png", sizes: "120x120", type: "image/png" },
+      ],
+      apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    },
     robots: { index: true, follow: true },
     verification: {
       google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,

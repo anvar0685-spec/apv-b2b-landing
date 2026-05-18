@@ -46,7 +46,7 @@ alwaysApply: false
 | 2 | **Метрика (read):** `npm run metrica:counters` — список счётчиков; `npm run metrica:goals-check` — все JS-цели из **`src/config/yandex-metrica-js-goals.json`** есть на счётчике из env (`NEXT_PUBLIC_YANDEX_METRICA_ID` / `YANDEX_METRICA_COUNTER_ID`). |
 | 3 | **Метрика (создать цели):** `npm run metrica:goals-install` — только если в OAuth приложения есть **metrika:write** и токен выдан уже с этим scope. |
 | 4 | **Смена прав в oauth.yandex.ru** (добавили metrika:*, webmaster и т.д.): нужен **новый** код → `npm run webmaster:auth-open` → одна строка кода в **`deploy/.yandex-oauth-code.local`** → **`npm run webmaster:exchange-file`** (файл с кодом удалится сам). |
-| 5 | **Вебмастер:** `npm run webmaster:recrawl-quota` / `npm run webmaster:recrawl` (список URL — **`deploy/webmaster-recrawl-priority.txt`**), `npm run webmaster:sync` для sitemap — детали в **`deploy/README-NO-DOCKER.md`**. |
+| 5 | **Вебмастер:** `npm run webmaster:audit` (сводка API), `npm run webmaster:recrawl-quota` / `npm run webmaster:recrawl` (список URL — **`deploy/webmaster-recrawl-priority.txt`**), `npm run webmaster:sync` для sitemap — детали в **`deploy/README-NO-DOCKER.md`**. |
 | 6 | **Счётчик на проде:** `NEXT_PUBLIC_YANDEX_METRICA_ID` в **`.env.production` на VPS до `npm run build:vps`**; тег и цели на клиенте после согласия cookies — **`src/components/seo/yandex-metrika*.tsx`**, **`src/lib/analytics-yandex.ts`**. |
 
 ## GEO / нейросети (Perplexity, ассистенты, «как попасть в выдачу ИИ»)
@@ -60,7 +60,7 @@ alwaysApply: false
 - Регион и коммерческие факторы (контакты, адрес, услуги) должны быть **согласованы** с реальностью ИП/сайта.
 - Избегать **массовых шаблонных** текстов без локальной правды на programmatic — риск «низкокачественные страницы».
 - Вебмастер: ошибки обхода, «Дубли», «Мобильные страницы».
-- **API Вебмастера (локально, не в git):** `scripts/yandex-webmaster.mjs` — регистрация `sitemap.xml`, `recrawl` / `recrawl-quota` (квота API), OAuth через `deploy/.yandex-oauth.local.env` и одноразовый `deploy/.yandex-oauth-code.local`. Инструкция: **`deploy/README-NO-DOCKER.md`**. Приоритетные URL для переобхода: **`deploy/webmaster-recrawl-priority.txt`**. Агент при задачах по Вебмастеру **сам** запускает команды из терминала из каталога `apv-b2b-landing/`, не перекладывает на пользователя.
+- **API Вебмастера (локально, не в git):** `scripts/yandex-webmaster.mjs` — **`audit`** (хост, диагностика, sitemap, квота), регистрация `sitemap.xml`, `recrawl` / `recrawl-quota` (квота API), OAuth через `deploy/.yandex-oauth.local.env` и одноразовый `deploy/.yandex-oauth-code.local`. Инструкция: **`deploy/README-NO-DOCKER.md`**. Приоритетные URL для переобхода: **`deploy/webmaster-recrawl-priority.txt`**. Агент при задачах по Вебмастеру **сам** запускает команды из терминала из каталога `apv-b2b-landing/`, не перекладывает на пользователя.
 - **API Метрики (локально):** `scripts/yandex-metrica.mjs` — счётчики, **goals-check** / **goals-install** (цели: **`src/config/yandex-metrica-js-goals.json`**); OAuth **metrika:read** (+ **metrika:write** для install), см. **`deploy/metrica-oauth.env.example`** и **`deploy/README-NO-DOCKER.md`**. Счётчик на сайте: **`NEXT_PUBLIC_YANDEX_METRICA_ID`** до сборки; на клиенте — `YandexMetrika` + SPA-hit, см. `src/components/seo/yandex-metrika*.tsx`.
 
 ## Специфика Google (кратко)

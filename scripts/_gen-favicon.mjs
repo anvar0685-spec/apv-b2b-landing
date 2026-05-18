@@ -11,6 +11,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 const out = join(root, "src/app/icon.png");
 const outApple = join(root, "src/app/apple-icon.png");
+/** Яндекс рекомендует 120×120 для чёткой фавиконки в выдаче (см. support/webmaster …/favicon). */
+const out120 = join(root, "public", "favicon-120.png");
 
 const svg32 = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
@@ -35,3 +37,7 @@ console.log("OK:", out);
 const buf180 = await sharp(Buffer.from(svg180)).resize(180, 180).png().toBuffer();
 writeFileSync(outApple, buf180);
 console.log("OK:", outApple);
+
+const buf120 = await sharp(Buffer.from(svg180)).resize(120, 120).png().toBuffer();
+writeFileSync(out120, buf120);
+console.log("OK:", out120);
