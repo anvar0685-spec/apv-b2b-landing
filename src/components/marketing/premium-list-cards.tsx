@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { CaseSparkline } from "@/components/home/case-sparkline";
 import { cn } from "@/lib/utils";
+import { formatCaseCooperationRu } from "@/lib/format-cooperation-term";
 
 export async function PremiumCaseCard({ c, index, locale }: { c: CaseStub; index: number; locale: string }) {
   const t = await getTranslations({ locale, namespace: "caseCard" });
@@ -40,7 +41,7 @@ export async function PremiumCaseCard({ c, index, locale }: { c: CaseStub; index
       <dl className="relative z-[1] mt-6 grid flex-1 grid-cols-2 gap-3 border-t border-[var(--neutral-200)] pt-6 text-sm">
         <div>
           <dt className="text-[var(--neutral-500)]">{t("months")}</dt>
-          <dd className="font-semibold text-[var(--primary)]">{c.durationMonths}</dd>
+          <dd className="font-semibold text-[var(--primary)]">{formatCaseCooperationRu(c.durationMonths)}</dd>
         </div>
         <div>
           <dt className="text-[var(--neutral-500)]">{t("city")}</dt>

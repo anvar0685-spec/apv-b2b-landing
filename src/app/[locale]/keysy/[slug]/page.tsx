@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { CASES, caseDetailFields, getCase } from "@/content/cases-stub";
 import { CaseSparkline } from "@/components/home/case-sparkline";
 import { buildPageMetadata } from "@/lib/seo";
+import { formatCaseCooperationRu } from "@/lib/format-cooperation-term";
 
 type Props = { params: { locale: string; slug: string } };
 
@@ -75,7 +76,7 @@ export default async function CasePage({ params }: Props) {
             <div>
               <dt className="text-sm text-[var(--neutral-500)]">{t("durationDt")}</dt>
               <dd className="mt-1 text-xl font-semibold text-[var(--primary)]">
-                {d.durationMonths} {t("monthsSuffix")}
+                {formatCaseCooperationRu(d.durationMonths)}
               </dd>
             </div>
             <div>

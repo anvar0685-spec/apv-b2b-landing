@@ -55,8 +55,8 @@ export function caseDetailFields(c: CaseStub) {
  *    «крупный FMCG-производитель».
  *  — численность бригады не публикуется ни числом, ни категорией
  *    («большая/компактная»). Профиль смены — описательно.
- *  — города не публикуются: только регион — «Московская область».
- *    Конкретная привязка к объекту обсуждается в КП.
+ *  — по умолчанию локация — «Московская область»; для отдельных кейсов
+ *    допускается «Москва» (без уточнения адреса). Точная привязка — в КП.
  *  — `metricUp` — качественный KPI, который можно подтвердить
  *    по сменам/отчёту, без выдуманных процентов.
  *  — `durationMonths` отражает текущее сотрудничество (округлённо);
@@ -67,11 +67,11 @@ export const CASES: CaseStub[] = [
     slug: "sklad-avtozapchastej-mo",
     title: "Склад автозапчастей известного автомобильного бренда",
     industry: "Автозапчасти / оптовый склад",
-    city: "Московская область",
+    city: "Москва",
     durationMonths: 12,
     metricUp: "Закрытие смен без аварийных подмен",
     summary:
-      "Оптовый склад автозапчастей известного автомобильного бренда: приёмка, комплектация и отгрузка под окно выдачи в сервис-центры. Главное — стабильная явка под слот доставки, без срыва SLA.",
+      "Оптовый склад автозапчастей известного автомобильного бренда в Москве: приёмка, комплектация и отгрузка под окно выдачи в сервис-центры. Главное — стабильная явка под слот доставки, без срыва SLA.",
     challenge:
       "Высокая смешанность SKU и мелкая комплектация: ошибка отбора и нестабильная явка означают сорванный слот доставки в сервис. До нас собственный штат не вытягивал графики выдачи в дневном окне.",
     solution:
@@ -84,8 +84,8 @@ export const CASES: CaseStub[] = [
     industryEn: "Auto parts / wholesale warehouse",
     metricUpEn: "Shifts covered without emergency callouts",
     summaryEn:
-      "Wholesale auto parts warehouse for a major automotive brand: inbound, picking and dispatch geared to service-bay delivery windows. Priority — steady attendance under the delivery slot, without breaching SLA.",
-    cityEn: "Moscow Oblast",
+      "Wholesale auto parts warehouse for a major automotive brand in Moscow: inbound, picking and dispatch geared to service-bay delivery windows. Priority — steady attendance under the delivery slot, without breaching SLA.",
+    cityEn: "Moscow",
     challengeEn:
       "High SKU mix and small-item picking: any pick error or no-show breaks a service-bay slot. The in-house team could not hold day-shift dispatch windows.",
     solutionEn:
@@ -100,7 +100,7 @@ export const CASES: CaseStub[] = [
     title: "Распределительный центр известного мебельного бренда",
     industry: "Мебель / распределительный центр",
     city: "Московская область",
-    durationMonths: 12,
+    durationMonths: 36,
     metricUp: "Слоты отгрузки без срыва из-за неявки",
     summary:
       "РЦ известного мебельного бренда: погрузочно-разгрузочные работы, такелаж КГТ и сборочные операции. Стабильная бригада у ворот вместо «звонка по подрядчикам в день срыва».",
@@ -132,7 +132,7 @@ export const CASES: CaseStub[] = [
     title: "Площадка крупного маркетплейса: техника и FMCG-сырьё в одной смене",
     industry: "Маркетплейс / multi-storage",
     city: "Московская область",
-    durationMonths: 12,
+    durationMonths: 24,
     metricUp: "Один SLA на разные товарные группы — без перекидывания между подрядчиками",
     summary:
       "Площадка крупного маркетплейса через подрядчика-агента: на одной территории — техника и FMCG-сырьё (шоколад/какао и соя для крупного производителя). Оба потока ведутся по единому регламенту.",
@@ -164,7 +164,7 @@ export const CASES: CaseStub[] = [
     title: "Стройматериалы и плитка на складе логистического оператора",
     industry: "Стройматериалы / 3PL-площадка",
     city: "Московская область",
-    durationMonths: 12,
+    durationMonths: 18,
     metricUp: "Выдача в проектные окна — без срывов",
     summary:
       "Склад логистического оператора (3PL), профиль — отделочные материалы и плитка (тяжёлый и хрупкий груз одновременно). Приёмка, перекладка и выдача под проектные графики стройки.",
@@ -196,7 +196,7 @@ export const CASES: CaseStub[] = [
     title: "Соседние склады техники и оборудования: единый менеджер на оба объекта",
     industry: "Техника и оборудование / склад",
     city: "Московская область",
-    durationMonths: 10,
+    durationMonths: 24,
     metricUp: "Замены закрываются в день обращения",
     summary:
       "Два соседних склада в Московской области, хранение и обработка техники и оборудования. Оба объекта ведёт один менеджер подрядчика — единый стандарт сервиса вне зависимости от объёма площадки.",
@@ -227,11 +227,11 @@ export const CASES: CaseStub[] = [
     slug: "tabachnyy-sklad-mo",
     title: "Склад табачной продукции: контролируемый пропускной режим",
     industry: "FMCG / табак",
-    city: "Московская область",
+    city: "Москва",
     durationMonths: 10,
     metricUp: "Инвентаризации без расхождений по бригаде",
     summary:
-      "Склад табачной продукции (акцизный товар): приём, складирование и отгрузка при усиленных требованиях к учёту, пропускному режиму и обращению с маркой.",
+      "Склад табачной продукции в Москве (акцизный товар): приём, складирование и отгрузка при усиленных требованиях к учёту, пропускному режиму и обращению с маркой.",
     challenge:
       "Акцизный товар — это не «обычная коробка»: ошибка в учёте или нарушение пропускного режима = претензии и аудит, а не разговор «давайте перепишем». Подрядчик по персоналу должен жить в этом режиме, а не «перепроверять, что подписал».",
     solution:
@@ -244,8 +244,8 @@ export const CASES: CaseStub[] = [
     industryEn: "FMCG / tobacco",
     metricUpEn: "Inventory closes with no crew variance",
     summaryEn:
-      "Tobacco warehouse (excise goods): inbound, storage and dispatch under enhanced accounting, access and stamp-handling rules.",
-    cityEn: "Moscow Oblast",
+      "Tobacco warehouse in Moscow (excise goods): inbound, storage and dispatch under enhanced accounting, access and stamp-handling rules.",
+    cityEn: "Moscow",
     challengeEn:
       "Excise goods are not ‘just boxes’: any accounting error or access breach triggers claims and audits, not a polite rewrite. The labour contractor must live in this regime, not double-check it after the fact.",
     solutionEn:

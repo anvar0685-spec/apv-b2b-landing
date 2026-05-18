@@ -7,6 +7,7 @@ import { MaxAppSymbol } from "@/components/icons/max-app-symbol";
 import { site } from "@/config/site";
 import { absUrl } from "@/lib/abs-url";
 import { buildPageMetadata } from "@/lib/seo";
+import { OfficeYandexMapFrame } from "@/components/kontakty/office-yandex-map";
 
 type Props = { params: { locale: string } };
 
@@ -31,11 +32,13 @@ export default async function Page({ params }: Props) {
     email: site.emailHello,
     address: {
       "@type": "PostalAddress",
-      streetAddress: site.legalAddress,
-      addressLocality: "Люберцы",
+      streetAddress: "Каширский переулок, д. 46, офис 120",
+      addressLocality: "Бронницы",
       addressRegion: "Московская область",
+      postalCode: "140170",
       addressCountry: "RU",
     },
+    hasMap: site.officeYandexMapsAppHref,
   };
 
   return (
@@ -48,13 +51,20 @@ export default async function Page({ params }: Props) {
       <MarketingHubShell
         kicker="Связь"
         title="Контакты"
-        description="Реквизиты и контакты централизованы в конфигурации сайта и переменных окружения. Значения ниже соответствуют текущему окружению публикации."
+        description="Реквизиты и контакты централизованы в конфигурации сайта и переменных окружения. Офис приёмов — Бронницы; юридический адрес ИП указан в карточке реквизитов."
         heroSurface="contacts"
       >
         <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
           <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
           <div>
             <ul className="space-y-6 text-[var(--neutral-950)]">
+              <li className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 shadow-[var(--card-shadow)]">
+                <span className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">Офис приёмов</span>
+                <p className="mt-2 text-sm font-semibold leading-snug text-[var(--primary)]">{site.officeAddressLine}</p>
+                <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-700)]">
+                  Встречи по записи, передача документов и закрывающих — по согласованию. Парковка у здания по правилам БЦ.
+                </p>
+              </li>
               <li className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 shadow-[var(--card-shadow)]">
                 <span className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">Телефон</span>
                 <br />
@@ -158,19 +168,12 @@ export default async function Page({ params }: Props) {
           </div>
 
           <div>
-            <h2 className="font-display text-xl font-semibold tracking-tight text-[var(--primary)]">Карта</h2>
+            <h2 className="font-display text-xl font-semibold tracking-tight text-[var(--primary)]">Как нас найти</h2>
             <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-700)]">
-              Виджет Яндекс.Карт подключается после выдачи ключа API (юр. адрес — Люберцы, см. блок реквизитов).
+              Интерактивная карта Яндекса с меткой здания. При необходимости маршрут можно открыть в приложении «Яндекс.Карты».
             </p>
-            <div
-              className="mt-8 flex aspect-[4/3] w-full items-center justify-center rounded-2xl border border-[var(--neutral-200)] bg-gradient-to-br from-[var(--surface)] to-[var(--card)] text-center shadow-[var(--card-shadow)]"
-              role="img"
-              aria-label="Интерактивная карта появится после подключения виджета"
-            >
-              <div>
-                <p className="font-display text-sm font-semibold text-[var(--primary)]">Карта офиса</p>
-                <p className="mt-2 px-6 text-xs text-[var(--neutral-500)]">Здесь будет интерактивный виджет с меткой входа.</p>
-              </div>
+            <div className="mt-8">
+              <OfficeYandexMapFrame mapWidgetSrc={site.officeYandexMapWidgetSrc} openInMapsHref={site.officeYandexMapsAppHref} />
             </div>
           </div>
           </div>

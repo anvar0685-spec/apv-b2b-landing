@@ -18,6 +18,17 @@ const defaultMaxProfile =
   "https://max.ru/u/f9LHodD0cOJgLZ4W7M6zakOCdisOFfmF4VYsM8axfLkvWvtC35pm4ljfHI4";
 const maxResolved = maxFromEnv || defaultMaxProfile;
 
+/** Офис приёмов (карта на /kontakty). Координаты — здание по Каширскому пер., 46 (геокод OSM). */
+const officeLat = Number(process.env.NEXT_PUBLIC_OFFICE_LAT ?? "55.4201468");
+const officeLon = Number(process.env.NEXT_PUBLIC_OFFICE_LON ?? "38.2538623");
+const officeAddressLine =
+  process.env.NEXT_PUBLIC_OFFICE_ADDRESS?.trim() ??
+  "г. Бронницы, Каширский переулок, д. 46, офис 120";
+const officeYandexMapWidgetSrc =
+  process.env.NEXT_PUBLIC_YANDEX_MAP_WIDGET_SRC?.trim() ||
+  `https://yandex.ru/map-widget/v1/?ll=${officeLon}%2C${officeLat}&z=17&l=map&pt=${officeLon},${officeLat},pm2rdm&lang=ru_RU`;
+const officeYandexMapsAppHref = `https://yandex.ru/maps/?ll=${officeLon}%2C${officeLat}&z=17&l=map&pt=${officeLon},${officeLat}`;
+
 export const site = {
   url,
   brandName: process.env.NEXT_PUBLIC_BRAND_NAME ?? "АПВ - СИСТЕМА",
@@ -45,6 +56,11 @@ export const site = {
   bankLegalAddress:
     process.env.NEXT_PUBLIC_BANK_LEGAL_ADDRESS ??
     "127287, г. Москва, ул. Хуторская 2-я, д. 38А, стр. 26",
+  officeAddressLine,
+  officeLat,
+  officeLon,
+  officeYandexMapWidgetSrc,
+  officeYandexMapsAppHref,
 } as const;
 
 /** Для футера: маркировка рекламы в ЕРИР выводится только после подстановки реального erid из ОРД (не плейсхолдер). */
