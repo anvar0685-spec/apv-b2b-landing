@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { BLOG_CATEGORY_SLUGS, BLOG_POSTS } from "@/content/blog-stub";
 import { CASES } from "@/content/cases-stub";
-import { CITIES, PROFESSIONS } from "@/content/professions-cities";
+import { PRIORITY_CROSS_30 } from "@/content/cross-priority";
+import { PROFESSIONS } from "@/content/professions-cities";
 import { absUrl } from "@/lib/abs-url";
 import { allMultipageSeoPaths } from "@/lib/site-structure";
 
@@ -41,14 +42,24 @@ function staticPriority(path: string): number {
   return 0.7;
 }
 
+/**
+ * Стабильные даты «по поколениям» контента. Меняем точечно при существенной правке
+ * соответствующего раздела (а не «штамп билда»), чтобы lastmod был осмысленным сигналом
+ * для Яндекс/Google, а не «всё обновилось сегодня».
+ */
+const REV_STATIC = new Date("2026-05-18T00:00:00Z");
+const REV_HUBS = new Date("2026-05-18T00:00:00Z");
+const REV_PROGRAMMATIC = new Date("2026-05-18T00:00:00Z");
+const REV_CATEGORIES = new Date("2026-04-30T00:00:00Z");
+const REV_CASES = new Date("2026-04-15T00:00:00Z");
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
-  const last = new Date();
 
   for (const p of STATIC) {
     entries.push({
       url: absUrl(p),
-      lastModified: last,
+      lastModified: REV_STATIC,
       changeFrequency: "weekly",
       priority: staticPriority(p),
     });
@@ -56,25 +67,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const prof of PROFESSIONS) {
     entries.push({
       url: absUrl(`/personal/${prof.slug}`),
-      lastModified: last,
+      lastModified: REV_HUBS,
       changeFrequency: "weekly",
       priority: 0.65,
     });
   }
-  for (const prof of PROFESSIONS) {
-    for (const city of CITIES) {
-      entries.push({
-        url: absUrl(`/personal/${prof.slug}/${city.slug}`),
-        lastModified: last,
-        changeFrequency: "monthly",
-        priority: 0.6,
-      });
-    }
+  // Programmatic «профессия × город»: только приоритетные 30 пар попадают в sitemap.
+  // Остальные ~210 пар закрыты `robots: noindex, follow` в `generateMetadata` и доступны
+  // через внутренние ссылки в разделе «Персонал», но в карте сайта их нет.
+  for (const pair of PRIORITY_CROSS_30) {
+    entries.push({
+      url: absUrl(`/personal/${pair.profession}/${pair.city}`),
+      lastModified: REV_PROGRAMMATIC,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    });
   }
   for (const cat of BLOG_CATEGORY_SLUGS) {
     entries.push({
       url: absUrl(`/blog/category/${cat}`),
-      lastModified: last,
+      lastModified: REV_CATEGORIES,
       changeFrequency: "weekly",
       priority: 0.52,
     });
@@ -90,7 +102,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const c of CASES) {
     entries.push({
       url: absUrl(`/keysy/${c.slug}`),
-      lastModified: last,
+      lastModified: REV_CASES,
       changeFrequency: "monthly",
       priority: 0.55,
     });

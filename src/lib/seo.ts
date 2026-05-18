@@ -10,6 +10,8 @@ export type PageSeoInput = {
   description: string;
   /** Дополнительно для услуг и хабов */
   keywords?: string[];
+  /** Закрыть страницу от индексации, но оставить follow (для тонких/повторяющихся страниц вне приоритетного кластера). */
+  noindex?: boolean;
 };
 
 /**
@@ -66,6 +68,7 @@ export function buildPageMetadata({
   title,
   description,
   keywords,
+  noindex,
 }: PageSeoInput): Metadata {
   const canonical = absUrl(pathname, locale);
   const brand = site.brandName.replace(/_/g, " ");
@@ -77,7 +80,7 @@ export function buildPageMetadata({
     description,
     ...(keywords?.length ? { keywords } : {}),
     alternates: { canonical },
-    robots: { index: true, follow: true },
+    robots: noindex ? { index: false, follow: true } : { index: true, follow: true },
     openGraph: {
       title: fullTitle,
       description,

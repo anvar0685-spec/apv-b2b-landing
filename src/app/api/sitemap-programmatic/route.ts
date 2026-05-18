@@ -1,33 +1,30 @@
 /**
- * Legacy: те же URL теперь в основном `/sitemap.xml`.
- * Оставлено для обратной совместимости; в `robots.txt` не указывается.
+ * Legacy: те же URL теперь в основном `/sitemap.xml`. В `robots.txt` не указывается.
+ * Содержит только приоритетные пары (как и основной sitemap) — неприоритетные пары
+ * закрыты `robots: noindex, follow`, в карту их класть нельзя.
  */
-import { CITIES, PROFESSIONS } from "@/content/professions-cities";
+import { PRIORITY_CROSS_30 } from "@/content/cross-priority";
 import { absUrl } from "@/lib/abs-url";
 
 export const dynamic = "force-dynamic";
+
+const REV_PROGRAMMATIC = "2026-05-18T00:00:00Z";
 
 function esc(s: string) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 export async function GET() {
-  const now = new Date().toISOString();
-  const urls: string[] = [];
-  for (const p of PROFESSIONS) {
-    for (const c of CITIES) {
-      urls.push(absUrl(`/personal/${p.slug}/${c.slug}`));
-    }
-  }
+  const urls = PRIORITY_CROSS_30.map((pair) => absUrl(`/personal/${pair.profession}/${pair.city}`));
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
   .map(
     (loc) => `  <url>
     <loc>${esc(loc)}</loc>
-    <lastmod>${now}</lastmod>
+    <lastmod>${REV_PROGRAMMATIC}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.55</priority>
+    <priority>0.6</priority>
   </url>`,
   )
   .join("\n")}

@@ -26,8 +26,8 @@ export async function ProgrammaticStaffingPage({ profession, city }: Props) {
   const priority = isPriorityCross(profession.slug, city.slug);
   const productionSeed = `${profession.slug}-${city.slug}`;
   const showProductionStrip = commercialProductionStripFromSlug(productionSeed);
-  const longread = getProgrammaticLongreadParagraphs(profession, city);
-  const localNarrative = getProgrammaticLocalNarrative(profession.slug, city.slug);
+  const longread = getProgrammaticLongreadParagraphs(profession, city, priority);
+  const localNarrative = priority ? getProgrammaticLocalNarrative(profession.slug, city.slug) : [];
   const v = pairingVisualVariant(profession.slug, city.slug);
 
   const t = {
