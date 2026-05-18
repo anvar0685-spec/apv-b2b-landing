@@ -3,7 +3,7 @@ import { IndustrialPhotoTiles } from "@/components/home/industrial-photo-tiles";
 import { ShiftCycleSchematic } from "@/components/home/shift-cycle-schematic";
 
 /**
- * Реальные фото объекта (Софьино, МО) в `public/home/industrial-band/`.
+ * Реальные фото действующего объекта в Подмосковье — `public/home/industrial-band/` (внутренняя пометка, в публичных текстах локация не раскрывается).
  * Старые stock-кадры — резервная копия в `public/home/industrial-band/_old-stock/`.
  * Замена комплекта: положить новые JPEG поверх и при необходимости запустить `node scripts/_resize-real-photos.mjs`.
  */
