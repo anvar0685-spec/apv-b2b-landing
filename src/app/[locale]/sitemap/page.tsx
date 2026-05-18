@@ -58,7 +58,7 @@ export default function HtmlSitemapPage() {
         </ul>
       </section>
       <section className="mt-12">
-        <h2 className="text-lg font-semibold text-[var(--primary)]">Программатика (фрагмент)</h2>
+        <h2 className="text-lg font-semibold text-[var(--primary)]">Страницы «профессия × город» (фрагмент)</h2>
         <ul className="mt-4 max-h-96 overflow-auto text-sm text-[var(--neutral-700)]">
           {PROFESSIONS.slice(0, 2).flatMap((p) =>
             CITIES.slice(0, 5).map((c) => (

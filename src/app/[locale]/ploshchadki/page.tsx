@@ -12,7 +12,7 @@ type Props = { params: { locale: string } };
 export function generateMetadata({ params }: Props): Metadata {
   const { locale } = params;
   const title = "Площадки и маркетплейсы";
-  const description = "Отдельные посадочные под крупные маркетплейсы и логистические бренды.";
+  const description = "Особенности работы и закрытия смен на крупных маркетплейсах и в логистических сетях — отдельные страницы по площадкам.";
   return buildPageMetadata({ locale, pathname: "/ploshchadki", title, description });
 }
 

@@ -36,7 +36,7 @@ export default function Page({ params }: Props) {
   const title = def.title.ru;
   const lead = def.description.ru;
   const hub = "Отрасли";
-  const kicker = "Отраслевая посадочная";
+  const kicker = "Отрасль";
 
   const editorial = industryEditorialBundle(def.slug);
   if (!editorial) notFound();
