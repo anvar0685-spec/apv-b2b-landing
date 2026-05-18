@@ -47,401 +47,216 @@ export function caseDetailFields(c: CaseStub) {
   };
 }
 
+/**
+ * Реальные кейсы компании, обезличенные.
+ *
+ * Правила:
+ *  — заказчики и бренды не называются (NDA по умолчанию). Используем формулировки
+ *    «известный бренд X», «крупный маркетплейс», «крупный FMCG-производитель».
+ *  — численность бригады и города — реальные.
+ *  — `metricUp` — качественный KPI, который можно подтвердить по сменам/отчёту,
+ *    без выдуманных процентов.
+ *  — `durationMonths` отражает текущее сотрудничество (округлённо); все проекты
+ *    действующие, не «бывшие».
+ */
 export const CASES: CaseStub[] = [
   {
-    slug: "mebelnyy-rc-pogruzochnye-raboty",
-    title: "Мебельный РЦ известного бренда: ПРР и разнорабочие «под ключ»",
-    industry: "Мебель / распределительный центр",
-    city: "Софьино",
-    staff: 48,
-    durationMonths: 11,
-    metricUp: "−32% простоя у рампы",
-    summary:
-      "Региональный центр крупного мебельного ритейла: аутсорсинг погрузочно-разгрузочных работ и такелажа КГТ — стабильные бригады у ворот вместо разрозненных подрядчиков «на звонок».",
-    challenge:
-      "Пики приёмки фуры и отгрузки мягкой коробки; простои у рампы и очередь машин, когда бригады не укладываются в окно.",
-    solution:
-      "Закрепили состав ПРР под профиль мебели и ваш стандарт безопасности, бригадира на смену и регламент замен; синхронизация с экспедицией и слотами.",
-    outcome:
-      "Простой транспорта у ворот сократился примерно на треть; слоты отгрузки перестали «плавить» из‑за неявки разнорабочих.",
-    clientQuote:
-      "Нужны были предсказуемые люди у трапа и внутри фуры — без этого слот маркетплейса не закрыть.",
-    titleEn: "Furniture DC for a major brand: outsourced loading & unloading",
-    industryEn: "Furniture / regional DC",
-    metricUpEn: "−32% dock idle time",
-    summaryEn:
-      "Regional hub for a large furniture retailer: outsourced loading/unloading and bulky handling — steady dock crews instead of ad-hoc labour.",
-    cityEn: "Sofyino, Moscow Oblast",
-    challengeEn:
-      "Inbound peaks and outbound soft-pack loads; ramp idle time and truck queues when crews missed the slot.",
-    solutionEn:
-      "Dedicated L/U crews briefed for furniture handling and your safety rules, shift lead and replacement playbook aligned with dock slots.",
-    outcomeEn:
-      "Roughly one-third less transport idle at the gate; outbound slots stopped slipping because labour showed up.",
-    clientQuoteEn:
-      "We needed predictable people at the ramp and inside the trailer — otherwise marketplace slots do not close.",
-  },
-  {
     slug: "sklad-avtozapchastej-krekshino",
-    title: "Склад автозапчастей: комплектация и контроль явки в пике",
-    industry: "Автозапчасти / склад",
+    title: "Склад автозапчастей известного бренда в Крекшино: 50 человек в смене",
+    industry: "Автозапчасти / оптовый склад",
     city: "Крекшино",
-    staff: 72,
-    durationMonths: 8,
-    metricUp: "+19% строк комплектации за смену",
+    staff: 50,
+    durationMonths: 12,
+    metricUp: "Закрытие смен 50 чел. без аварийных подмен",
     summary:
-      "Оптовый склад автозапчастей с высокой смешанностью SKU: выровняли явку на отборе и отгрузке, чтобы не «есть» окно доставки в сервисы.",
+      "Оптовый склад автозапчастей известного автомобильного бренда: 50 человек в смене на приёмке, комплектации и отгрузке. Главное — стабильная явка под окно выдачи в сервис-центры, без срыва SLA.",
     challenge:
-      "Много мелких позиций, ошибки отбора и нестабильная явка в дневном окне — сервисы получали заказы с задержкой.",
+      "Высокая смешанность SKU и мелкая комплектация: ошибка отбора и нестабильная явка означают сорванный слот доставки в сервис. До нас собственный штат не вытягивал графики выдачи в дневном окне.",
     solution:
-      "Пул комплектовщиков и грузчиков под профиль автозапчастей, двойной контроль по ячейкам на старте, единый контакт по заменам.",
+      "Собрали закреплённую бригаду 50 чел. под профиль автозапчастей: разнорабочие у ворот, комплектовщики и кладовщики на отборе. Двойной контроль ячейки в первые 2 недели, единый менеджер по заменам, отчёт по явке в операционный центр заказчика по сменам.",
     outcome:
-      "Темп комплектации за смену вырос примерно на пятую часть при той же численности; возвраты по ошибке отбора снизились.",
+      "Смены закрываются составом, ошибки отбора уходят в журнал, а не в звонок «пришлите ещё людей». Окно выдачи в сервис-центры держится; претензий по сменам у закупки заказчика нет.",
     clientQuote:
-      "Для нас главное — выдать заказ в слот курьера; с явкой по сменам перестали воевать.",
-    titleEn: "Auto parts warehouse: picking throughput and attendance",
-    industryEn: "Auto parts / warehouse",
-    metricUpEn: "+19% pick lines per shift",
+      "Нам было важно, чтобы 50 человек выходили в смену без «вчерашних» оправданий — теперь работаем без подмен в день в день.",
+    titleEn: "Auto parts warehouse for a major brand in Krekshino: 50-person shifts",
+    industryEn: "Auto parts / wholesale warehouse",
+    metricUpEn: "50-person shifts covered without emergency callouts",
     summaryEn:
-      "Wholesale auto parts with mixed SKU depth: steadier attendance on picking and dispatch so service bays keep their delivery windows.",
+      "Wholesale auto parts warehouse for a major automotive brand: 50 people per shift on inbound, picking and dispatch. Priority — steady attendance to keep service-bay delivery windows.",
     cityEn: "Krekshino, Moscow Oblast",
     challengeEn:
-      "Small-item complexity, pick errors and uneven day-shift attendance — downstream bays saw delays.",
+      "High SKU mix and small-item picking: any pick error or no-show breaks a service-bay slot. The in-house team could not hold day-shift dispatch windows.",
     solutionEn:
-      "Picker and loader pool tuned to parts flows, early-stage bin discipline and one replacement owner.",
+      "Dedicated 50-person crew shaped for auto parts: labourers at the dock, pickers and storekeepers on selection. Two-week double-check on bins, one replacement owner, shift attendance reports to the client ops centre.",
     outcomeEn:
-      "Roughly a fifth more pick lines per shift at the same headcount; mis-picks dropped.",
+      "Shifts close to plan, errors stay in the journal rather than triggering ‘send more people’ calls. Service-bay windows hold; procurement raises no shift complaints.",
     clientQuoteEn:
-      "We need the parcel in the courier slot — we stopped fighting attendance every morning.",
+      "We needed 50 people in the shift without yesterday's excuses — now we run without same-day callouts.",
+  },
+  {
+    slug: "mebelnyy-rc-pogruzochnye-raboty",
+    title: "Распределительный центр мебельного бренда в МО: 20 человек на ПРР и сборке",
+    industry: "Мебель / распределительный центр",
+    city: "Московская область",
+    staff: 20,
+    durationMonths: 12,
+    metricUp: "Слоты отгрузки без срыва из-за неявки",
+    summary:
+      "РЦ известного мебельного бренда: 20 человек закрывают погрузочно-разгрузочные работы, такелаж КГТ и сборочные операции. Стабильные бригады у ворот вместо «звонка по подрядчикам в день срыва».",
+    challenge:
+      "Габаритная мебель и мягкая коробка, плотный график отгрузки в магазины и онлайн-заказы. Простой машины у ворот — потеря слота сети, спор с экспедицией. Раньше при неявке закрывали дыры собственным штатом и теряли темп комплектации.",
+    solution:
+      "Закрепили состав ПРР и сборки под мебельный профиль и стандарт безопасности заказчика, бригадир на смену, регламент замены при невыходе. Синхронизация с экспедицией и расписанием рамп.",
+    outcome:
+      "20 человек выходят на смену без авралов, окно отгрузки держится; рекламаций по повреждению габарита и потерянным слотам не было.",
+    clientQuote:
+      "У мебели нет права на «не вышел грузчик» — слот сети не подвинуть. С предсказуемой сменой стало нечего обсуждать в утренней планёрке.",
+    titleEn: "Furniture brand DC in Moscow Oblast: 20-person crew on L/U and assembly",
+    industryEn: "Furniture / regional DC",
+    metricUpEn: "Outbound slots covered without no-show breakages",
+    summaryEn:
+      "Regional DC for a well-known furniture brand: a 20-person crew on loading/unloading, bulky handling and assembly tasks. Steady dock crews instead of last-minute contractor calls.",
+    cityEn: "Moscow Oblast",
+    challengeEn:
+      "Bulky furniture and soft-pack outbound, tight retail and online slots. A missed truck at the gate means a lost slot and a dispute with logistics. Previously, no-shows were covered by the in-house team at the cost of picking pace.",
+    solutionEn:
+      "Dedicated L/U and assembly crew briefed for furniture and your safety rules, shift lead and replacement playbook, dock-slot sync.",
+    outcomeEn:
+      "20 people show up to the shift without emergencies; outbound windows hold. No claims for bulky damage or lost retail slots.",
+    clientQuoteEn:
+      "Furniture cannot afford ‘a loader did not come’ — the retail slot will not move. With a predictable shift, morning stand-ups have nothing to argue about.",
+  },
+  {
+    slug: "marketplace-multiprofil-zhukovsky",
+    title: "Склад крупного маркетплейса в Жуковском: техника и FMCG-сырьё в одной смене",
+    industry: "Маркетплейс / multi-storage",
+    city: "Жуковский",
+    staff: 20,
+    durationMonths: 12,
+    metricUp: "Один SLA на разные товарные группы — без перекидывания между подрядчиками",
+    summary:
+      "Площадка крупного маркетплейса через подрядчика-агента: на одной территории — техника и FMCG-сырьё (шоколад/какао и соя для крупного производителя). 20 человек ведут оба потока по единому регламенту.",
+    challenge:
+      "Разные товарные группы — разные требования: техника требует аккуратной обработки и пересчёта, пищевое сырьё — соблюдения зон, чистоты и допусков. Без единого подрядчика смены ходили двумя командами с разными стандартами, эскалации зависали между сторонами.",
+    solution:
+      "Собрали единую бригаду 20 чел. с двумя профилями допусков: ПРР по технике + пищевые требования (контроль зон, СИЗ, чек-листы перед сменой). Один менеджер замен на оба потока, общий регламент инцидентов.",
+    outcome:
+      "Оба потока работают без перекидывания между подрядчиками. Аудит площадки по пищевой зоне проходит без замечаний к персоналу; претензий по сохранности техники нет.",
+    clientQuote:
+      "Главное — что один и тот же бригадир отвечает и за коробку с электроникой, и за поддон с какао-сырьём. Не надо «связываться через диспетчера» в инцидент.",
+    titleEn: "Marketplace warehouse in Zhukovsky: electronics and FMCG raw materials in one shift",
+    industryEn: "Marketplace / multi-storage",
+    metricUpEn: "One SLA across product groups — no contractor handoffs",
+    summaryEn:
+      "A major marketplace site run through an agent: electronics and FMCG raw materials (cocoa-based and soy for a large producer) on the same site. A 20-person crew runs both flows on one playbook.",
+    cityEn: "Zhukovsky, Moscow Oblast",
+    challengeEn:
+      "Different product groups, different rules: electronics need careful handling and counts; food raw materials need zone discipline, cleanliness and permits. With two separate contractors, escalations stalled between sides.",
+    solutionEn:
+      "Built one 20-person crew with two permit profiles: electronics L/U plus food handling (zone control, PPE, pre-shift checklists). One replacement owner across both flows, one incident playbook.",
+    outcomeEn:
+      "Both flows run without contractor handoffs. Food-zone audits pass without workforce findings; no claims on electronics integrity.",
+    clientQuoteEn:
+      "The same shift lead is responsible for the electronics box and the cocoa-raw pallet. No need to ‘call dispatch’ during an incident.",
   },
   {
     slug: "stroitelnye-materialy-sklad-obrabotka",
-    title: "Стройматериалы: хранение, перекладка и отгрузка в проектные окна",
-    industry: "Стройматериалы / склад",
-    city: "Софьино",
-    staff: 60,
-    durationMonths: 14,
-    metricUp: "96%+ закрытие смен по графику",
-    summary:
-      "Склад хранения и обработки отделочных и общестроительных материалов: аутсорсинг ПРР, перекладки и комплектации под выдачу на объект.",
-    challenge:
-      "Тяжёлые паллеты, сезонные всплески и жёсткие окна самовывоза; простои фуры били по стройграфику клиентов.",
-    solution:
-      "Смены ПРР и разнорабочих под вашу разметку зон, бригадир на объекте, резерв на пик выдачи в выходные.",
-    outcome:
-      "Закрытие смен по графику держится выше 95%; очередь самовывоза перестала раздуваться из‑за неявки.",
-    clientQuote:
-      "Стройка не ждёт — нам нужны люди на вилках и на выдаче одновременно.",
-    titleEn: "Building materials: storage, replenishment and dispatch windows",
-    industryEn: "Construction supplies / warehouse",
-    metricUpEn: "96%+ shifts covered",
-    summaryEn:
-      "Finishing and bulk materials warehouse: outsourced loading, replenishment and picking for contractor pickup slots.",
-    cityEn: "Sofyino, Moscow Oblast",
-    challengeEn:
-      "Heavy pallets, seasonal spikes and tight pickup windows; truck idle time hit downstream construction schedules.",
-    solutionEn:
-      "L/U and labour shifts mapped to your zoning, on-site lead and weekend surge reserve.",
-    outcomeEn:
-      "Shift coverage stayed above 95%; contractor queues stopped ballooning from no-shows.",
-    clientQuoteEn:
-      "Construction does not wait — we need fork drivers and dispatch staff at the same time.",
-  },
-  {
-    slug: "marketplace-sklad-moskva",
-    title: "Склад маркетплейса: стабильные смены в пике",
-    industry: "Логистика / маркетплейс",
-    city: "Москва",
-    staff: 120,
-    durationMonths: 9,
-    metricUp: "+34% выработки за смену",
-    summary:
-      "Пик сезона на складе маркетплейса: выровняли явку, сократили простои комплектации и закрепили понятный SLA по заменам.",
-    challenge:
-      "Пиковые волны заказов и нестабильная явка били по темпу отбора; внутренний штат не успевал закрывать ночные смены.",
-    solution:
-      "Собрали пул смен с единым стандартом ввода на объект, регламентом замен и ежедневной отчётностью по явке для операционного центра.",
-    outcome:
-      "Выработка за смену выросла примерно на треть за счёт предсказуемой явки; вопросы по документам ушли в управляемый порядок с ответственными и сроками.",
-    clientQuote:
-      "Наконец-то один SLA на явку и замены — без «перекидывания» между подрядчиками в пик сезона.",
-    titleEn: "Marketplace DC: stable shifts in peak season",
-    industryEn: "Logistics / marketplace",
-    metricUpEn: "+34% shift throughput",
-    summaryEn:
-      "Peak-season warehouse loop: steadier attendance, fewer picking gaps and a clear replacement SLA.",
-    cityEn: "Moscow",
-    challengeEn:
-      "Peak order waves and unstable attendance broke shift throughput; the core team could not cover night shifts fast enough.",
-    solutionEn:
-      "Built a shift pool with one onboarding standard, replacement rules and daily attendance reporting for the operations centre.",
-    outcomeEn:
-      "Shift throughput rose by about a third through predictable attendance; document incidents moved into a controlled loop.",
-    clientQuoteEn:
-      "Finally one SLA for attendance and replacements — without juggling contractors in peak season.",
-  },
-  {
-    slug: "proizvodstvo-mo",
-    title: "Производственный хаб МО: склад отгрузки и комплектация",
-    industry: "Склад / отгрузка",
-    city: "Подольск",
-    staff: 65,
-    durationMonths: 6,
-    metricUp: "−18% к стоимости смены",
-    summary:
-      "Стабилизировали смены на складе готовой продукции и отгрузки при производственном хабе: выровняли явку у рампы и стоимость смены без простоя экспедиции.",
-    challenge:
-      "Высокая текучка и разрыв между планом складских смен и фактическим выходом давили на окна отгрузки и график доставок.",
-    solution:
-      "Выровняли цепочку подбора и выхода на рампу под складской профиль, усилили инструктаж первых смен и закрепили менторов на зоне комплектации.",
-    outcome:
-      "Себестоимость смены снизилась на 18% при сохранении качества; замены стали планируемыми для логистики, а не «пожарными».",
-    clientQuote:
-      "Нам нужен был предсказуемый склад отгрузки — без этого производство простаивает в ожидании машин.",
-    titleEn: "Manufacturing hub MO: outbound warehouse and picking",
-    industryEn: "Warehouse / outbound",
-    metricUpEn: "−18% cost per shift",
-    summaryEn:
-      "Stabilised shifts at the finished-goods and outbound warehouse serving a hub: steadier dock attendance and cost per shift.",
-    cityEn: "Podolsk",
-    challengeEn:
-      "High churn and a gap between planned warehouse shifts and actual attendance squeezed shipping windows and outbound timing.",
-    solutionEn:
-      "Tightened the funnel for dock-facing warehouse roles, strengthened first-shift briefings and assigned mentors in picking.",
-    outcomeEn:
-      "Cost per shift fell by 18% with stable quality; replacements became planned for logistics, not emergency fire-fighting.",
-    clientQuoteEn:
-      "We needed a predictable outbound warehouse — otherwise production waits on trucks.",
-  },
-  {
-    slug: "farma-sklad-himki",
-    title: "Фарм-склад: серийность, зоны хранения и дисциплина смен",
-    industry: "Фарма / склад",
-    city: "Химки",
-    staff: 40,
+    title: "Стройматериалы и плитка на складе логистического оператора в МО",
+    industry: "Стройматериалы / 3PL-площадка",
+    city: "Московская область",
+    staff: 20,
     durationMonths: 12,
-    metricUp: "100% соблюдение зон хранения и серий в аудите",
+    metricUp: "Выдача в проектные окна — без срывов",
     summary:
-      "Усилили соблюдение регламентов хранения и серийности при высокой сменности линейки — без перекладывания операционного риска на службу качества заказчика.",
+      "Склад логистического оператора в МО, профиль — отделочные материалы и плитка (тяжёлый и хрупкий груз одновременно). 20 человек ведут приёмку, перекладку и выдачу под проектные графики стройки.",
     challenge:
-      "Строгие требования к зонам и сериям; любая ошибка перекладки или отбора — стоп-фактор для отгрузки и проверок.",
+      "Тяжёлые паллеты с плиткой требуют аккуратной обработки — бой = прямой убыток. Сезонные всплески выдачи и узкие окна самовывоза: простой машины у рампы бьёт по графику стройки клиента, а не «по складу».",
     solution:
-      "Выделенный пул под фарм-профиль, усиленный инструктаж первых смен, контрольные точки с бригадиром и понятная эскалация замен.",
+      "Состав смены под профиль стройматериалов: ПРР с навыком работы с плиточным паллетом, разнорабочие на перекладке, бригадир на объекте. Резерв людей на пиковые недели выдачи в выходные.",
     outcome:
-      "Внешний аудит по складским процессам без критических замечаний по персоналу на линии; серии и зоны хранения соблюдались по журналам.",
+      "Выдача держится в проектных окнах; бой остаётся в нормальных пределах для категории, претензии от стройподрядчиков заказчика — единичные и закрываются по регламенту.",
     clientQuote:
-      "Нам важна повторяемость смены: одинаковый стандарт у стеллажа и у ворот.",
-    titleEn: "Pharma warehouse: serialisation, zones and shift discipline",
-    industryEn: "Pharma / warehouse",
-    metricUpEn: "100% zone & serial compliance in audit",
+      "Стройка не ждёт — нам нужны люди и на вилках, и на выдаче в одну смену. Эта связка наконец работает без авралов.",
+    titleEn: "Building materials and tiles at a 3PL operator in Moscow Oblast",
+    industryEn: "Building materials / 3PL site",
+    metricUpEn: "Pickup windows held without slippage",
     summaryEn:
-      "Stricter discipline on storage zones and serial tracking with shift-heavy staffing — operational risk stays with the contractor playbook.",
-    cityEn: "Khimki",
+      "A 3PL operator's site in Moscow Oblast, profile: finishing materials and tiles (heavy and fragile at once). 20 people handle inbound, replenishment and dispatch on contractor pickup schedules.",
+    cityEn: "Moscow Oblast",
     challengeEn:
-      "Strict zone and serial rules; any mis-pick or mis-placement stops outbound and inspections.",
+      "Heavy tile pallets need careful handling — breakage is a direct loss. Seasonal pickup spikes and tight windows: a stuck truck at the dock hits the client's construction schedule, not ‘the warehouse’.",
     solutionEn:
-      "Dedicated pharma-skilled pool, reinforced first-shift briefings and named checkpoints with the shift lead.",
+      "Shift mix tuned for the profile: L/U skilled in tile pallets, labourers on replenishment, on-site lead. Weekend surge reserve for peak pickup weeks.",
     outcomeEn:
-      "External audit raised no critical workforce findings on the line; journals showed zones and serials respected.",
+      "Pickup windows hold; breakage stays within category norms, contractor claims are isolated and resolved by the playbook.",
     clientQuoteEn:
-      "We need repeatable shifts — the same standard at the rack and at the gate.",
+      "Construction does not wait — we need people on forks and at dispatch in the same shift. That combo finally works without emergencies.",
   },
   {
-    slug: "regionalnyj-rc-pik",
-    title: "Региональный РЦ: пик отбора без «дыр» в сменах",
-    industry: "Ритейл / РЦ",
-    city: "Москва",
-    staff: 200,
-    durationMonths: 4,
-    metricUp: "95%+ закрытие смен",
-    summary:
-      "Закрыли сезонный пик на распределительном центре: смены у комплектации и экспедиции держали темп отгрузок без простоя линий.",
-    challenge:
-      "Сезонный всплеск заказов и дефицит линейки в ключевых сменах отбора и погрузки.",
-    solution:
-      "Собрали пул под профиль комплектации и погрузки, ускорили ввод людей на линию и синхронизировали замены с операционным центром сети.",
-    outcome:
-      "Закрытие смен держалось выше 95%; очередь заказов не раздувала простой отбора у стеллажей.",
-    clientQuote:
-      "Нам нужны были люди на пик отбора и у ворот — без этого РЦ не вывозит пик.",
-    titleEn: "Regional DC: peak picking without shift gaps",
-    industryEn: "Retail / DC",
-    metricUpEn: "95%+ shifts covered",
-    summaryEn:
-      "Closed the seasonal spike at a regional DC: picking and dock shifts kept outbound pace without line idle time.",
-    cityEn: "Moscow",
-    challengeEn:
-      "Seasonal order spike and a shortage of staff on critical picking and loading shifts.",
-    solutionEn:
-      "Built a pool for picking and loading profiles, sped up onboarding and aligned replacements with the network ops centre.",
-    outcomeEn:
-      "Shift coverage stayed above 95%; the order queue did not idle picking at the racks.",
-    clientQuoteEn:
-      "We needed people in the pick slot and at the gate — otherwise the DC cannot survive the peak.",
-  },
-  {
-    slug: "sklad-rasshirenie-mo",
-    title: "Склад: расширение зон под график запуска",
-    industry: "Логистика / склад",
-    city: "Одинцово",
-    staff: 55,
-    durationMonths: 5,
-    metricUp: "Этапы ввода без срыва смен",
-    summary:
-      "Вывели смены под календарь открытия новых зон хранения: пропускной режим, инструктажи и дисциплина явки на складе.",
-    challenge:
-      "Сжатые сроки ввода мезонина и риск срыва графика из-за неявки и неготовности персонала к доступам и СИЗ.",
-    solution:
-      "Согласовали календарь смен, усилили предсменные инструктажи и закрепили ответственных за замены на объекте.",
-    outcome:
-      "Ключевые этапы ввода зон закрыты в срок; замены не останавливали приёмку и отгрузку.",
-    clientQuote:
-      "Подрядчик держал календарь выхода людей так же жёстко, как график открытия зон — для нас это редкость.",
-    titleEn: "Warehouse: zone ramp-up on a launch schedule",
-    industryEn: "Logistics / warehouse",
-    metricUpEn: "Ramp milestones met",
-    summaryEn:
-      "Shift plan for opening new storage zones: access rules, briefings and disciplined attendance on site.",
-    cityEn: "Odintsovo",
-    challengeEn:
-      "Tight mezzanine go-live dates and the risk of slippage from no-shows and crews not ready for access rules and PPE.",
-    solutionEn:
-      "Aligned the shift calendar, strengthened pre-shift briefings and named replacement owners on site.",
-    outcomeEn:
-      "Major zone go-live milestones closed on time; replacements did not stop inbound and outbound.",
-    clientQuoteEn:
-      "The vendor held the people calendar as tightly as the zone opening plan — that is rare for us.",
-  },
-  {
-    slug: "ritail-raspredelenie",
-    title: "Ритейл: распределительный центр",
-    industry: "Ритейл",
-    city: "Балашиха",
-    staff: 90,
-    durationMonths: 8,
-    metricUp: "−12% overtime",
-    summary:
-      "Оптимизировали сменность на РЦ: снизили переработки и стабилизировали ночные выходы.",
-    challenge:
-      "Рост overtime на ночных сменах и неравномерная загрузка линейки в пик отгрузок.",
-    solution:
-      "Пересобрали пул смен, ввели прозрачный регламент замен и еженедельный разбор отклонений с COO.",
-    outcome:
-      "Overtime снизился на 12% при том же объёме отгрузок; явка на ночные смены стабилизировалась.",
-    clientQuote:
-      "Мы перестали «покупать» пик сезона бесконечными переработками — смены стали закрываться ровнее.",
-    titleEn: "Retail: distribution centre",
-    industryEn: "Retail",
-    metricUpEn: "−12% overtime",
-    summaryEn:
-      "Rebalanced shift patterns at the DC: less overtime and steadier night-shift coverage.",
-    cityEn: "Balashikha",
-    challengeEn:
-      "Rising overtime on night shifts and uneven line loading during outbound peaks.",
-    solutionEn:
-      "Rebuilt the shift pool, introduced a transparent replacement playbook and weekly variance reviews with the COO.",
-    outcomeEn:
-      "Overtime fell 12% at the same outbound volume; night-shift attendance stabilised.",
-    clientQuoteEn:
-      "We stopped \"buying\" peak season with endless overtime — shifts now close more evenly.",
-  },
-  {
-    slug: "3pl-cross-dock-mo",
-    title: "3PL: кросс-док и сортировка без «дыр» в сменах",
-    industry: "3PL / кросс-док",
-    city: "Домодедово",
-    staff: 75,
-    durationMonths: 7,
-    metricUp: "−21% время простоя ворот",
-    summary:
-      "Выровняли выход бригад под график у ворот и пик кросс-дока: смены закрывались, очередь фур не раздувала простой внутри.",
-    challenge:
-      "Несогласованность графика у ворот и явки ломала кросс-док: простои ворот перетекали в простой линии и рост переработок у постоянного штата.",
-    solution:
-      "Ввели единый календарь смен с буфером на замену, синхронизацию с диспетчером площадки и еженедельный разбор отклонений по 15-минутным окнам.",
-    outcome:
-      "Время простоя ворот снизилось примерно на пятую; переработки у ядра не выросли при том же объёме кросс-дока.",
-    clientQuote:
-      "Нам нужен был не «ещё людей», а люди в согласованное окно у ворот — иначе ворота всегда узкое место.",
-    titleEn: "3PL: cross-dock without gate idle gaps",
-    industryEn: "3PL / cross-dock",
-    metricUpEn: "≈−21% gate idle time",
-    summaryEn:
-      "Aligned crew starts to gate slots and cross-dock peaks so shifts closed and the truck queue did not idle the line.",
-    cityEn: "Domodedovo",
-    challengeEn:
-      "Misaligned slots and attendance broke cross-dock: gate idle time spilled into line idle and core-team overtime.",
-    solutionEn:
-      "Introduced one shift calendar with a replacement buffer, sync with the yard dispatcher and weekly variance reviews in 15-minute windows.",
-    outcomeEn:
-      "Gate idle time fell by about a fifth; core overtime did not rise at the same cross-dock volume.",
-    clientQuoteEn:
-      "We did not need 'more people' — we needed people in the slot, or the gate would always be the bottleneck.",
-  },
-  {
-    slug: "kholod-konturnyy-sklad-mytischi",
-    title: "Холод: зона +2…+5 °C без «провалов» по явке",
-    industry: "Продуктовая логистика / холод",
-    city: "Мытищи",
-    staff: 48,
+    slug: "sklady-tehniki-mo",
+    title: "Малые склады техники и оборудования в МО: компактные бригады Софьино + Бритово",
+    industry: "Техника и оборудование / склад",
+    city: "Софьино, Бритово",
+    staff: 12,
     durationMonths: 10,
-    metricUp: "0 срывов смены по температурным зонам",
+    metricUp: "На малом объекте — замены в день обращения",
     summary:
-      "Выровняли выход смен под график открытия камер и требования HACCP: буфер замен и маршрут до зоны без пересечения с сухим складом.",
+      "Два соседних склада в Московской области (Софьино и Бритово): хранение и обработка техники и оборудования. На каждом — 5–6 человек, оба объекта ведёт один менеджер подрядчика. Главное — что «маленький склад» получает такой же стандарт сервиса, как крупные точки.",
     challenge:
-      "Холод — не «тот же склад, но в жилетке»: срыв смены = риск цепочки, а не только позиция в графике.",
+      "На бригаде из 5–6 человек цена «дыры в смене» выше, чем на 50-человечном объекте: невыход одного грузчика — это минус 17–20% дневной мощности. У внутренних подрядчиков на такие точки обычно либо нет ресурса, либо нет внимания.",
     solution:
-      "Согласовали график выхода на смену, дубли по критичным сменам и сценарий, если сотрудник не прошёл чек-лист допуска к зоне.",
+      "Закреплённый компактный состав по 6 человек на каждый объект + общий резерв между Софьино и Бритово (5 минут логистики). Менеджер ведёт оба склада, один регламент инцидентов и замен.",
     outcome:
-      "Смены в температурных зонах закрывались по плану; инциденты фиксировались в регламенте, а не в ночных чатах.",
+      "Замены закрываются в день обращения за счёт перекрёстного резерва. Оба объекта работают по согласованному графику без авральных просьб от заказчика «дайте кого-нибудь».",
     clientQuote:
-      "Нам нужен был поставщик, который говорит на языке HACCP, а не только ‘люди в смену’.",
-    titleEn: "Cold chain: +2…+5 °C without shift gaps",
-    industryEn: "Grocery logistics / cold chain",
-    metricUpEn: "0 temperature-zone shift failures",
+      "Раньше на малый склад нас «забывали» в очереди подрядчиков. Здесь нет ощущения, что мы маленький клиент — есть конкретный менеджер и регламент.",
+    titleEn: "Small equipment warehouses in MO: lean crews in Sofyino + Britovo",
+    industryEn: "Equipment / warehouse",
+    metricUpEn: "Same-day replacements on small sites",
     summaryEn:
-      "Aligned shift starts with chamber open times and HACCP incidents: replacement buffer and path to zone without crossing dry flow.",
-    cityEn: "Mytishchi",
+      "Two adjacent warehouses in Moscow Oblast (Sofyino and Britovo) handling equipment storage and processing. Each site runs a 5–6 person crew under one shared contractor manager — same service standard as on large sites.",
+    cityEn: "Sofyino, Britovo, Moscow Oblast",
     challengeEn:
-      "Cold is not “the same DC in a jacket” — a missed shift is a chain risk, not just a blank cell in a roster.",
+      "On a 5–6 person crew, one no-show costs 17–20% of daily capacity — far worse than on a 50-person site. Such small sites usually fall off contractors' attention.",
     solutionEn:
-      "Aligned start slots, critical-shift doubles, and a playbook if someone fails the zone access checklist.",
+      "Dedicated lean crew of 6 per site plus a shared reserve across Sofyino and Britovo (5 minutes apart). One manager runs both, one incident and replacement playbook.",
     outcomeEn:
-      "Temperature-zone shifts closed on plan; incidents sat in the playbook, not in night-time chat threads.",
+      "Replacements close same-day thanks to the cross-site reserve. Both sites run on the agreed schedule without emergency ‘send anyone’ requests from the client.",
     clientQuoteEn:
-      "We needed a vendor that speaks HACCP, not only “people for the shift”.",
+      "Small sites used to be the last on every contractor's queue. Here we do not feel like a small client — there is a real manager and a real playbook.",
   },
   {
-    slug: "ecom-fulfilment-ramenskoe",
-    title: "E-com фулфилмент: пик 11.11 без раздувания ядра",
-    industry: "E-commerce / fulfilment",
-    city: "Раменское",
-    staff: 110,
-    durationMonths: 5,
-    metricUp: "+27% отгрузочных строк при том же ядре",
+    slug: "tabachnyy-sklad-krekshino",
+    title: "Склад табачной продукции в Крекшино: контролируемый пропускной режим",
+    industry: "FMCG / табак",
+    city: "Крекшино",
+    staff: 10,
+    durationMonths: 10,
+    metricUp: "Инвентаризации без расхождений по бригаде",
     summary:
-      "Набор и ввод под короткое окно пика: один контакт подрядчика, замены по регламенту, без конфликта с постоянным штатом.",
+      "Склад табачной продукции (акцизный товар) в Крекшино: 10 человек ведут приём, складирование и отгрузку при усиленных требованиях к учёту, пропускному режиму и обращению с маркой.",
     challenge:
-      "Годовой промо-пик: нужно быстро закрыть объём без потери качества комплектации и без бесконечного overtime ядра.",
+      "Акцизный товар — это не «обычная коробка»: ошибка в учёте или нарушение пропускного режима = претензии и аудит, а не разговор «давайте перепишем». Подрядчик по персоналу должен жить в этом режиме, а не «перепроверять, что подписал».",
     solution:
-      "Пул смен под профиль FBS, приоритет индуктивных линий в графике отгрузки и еженедельный разбор отклонений до конца пика.",
+      "Подобрали бригаду 10 чел. с регулярными инструктажами и допусками под требования объекта. Закрепили владельца за инвентаризациями, синхронизировали смены с пропускным режимом и графиком проверок маркировки.",
     outcome:
-      "Строк отгрузки стало больше без пропорционального роста постоянного штата; после пика — контролируемое сжатие численности.",
+      "Инвентаризации проходят без расхождений по бригаде; пропускной режим выдерживается без замечаний на проверках. Заказчик закрывает регламенты учёта без участия аварийного резерва.",
     clientQuote:
-      "Мы не хотели ‘нанять всех и потом резать’ — нужен был управляемый пул под окно кампании.",
-    titleEn: "E-com fulfilment: 11.11 peak without bloating core staff",
-    industryEn: "E-commerce / fulfilment",
-    metricUpEn: "+27% outbound lines at same core size",
+      "Табак требует ровно столько дисциплины, сколько обычный склад умеет «срезать на пятничной смене». Подрядчик должен это понимать с первой недели.",
+    titleEn: "Tobacco warehouse in Krekshino: controlled access regime",
+    industryEn: "FMCG / tobacco",
+    metricUpEn: "Inventory closes with no crew variance",
     summaryEn:
-      "Hiring and onboarding for a tight peak window: one vendor contact, replacement rules, no collision with the core team.",
+      "Tobacco warehouse (excise goods) in Krekshino: a 10-person crew handles inbound, storage and dispatch under enhanced accounting, access and stamp-handling rules.",
+    cityEn: "Krekshino, Moscow Oblast",
     challengeEn:
-      "Annual promo peak: surge volume fast without picking-quality drift or endless core-team overtime.",
+      "Excise goods are not ‘just boxes’: any accounting error or access breach triggers claims and audits, not a polite rewrite. The labour contractor must live in this regime, not double-check it after the fact.",
     solutionEn:
-      "Shift pool tuned to FBS profile, priority slots on induct lines, weekly variance reviews until the peak ends.",
+      "Selected 10-person crew with regular briefings and site permits. A named owner for inventory cycles, shifts synced to the access regime and stamp-check schedule.",
     outcomeEn:
-      "Outbound lines rose without a proportional core headcount spike; after peak, the contour tightened in a controlled way.",
+      "Inventory closes with no crew variance; access regime holds across inspections. The client closes accounting routines without emergency reserves.",
     clientQuoteEn:
-      "We did not want ‘hire everyone then cut’ — we needed a managed pool for the campaign window.",
+      "Tobacco requires the discipline that a regular warehouse tends to ‘relax on Friday’. The vendor must get this from week one.",
   },
 ];
 
