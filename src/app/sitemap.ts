@@ -17,7 +17,6 @@ const STATIC_BASE = [
   "/keysy",
   "/blog",
   "/kalkulyator",
-  "/zayavka",
   "/kontakty",
   "/o-kompanii",
   "/o-kompanii/komanda",
@@ -31,7 +30,6 @@ const STATIC_BASE = [
   "/oferta",
   "/soglasie-na-obrabotku-pd",
   "/pravila-saita",
-  "/sitemap",
 ] as const;
 
 const STATIC = [...STATIC_BASE, ...allMultipageSeoPaths()];

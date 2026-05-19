@@ -14,6 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     pathname: "/sitemap",
     title: t("htmlSitemap.metaTitle"),
     description: t("htmlSitemap.metaDescription"),
+    noindex: true,
   });
 }
 

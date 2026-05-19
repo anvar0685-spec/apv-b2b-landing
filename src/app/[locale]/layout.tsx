@@ -21,6 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(site.url),
     icons: {
       icon: [
+        { url: "/favicon.ico", sizes: "any" },
         { url: "/icon.png", sizes: "32x32", type: "image/png" },
         { url: "/favicon-120.png", sizes: "120x120", type: "image/png" },
       ],

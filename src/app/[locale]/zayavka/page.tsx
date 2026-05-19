@@ -19,6 +19,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     pathname: "/zayavka",
     title: t("metaTitle"),
     description: t("metaDescription"),
+    noindex: true,
   });
 }
 
