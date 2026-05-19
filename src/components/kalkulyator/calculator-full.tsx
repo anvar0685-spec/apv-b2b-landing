@@ -12,16 +12,21 @@ import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
+import {
+  MONTHLY_SHIFT_SCHEDULES,
+  WAREHOUSE_SHIFT_HOURS,
+  pricePerPersonPerMonthRub,
+  pricePerShiftRub,
+} from "@/content/shift-pricing";
 
 const SERVICE_SLUG = "autsorsing" as const;
-const HOURS_SHIFT = 12;
 /** 5 шагов + экран срока/итога (нед. 7 мастер-док: профиль → численность → формат → локация → срок/доп. → результат). */
 const STEPS = 6;
 
 type WorkFormat = "permanent" | "seasonal" | "night" | "oneoff";
 
 const FORMATS: { id: WorkFormat; label: string; hint: string }[] = [
-  { id: "permanent", label: "Постоянный персонал", hint: "База ~40 ч/нед" },
+  { id: "permanent", label: "Постоянный персонал", hint: "Ориентир — 11-ч смена, таблица ниже" },
   { id: "seasonal", label: "Сезон / пик", hint: "Выше часов + пиковая надбавка" },
   { id: "night", label: "Ночные смены", hint: "Надбавка к ставке по смене" },
   { id: "oneoff", label: "Разовый проект", hint: "Короткое окно, частичная занятость" },
@@ -84,9 +89,15 @@ export function CalculatorFull() {
     const total = Math.round(subtotal + compliancePrem + extras);
     const low = Math.round(total * 0.9);
     const high = Math.round(total * 1.1);
-    const shift12 = Math.round(hourlyEffective * HOURS_SHIFT * headcount);
+    const shift11 = pricePerShiftRub(hourlyEffective) * headcount;
+    const monthlyBySchedule = Object.fromEntries(
+      MONTHLY_SHIFT_SCHEDULES.map((s) => [
+        s.id,
+        Math.round(pricePerPersonPerMonthRub(hourlyEffective, s.workDaysPerWeek) * headcount),
+      ]),
+    ) as Record<(typeof MONTHLY_SHIFT_SCHEDULES)[number]["id"], number>;
     const projectTotal = Math.round(total * durationMonths);
-    return { low, high, total, shift12, projectTotal };
+    return { low, high, total, shift11, monthlyBySchedule, projectTotal };
   }, [
     hourlyEffective,
     hoursPerWeek,
@@ -300,10 +311,17 @@ export function CalculatorFull() {
                   <strong>Ставка с учётом смены:</strong> {hourlyEffective} ₽/ч
                 </li>
                 <li>
-                  <strong>Ориентир за смену 12 ч (вся группа):</strong> {estimate.shift12.toLocaleString("ru-RU")} ₽
+                  <strong>Ориентир за смену {WAREHOUSE_SHIFT_HOURS} ч (вся группа):</strong>{" "}
+                  {estimate.shift11.toLocaleString("ru-RU")} ₽
                 </li>
+                {MONTHLY_SHIFT_SCHEDULES.map((s) => (
+                  <li key={s.id}>
+                    <strong>Месяц · {s.label}:</strong>{" "}
+                    {estimate.monthlyBySchedule[s.id].toLocaleString("ru-RU")} ₽
+                  </li>
+                ))}
                 <li>
-                  <strong>Оценка на месяц (вся группа, база):</strong> {estimate.total.toLocaleString("ru-RU")} ₽
+                  <strong>Оценка с допами (вся группа, база):</strong> {estimate.total.toLocaleString("ru-RU")} ₽
                 </li>
                 <li>
                   <strong>Оценка на {durationMonths} мес.:</strong> {estimate.projectTotal.toLocaleString("ru-RU")} ₽

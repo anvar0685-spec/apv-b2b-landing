@@ -1,6 +1,8 @@
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 import type { ReactElement } from "react";
+import { MONTHLY_SHIFT_SCHEDULES, WAREHOUSE_SHIFT_HOURS } from "@/content/shift-pricing";
 import type { KpFundLine } from "@/lib/kp-draft/estimate";
+import type { MonthlyShiftScheduleId } from "@/content/shift-pricing";
 
 const ACCENT = "#0d9488";
 const PRIMARY = "#071525";
@@ -207,6 +209,8 @@ export type KpDraftPdfProps = {
   fundLines: KpFundLine[];
   weightedHourly: number;
   monthlyMid: number;
+  monthlyBySchedule: Record<MonthlyShiftScheduleId, number>;
+  defaultScheduleLabel: string;
   low: number;
   high: number;
 };
@@ -293,8 +297,8 @@ export function KpDraftDocument(props: KpDraftPdfProps): ReactElement {
         <Text style={styles.sectionTitle}>Ориентир по фонду (упрощённо)</Text>
         <Text style={{ fontSize: 9, color: MUTED, marginBottom: 6 }}>
           {multi
-            ? "По каждой строке профиля: ставка из прайса витрины × 40 ч в неделю × 4,3 недели в месяце × численность по строке; итоговый фонд — сумма строк. Нижняя и верхняя границы вилки — условно −10% и +10% от суммарной месячной оценки (день, Москва/МО, без ночи и пика), не цена по договору."
-            : "Базовая ставка ₽/ч берётся из прайса витрины (как в калькуляторе на сайте): для каждого профиля своё значение в файле ставок; если профиль не размечен — ориентир 600 ₽/ч. Фонд в месяц: ставка × 40 ч в неделю × 4,3 недели в месяце × численность (день, Москва/МО, без ночи и пика). Нижняя и верхняя границы вилки — условно −10% и +10% от этой месячной оценки как упрощённый разброс рисков по объекту, не цена по договору."}
+            ? `По каждой строке: ставка витрины × ${WAREHOUSE_SHIFT_HOURS} ч смена × число смен в месяце по графику × численность; итог — сумма строк. Основной ориентир в блоке ниже — график «${props.defaultScheduleLabel}». Ниже — три варианта графика на месяц. Вилка ±10% от среднего графика (день, Москва/МО, без ночи и пика), не цена по договору.`
+            : `Ставка ₽/ч — из прайса витрины (как на сайте). Смена — ${WAREHOUSE_SHIFT_HOURS} ч. Фонд в месяц — три графика (без выходных / воскресенье выходной / два выходных в неделю). Основной ориентир — «${props.defaultScheduleLabel}». Вилка ±10% от него, не цена по договору.`}
         </Text>
 
         <View style={styles.box}>
@@ -342,6 +346,24 @@ export function KpDraftDocument(props: KpDraftPdfProps): ReactElement {
               </View>
             </>
           )}
+        </View>
+
+        <View style={[styles.box, { marginTop: 10 }]}>
+          {MONTHLY_SHIFT_SCHEDULES.map((s, idx) => (
+            <View
+              key={s.id}
+              style={idx === MONTHLY_SHIFT_SCHEDULES.length - 1 ? [styles.row, styles.rowLast] : styles.row}
+            >
+              <Text style={styles.cellLabel}>
+                Фонд в месяц · {s.label}
+                {"\n"}
+                <Text style={{ fontSize: 8, color: MUTED }}>{s.hint}</Text>
+              </Text>
+              <View style={{ width: "58%" }}>
+                <CellMoneyLine figures={formatMoneyRu(props.monthlyBySchedule[s.id])} suffix="руб./мес" />
+              </View>
+            </View>
+          ))}
         </View>
 
         {/* Отдельный блок: карточки вилки не делят страницу с длинной таблицей; minPresenceAhead уводит на след. страницу при нехватке места. */}

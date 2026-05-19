@@ -31,7 +31,7 @@ export default async function HomePage() {
   const t = await getTranslations("home");
   const homeUrl = absUrl("/", locale);
   const orgDescription =
-    "Аутсорсинг персонала на склады Москвы и МО с 2023 года: смены, SLA, прозрачные ставки, документы и требования площадки. Более 100 сотрудников в штате.";
+    "Аутсорсинг персонала на склады Москвы и МО с 2023 года: смены, явка и замены, прозрачные ставки и расчёт по 11-часовой смене. Более 100 сотрудников в штате.";
 
   const orgId = `${homeUrl}#organization`;
 

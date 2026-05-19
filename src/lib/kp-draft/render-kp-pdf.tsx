@@ -69,6 +69,8 @@ export async function renderKpDraftPdfBuffer(lead: LeadLikeForKp): Promise<Buffe
       fundLines={est.fundLines}
       weightedHourly={est.weightedHourly}
       monthlyMid={est.monthlyMid}
+      monthlyBySchedule={est.monthlyBySchedule}
+      defaultScheduleLabel={est.defaultScheduleLabel}
       low={est.low}
       high={est.high}
     />

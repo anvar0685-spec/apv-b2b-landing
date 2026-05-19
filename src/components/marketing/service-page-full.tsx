@@ -13,6 +13,7 @@ import { ServiceScrollStory } from "@/components/marketing/service-scroll-story"
 import { ServiceSectionWrap } from "@/components/marketing/service-section-wrap";
 import { cn } from "@/lib/utils";
 import { slugVisualVariant, variantClass } from "@/lib/slug-visual-seed";
+import { ShiftPricingTable } from "@/components/marketing/shift-pricing-table";
 const WAREHOUSE_PROFESSIONS = PROFESSIONS.slice(0, 10);
 
 type Props = { model: ServicePageModel; /** Горизонтальный scroll-story + reveal секций (включаем точечно на 1–2 URL) */ scrollStory?: boolean };
@@ -131,6 +132,12 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
             ))}
           </div>
         </ServiceSectionWrap>
+
+        {model.slug === "autsorsing" ? (
+          <ServiceSectionWrap motionEnabled={motion} className="mt-14">
+            <ShiftPricingTable />
+          </ServiceSectionWrap>
+        ) : null}
 
         <ServiceSectionWrap motionEnabled={motion} className="mt-14">
           <h2 className="type-headline">{t.whoFits}</h2>
