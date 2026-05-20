@@ -13,7 +13,9 @@
 | `deploy/deploy-remote.example.sh` | Шаблон: `git pull` на сервере → `npm ci` → `build:vps` → `pm2 reload` |
 | `deploy/yandex-oauth.env.example` | Шаблон переменных Яндекс OAuth (Вебмастер API); секреты — в `deploy/.yandex-oauth.local.env` (локально, **не в git**) |
 | `deploy/metrica-oauth.env.example` | Шаблон для **API Метрики** (опционально отдельный `deploy/.metrica-oauth.local.env`) |
+| `deploy/google-oauth.env.example` | Шаблон **Google Search Console API**; секреты — `deploy/.google-oauth.local.env` |
 | `scripts/yandex-webmaster.mjs` | CLI: OAuth, sitemap, **переобход URL** (`recrawl` / `recrawl-quota`), **`audit`** (сводка API: диагностика, sitemap, квота), список приоритетов `deploy/webmaster-recrawl-priority.txt` |
+| `scripts/google-search-console.mjs` | CLI: OAuth, sitemap (`gsc:sync`), URL Inspection (`gsc:inspect-file`); гайд **`my-guide/GOOGLE-SEO-SETUP.md`** |
 | `scripts/yandex-metrica.mjs` | CLI: Management API — счётчики, карточка, **goals-check** / **goals-install** (список целей: `src/config/yandex-metrica-js-goals.json`) |
 | `src/app/llms.txt/route.ts` | GEO: публичный **`/llms.txt`** для LLM; см. `.cursor/rules/04-seo-strategist-orchestrator.mdc` |
 
@@ -32,6 +34,13 @@
    - `node scripts/yandex-webmaster.mjs recrawl` — отправить URL из `deploy/webmaster-recrawl-priority.txt` в пределах квоты (пауза между запросами). Лимит за один запуск: `WEBMASTER_RECRAWL_LIMIT` в env.
 5. Альтернатива: implicit-токен вручную из URL `#access_token=...` → переменная `YANDEX_WEBMASTER_ACCESS_TOKEN` в том же `.local.env`.
 6. Документация: [Как получить OAuth-токен](https://yandex.ru/dev/webmaster/doc/ru/tasks/how-to-get-oauth).
+
+## Google Search Console (API)
+
+1. Пошагово: **`my-guide/GOOGLE-SEO-SETUP.md`** (верификация `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`, Cloud OAuth, GSC).
+2. `deploy/google-oauth.env.example` → `deploy/.google-oauth.local.env` (не в git).
+3. `npm run gsc:auth-open` → код в `deploy/.google-oauth-code.local` → `npm run gsc:exchange-file` → `npm run gsc:sites` → `npm run gsc:sync`.
+4. `npm run gsc:audit` — свойства и статусы sitemap; `npm run gsc:inspect-file` — проверка приоритетных URL (не замена Яндекс `recrawl`).
 
 ## Яндекс.Метрика (счётчик на сайте + API)
 

@@ -24,11 +24,22 @@
 - В `<head>` явно указан `/favicon.ico` для Яндекса.
 - Вебмастер: `npm run webmaster:sync` — sitemap зарегистрирован.
 
+## Google Search Console (2026-05-20)
+
+| Инструмент | Статус |
+|------------|--------|
+| Верификация (HTML-файл) | OK на проде |
+| OAuth + refresh token | `deploy/.google-oauth.local.env` (локально) |
+| Свойство API | `https://xn----7sbbgqr3atubl.xn--p1ai/` (siteOwner) |
+| Sitemap через API | `npm run gsc:sync` — submitted, pending |
+
+Гайд: `my-guide/GOOGLE-SEO-SETUP.md` · CLI: `npm run gsc:*`
+
 ## Остаётся на стороне заказчика (P0 вне кода)
 
 1. **`NEXT_PUBLIC_YANDEX_VERIFICATION`** и **`NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`** в `.env.production` на VPS → пересборка.
-2. Подтвердить сайт в **Яндекс.Вебмастере** и **Google Search Console** (регион: Москва/МО).
-3. После деплоя: `npm run webmaster:recrawl` из `apv-b2b-landing/` (квота ~150 URL/день).
+2. Подтвердить сайт в **Яндекс.Вебмастере** и **Google Search Console** (регион: Москва/МО). Google: пошагово в **`GOOGLE-SEO-SETUP.md`**.
+3. После деплоя: `npm run webmaster:recrawl` (Яндекс, квота ~150 URL/день); Google — `npm run gsc:sync` + приоритетные URL через `gsc:inspect-file`.
 4. В Вебмастере проверить **FAVICON_ERROR** (часто уходит после переобхода `/favicon.ico` и `/favicon-120.png`).
 
 ## Домен `.рф`

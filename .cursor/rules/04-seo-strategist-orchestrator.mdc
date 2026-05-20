@@ -1,5 +1,5 @@
 ---
-description: Четвёртая роль — SEO-стратег и техспециалист (Яндекс + Google) + AI-оркестратор аудита поисковой видимости
+description: Четвёртая роль — SEO-стратег (Яндекс + Google) + полная автопроверка по команде пользователя
 globs: apv-b2b-landing/**
 alwaysApply: false
 ---
@@ -14,6 +14,49 @@ alwaysApply: false
 - **`05-copywriter-outsourcing-auditor`**: язык, ясность, единый голос в теле страниц и мета-текстах; при конфликте «ключ vs читаемость» — совместное решение.
 - **`07-marketer-orchestrator`**: УТП и воронка; при конфликте «объём текста ради SEO vs читаемость и доверие» — **04** + **07** + **03**.
 - **`02-ux-premium-orchestrator`**: витрина и метрики UX влияют на поведенческие сигналы — согласовывать при крупных SEO-изменениях в шаблонах.
+
+## Команда пользователя: «проверь SEO» / «SEO аудит» / «check SEO»
+
+**Триггеры (и опечатки вроде ICO):** проверь SEO, проверка SEO, SEO аудит, состояние SEO, check SEO, вебмастер, метрика, google console, GSC.
+
+**Агент выполняет сам из `apv-b2b-landing/`**, не просит пользователя зайти в кабинеты:
+
+```bash
+npm run seo:check
+```
+
+Одна команда последовательно запускает:
+
+| # | Команда | Источник |
+|---|---------|----------|
+| 1 | `curl` robots, sitemap, `/ru`, google-verify | прод |
+| 2 | `webmaster:audit` | Яндекс Вебмастер API |
+| 3 | `webmaster:recrawl-quota` + `webmaster:sync` + `webmaster:recrawl` | Яндекс |
+| 4 | `metrica:counters` + `metrica:goals-check` + `metrica:counter` | Яндекс Метрика API |
+| 5 | `gsc:routine` | Google Search Console API |
+
+**Отчёты (прочитать и выдать пользователю сводку на русском):**
+
+- `my-guide/SEO-CHECK-latest.md` — общий лог проверки
+- `my-guide/GSC-REPORT-latest.md` — Google
+- `deploy/gsc-routine-latest.json` — JSON Google (не коммитить)
+
+**Формат ответа пользователю:** краткая таблица OK/проблемы по Яндекс / Метрика / Google / прод-URL; что исправлено; что ждать (индексация 1–3 дня). **Не выдумывать** позиции и клики.
+
+**Секреты:** `deploy/.yandex-oauth.local.env`, `deploy/.google-oauth.local.env` — не цитировать в чат. При 401 OAuth — починить токен (`gsc:auth-serve`, `webmaster:exchange-file`), затем повторить `seo:check`.
+
+### Commit и деплой (только если нужно)
+
+| Ситуация | Действие |
+|----------|----------|
+| Только мониторинг, код не менялся | **Не** commit, **не** deploy |
+| Агент **исправил** SEO в коде (meta, sitemap, robots, verify-файлы) | `npm run build` → commit **только если пользователь просил commit** или явно «закоммить и выкати» |
+| Нужен прод после правок | Деплой по **`06-deploy-vps-pm2.mdc`**: SSH, `npm ci` → `.env.production` → `npm run build:vps` → `pm2 reload` → `curl` на `127.0.0.1:3000` |
+| После успешного деплоя с SEO-изменениями | Снова `npm run seo:check` и короткий отчёт |
+
+**Не делать** commit/deploy «на всякий случай» после чистой проверки без diff.
+
+---
 
 ## Перед SEO-аудитом / перед правками под выдачу
 
@@ -67,6 +110,23 @@ alwaysApply: false
 
 - **Core Web Vitals** и стабильность layout — после крупных UI-правок иметь план проверки (PSI, CrUX при наличии).
 - Международные версии сейчас не цель — hreflang при появлении второй локали.
+
+## Google Search Console API — автоматизация (агент сам)
+
+Рабочий каталог: **`apv-b2b-landing/`**. Секреты: **`deploy/.google-oauth.local.env`** (не в git). Инструкция: **`my-guide/GOOGLE-SEO-AUTOMATION.md`**.
+
+| Когда | Команда |
+|-------|---------|
+| После деплоя / SEO-правок / по запросу «Google SEO» | **`npm run gsc:routine`** |
+| Яндекс + Google вместе | **`npm run seo:routine`** (`webmaster:sync` + `gsc:routine`) |
+| Только sitemap | `npm run gsc:sync` |
+| Токен сброшен / 401 | `npm run gsc:auth-serve` (Test users в Cloud) |
+
+**Читать результат:** `my-guide/GSC-REPORT-latest.md`, `deploy/gsc-routine-latest.json`.
+
+**Не перекладывать на пользователя:** sitemap, inspect приоритетных URL, analytics API — агент запускает из терминала. **Не обещать** автоматический «запрос индексации» как в UI GSC — API этого для лендинга нет.
+
+Приоритетные URL: **`deploy/webmaster-recrawl-priority.txt`** (общий с Яндекс `webmaster:recrawl`).
 
 ## После заметных SEO-правок
 

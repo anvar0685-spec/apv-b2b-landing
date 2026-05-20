@@ -32,6 +32,17 @@ export async function HomeSections() {
     })),
   };
 
+  /** Speakable: для голосовых ассистентов (Алиса, Google Assistant) — какие блоки страницы читать вслух. */
+  const speakableJson = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "АПВ — СИСТЕМА — Складской персонал под ключ",
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "h2", "[data-speakable]"],
+    },
+  };
+
   const serviceTiles = [
     {
       href: "/uslugi/nochnye-smeny",
@@ -53,6 +64,7 @@ export async function HomeSections() {
   return (
     <>
       <JsonLd data={faqJson} />
+      <JsonLd data={speakableJson} />
       <section id="services-preview" className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <h2 className="type-display-lg max-w-3xl text-balance">{ts("servicesTitle")}</h2>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[var(--neutral-700)]">

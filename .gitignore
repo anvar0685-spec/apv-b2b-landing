@@ -41,9 +41,17 @@ deploy/.yandex-oauth.local.env
 deploy/.yandex-oauth-code.local
 deploy/.metrica-oauth.local.env
 
+# Google Search Console API (Client secret — только локально)
+deploy/.google-oauth.local.env
+deploy/.google-oauth-code.local
+deploy/gsc-routine-latest.json
+my-guide/SEO-CHECK-latest.md
+
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+scripts/__pycache__/
