@@ -33,7 +33,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Shift supply by a contractor instead of endless in-house headcount: who it fits, what the contract locks, and what it is not — with Moscow and the region as the core coverage story for pool travel and SLAs.",
     category: "bazovaya",
-    publishedAt: new Date(2026, 2, 1).toISOString(),
+    publishedAt: new Date(2026, 2, 1, 12, 0, 0).toISOString(),
     readingTime: 14,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -72,7 +72,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "How contract purpose, risk zones and day-to-day people ownership differ — with Moscow/region DCs in mind: who actually owns attendance and replacement on the day, not just on a slide.",
     category: "model",
-    publishedAt: new Date(2026, 2, 3).toISOString(),
+    publishedAt: new Date(2026, 2, 3, 12, 0, 0).toISOString(),
     readingTime: 13,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -106,7 +106,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "A practical checklist for procurement and the COO: replacements, documents, peak plans, reporting and a bounded on-site start — without a toxic low bid.",
     category: "zakupka",
-    publishedAt: new Date(2026, 2, 6).toISOString(),
+    publishedAt: new Date(2026, 2, 5, 12, 0, 0).toISOString(),
     readingTime: 16,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -146,7 +146,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "From hourly to monthly: shifts, night uplifts, MO travel-to-site costs, housing on long commutes, peak loads — the finance view for apples-to-apples comparison.",
     category: "stoimost",
-    publishedAt: new Date(2026, 2, 9).toISOString(),
+    publishedAt: new Date(2026, 2, 7, 12, 0, 0).toISOString(),
     readingTime: 12,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -179,7 +179,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "A clear matrix: flexibility, ramp speed, contractor risk vs losing internal WMS know-how — grounded in real Moscow/region DC trade-offs, not an abstract 'market' story.",
     category: "bazovaya",
-    publishedAt: new Date(2026, 2, 12).toISOString(),
+    publishedAt: new Date(2026, 2, 9, 12, 0, 0).toISOString(),
     readingTime: 15,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -217,7 +217,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "End-to-end from request to report: headcount alignment, first shifts on a bounded zone, stabilising attendance and replacements.",
     category: "model",
-    publishedAt: new Date(2026, 2, 15).toISOString(),
+    publishedAt: new Date(2026, 2, 11, 12, 0, 0).toISOString(),
     readingTime: 15,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -256,7 +256,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Full shift TCO: hire, training, idle risk, overtime, peaks — with Moscow/region logistics inside the model, not as a footnote.",
     category: "stoimost",
-    publishedAt: new Date(2026, 2, 18).toISOString(),
+    publishedAt: new Date(2026, 2, 13, 12, 0, 0).toISOString(),
     readingTime: 15,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -290,7 +290,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Plain-language picker scope for Moscow/region DCs: picking, errors, night peaks, marketplace surges — in SOP/WMS terms, not HR clichés.",
     category: "professii",
-    publishedAt: new Date(2026, 2, 21).toISOString(),
+    publishedAt: new Date(2026, 2, 15, 12, 0, 0).toISOString(),
     readingTime: 13,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -327,7 +327,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Loading/unloading loop for Moscow/region warehouses: injury hot spots and keeping loaders distinct from FLT operators unless licensed.",
     category: "professii",
-    publishedAt: new Date(2026, 2, 24).toISOString(),
+    publishedAt: new Date(2026, 2, 17, 12, 0, 0).toISOString(),
     readingTime: 12,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -360,7 +360,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Site-access and HR paperwork for Moscow/region warehouses: owners, document packs, timelines — keeping your shift vendor auditable for procurement.",
     category: "migraciya",
-    publishedAt: new Date(2026, 2, 27).toISOString(),
+    publishedAt: new Date(2026, 2, 19, 12, 0, 0).toISOString(),
     readingTime: 17,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -393,7 +393,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Attendance as an SLA for Moscow/region DCs: thresholds, exclusions, data sources (timesheets, gates, WMS), coupling with penalties and replacements.",
     category: "zakupka",
-    publishedAt: new Date(2026, 3, 2).toISOString(),
+    publishedAt: new Date(2026, 2, 21, 12, 0, 0).toISOString(),
     readingTime: 16,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -430,7 +430,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Why nights cost more than days: pool scarcity, transport, H&S control and 02:00 replacements — a contractor view for finance and COO.",
     category: "stoimost",
-    publishedAt: new Date(2026, 3, 5).toISOString(),
+    publishedAt: new Date(2026, 2, 23, 12, 0, 0).toISOString(),
     readingTime: 15,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -462,7 +462,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Triggers, response time, channel, owner on both sides — replacements under outsourcing without a 04:30 fire drill; Moscow/region focus.",
     category: "model",
-    publishedAt: new Date(2026, 3, 8).toISOString(),
+    publishedAt: new Date(2026, 2, 25, 12, 0, 0).toISOString(),
     readingTime: 14,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -493,7 +493,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "From scanning to shift close: vendor access hygiene and reporting that survives ops manager turnover.",
     category: "optimizaciya",
-    publishedAt: new Date(2026, 3, 11).toISOString(),
+    publishedAt: new Date(2026, 2, 27, 12, 0, 0).toISOString(),
     readingTime: 15,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -524,7 +524,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Bench, ramp order, add/rollback triggers — an outsourcing ops lens for Moscow/region peaks.",
     category: "model",
-    publishedAt: new Date(2026, 3, 14).toISOString(),
+    publishedAt: new Date(2026, 2, 29, 12, 0, 0).toISOString(),
     readingTime: 16,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -554,7 +554,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Avoiding a units-per-hour race that eats safety: KPI coupling for outsourced lines at Moscow/region DCs.",
     category: "optimizaciya",
-    publishedAt: new Date(2026, 3, 17).toISOString(),
+    publishedAt: new Date(2026, 2, 31, 12, 0, 0).toISOString(),
     readingTime: 15,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -585,7 +585,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Shift vendors do not own yard congestion unless scoped: separating people no-shows from slot starvation — Moscow/region patterns.",
     category: "zakupka",
-    publishedAt: new Date(2026, 3, 20).toISOString(),
+    publishedAt: new Date(2026, 3, 2, 12, 0, 0).toISOString(),
     readingTime: 14,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -615,7 +615,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Single source of truth for hours, shift close and overtime — no duplicate books; finance + ops view for Moscow/region.",
     category: "compliance",
-    publishedAt: new Date(2026, 3, 23).toISOString(),
+    publishedAt: new Date(2026, 3, 4, 12, 0, 0).toISOString(),
     readingTime: 16,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -645,7 +645,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Don't mix SKUs at tender: attendance-only vs process-owned KPIs — a Moscow/region oriented contrast.",
     category: "bazovaya",
-    publishedAt: new Date(2026, 3, 26).toISOString(),
+    publishedAt: new Date(2026, 3, 6, 12, 0, 0).toISOString(),
     readingTime: 14,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -697,7 +697,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Shift rostering for transit/sort without KPI collisions — contractor practice for Moscow/region DCs.",
     category: "professii",
-    publishedAt: new Date(2026, 3, 29).toISOString(),
+    publishedAt: new Date(2026, 3, 8, 12, 0, 0).toISOString(),
     readingTime: 15,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -727,7 +727,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Structured ramp into local SOPs, mentors, hourly checkpoints and WMS coupling — for Moscow/region DCs.",
     category: "hr",
-    publishedAt: new Date(2026, 4, 2).toISOString(),
+    publishedAt: new Date(2026, 3, 10, 12, 0, 0).toISOString(),
     readingTime: 17,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -765,7 +765,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Intro/repeat briefings, logs, equipment and height permits — material ownership and signatures aligned with shift supply contracts in Moscow/region.",
     category: "compliance",
-    publishedAt: new Date(2026, 4, 5).toISOString(),
+    publishedAt: new Date(2026, 3, 12, 12, 0, 0).toISOString(),
     readingTime: 16,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -799,7 +799,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "When contractor staffing includes PRT drivers: rates, replacement bench, licence checks and RFQ pitfalls.",
     category: "professii",
-    publishedAt: new Date(2026, 4, 8).toISOString(),
+    publishedAt: new Date(2026, 3, 14, 12, 0, 0).toISOString(),
     readingTime: 15,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -832,7 +832,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Splitting stock, write-offs and defect ownership between your team and contractor lines — keeping outsourced shifts from becoming inventory holes.",
     category: "professii",
-    publishedAt: new Date(2026, 4, 11).toISOString(),
+    publishedAt: new Date(2026, 3, 16, 12, 0, 0).toISOString(),
     readingTime: 16,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -865,7 +865,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Rate lines, night rounds, food vs non-food zones — folding cleaning into staffing contracts or a separate annex.",
     category: "bazovaya",
-    publishedAt: new Date(2026, 4, 14).toISOString(),
+    publishedAt: new Date(2026, 3, 18, 12, 0, 0).toISOString(),
     readingTime: 14,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -913,7 +913,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Tying penalties and premiums to measurable attendance/quality events without turning the contract into a manipulation field — Moscow/region contractor practice.",
     category: "model",
-    publishedAt: new Date(2026, 4, 17).toISOString(),
+    publishedAt: new Date(2026, 3, 20, 12, 0, 0).toISOString(),
     readingTime: 17,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -946,7 +946,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Parallel ramp, week overlap, handover packs and WMS access — minimising idle time when changing shift vendors in Moscow or across the Oblast network.",
     category: "zakupka",
-    publishedAt: new Date(2026, 4, 20).toISOString(),
+    publishedAt: new Date(2026, 3, 22, 12, 0, 0).toISOString(),
     readingTime: 16,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -979,7 +979,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "One bid template (rates, nights, bench, replacement, reporting), hidden-fee bans and Moscow/region assumptions — procurement guide for outsourced shifts.",
     category: "zakupka",
-    publishedAt: new Date(2026, 4, 23).toISOString(),
+    publishedAt: new Date(2026, 3, 24, 12, 0, 0).toISOString(),
     readingTime: 18,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -1012,7 +1012,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Profile availability by district, mass no-show scenarios, bench vs site distance — procurement diligence for outsourced shifts.",
     category: "model",
-    publishedAt: new Date(2026, 4, 26).toISOString(),
+    publishedAt: new Date(2026, 3, 26, 12, 0, 0).toISOString(),
     readingTime: 15,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -1045,7 +1045,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Price racing, ignoring nights/travel, no bounded start zone with metrics, weak SLA legal review — costly ops patterns in Moscow/region.",
     category: "zakupka",
-    publishedAt: new Date(2026, 4, 29).toISOString(),
+    publishedAt: new Date(2026, 3, 28, 12, 0, 0).toISOString(),
     readingTime: 16,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -1077,7 +1077,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Uplifts vs base rates, night/weekend pool scarcity, bench vs transport — economics and ops truth for shift contractors.",
     category: "stoimost",
-    publishedAt: new Date(2026, 5, 2).toISOString(),
+    publishedAt: new Date(2026, 3, 30, 12, 0, 0).toISOString(),
     readingTime: 16,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -1112,7 +1112,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Order surges, tight dispatch windows, bench scarcity and overtime ethics — for site directors using outsourced lines.",
     category: "stoimost",
-    publishedAt: new Date(2026, 5, 5).toISOString(),
+    publishedAt: new Date(2026, 4, 2, 12, 0, 0).toISOString(),
     readingTime: 17,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -1146,7 +1146,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Minimums, fixed fees, onboarding amortisation and exit flexibility — choosing contract horizon for Moscow/region staffing.",
     category: "stoimost",
-    publishedAt: new Date(2026, 5, 8).toISOString(),
+    publishedAt: new Date(2026, 4, 4, 12, 0, 0).toISOString(),
     readingTime: 16,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -1180,7 +1180,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "COO/procurement checklist before doubling outsourced volume: attendance, errors, replacement time, safety, reporting quality.",
     category: "hr",
-    publishedAt: new Date(2026, 5, 11).toISOString(),
+    publishedAt: new Date(2026, 4, 6, 12, 0, 0).toISOString(),
     readingTime: 17,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -1214,7 +1214,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Multi-tenant DCs with outsourced lines: KPI splits, confidentiality, WMS access and replacement ethics.",
     category: "model",
-    publishedAt: new Date(2026, 5, 14).toISOString(),
+    publishedAt: new Date(2026, 4, 8, 12, 0, 0).toISOString(),
     readingTime: 16,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -1249,7 +1249,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Seller-fulfilled flows: pick waves, hub windows, error/speed pressure — rostering shifts for FBS.",
     category: "optimizaciya",
-    publishedAt: new Date(2026, 5, 17).toISOString(),
+    publishedAt: new Date(2026, 4, 10, 12, 0, 0).toISOString(),
     readingTime: 16,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -1284,7 +1284,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Freeze zones, double counts, disputed stock access, variance ownership — contractor-assisted counts in Moscow/region.",
     category: "optimizaciya",
-    publishedAt: new Date(2026, 5, 20).toISOString(),
+    publishedAt: new Date(2026, 4, 12, 12, 0, 0).toISOString(),
     readingTime: 15,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -1317,7 +1317,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Consent, purpose limitation, vendor access to gates — 152-FZ alignment when lines are contractor-supplied.",
     category: "compliance",
-    publishedAt: new Date(2026, 5, 23).toISOString(),
+    publishedAt: new Date(2026, 4, 14, 12, 0, 0).toISOString(),
     readingTime: 16,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -1351,7 +1351,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Lead roles on a zone, error attribution, toxic shift rivalry — hybrid ops patterns for Moscow/region warehouses.",
     category: "bazovaya",
-    publishedAt: new Date(2026, 5, 26).toISOString(),
+    publishedAt: new Date(2026, 4, 16, 12, 0, 0).toISOString(),
     readingTime: 17,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -1385,7 +1385,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "Customer-side audits on top of vendor compliance — roles, sampling and paperwork without duplication.",
     category: "migraciya",
-    publishedAt: new Date(2026, 5, 29).toISOString(),
+    publishedAt: new Date(2026, 4, 18, 12, 0, 0).toISOString(),
     readingTime: 15,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",
@@ -1435,7 +1435,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     excerptEn:
       "What a Moscow/region warehouse client must do for migration registration of foreign workers as of May 2026: federal laws, controlled persons register, biometric requirements, CoAP fines — and which part is fair to delegate to a staffing outsourcer.",
     category: "migraciya",
-    publishedAt: new Date(2026, 4, 20).toISOString(),
+    publishedAt: new Date(2026, 4, 20, 12, 0, 0).toISOString(),
     readingTime: 18,
     authorRu: "Редакция АПВ — СИСТЕМА",
     authorEn: "APV — SISTEMA editorial",

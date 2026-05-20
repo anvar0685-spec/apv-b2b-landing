@@ -49,7 +49,7 @@
 | Услуги | Страницы `/uslugi/*`: `autsorsing`, `upravlyaemyy-podryad`, `migracionnyy-uchet`, `podbor-personala`, `postoyannyy-personal`, `nochnye-smeny`; контент в `src/content/service-pages/*`, `getServicePage`, `ServicePageFull`, JSON-LD Service+FAQ. **`autsorsing`**: расширенный текст + SEO-поля в data, мета и ключевые слова. Редирект `/uslugi/autstaffing` → статья блога про отличие моделей. |
 | Персонал | Хаб `/personal`, programmatic `/personal/[profession]/[city]` **на RU**, `profession-icons.tsx`; приоритетные 30 — расширенный текст; **остальные пары** — **`getProgrammaticLocalNarrative`** + городские абзацы **`programmatic-city-local.ts`** в **`ProgrammaticStaffingPage`**. |
 | Отрасли | `CommercialSeoPage` + **`editorialParagraphs`** из `commercial-editorial.ts` на **`/otrasli/*`**. Отдельного хаба «География» и раздела **`/ploshchadki`** в проде нет (редиректы в `next.config.mjs`); география и локальное сравнение — **`/personal/{профессия}/{город}`**. |
-| Блог | **40** статей в **`blog-published.ts`**, хаб **`/blog`** и категории; **`BlogPosting` JSON-LD**; карточки через **`PremiumBlogCard`** (интерфейс RU). Контент: лонгриды под аутсорсинг складских смен (закупка, SLA, ТБ, роли, TCO, миграция, compliance); даты публикаций апрель–июнь 2026 (по данным в коде). |
+| Блог | **41** статей в **`blog-published.ts`** (добавлена опорная **миграционный учёт 2026**); хаб **`/blog`** и категории; **`BlogPosting` JSON-LD**; prev/next навигация на странице статьи. Даты публикаций **01.03.2026–20.05.2026** (без «будущих» июньских — выровнено 2026-05-20). |
 | Шапка | `site-header-client.tsx`: grid, навигация, drawer. |
 | Футер | **`site-footer.tsx`**: бренд **АПВ - СИСТЕМА**, полное наименование **ИП Махмадов**, ИНН/ОГРНИП, юр. адрес (Люберцы). |
 | Реквизиты | **`config/site.ts`**: ИНН, ОГРНИП, адрес, р/с, БИК, к/с, банк; дубли в **`.env.example`** для прода. |
@@ -161,7 +161,7 @@
 | Задача | Готово | Комментарий |
 |--------|--------|-------------|
 | Long-read шаблон | [x] | done: TOC, секции, related, CTA; `/blog/[slug]` + `locale`. |
-| 10 статей | [x] | done → расширено до **40** slug в `blog-published.ts` (2026-04); редакционная финальная вычитка заказчиком — по желанию. |
+| 10 статей | [x] | done → **41** slug; опорная статья `migracionnyy-uchet-skladskogo-personala-2026-zakon-i-praktika` (2026-05-20); даты блога выровнены под актуальный календарь. |
 | Article JSON-LD | [x] | done: `BlogPosting` на странице статьи. |
 | Блог в sitemap | [x] | done: из `BLOG_POSTS` / опубликованных slug. |
 
@@ -216,8 +216,9 @@
 
 ## Последнее обновление
 
-- **Дата:** 2026-05-16  
-- **Кто:** agent (роли 02 + 03 + 05)  
-- **Что:** **реальные фото объекта (Софьино, МО) на главной** — заменён сток в `public/home/industrial-band/` на 5 кадров из `~/Desktop/Фото для сайта` (`hero-sklad.jpg` 1600×900, четыре тайла 1280×960; lanczos3, mozjpeg q78–80; водяной знак на 04 обрезан). Старый сток — резерв в `_old-stock/`. Скрипт ресайза — `scripts/_resize-real-photos.mjs`. Заведены осмысленные `alt` в `ru.json` (`industrialBand.photo*Alt`) и проброшены через `IndustrialPhoto` в `industrial-photo-tiles.tsx` (превью + lightbox). **Второй редакционный проход блога:** расширены «худые» лонгриды 19/25/40 (с 3–6 коротких секций до 6 секций / 16–17 абзацев каждая); добавлены «живые наблюдения с объекта» в ст. 6/21/36. `npm run build` — OK. Карта правок зафиксирована в **`my-guide/COPYWRITER-FINAL-AUDIT-REPORT.md`** (часть VIII).  
+- **Дата:** 2026-05-20  
+- **Кто:** agent (роли 03 + 04 + 05)  
+- **Что:** **Блог:** опорная статья по миграционному учёту 2026 (`/ru/blog/migracionnyy-uchet-skladskogo-personala-2026-zakon-i-praktika`); prev/next на статье; даты всех **41** материалов пересчитаны **01.03–20.05.2026** (убраны июньские «заглядывания вперёд»). **SEO API:** Яндекс — переобход статьи + `/blog/category/migraciya` + хаб `/blog` (`webmaster:recrawl`, квота 85 осталось); Google GSC inspect — **PASS**, «Страница отправлена и проиндексирована» (last crawl 2026-05-20). **UX:** политика ПДн из `/zayavka` — `target=_blank`. Деплой на VPS.  
+- **Предыдущее:** 2026-05-16 — **реальные фото объекта (Софьино, МО) на главной** — заменён сток в `public/home/industrial-band/` на 5 кадров из `~/Desktop/Фото для сайта` (`hero-sklad.jpg` 1600×900, четыре тайла 1280×960; lanczos3, mozjpeg q78–80; водяной знак на 04 обрезан). Старый сток — резерв в `_old-stock/`. Скрипт ресайза — `scripts/_resize-real-photos.mjs`. Заведены осмысленные `alt` в `ru.json` (`industrialBand.photo*Alt`) и проброшены через `IndustrialPhoto` в `industrial-photo-tiles.tsx` (превью + lightbox). **Второй редакционный проход блога:** расширены «худые» лонгриды 19/25/40 (с 3–6 коротких секций до 6 секций / 16–17 абзацев каждая); добавлены «живые наблюдения с объекта» в ст. 6/21/36. `npm run build` — OK. Карта правок зафиксирована в **`my-guide/COPYWRITER-FINAL-AUDIT-REPORT.md`** (часть VIII).  
 - **Предыдущее крупное:** 2026-05-02 — прод на VPS (nginx, PM2, standalone), `/` → `/ru` отдаёт 200.  
 - **Следующий шаг:** **благодарственные письма от клиентов** (4–6 сканов, минимум 1400×1800) — заменить демо-SVG в `public/thank-you-letters/` и обновить `src/content/thank-you-letters.ts`. Параллельно — **HTTPS + домен** и финальный `NEXT_PUBLIC_SITE_URL`; юридическая вычитка; смоук лидов и Метрика на домене прода. Опционально: `exiftool -all=` на новых фото объекта перед публичным деплоем.
