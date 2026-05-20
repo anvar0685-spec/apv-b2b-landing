@@ -9,16 +9,18 @@ export type BlogStub = Pick<BlogArticle, "slug" | "title" | "excerpt" | "categor
   excerptEn?: string;
 };
 
-export const BLOG_POSTS: BlogStub[] = PUBLISHED_BLOG_ARTICLES.map((a) => ({
-  slug: a.slug,
-  title: a.title,
-  titleEn: a.titleEn,
-  excerpt: a.excerpt,
-  excerptEn: a.excerptEn,
-  category: a.category,
-  publishedAt: a.publishedAt,
-  readingTime: a.readingTime,
-}));
+export const BLOG_POSTS: BlogStub[] = PUBLISHED_BLOG_ARTICLES
+  .map((a) => ({
+    slug: a.slug,
+    title: a.title,
+    titleEn: a.titleEn,
+    excerpt: a.excerpt,
+    excerptEn: a.excerptEn,
+    category: a.category,
+    publishedAt: a.publishedAt,
+    readingTime: a.readingTime,
+  }))
+  .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 
 export const BLOG_PAGE_SIZE = 9;
 
