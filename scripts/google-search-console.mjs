@@ -198,14 +198,20 @@ async function getAccessToken(env, { persistRefresh = true } = {}) {
   if (!cid || !sec) {
     throw new Error("Нужны GOOGLE_OAUTH_CLIENT_ID и GOOGLE_OAUTH_CLIENT_SECRET в deploy/.google-oauth.local.env");
   }
-  let access = env.GOOGLE_GSC_ACCESS_TOKEN?.trim();
-  const stale = !access;
-  if (!access) access = await refreshAccessToken(env);
+  // Google access_token живёт ~1 час → если есть refresh_token, всегда освежаем,
+  // чтобы рутинные команды (gsc:routine, seo:check) не падали на HTTP 401 после простоя.
+  const refresh = (env.GOOGLE_OAUTH_REFRESH_TOKEN || "").trim();
+  let access = "";
+  if (refresh) {
+    access = (await refreshAccessToken(env)) || "";
+  }
+  if (!access) access = (env.GOOGLE_GSC_ACCESS_TOKEN || "").trim();
   if (!access) {
     throw new Error("Нет токена: npm run gsc:auth-serve (Test users в Google Cloud)");
   }
-  if (persistRefresh && stale && access) {
+  if (persistRefresh && access && access !== (env.GOOGLE_GSC_ACCESS_TOKEN || "").trim()) {
     upsertEnvFile(OAUTH_ENV, { GOOGLE_GSC_ACCESS_TOKEN: access });
+    env.GOOGLE_GSC_ACCESS_TOKEN = access;
   }
   return access;
 }
