@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
-import { getBlogArticle, PUBLISHED_BLOG_ARTICLES, relatedArticles, type BlogArticle } from "@/content/blog-published";
+import {
+  adjacentArticles,
+  getBlogArticle,
+  PUBLISHED_BLOG_ARTICLES,
+  relatedArticles,
+  type BlogArticle,
+} from "@/content/blog-published";
 import { Button } from "@/components/ui/button";
 import { MarketingHeroChrome } from "@/components/marketing/marketing-hero-chrome";
 import { SectionDivider } from "@/components/marketing/section-divider";
@@ -79,6 +85,7 @@ export default function BlogArticlePage({ params }: Props) {
   };
 
   const related = relatedArticles(post.slug, post.category, 5);
+  const { prev, next } = adjacentArticles(post.slug);
   const back = "Блог";
   const catLabel = post.category.replace(/-/g, " ");
 
@@ -140,9 +147,45 @@ export default function BlogArticlePage({ params }: Props) {
 
         {authorCard(post)}
 
+        {(prev || next) ? (
+          <nav
+            aria-label="Навигация по блогу"
+            className="mt-16 grid gap-4 border-t border-[var(--neutral-200)] pt-10 dark:border-white/10 md:grid-cols-2"
+          >
+            {prev ? (
+              <Link
+                href={`/blog/${prev.slug}`}
+                className="group rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-5 transition-colors hover:border-[var(--accent)] dark:border-white/10"
+              >
+                <p className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">
+                  ← Предыдущая статья
+                </p>
+                <p className="mt-2 line-clamp-2 font-medium text-[var(--primary)] group-hover:text-[var(--accent)] dark:text-white">
+                  {prev.title}
+                </p>
+              </Link>
+            ) : (
+              <span aria-hidden className="hidden md:block" />
+            )}
+            {next ? (
+              <Link
+                href={`/blog/${next.slug}`}
+                className="group rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-5 text-right transition-colors hover:border-[var(--accent)] dark:border-white/10"
+              >
+                <p className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">
+                  Следующая статья →
+                </p>
+                <p className="mt-2 line-clamp-2 font-medium text-[var(--primary)] group-hover:text-[var(--accent)] dark:text-white">
+                  {next.title}
+                </p>
+              </Link>
+            ) : null}
+          </nav>
+        ) : null}
+
         {related.length ? (
           <aside className="mt-16 border-t border-[var(--neutral-200)] pt-10 dark:border-white/10">
-            <h2 className="type-kicker">Ещё материалы</h2>
+            <h2 className="type-kicker">Ещё материалы по теме</h2>
             <ul className="mt-4 space-y-3">
               {related.map((r) => (
                 <li key={r.slug}>
@@ -155,16 +198,24 @@ export default function BlogArticlePage({ params }: Props) {
           </aside>
         ) : null}
 
-        <div className="mt-14 flex flex-wrap gap-3 border-t border-[var(--neutral-200)] pt-10 dark:border-white/10">
-          <Button asChild>
-            <Link href="/zayavka">Обсудить внедрение</Link>
-          </Button>
-          <Button asChild variant="secondary">
-            <Link href="/kalkulyator">Рассчитать вилку</Link>
-          </Button>
-          <Button asChild variant="secondary">
-            <Link href="/uslugi/autsorsing">Услуги</Link>
-          </Button>
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--neutral-200)] pt-10 dark:border-white/10">
+          <Link
+            href="/blog"
+            className="text-sm font-medium text-[var(--accent)] hover:underline"
+          >
+            ← Все статьи блога
+          </Link>
+          <div className="flex flex-wrap gap-3">
+            <Button asChild>
+              <Link href="/zayavka">Обсудить внедрение</Link>
+            </Button>
+            <Button asChild variant="secondary">
+              <Link href="/kalkulyator">Рассчитать вилку</Link>
+            </Button>
+            <Button asChild variant="secondary">
+              <Link href="/uslugi/autsorsing">Услуги</Link>
+            </Button>
+          </div>
         </div>
       </article>
     </main>

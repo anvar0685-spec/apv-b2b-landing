@@ -494,11 +494,21 @@ export function LeadMultistepForm() {
                   />
                   <span>
                     {t("consentBefore")}{" "}
-                    <Link className="text-[var(--accent)] underline" href="/politika-konfidencialnosti">
+                    <Link
+                      className="text-[var(--accent)] underline"
+                      href="/politika-konfidencialnosti"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {t("consentPrivacy")}
                     </Link>{" "}
                     {t("consentAnd")}{" "}
-                    <Link className="text-[var(--accent)] underline" href="/soglasie-na-obrabotku-pd">
+                    <Link
+                      className="text-[var(--accent)] underline"
+                      href="/soglasie-na-obrabotku-pd"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {t("consentPd")}
                     </Link>
                     {t("consentAfter")}
