@@ -1,8 +1,9 @@
 /**
- * Генерация src/app/icon.png (32×32) для Next.js metadata / вкладки браузера.
+ * Единый набор фавиконок (АП на #0B1D3A): icon.png, apple-icon, favicon-120, favicon.ico.
  * Запуск: node scripts/_gen-favicon.mjs
  */
 import sharp from "sharp";
+import toIco from "to-ico";
 import { writeFileSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
@@ -11,6 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 const out = join(root, "src/app/icon.png");
 const outApple = join(root, "src/app/apple-icon.png");
+const outIco = join(root, "src/app/favicon.ico");
 /** Яндекс рекомендует 120×120 для чёткой фавиконки в выдаче (см. support/webmaster …/favicon). */
 const out120 = join(root, "public", "favicon-120.png");
 
@@ -41,3 +43,10 @@ console.log("OK:", outApple);
 const buf120 = await sharp(Buffer.from(svg180)).resize(120, 120).png().toBuffer();
 writeFileSync(out120, buf120);
 console.log("OK:", out120);
+
+const icoSizes = [16, 32, 48];
+const icoPngs = await Promise.all(
+  icoSizes.map((n) => sharp(Buffer.from(svg32)).resize(n, n).png().toBuffer()),
+);
+writeFileSync(outIco, await toIco(icoPngs));
+console.log("OK:", outIco, `(${icoSizes.join(",")} in one .ico)`);
