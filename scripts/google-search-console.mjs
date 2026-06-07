@@ -26,8 +26,14 @@ const INSPECT_API = "https://searchconsole.googleapis.com/v1/urlInspection/index
 
 const DEFAULT_SITE_MATCH = "xn----7sbbgqr3atubl";
 const DEFAULT_INSPECT_FILE = join(ROOT, "deploy", "webmaster-recrawl-priority.txt");
+const DEFAULT_INSPECT_FILES = [
+  join(ROOT, "deploy", "webmaster-recrawl-priority.txt"),
+  join(ROOT, "deploy", "webmaster-recrawl-batch2.txt"),
+];
+const AUTOMATION_STATE_FILE = join(ROOT, "deploy", ".seo-automation-state.json");
 const REPORT_MD = join(ROOT, "my-guide", "GSC-REPORT-latest.md");
 const REPORT_JSON = join(ROOT, "deploy", "gsc-routine-latest.json");
+const DAILY_LOG = join(ROOT, "deploy", "seo-daily-latest.json");
 
 function parseEnvFile(path) {
   if (!existsSync(path)) return {};
@@ -294,6 +300,42 @@ function readUrlList(env) {
   }
   if (!urls.length) throw new Error(`Пустой список в ${filePath}`);
   return { filePath, urls };
+}
+
+function readMergedInspectUrls(env) {
+  const rawList = (env.GSC_INSPECT_FILES || "").trim();
+  const paths = rawList
+    ? rawList.split(",").map((p) => (p.trim().startsWith("/") ? p.trim() : join(ROOT, p.trim())))
+    : DEFAULT_INSPECT_FILES.filter((p) => existsSync(p));
+  const seen = new Set();
+  const urls = [];
+  for (const filePath of paths) {
+    if (!existsSync(filePath)) continue;
+    for (const line of readFileSync(filePath, "utf8").split("\n")) {
+      const t = line.trim();
+      if (!t || t.startsWith("#") || !t.startsWith("http")) continue;
+      if (!seen.has(t)) {
+        seen.add(t);
+        urls.push(t);
+      }
+    }
+  }
+  return urls;
+}
+
+function loadAutomationState() {
+  if (!existsSync(AUTOMATION_STATE_FILE)) {
+    return { yandex_done: [], gsc_inspected: [], seeded: false };
+  }
+  try {
+    return JSON.parse(readFileSync(AUTOMATION_STATE_FILE, "utf8"));
+  } catch {
+    return { yandex_done: [], gsc_inspected: [], seeded: false };
+  }
+}
+
+function saveAutomationState(state) {
+  writeFileSync(AUTOMATION_STATE_FILE, `${JSON.stringify(state, null, 2)}\n`, "utf8");
 }
 
 function buildAuthUrl(env) {
@@ -579,6 +621,85 @@ function renderReportMd(payload) {
   return `${lines.join("\n")}\n`;
 }
 
+/**
+ * Ежедневный GSC: sitemap sync + до SEO_GSC_INSPECT_MAX URL Inspection (default 15).
+ * Аналитика — не чаще SEO_GSC_ANALYTICS_INTERVAL_DAYS (default 7). Пауза SEO_GSC_INSPECT_DELAY_MS.
+ */
+async function cmdRoutineDaily(env) {
+  const state = loadAutomationState();
+  const inspected = new Set(state.gsc_inspected || []);
+  const allUrls = readMergedInspectUrls(env);
+  const maxInspect = parseInt(String(env.SEO_GSC_INSPECT_MAX || "15").trim(), 10) || 15;
+  const analyticsIntervalDays =
+    parseInt(String(env.SEO_GSC_ANALYTICS_INTERVAL_DAYS || "7").trim(), 10) || 7;
+  const delayMs = parseInt(String(env.SEO_GSC_INSPECT_DELAY_MS || "600").trim(), 10) || 600;
+  const pending = allUrls.filter((u) => !inspected.has(u)).slice(0, maxInspect);
+
+  const payload = {
+    generated_at: new Date().toISOString(),
+    mode: "daily",
+    steps: [],
+    errors: [],
+    inspect_planned: pending.length,
+    inspect_pending_total: allUrls.length - inspected.size,
+  };
+
+  try {
+    const { access, site } = await getSiteContext(env);
+    const siteUrl = resolveSiteUrl(env, site);
+    payload.siteUrl = siteUrl;
+    const encSite = encodeSiteUrl(siteUrl);
+    const feedUrl = resolveSitemapFeedUrl(env, siteUrl);
+
+    try {
+      await apiPut(`${WEBMASTERS_API}/sites/${encSite}/sitemaps/${encodeURIComponent(feedUrl)}`, access);
+      payload.steps.push(`sync sitemap: ${feedUrl}`);
+    } catch (e) {
+      payload.errors.push(`sync: ${e.message || e}`);
+    }
+
+    const lastAnalytics = state.gsc_last_analytics ? Date.parse(state.gsc_last_analytics) : 0;
+    if (Date.now() - lastAnalytics >= analyticsIntervalDays * 86400000) {
+      try {
+        payload.analytics = await fetchSearchAnalytics(access, siteUrl, env);
+        state.gsc_last_analytics = new Date().toISOString();
+        payload.steps.push("search analytics");
+      } catch (e) {
+        payload.errors.push(`analytics: ${e.message || e}`);
+      }
+    } else {
+      payload.steps.push(`analytics skipped (interval ${analyticsIntervalDays}d)`);
+    }
+
+    if (pending.length) {
+      process.env.GSC_INSPECT_DELAY_MS = String(delayMs);
+      payload.inspect = await inspectUrls(access, siteUrl, pending, { log: true });
+      for (const row of payload.inspect) {
+        if (row.url && !row.error) inspected.add(row.url);
+      }
+      payload.steps.push(`inspect ${pending.length} urls`);
+    } else {
+      payload.steps.push("inspect skipped (all done or limit 0)");
+      payload.inspect = [];
+    }
+
+    state.gsc_inspected = [...inspected];
+    state.gsc_last_run = new Date().toISOString();
+    state.gsc_inspect_pending_count = allUrls.length - inspected.size;
+    saveAutomationState(state);
+
+    writeFileSync(DAILY_LOG, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+    console.log(`OK routine-daily → ${DAILY_LOG}`);
+    console.log(
+      `GSC inspect: sent=${pending.length}, pending_total=${state.gsc_inspect_pending_count}`,
+    );
+    if (payload.errors.length) console.warn("Предупреждения:", payload.errors.join("; "));
+  } catch (e) {
+    console.error(e.message || e);
+    process.exit(1);
+  }
+}
+
 async function cmdRoutine(env) {
   const payload = {
     generated_at: new Date().toISOString(),
@@ -656,13 +777,14 @@ try {
   }
   else if (cmd === "analytics") await cmdAnalytics(env);
   else if (cmd === "routine") await cmdRoutine(env);
+  else if (cmd === "routine-daily") await cmdRoutineDaily(env);
   else if (cmd === "report") {
     if (!existsSync(REPORT_JSON)) throw new Error("Сначала: npm run gsc:routine");
     console.log(readFileSync(REPORT_JSON, "utf8"));
   }
   else {
     console.error(
-      "Команды: auth-url | auth-open | auth-serve | exchange | exchange-file | sites | sync | sitemaps | audit | analytics | inspect <url> | inspect-file | inspect-all | routine | report",
+      "Команды: auth-url | auth-open | auth-serve | exchange | exchange-file | sites | sync | sitemaps | audit | analytics | inspect <url> | inspect-file | inspect-all | routine | routine-daily | report",
     );
     process.exit(1);
   }

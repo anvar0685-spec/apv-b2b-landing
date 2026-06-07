@@ -28,6 +28,11 @@ const API = "https://api.webmaster.yandex.net/v4";
 const DEFAULT_HOST_MATCH = "xn----7sbbgqr3atubl";
 const DEFAULT_SITEMAP = "https://xn----7sbbgqr3atubl.xn--p1ai/sitemap.xml";
 const DEFAULT_RECRAWL_FILE = join(ROOT, "deploy", "webmaster-recrawl-priority.txt");
+const DEFAULT_RECRAWL_FILES = [
+  join(ROOT, "deploy", "webmaster-recrawl-priority.txt"),
+  join(ROOT, "deploy", "webmaster-recrawl-batch2.txt"),
+];
+const AUTOMATION_STATE_FILE = join(ROOT, "deploy", ".seo-automation-state.json");
 
 function parseEnvFile(path) {
   if (!existsSync(path)) return {};
@@ -239,14 +244,7 @@ function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
-function readRecrawlUrlList(env) {
-  let filePath = (env.WEBMASTER_RECRAWL_FILE || "").trim();
-  if (!filePath) filePath = DEFAULT_RECRAWL_FILE;
-  else if (!filePath.startsWith("/")) filePath = join(ROOT, filePath);
-  if (!existsSync(filePath)) {
-    throw new Error(`Нет файла со списком URL: ${filePath}`);
-  }
-  const raw = readFileSync(filePath, "utf8");
+function parseUrlListFromText(raw, label) {
   const seen = new Set();
   const out = [];
   for (const line of raw.split("\n")) {
@@ -259,8 +257,72 @@ function readRecrawlUrlList(env) {
     seen.add(t);
     out.push(t);
   }
-  if (!out.length) throw new Error(`Пустой список URL в ${filePath}`);
-  return { filePath, urls: out };
+  if (!out.length) throw new Error(`Пустой список URL в ${label}`);
+  return out;
+}
+
+function readRecrawlUrlList(env) {
+  let filePath = (env.WEBMASTER_RECRAWL_FILE || "").trim();
+  if (!filePath) filePath = DEFAULT_RECRAWL_FILE;
+  else if (!filePath.startsWith("/")) filePath = join(ROOT, filePath);
+  if (!existsSync(filePath)) {
+    throw new Error(`Нет файла со списком URL: ${filePath}`);
+  }
+  const urls = parseUrlListFromText(readFileSync(filePath, "utf8"), filePath);
+  return { filePath, urls };
+}
+
+function readRecrawlUrlLists(env) {
+  const rawList = (env.WEBMASTER_RECRAWL_FILES || "").trim();
+  const paths = rawList
+    ? rawList.split(",").map((p) => (p.trim().startsWith("/") ? p.trim() : join(ROOT, p.trim())))
+    : DEFAULT_RECRAWL_FILES.filter((p) => existsSync(p));
+  const seen = new Set();
+  const urls = [];
+  for (const filePath of paths) {
+    if (!existsSync(filePath)) continue;
+    for (const u of parseUrlListFromText(readFileSync(filePath, "utf8"), filePath)) {
+      if (!seen.has(u)) {
+        seen.add(u);
+        urls.push(u);
+      }
+    }
+  }
+  if (!urls.length) throw new Error("Нет URL для переобхода (проверь WEBMASTER_RECRAWL_FILES)");
+  return { filePaths: paths.filter((p) => existsSync(p)), urls };
+}
+
+function loadAutomationState() {
+  if (!existsSync(AUTOMATION_STATE_FILE)) {
+    return { yandex_done: [], gsc_inspected: [], seeded: false };
+  }
+  try {
+    return JSON.parse(readFileSync(AUTOMATION_STATE_FILE, "utf8"));
+  } catch {
+    return { yandex_done: [], gsc_inspected: [], seeded: false };
+  }
+}
+
+function saveAutomationState(state) {
+  writeFileSync(AUTOMATION_STATE_FILE, `${JSON.stringify(state, null, 2)}\n`, "utf8");
+}
+
+/** Первый запуск: не слать повторно URL из priority-листа (уже уходили вручную). */
+function seedAutomationStateIfNeeded(state, env) {
+  if (state.seeded) return state;
+  const done = new Set(state.yandex_done || []);
+  for (const p of DEFAULT_RECRAWL_FILES) {
+    if (!existsSync(p)) continue;
+    for (const u of parseUrlListFromText(readFileSync(p, "utf8"), p)) {
+      if (p.includes("priority")) done.add(u);
+    }
+  }
+  state.yandex_done = [...done];
+  state.seeded = true;
+  state.seeded_at = new Date().toISOString();
+  saveAutomationState(state);
+  console.log(`State seed: ${state.yandex_done.length} URL помечены как уже отправленные (priority).`);
+  return state;
 }
 
 function pickHost(hosts, matchSubstr) {
@@ -483,6 +545,83 @@ async function cmdRecrawl(env) {
   console.log(`Итого: отправлено=${sent}, пропуск/дубль=${skipped}, ошибки=${failed}`);
 }
 
+/**
+ * Ежедневный переобход: только новые URL, жёсткий потолок за запуск, остановка на 429.
+ * Лимиты: min(quota_remainder, SEO_YANDEX_RECRAWL_MAX, default 40), пауза SEO_RECRAWL_DELAY_MS (default 500).
+ */
+async function cmdRecrawlDaily(env) {
+  let state = loadAutomationState();
+  state = seedAutomationStateIfNeeded(state, env);
+  const doneSet = new Set(state.yandex_done || []);
+  const { filePaths, urls } = readRecrawlUrlLists(env);
+  const pending = urls.filter((u) => !doneSet.has(u));
+
+  const { access, userId, hid, host } = await getWebmasterContext(env);
+  const asciiBase = (host.ascii_host_url || "").replace(/\/$/, "").toLowerCase();
+
+  const q0 = await apiGet(`/user/${userId}/hosts/${hid}/recrawl/quota`, access);
+  let remainder = q0.quota_remainder ?? 0;
+  const daily = q0.daily_quota ?? "?";
+  const maxPerRun = parseInt(String(env.SEO_YANDEX_RECRAWL_MAX || "40").trim(), 10) || 40;
+  const delayMs = parseInt(String(env.SEO_RECRAWL_DELAY_MS || "500").trim(), 10) || 500;
+  const hardCap = Math.min(remainder, maxPerRun, pending.length);
+
+  console.log(`recrawl-daily: quota remainder=${remainder}/${daily}, pending=${pending.length}, cap=${hardCap}`);
+  console.log(`Файлы: ${filePaths.join(", ")}`);
+
+  if (hardCap <= 0) {
+    console.log(pending.length ? "Квота исчерпана или лимит 0 — выход без запросов." : "Все URL из списков уже отправлены.");
+    state.yandex_last_run = new Date().toISOString();
+    saveAutomationState(state);
+    return;
+  }
+
+  let sent = 0;
+  let skipped = 0;
+  let failed = 0;
+
+  for (const url of pending) {
+    if (remainder <= 0 || sent >= hardCap) break;
+    if (!url.toLowerCase().startsWith(asciiBase)) {
+      console.warn(`Пропуск (не тот хост): ${url}`);
+      skipped++;
+      continue;
+    }
+
+    const path = `/user/${userId}/hosts/${hid}/recrawl/queue`;
+    const { status, json } = await apiPostRecrawl(path, access, { url });
+
+    if (status === 202) {
+      remainder = json.quota_remainder ?? remainder - 1;
+      doneSet.add(url);
+      console.log(`202 ${url} | quota_remainder=${remainder}`);
+      sent++;
+    } else if (status === 409) {
+      doneSet.add(url);
+      console.log(`409 уже в очереди: ${url}`);
+      skipped++;
+    } else if (status === 429) {
+      console.error(`429 квота: ${JSON.stringify(json)}`);
+      break;
+    } else if (status === 400) {
+      console.error(`400 ${url}: ${JSON.stringify(json)}`);
+      failed++;
+    } else {
+      console.error(`HTTP ${status} ${url}: ${JSON.stringify(json)}`);
+      failed++;
+    }
+
+    state.yandex_done = [...doneSet];
+    saveAutomationState(state);
+    await sleep(delayMs);
+  }
+
+  state.yandex_last_run = new Date().toISOString();
+  state.yandex_pending_count = urls.length - doneSet.size;
+  saveAutomationState(state);
+  console.log(`Итого daily: отправлено=${sent}, пропуск/дубль=${skipped}, ошибки=${failed}, осталось pending=${state.yandex_pending_count}`);
+}
+
 const cmd = process.argv[2] || "sync";
 const env = loadEnv();
 
@@ -494,10 +633,11 @@ try {
   else if (cmd === "sync") await cmdSync(env);
   else if (cmd === "recrawl-quota") await cmdRecrawlQuota(env);
   else if (cmd === "recrawl") await cmdRecrawl(env);
+  else if (cmd === "recrawl-daily") await cmdRecrawlDaily(env);
   else if (cmd === "audit") await cmdAudit(env);
   else {
     console.error(
-      "Команды: auth-url | auth-open | exchange <code> | exchange-file | sync | recrawl-quota | recrawl | audit",
+      "Команды: auth-url | auth-open | exchange <code> | exchange-file | sync | recrawl-quota | recrawl | recrawl-daily | audit",
     );
     process.exit(1);
   }

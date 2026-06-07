@@ -47,6 +47,9 @@
     "seo:google": "npm run gsc:routine",
     "seo:routine": "npm run webmaster:sync && npm run gsc:routine",
     "seo:check": "node scripts/seo-full-check.mjs",
+    "seo:daily": "node scripts/seo-daily-automation.mjs",
+    "webmaster:recrawl-daily": "node scripts/yandex-webmaster.mjs recrawl-daily",
+    "gsc:routine-daily": "node scripts/google-search-console.mjs routine-daily",
     "postinstall": "prisma generate"
   },
   "prisma": {
@@ -97,6 +100,7 @@
     "tailwindcss": "^3.4.1",
     "to-ico": "^1.1.5",
     "tsx": "^4.21.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "xlsx": "^0.18.5"
   }
 }

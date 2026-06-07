@@ -45,7 +45,12 @@ deploy/.metrica-oauth.local.env
 deploy/.google-oauth.local.env
 deploy/.google-oauth-code.local
 deploy/gsc-routine-latest.json
+deploy/.seo-automation-state.json
+deploy/.seo-automation.env.local
+deploy/seo-daily-latest.json
+deploy/seo-daily-launchd.log
 my-guide/SEO-CHECK-latest.md
+my-guide/SEO-DAILY-latest.md
 
 # vercel
 .vercel
