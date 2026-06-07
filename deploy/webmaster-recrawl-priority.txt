@@ -1,23 +1,40 @@
 # Приоритетный переобход (Яндекс.Вебмастер): одна полная HTTPS-URL на строку.
 # Скрипт отправляет только в пределах дневной квоты API (см. recrawl-quota).
-# Редактируй список под релизы; не раздувай без нужды — квота ограничена.
+# Не добавляйте favicon/картинки — Яндекс помечает их как «без title/description».
 
 https://xn----7sbbgqr3atubl.xn--p1ai/ru
-https://xn----7sbbgqr3atubl.xn--p1ai/favicon.ico
-https://xn----7sbbgqr3atubl.xn--p1ai/favicon-120.png
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/uslugi
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/uslugi/autsorsing
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/uslugi/podbor-personala
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/uslugi/nochnye-smeny
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/uslugi/postoyannyy-personal
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/gruzchiki
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/komplektovschiki
-https://xn----7sbbgqr3atubl.xn--p1ai/ru/otrasli/sklady-e-commerce
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/kladovschiki
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/voditeli-prt
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/upakovschiki
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/gruzchiki/moskva
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/komplektovschiki/moskva
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/gruzchiki/himki
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/komplektovschiki/podolsk
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/otrasli
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/otrasli/sklady-e-commerce
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/otrasli/sklady-riteyla
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/otrasli/sklady-3pl
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/otrasli/proizvodstvennye-sklady
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/otrasli/farmatsevticheskie-sklady
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/otrasli/fmcg-sklady
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/otrasli/sklady-klassa-a
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/kalkulyator
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/zayavka
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/keysy
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/blog
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/blog/chto-takoe-autsorsing-personala-na-sklade
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/blog/kak-vybrat-podryadchika-po-personalu-sklada
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/blog/migracionnyy-uchet-skladskogo-personala-2026-zakon-i-praktika
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/blog/category/migraciya
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/kontakty
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/o-kompanii
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/faq
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/garantii

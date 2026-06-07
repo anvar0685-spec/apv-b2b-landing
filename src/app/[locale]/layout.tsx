@@ -20,8 +20,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(site.url),
     icons: {
-      // /favicon.ico — из src/app/favicon.ico (Next добавляет link автоматически)
       icon: [
+        { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
         { url: "/icon.png", sizes: "32x32", type: "image/png" },
         { url: "/favicon-120.png", sizes: "120x120", type: "image/png" },
       ],
