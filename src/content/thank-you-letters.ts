@@ -20,7 +20,7 @@ export const THANK_YOU_LETTERS: ThankYouLetterItem[] = [
     id: "demo-2",
     imageSrc: "/thank-you-letters/demo-02.svg",
     alt: "Демо: служебная благодарность от торгового оператора (макет)",
-    caption: "АО «Торговый Хаб МО» — за соблюдение SLA по явке и документам на объекте.",
+    caption: "АО «Торговый Хаб МО» — за соблюдение гарантий по явке и документам на объекте.",
   },
   {
     id: "demo-3",

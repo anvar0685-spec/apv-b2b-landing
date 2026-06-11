@@ -24,9 +24,9 @@ export default function Page() {
   return (
     <main id="main" className="pb-24">
       <MarketingPageHero
-        kicker="SLA"
+        kicker="Гарантии"
         title="Гарантии и уровень сервиса"
-        description="Коммерческие и операционные обязательства фиксируются в договоре и приложении SLA. Ниже — рамочные принципы; числовые целевые значения согласуются под каждый проект."
+        description="Коммерческие и операционные обязательства фиксируются в договоре и приложении к договору. Ниже — рамочные принципы; числовые целевые значения согласуются под каждый проект."
         surface="garantii"
       />
 
@@ -37,7 +37,7 @@ export default function Page() {
             <CardTitle className="mt-3">Сопровождение 24/7</CardTitle>
             <CardDescription>
               Линия диспетчеризации и курирующие менеджеры на критичных контрактах. Время реакции на инциденты
-              прописывается в SLA с эскалацией до руководства.
+              прописывается в договоре с эскалацией до руководства.
             </CardDescription>
           </Card>
           <Card className="border-[var(--neutral-200)]/90">
@@ -60,7 +60,7 @@ export default function Page() {
 
         <div className="mt-10 flex flex-wrap gap-3">
           <Button asChild>
-            <Link href="/zayavka">Запросить SLA под проект</Link>
+            <Link href="/zayavka">Запросить гарантии под проект</Link>
           </Button>
           <Button asChild variant="secondary">
             <Link href="/kontakty">Связаться</Link>

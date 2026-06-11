@@ -3,12 +3,12 @@ import type { ServicePageBilingual } from "./types";
 export const nochnyeSmenyPage: ServicePageBilingual = {
   slug: "nochnye-smeny",
   ru: {
-    h1: "Ночные смены на склад — под регламент и отдельный SLA",
+    h1: "Ночные смены на склад — под регламент и отдельный регламент",
     subtitle:
       "Инструктажи, менторинг первых смен, дисциплина замен и отчётность по KPI явки — ночное окно нельзя вести «на автопилоте».",
     intro: [
       "Ночные окна повышают риск инцидентов и просадки явки: важны укороченный цикл реакции, понятные эскалации и согласованный резерв — с ясным владельцем процесса на смене.",
-      "Мы проектируем ночную смену как отдельный SLA: состав, обучение, контрольные точки первой недели и формат отчёта для дневного операционного директора.",
+      "Мы проектируем ночную смену как отдельный регламент: состав, обучение, контрольные точки первой недели и формат отчёта для дневного операционного директора.",
       "Тарифы и коэффициенты ночи — в коммерческом предложении; на странице — обзор без индивидуальных обещаний.",
     ],
     segments: [
@@ -30,14 +30,14 @@ export const nochnyeSmenyPage: ServicePageBilingual = {
       { name: "Круглосуточный медпункт на площадке", included: false },
     ],
     comparison: [
-      { label: "Контроль рисков", us: "Отдельный ночной SLA", staff: "Зависит от дисциплины", agency: "Низкий" },
+      { label: "Контроль рисков", us: "Отдельный ночной регламент", staff: "Зависит от дисциплины", agency: "Низкий" },
       { label: "Стоимость", us: "Коэффициент ночи в КП", staff: "ФОТ + доплаты", agency: "Комиссия + доплаты" },
       { label: "Замены", us: "Резерв подрядчика", staff: "Внутренний пул", agency: "Точечно" },
     ],
     faq: [
       { q: "Чем ночь отличается от дневного подряда?", a: "Отдельные регламенты, метрики и резерв; коэффициенты в КП." },
       { q: "Как обеспечивается безопасность?", a: "Инструктажи и контрольные точки согласуются с заказчиком и регламентами площадки." },
-      { q: "Можно ли совместить с дневным контрактом?", a: "Да, единый договор с раздельными SLA по окнам." },
+      { q: "Можно ли совместить с дневным контрактом?", a: "Да, единый договор с раздельными гарантиями по окнам." },
       { q: "Как стартовать?", a: "Заявка с описанием ночного графика и зон — ответ с планом первых смен и метрик." },
       {
         q: "Почему в калькуляторе ночь даёт коэффициент, а в КП цифра отличается?",
@@ -45,7 +45,7 @@ export const nochnyeSmenyPage: ServicePageBilingual = {
       },
       {
         q: "Кто ведёт смена-в-смену, если ночь «сыпется» в одном кластере?",
-        a: "Прописываем единого дежурного диспетчера и сценарий бригады+резерва, а не суточный пожар в чате; деталь — в приложениях к SLA.",
+        a: "Прописываем единого дежурного диспетчера и сценарий бригады+резерва, а не суточный пожар в чате; деталь — в приложениях к договору.",
       },
     ],
   },
@@ -55,7 +55,7 @@ export const nochnyeSmenyPage: ServicePageBilingual = {
       "Briefings, first-shift mentoring, replacement discipline and attendance KPI reporting — because night windows cannot run on autopilot.",
     intro: [
       "Night windows raise incident risk and attendance drift: short reaction loops, clear escalations and an agreed reserve matter — without blurring accountability.",
-      "We design nights as a separate SLA: roster, training, week-one checkpoints and reporting for the daytime ops lead.",
+      "We design nights as a separate shift rules: roster, training, week-one checkpoints and reporting for the daytime ops lead.",
       "Night coefficients and pricing sit in the commercial proposal; this page is an overview without bespoke promises.",
     ],
     segments: [
@@ -77,14 +77,14 @@ export const nochnyeSmenyPage: ServicePageBilingual = {
       { name: "On-site 24/7 medical room", included: false },
     ],
     comparison: [
-      { label: "Risk control", us: "Dedicated night SLA", staff: "Depends on discipline", agency: "Low" },
+      { label: "Risk control", us: "Dedicated night shift rules", staff: "Depends on discipline", agency: "Low" },
       { label: "Cost", us: "Night coefficient in proposal", staff: "Payroll + premiums", agency: "Fee + premiums" },
       { label: "Replacements", us: "Vendor reserve", staff: "Internal pool", agency: "Ad hoc" },
     ],
     faq: [
       { q: "How is night different from day supply?", a: "Separate playbooks, metrics and reserves; coefficients in the proposal." },
       { q: "How is safety handled?", a: "Briefings and checkpoints align with the customer and site rules." },
-      { q: "Can it combine with a day contract?", a: "Yes — one agreement with separate SLAs per window." },
+      { q: "Can it combine with a day contract?", a: "Yes — one agreement with separate guarantees per window." },
       { q: "How to start?", a: "Send a request describing the night loop — we reply with a pilot plan." },
       {
         q: "Why does the calculator show a night coefficient but the proposal number differs?",
@@ -92,7 +92,7 @@ export const nochnyeSmenyPage: ServicePageBilingual = {
       },
       {
         q: "Who runs night-to-night if one cluster is unstable?",
-        a: "We name a single dispatch owner and a crew+reserve script, not 24/7 firefighting in chat; details in SLA annexes.",
+        a: "We name a single dispatch owner and a crew+reserve script, not 24/7 firefighting in chat; details in contract annexes.",
       },
     ],
   },

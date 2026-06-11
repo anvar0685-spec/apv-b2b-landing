@@ -12,13 +12,13 @@ const INDUSTRY: Record<string, { ru: string[]; en: string[] }> = {
   "sklady-e-commerce": {
     ru: [
       "E-commerce и маркетплейсы требуют предсказуемой явки на приёмку и отгрузку, быстрых замен в пик и прозрачной отчётности по сменам — без переноса кадрового шума в вашу службу.",
-      "Подбираем состав бригад и график под ваш профиль SKU: комплектация, сортировка, возвраты, паллетные потоки — с единым SLA и одним контактом подрядчика.",
+      "Подбираем состав бригад и график под ваш профиль SKU: комплектация, сортировка, возвраты, паллетные потоки — с единым регламентом и одним контактом подрядчика.",
       "Калькулятор и заявка на сайте дают стартовый ориентир по фонду; финальные ставки и KPI фиксируются после диагностики объекта и графика.",
       "В закупке фиксируйте «окно пика» (день недели, часы) и сценарий «смена не вышла» — тогда сравнение подрядчиков честное и не сводится к одной строке прайса.",
     ],
     en: [
       "E-commerce and marketplaces need predictable attendance on inbound/outbound, fast replacements at peaks, and clear shift reporting — without HR noise landing on your team.",
-      "We design shift supply for your SKU profile: picking, sorting, returns, pallet flows — with one SLA and one contractor contact.",
+      "We design shift supply for your SKU profile: picking, sorting, returns, pallet flows — with one guarantee framework and one contractor contact.",
       "The calculator and lead form give a starting cost envelope; final rates and KPIs are set after a site and schedule diagnostic.",
       "In procurement, capture “peak window” (weekday, hours) plus the “shift failed to show” playbook — then vendor comparison stays honest and does not collapse into one rate row.",
     ],
@@ -39,13 +39,13 @@ const INDUSTRY: Record<string, { ru: string[]; en: string[] }> = {
   },
   "sklady-3pl": {
     ru: [
-      "3PL-операторы обслуживают несколько брендов на одной площадке: критичны стандарты инструктажа, язык KPI и быстрый вывод замены без простоя клиентских SLA.",
+      "3PL-операторы обслуживают несколько брендов на одной площадке: критичны стандарты инструктажа, язык KPI и быстрый вывод замены без простоя клиентских гарантий.",
       "Мы помогаем выровнять линейку людей и регламент смен под мульти-клиент: роли, графики, отчётность — с разделением ответственности в договоре.",
       "Старт на ограниченном участке (первые смены на согласованной зоне) снижает риск при смене подрядчика или расширении квадратных метров.",
       "Для мульти-клиента важен единый язык KPI в отчёте: иначе каждый бренд читает «свою» явку и спорит о методике на общей площадке.",
     ],
     en: [
-      "3PL operators serve multiple brands on one site: onboarding standards, KPI language, and fast replacement without breaching client SLAs are critical.",
+      "3PL operators serve multiple brands on one site: onboarding standards, KPI language, and fast replacement without breaching client guarantees are critical.",
       "We align the people layer for multi-tenant sites: roles, schedules, reporting — with clear contractual responsibility splits.",
       "A bounded start on a limited zone (first agreed shifts) reduces risk when switching vendors or adding square meters.",
       "Multi-client sites need one KPI language in reporting — otherwise each brand reads “their own” attendance and argues methodology on a shared yard.",
@@ -110,7 +110,7 @@ const INDUSTRY: Record<string, { ru: string[]; en: string[] }> = {
 };
 
 const INDUSTRY_TAIL: string[] = [
-    "Калькулятор на сайте даёт быстрый ориентир по месячному фонду с учётом роли, численности и графика; детальные ставки, резерв и SLA фиксируются в коммерческом предложении после диагностики объекта.",
+    "Калькулятор на сайте даёт быстрый ориентир по месячному фонду с учётом роли, численности и графика; детальные ставки, резерв и гарантии фиксируются в коммерческом предложении после диагностики объекта.",
     "Ограниченный пилот первых смен на зоне или по части графика снижает риск при смене подрядчика и помогает закупке и операциям согласовать единые определения KPI до промышленного масштаба.",
     "Публичные тексты не заменяют индивидуальное КП и договор: штрафные механики, порядок приёмки результата и форс-мажор закрепляются в договорной документации.",
   ];
@@ -137,7 +137,7 @@ export function industryEditorialBundle(slug: string): EditorialBundle | undefin
 export function industryHubEditorial(): string[] {
   return [
     "Раздел собирает профили складских цепочек — от e-commerce и ритейла до фармы и класса А — чтобы закупка и операции заходили на страницу уже с нужным контекстом процессов.",
-    "Каждая карточка ниже — отдельный профиль отрасли: ориентиры по составу смен, SLA и типичным сценариям закупки под ваш объект.",
+    "Каждая карточка ниже — отдельный профиль отрасли: ориентиры по составу смен, гарантии и типичным сценариям закупки под ваш объект.",
     "Дальше свяжите выбранный профиль с калькулятором и разделом «Персонал»: так проще сравнить логистику выхода и резерв между локациями до запроса КП.",
   ];
 }

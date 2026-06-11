@@ -10,13 +10,13 @@ export const recruitingPage: ServicePageBilingual = {
       "Подбор для склада отличается от «классического агентства»: важны скорость выхода на смену, понимание профиля линии и готовность передать кандидата уже с инструктажами и понятными KPI.",
       "Мы проектируем цепочку отбора и выхода под профили грузчиков, комплектовщиков, операторов погрузчика и смежных ролей; дальше — либо вывод на объект в модели подряда по сменам, либо передача по согласованной схеме.",
       "Передача на линию: чек-лист первой смены, ответственный наставник и минимальная планка по ошибке — иначе «сдали в HR» превращается в простой линии, а не в закрытую вакансию.",
-      "Стоимость и SLA подбора фиксируются в КП; на странице — обзорный текст без индивидуальных обещаний.",
+      "Стоимость и гарантии подбора фиксируются в КП; на странице — обзорный текст без индивидуальных обещаний.",
     ],
     segments: [
       { title: "Складские роли", text: "Грузчики, комплектовщики, операторы погрузчика, кладовщики." },
       { title: "Производство", text: "Сборка, упаковка, вспомогательные операции на линии." },
       { title: "Сезонные кампании", text: "Массовый найм под пик без потери качества скрининга." },
-      { title: "Закрытие текучки", text: "Быстрое закрытие дефицита с понятным SLA по этапам отбора." },
+      { title: "Закрытие текучки", text: "Быстрое закрытие дефицита с понятными гарантиями по этапам отбора." },
     ],
     howItWorks: [
       "Профиль, этапы отбора и источники кандидатов.",
@@ -52,13 +52,13 @@ export const recruitingPage: ServicePageBilingual = {
       "Warehouse recruiting differs from a classic agency: time-to-shift, line profile literacy and willingness to hand people over with briefings and KPIs matter.",
       "We design funnels for loaders, pickers, forklift operators and adjacent roles, then either shift outsourcing or a customer-agreed model.",
       "Handover: first-shift checklist, named mentor and a minimum AQL/error bar; otherwise 'HR got the candidates' is lost WMS time, not a closed vacancy.",
-      "Fees and SLA are fixed in the proposal; this page is an overview without individual promises.",
+      "Fees and guarantees are fixed in the proposal; this page is an overview without individual promises.",
     ],
     segments: [
       { title: "Warehouse roles", text: "Loaders, pickers, forklift operators, warehouse clerks." },
       { title: "Manufacturing", text: "Assembly, packing and line support tasks." },
       { title: "Seasonal campaigns", text: "Volume hiring for peaks without losing screening quality." },
-      { title: "Churn backfill", text: "Fast closure of gaps with a clear funnel SLA." },
+      { title: "Churn backfill", text: "Fast closure of gaps with a clear funnel guarantees." },
     ],
     howItWorks: [
       "Profile, funnel and candidate sources.",

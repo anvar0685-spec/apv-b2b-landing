@@ -11,8 +11,8 @@ export type PageTeaser = {
 export const PRIORITY_PAGE_TEASERS: readonly PageTeaser[] = [
   {
     path: "/",
-    ru: { title: "Главная", teaser: "Подряд по персоналу на склады Москвы и МО: явка, замены, ставки и SLA в договоре." },
-    en: { title: "Home", teaser: "Warehouse shift outsourcing for Moscow & MO: SLA, rates, compliance." },
+    ru: { title: "Главная", teaser: "Подряд по персоналу на склады Москвы и МО: явка, замены, ставки и гарантии в договоре." },
+    en: { title: "Home", teaser: "Warehouse shift outsourcing for Moscow & MO: guarantees, rates, compliance." },
   },
   {
     path: "/uslugi",
@@ -36,8 +36,8 @@ export const PRIORITY_PAGE_TEASERS: readonly PageTeaser[] = [
   },
   {
     path: "/personal/komplektovschiki",
-    ru: { title: "Комплектовщики", teaser: "Пикинг, ошибки, SLA по строкам заказа." },
-    en: { title: "Pickers", teaser: "Picking accuracy and order-line SLA." },
+    ru: { title: "Комплектовщики", teaser: "Пикинг, ошибки, гарантии по строкам заказа." },
+    en: { title: "Pickers", teaser: "Picking accuracy and order-line guarantees." },
   },
   {
     path: "/otrasli/sklady-e-commerce",

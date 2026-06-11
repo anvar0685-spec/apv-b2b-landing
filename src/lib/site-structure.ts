@@ -17,8 +17,8 @@ export const OTRASLI_SLUGS: readonly SlugPageDef[] = [
     slug: "sklady-e-commerce",
     title: { ru: "Аутсорсинг на склады e-commerce", en: "E-commerce warehouse staffing" },
     description: {
-      ru: "Персонал под fulfillment, пики продаж и SLA маркетплейсов в Москве и МО.",
-      en: "Fulfillment staffing, peak seasons and marketplace SLAs in Moscow and the Moscow Oblast.",
+      ru: "Персонал под fulfillment, пики продаж и гарантии маркетплейсов в Москве и МО.",
+      en: "Fulfillment staffing, peak seasons and marketplace guarantees in Moscow and the Moscow Oblast.",
     },
   },
   {

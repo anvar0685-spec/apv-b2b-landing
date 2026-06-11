@@ -71,7 +71,7 @@ export const CASES: CaseStub[] = [
     durationMonths: 12,
     metricUp: "Закрытие смен без аварийных подмен",
     summary:
-      "Оптовый склад автозапчастей известного автомобильного бренда в Москве: приёмка, комплектация и отгрузка под окно выдачи в сервис-центры. Главное — стабильная явка под слот доставки, без срыва SLA.",
+      "Оптовый склад автозапчастей известного автомобильного бренда в Москве: приёмка, комплектация и отгрузка под окно выдачи в сервис-центры. Главное — стабильная явка под слот доставки, без срыва по договору.",
     challenge:
       "Высокая смешанность SKU и мелкая комплектация: ошибка отбора и нестабильная явка означают сорванный слот доставки в сервис. До нас собственный штат не вытягивал графики выдачи в дневном окне.",
     solution:
@@ -84,7 +84,7 @@ export const CASES: CaseStub[] = [
     industryEn: "Auto parts / wholesale warehouse",
     metricUpEn: "Shifts covered without emergency callouts",
     summaryEn:
-      "Wholesale auto parts warehouse for a major automotive brand in Moscow: inbound, picking and dispatch geared to service-bay delivery windows. Priority — steady attendance under the delivery slot, without breaching SLA.",
+      "Wholesale auto parts warehouse for a major automotive brand in Moscow: inbound, picking and dispatch geared to service-bay delivery windows. Priority — steady attendance under the delivery slot, without breaching contract terms.",
     cityEn: "Moscow",
     challengeEn:
       "High SKU mix and small-item picking: any pick error or no-show breaks a service-bay slot. The in-house team could not hold day-shift dispatch windows.",
@@ -133,7 +133,7 @@ export const CASES: CaseStub[] = [
     industry: "Маркетплейс / multi-storage",
     city: "Московская область",
     durationMonths: 24,
-    metricUp: "Один SLA на разные товарные группы — без перекидывания между подрядчиками",
+    metricUp: "Один регламент на разные товарные группы — без перекидывания между подрядчиками",
     summary:
       "Площадка крупного маркетплейса через подрядчика-агента: на одной территории — техника и FMCG-сырьё (шоколад/какао и соя для крупного производителя). Оба потока ведутся по единому регламенту.",
     challenge:
@@ -146,7 +146,7 @@ export const CASES: CaseStub[] = [
       "Главное — что один и тот же бригадир отвечает и за коробку с электроникой, и за поддон с какао-сырьём. Не надо «связываться через диспетчера» в инцидент.",
     titleEn: "A major marketplace site: electronics and FMCG raw materials in one shift",
     industryEn: "Marketplace / multi-storage",
-    metricUpEn: "One SLA across product groups — no contractor handoffs",
+    metricUpEn: "One guarantee framework across product groups — no contractor handoffs",
     summaryEn:
       "A major marketplace site run through an agent: electronics and FMCG raw materials (cocoa-based and soy for a large producer) on the same site. Both flows run on one playbook.",
     cityEn: "Moscow Oblast",

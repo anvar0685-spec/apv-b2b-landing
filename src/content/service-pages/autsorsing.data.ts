@@ -4,9 +4,9 @@ export const autsorsingPage: ServicePageBilingual = {
   slug: "autsorsing",
   ru: {
     h1: "Аутсорсинг персонала на склады в Москве и Московской области",
-    metaTitle: "Аутсорсинг персонала на склады — Москва и МО, смены и SLA",
+    metaTitle: "Аутсорсинг персонала на склады — Москва и МО, смены и гарантии",
     metaDescription:
-      "Подрядчик по складским сменам: грузчики, комплектовщики, кладовщики, водители ПРТ. Москва и МО — явка, замены, SLA, отчётность. На рынке с 2023, пул 100+ человек. Аутстаффинг отдельным продуктом не продаём.",
+      "Подрядчик по складским сменам: грузчики, комплектовщики, кладовщики, водители ПРТ. Москва и МО — явка, замены, гарантии, отчётность. На рынке с 2023, пул 100+ человек. Аутстаффинг отдельным продуктом не продаём.",
     metaKeywords: [
       "аутсорсинг персонала на склад",
       "складские смены Москва",
@@ -18,14 +18,14 @@ export const autsorsingPage: ServicePageBilingual = {
       "водитель ПРТ склад",
       "ночные смены склад",
       "замена персонала на смене",
-      "SLA явка склад",
+      "гарантии по явке склад",
       "логистический персонал B2B",
       "аутсорсинг не аутстаффинг",
       "управляемый подряд склад",
     ],
     schemaServiceType: "Аутсорсинг складского персонала",
     subtitle:
-      "Мы — подрядчик по складским сменам: явка, замены под KPI, отчётность и согласованный SLA. Линейка — от грузчиков и комплектовщиков до кладовщиков, водителей ПРТ и разнорабочих; одна точка контакта и понятный документооборот без перегрузки вашей кадровой службы. Работаем в Москве и по Московской области; модель аутстаффинга отдельным коммерческим продуктом на сайте не позиционируем — подробнее см. лонгрид в блоге про разницу моделей.",
+      "Мы — подрядчик по складским сменам: явка, замены под KPI, отчётность и согласованный регламент. Линейка — от грузчиков и комплектовщиков до кладовщиков, водителей ПРТ и разнорабочих; одна точка контакта и понятный документооборот без перегрузки вашей кадровой службы. Работаем в Москве и по Московской области; модель аутстаффинга отдельным коммерческим продуктом на сайте не позиционируем — подробнее см. лонгрид в блоге про разницу моделей.",
     intro: [
       "По смыслу договора вы покупаете результат смены — присутствие согласованного состава, замену при срыве, отчёт о факте и инцидентах. Не активность ради активности и не подбор как процесс, а закрытую смену с измеримыми метриками. Для заказчика это снижает риск размытия ответственности между HR, агентством и линейным руководством: в коммерческом предложении и договоре фиксируем зону подрядчика с конкретными показателями, а не схему, где исполнители формально сидят в вашей оргструктуре.",
       "Охват — Москва и Московская область: держим резерв и понимаем логистику подачи на объекты от Новой Москвы до промышленных кластеров Подмосковья — время в пути, окна разгрузки, ночные и предпраздничные пики. Компания молодая (на рынке с 2023 года), но операционный масштаб уже позволяет закрывать средние и крупные объёмы за счёт пула 100+ сотрудников и опоры на проверенных партнёров по резерву — параллельно развиваются собственные направления логистики и торговли.",
@@ -37,7 +37,7 @@ export const autsorsingPage: ServicePageBilingual = {
       "Требования по охране труда и технике, противопожарный минимум, документы на допуск к работам и патенты по профилю объекта — в стандартной модели цепочка документов со стороны подрядчика прозрачна для вашего юриста до подписания; отраслевые особые требования выносим в приложения.",
       "Если у вас уже есть внутренний штат ключевых специалистов, аутсорсинг встраивается как гибрид: пики и ночь подхватывает подрядчик, вы сохраняете «ядро» процессов и методологию 5S/Lean — без войны между «своими» и «пришлыми»: регламентируем зоны ответственности и короткие планёрки по качеству смены.",
       "Отдельно проговариваем ночные, предпраздничные и воскресные смены: ставка и резерв людей завязаны на транспортную доступность и окладную модель; при необходимости подключаем разные профили в одной смене (ведущий комплектовщик + усиление грузчиками), чтобы не платить завышенный средний чек за простые операции.",
-      "Тексты на странице носят информационный характер и не заменяют индивидуальную юридическую консультацию. Объёмные обязательства, штрафы, форс‑мажор и порядок приёмки закрепляются в договоре, приложениях к SLA и внутренних регламентах качества — здесь мы сознательно не воспроизводим полный юридический текст.",
+      "Тексты на странице носят информационный характер и не заменяют индивидуальную юридическую консультацию. Объёмные обязательства, штрафы, форс‑мажор и порядок приёмки закрепляются в договоре, приложениях к договору и внутренних регламентах качества — здесь мы сознательно не воспроизводим полный юридический текст.",
       "Ниже — блоки «кому подходит», пошаговый процесс подключения, таблица включений, сравнение с альтернативами, расширенный FAQ и ссылки на разделы по профессиям и городам Московской области. Дополнительно — материал в блоге «Аутсорсинг и аутстаффинг: в чём разница», если закупке нужно формально развести модели для тендера.",
     ],
     segments: [
@@ -72,7 +72,7 @@ export const autsorsingPage: ServicePageBilingual = {
       "Проектирование KPI и регламентов смен: явка, время закрытия смены, время реакции на замену, формат отчётности, каналы эскалации и ответственные с обеих сторон.",
       "Старт на ограниченном объёме: первые смены на согласованной зоне или части графика — с еженедельным разбором метрик и корректировкой состава без резкого расширения штата.",
       "Масштабирование и стабилизация: резерв пула, дообучение, настройка очередности подключения людей при росте объёма.",
-      "Оптимизация: разбор инцидентов смены, узких мест по технике и процессу, обратная связь от линейных руководителей заказчика; точечные изменения SLA при изменении профиля потока.",
+      "Оптимизация: разбор инцидентов смены, узких мест по технике и процессу, обратная связь от линейных руководителей заказчика; точечные изменения гарантий при изменении профиля потока.",
     ],
     includes: [
       { name: "Операционный менеджмент смен и коммуникация с линейными руководителями объекта", included: true },
@@ -91,7 +91,7 @@ export const autsorsingPage: ServicePageBilingual = {
       },
       {
         label: "Ответственность за явку и замены",
-        us: "Закреплена за подрядчиком в рамках SLA",
+        us: "Закреплена за подрядчиком в рамках договорных гарантий",
         staff: "На стороне работодателя и HR",
         agency: "Зависит от модели в договоре",
       },
@@ -163,7 +163,7 @@ export const autsorsingPage: ServicePageBilingual = {
       },
       {
         q: "Как получить КП в цифрах?",
-        a: "Через калькулятор и форму заявки: параметры уходят менеджеру — в ответ присылаем КП с разложением ставок, коэффициентов и SLA.",
+        a: "Через калькулятор и форму заявки: параметры уходят менеджеру — в ответ присылаем КП с разложением ставок, коэффициентов и гарантий.",
       },
       {
         q: "Почему вы не продаёте аутстаффинг?",
@@ -173,30 +173,30 @@ export const autsorsingPage: ServicePageBilingual = {
   },
   en: {
     h1: "Warehouse shift outsourcing in Moscow and the Moscow Oblast",
-    metaTitle: "Warehouse shift outsourcing — Moscow & Moscow Oblast, SLA",
+    metaTitle: "Warehouse shift outsourcing — Moscow & Moscow Oblast, contract terms",
     metaDescription:
-      "Contractor staffing for warehouse shifts: loaders, pickers, clerks, PRT drivers. Moscow region — attendance, replacements, SLA, reporting. Active since 2023, pool of 100+ staff. Outstaffing is not sold as a separate product.",
+      "Contractor staffing for warehouse shifts: loaders, pickers, clerks, PRT drivers. Moscow region — attendance, replacements, guarantees, reporting. Active since 2023, pool of 100+ staff. Outstaffing is not sold as a separate product.",
     metaKeywords: [
       "warehouse outsourcing Moscow",
       "warehouse shifts Moscow Oblast",
       "contract warehouse labour",
       "loader outsourcing",
       "picker staffing Russia",
-      "warehouse SLA attendance",
+      "warehouse attendance guarantees",
       "outsourcing vs outstaffing warehouse",
     ],
     schemaServiceType: "Warehouse shift outsourcing",
     subtitle:
-      "We operate as a warehouse shift contractor: attendance KPIs, replacements, reporting and an agreed SLA. Roles span loaders, pickers, warehouse clerks, PRT drivers and general labour — single point of contact and a document trail without dumping HR noise on your team. Coverage is Moscow and the Moscow Oblast; we do not position outstaffing as a standalone commercial product on this site — see the blog long-read on model differences.",
+      "We operate as a warehouse shift contractor: attendance KPIs, replacements, reporting and an agreed contract terms. Roles span loaders, pickers, warehouse clerks, PRT drivers and general labour — single point of contact and a document trail without dumping HR noise on your team. Coverage is Moscow and the Moscow Oblast; we do not position outstaffing as a standalone commercial product on this site — see the blog long-read on model differences.",
     intro: [
       "Contractually you buy shift outcomes — agreed headcount, replacement when things break, reporting on facts and incidents — not agency theatre. That narrows accountability versus split HR/agency/line ownership: the proposal and contract describe a contractor plane with measurable KPIs.",
       "Geography: Moscow and the Moscow Oblast — we plan reserves and travel time to sites from New Moscow to industrial clusters around the region, including night and pre-holiday peaks. The company is young (since 2023) but already runs a 100+ people pool with partner-grade logistics support.",
       "Hourly benchmarks (RUB/h, day shift, Moscow/MO): loaders and general labour from 600, pickers from 650, warehouse clerks from 680, PRT drivers from 800, cleaners from 600. Nights, 24/7 windows and marketplace peaks use coefficients in the commercial proposal; final pricing depends on task profile, schedule and distance.",
-      "The calculator gives a fast estimate; the multi-step form feeds the CRM for a proposal with rate breakdown, night coefficients, replacement SLA and reporting cadence.",
+      "The calculator gives a fast estimate; the multi-step form feeds the CRM for a proposal with rate breakdown, night coefficients, replacement guarantees and reporting cadence.",
       "For procurement: keep one comparison plane across bidders (WMS/TMS assumptions, peak window, travel time, mass no-show scenario).",
       "Compliance: OT, fire safety basics, site-access paperwork — the contractor-side loop is transparent for your counsel before signature; industry extras go into annexes.",
       "Hybrid with internal staff is common: we cover peaks and nights, you keep methodology and lean anchors — with clear zone ownership.",
-      "Copy is informational, not legal advice. Material terms live in the contract and SLA annexes.",
+      "Copy is informational, not legal advice. Material terms live in the contract and contract annexes.",
       "Below: fit, process, inclusions, comparison, expanded FAQ and profession links. Blog: outsourcing vs outstaffing for tender language.",
     ],
     segments: [
@@ -243,7 +243,7 @@ export const autsorsingPage: ServicePageBilingual = {
     ],
     comparison: [
       { label: "Contract focus", us: "Shift outcomes and KPIs", staff: "Employment stack", agency: "Sourcing / partial replacement" },
-      { label: "Attendance & replacements", us: "Contractor-owned within SLA", staff: "Employer + HR", agency: "Model-dependent" },
+      { label: "Attendance & replacements", us: "Contractor-owned within the contract", staff: "Employer + HR", agency: "Model-dependent" },
       { label: "Measurability", us: "Weekly/shift metrics", staff: "Depends on internal tracking", agency: "Often limited" },
       { label: "Peak elasticity", us: "Flexible pool/reserves", staff: "Slow", agency: "Medium" },
       { label: "Procurement clarity", us: "Single comparison matrix", staff: "Internal policy", agency: "Mixed assumptions" },
@@ -292,7 +292,7 @@ export const autsorsingPage: ServicePageBilingual = {
       },
       {
         q: "How do we get numbers?",
-        a: "Calculator + multi-step form → CRM → proposal with rates and SLA.",
+        a: "Calculator + multi-step form → CRM → proposal with rates and guarantees.",
       },
       {
         q: "Why is outstaffing not the headline offer?",
