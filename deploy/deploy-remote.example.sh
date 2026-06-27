@@ -38,7 +38,12 @@ else
 fi
 pm2 save
 
+# После ребута VPS без этого — nginx 502 (upstream :3000 пустой).
+env PATH="\$PATH:/usr/bin:/usr/local/bin" pm2 startup systemd -u root --hp /root >/dev/null 2>&1 || true
+systemctl enable pm2-root >/dev/null 2>&1 || true
+
 sudo nginx -t && sudo systemctl reload nginx || true
+curl -sfI --max-time 10 http://127.0.0.1:3000/ru | head -3
 EOF
 
 echo "Готово. Проверка: curl -sS -o /dev/null -w '%{http_code}' https://ТВОЙ_ДОМЕН/"

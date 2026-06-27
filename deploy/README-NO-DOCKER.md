@@ -83,8 +83,23 @@ npm run build:vps
    npm run build:vps
    pm2 start ecosystem.config.cjs
    pm2 save
+   pm2 startup systemd -u root --hp /root
+   systemctl enable pm2-root
    ```
 8. Nginx: по образцу `deploy/nginx-site.conf.example` — `proxy_pass` на `127.0.0.1:3000`.
+
+## 502 Bad Gateway после ребута VPS
+
+Nginx проксирует на `127.0.0.1:3000`. Если **PM2 не поднял** `apv-b2b-landing` после перезагрузки — снаружи **502**, в `/var/log/nginx/error.log`: `connect() failed (111: Connection refused)`.
+
+На сервере:
+
+```bash
+cd /var/www/apv-b2b-landing
+bash deploy/ensure-pm2-boot.sh
+```
+
+Скрипт: старт приложения, `pm2 save`, `pm2 startup` + `systemctl enable pm2-root`, проверка `curl` на `/ru`.
 
 ## Переменные окружения
 
