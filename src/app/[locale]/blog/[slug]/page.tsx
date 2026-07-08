@@ -14,7 +14,7 @@ import { SectionDivider } from "@/components/marketing/section-divider";
 import { JsonLd } from "@/components/seo/json-ld";
 import { site } from "@/config/site";
 import { absUrl } from "@/lib/abs-url";
-import { buildPageMetadata } from "@/lib/seo";
+import { buildNotFoundPageMetadata, buildPageMetadata } from "@/lib/seo";
 
 type Props = { params: { locale: string; slug: string } };
 
@@ -52,7 +52,9 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getBlogArticle(params.slug);
-  if (!post) return { title: "Блог" };
+  if (!post) {
+    return buildNotFoundPageMetadata(params.locale, `/blog/${params.slug}`);
+  }
   return buildPageMetadata({
     locale: params.locale,
     pathname: `/blog/${post.slug}`,

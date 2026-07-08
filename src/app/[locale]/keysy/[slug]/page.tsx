@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { CASES, caseDetailFields, getCase } from "@/content/cases-stub";
 import { CaseSparkline } from "@/components/home/case-sparkline";
-import { buildPageMetadata } from "@/lib/seo";
+import { buildNotFoundPageMetadata, buildPageMetadata } from "@/lib/seo";
 import { formatCaseCooperationRu } from "@/lib/format-cooperation-term";
 
 type Props = { params: { locale: string; slug: string } };
@@ -18,12 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const c = getCase(params.slug);
   const t = await getTranslations({ locale: params.locale, namespace: "caseStudy" });
   if (!c) {
-    return buildPageMetadata({
-      locale: params.locale,
-      pathname: `/keysy/${params.slug}`,
-      title: t("fallbackTitle"),
-      description: t("fallbackDescription"),
-    });
+    return buildNotFoundPageMetadata(params.locale, `/keysy/${params.slug}`);
   }
   const d = caseDetailFields(c);
   return buildPageMetadata({

@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServicePage } from "@/content/service-page-data";
 import { ServicePageFull } from "@/components/marketing/service-page-full";
-import { buildPageMetadata } from "@/lib/seo";
+import { buildNotFoundPageMetadata, buildPageMetadata } from "@/lib/seo";
 
 type Props = { params: { locale: string } };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const m = getServicePage("nochnye-smeny");
-  if (!m) return {};
+  if (!m) return buildNotFoundPageMetadata(params.locale, "/uslugi/nochnye-smeny");
   return buildPageMetadata({
     locale: params.locale,
     pathname: `/uslugi/${m.slug}`,

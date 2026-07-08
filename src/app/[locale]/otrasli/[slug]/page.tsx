@@ -7,7 +7,7 @@ import {
   commercialSectionDividerFromSlug,
   commercialVsStripFromSlug,
 } from "@/lib/commercial-seo-variant";
-import { buildPageMetadata, buildServiceJsonLd } from "@/lib/seo";
+import { buildNotFoundPageMetadata, buildPageMetadata, buildServiceJsonLd } from "@/lib/seo";
 import { industryEditorialBundle } from "@/content/commercial-editorial";
 import { OTRASLI_SLUGS } from "@/lib/site-structure";
 
@@ -19,7 +19,7 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: Props): Metadata {
   const def = OTRASLI_SLUGS.find((o) => o.slug === params.slug);
-  if (!def) return {};
+  if (!def) return buildNotFoundPageMetadata(params.locale, `/otrasli/${params.slug}`);
   return buildPageMetadata({
     locale: params.locale,
     pathname: `/otrasli/${def.slug}`,

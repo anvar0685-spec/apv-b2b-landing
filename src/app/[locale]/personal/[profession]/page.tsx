@@ -5,7 +5,7 @@ import type { Crumb } from "@/components/seo/breadcrumbs";
 import { OperationalDarkHero } from "@/components/layout/operational-dark-hero";
 import { ProfessionIcon } from "@/content/profession-icons";
 import { CITIES, PROFESSIONS, getProfession } from "@/content/professions-cities";
-import { buildPageMetadata } from "@/lib/seo";
+import { buildNotFoundPageMetadata, buildPageMetadata } from "@/lib/seo";
 import { slugVisualVariant, variantClass } from "@/lib/slug-visual-seed";
 import { cn } from "@/lib/utils";
 
@@ -17,7 +17,9 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const prof = getProfession(params.profession);
-  if (!prof) return { title: "Персонал" };
+  if (!prof) {
+    return buildNotFoundPageMetadata(params.locale, `/personal/${params.profession}`);
+  }
   const title = `${prof.titleRu} — Москва и МО (города)`;
   const description = `Закрываем смены роли «${prof.titleRu}» в Москве и Московской области: ставки, документы, допуски, резерв на замену. Работаем как подрядчик по сменам, аутстаффинг не оказываем.`;
   return buildPageMetadata({

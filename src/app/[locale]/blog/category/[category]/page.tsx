@@ -7,7 +7,7 @@ import { MarketingHeroChrome } from "@/components/marketing/marketing-hero-chrom
 import { SectionDivider } from "@/components/marketing/section-divider";
 import { PremiumBlogCard } from "@/components/marketing/premium-list-cards";
 import { JsonLd } from "@/components/seo/json-ld";
-import { buildPageMetadata } from "@/lib/seo";
+import { buildNotFoundPageMetadata, buildPageMetadata } from "@/lib/seo";
 
 const VALID = new Set<string>(BLOG_CATEGORY_SLUGS);
 
@@ -17,7 +17,9 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  if (!VALID.has(params.category)) return { title: "Blog" };
+  if (!VALID.has(params.category)) {
+    return buildNotFoundPageMetadata(params.locale, `/blog/category/${params.category}`);
+  }
   const t = await getTranslations({ locale: params.locale, namespace: "blogCategory" });
   const tHome = await getTranslations({ locale: params.locale, namespace: "homePage" });
   const blogCategories = tHome.raw("blogCategories") as Record<string, string>;

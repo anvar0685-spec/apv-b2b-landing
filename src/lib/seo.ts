@@ -98,3 +98,15 @@ export function buildPageMetadata({
     },
   };
 }
+
+/** Мета для 404 / notFound(): полный title + description + noindex. */
+export function buildNotFoundPageMetadata(locale: string, pathname: string): Metadata {
+  return buildPageMetadata({
+    locale,
+    pathname,
+    title: "Страница не найдена",
+    description:
+      "Запрошенная страница не найдена на сайте АПВ — СИСТЕМА. Перейдите на главную, в услуги или карту сайта.",
+    noindex: true,
+  });
+}

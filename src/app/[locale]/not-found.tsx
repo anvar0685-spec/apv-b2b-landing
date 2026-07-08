@@ -1,5 +1,16 @@
+import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
+import { site } from "@/config/site";
+
+const brand = site.brandName.replace(/_/g, " ");
+
+export const metadata: Metadata = {
+  title: `Страница не найдена | ${brand}`,
+  description:
+    "Запрошенная страница не найдена на сайте АПВ — СИСТЕМА. Перейдите на главную, в услуги или карту сайта.",
+  robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
   return (

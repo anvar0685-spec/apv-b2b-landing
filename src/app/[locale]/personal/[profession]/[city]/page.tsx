@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { CITIES, PROFESSIONS, getCity, getProfession } from "@/content/professions-cities";
 import { ProgrammaticStaffingPage } from "@/components/marketing/programmatic-staffing-page";
 import { site } from "@/config/site";
-import { buildPageMetadata } from "@/lib/seo";
+import { buildNotFoundPageMetadata, buildPageMetadata } from "@/lib/seo";
 import { isPriorityCross } from "@/content/cross-priority";
 
 type Props = {
@@ -23,7 +23,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const prof = getProfession(params.profession);
   const city = getCity(params.city);
-  if (!prof || !city) return { title: "Персонал" };
+  if (!prof || !city) {
+    return buildNotFoundPageMetadata(
+      params.locale,
+      `/personal/${params.profession}/${params.city}`,
+    );
+  }
   const brand = site.brandName.replace(/_/g, " ");
   const cityName = city.nameRu;
   const roleName = prof.titleRu;
