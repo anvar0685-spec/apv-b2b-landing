@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
 import { BLOG_CATEGORY_SLUGS, BLOG_POSTS } from "@/content/blog-stub";
 import { CASES } from "@/content/cases-stub";
-import { PRIORITY_CROSS_30 } from "@/content/cross-priority";
-import { PROFESSIONS } from "@/content/professions-cities";
+import { isPriorityCross } from "@/content/cross-priority";
+import { PROFESSIONS, getAllProgrammaticPairs } from "@/content/professions-cities";
 import { absUrl } from "@/lib/abs-url";
 import { allMultipageSeoPaths } from "@/lib/site-structure";
 
@@ -47,7 +47,7 @@ function staticPriority(path: string): number {
  */
 const REV_STATIC = new Date("2026-05-18T00:00:00Z");
 const REV_HUBS = new Date("2026-05-18T00:00:00Z");
-const REV_PROGRAMMATIC = new Date("2026-05-18T00:00:00Z");
+const REV_PROGRAMMATIC = new Date("2026-09-30T00:00:00Z");
 const REV_CATEGORIES = new Date("2026-04-30T00:00:00Z");
 const REV_CASES = new Date("2026-04-15T00:00:00Z");
 
@@ -70,15 +70,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.65,
     });
   }
-  // Programmatic «профессия × город»: только приоритетные 30 пар попадают в sitemap.
-  // Остальные ~210 пар закрыты `robots: noindex, follow` в `generateMetadata` и доступны
-  // через внутренние ссылки в разделе «Персонал», но в карте сайта их нет.
-  for (const pair of PRIORITY_CROSS_30) {
+  // Programmatic «профессия × город»: все 240 пар в sitemap; приоритетные 30 — выше priority.
+  for (const pair of getAllProgrammaticPairs()) {
     entries.push({
       url: absUrl(`/personal/${pair.profession}/${pair.city}`),
       lastModified: REV_PROGRAMMATIC,
       changeFrequency: "monthly",
-      priority: 0.6,
+      priority: isPriorityCross(pair.profession, pair.city) ? 0.6 : 0.55,
     });
   }
   for (const cat of BLOG_CATEGORY_SLUGS) {

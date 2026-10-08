@@ -78,6 +78,10 @@ export default async function CasePage({ params }: Props) {
               <dt className="text-sm text-[var(--neutral-500)]">{t("locationDt")}</dt>
               <dd className="mt-1 text-xl font-semibold text-[var(--primary)]">{d.city}</dd>
             </div>
+            <div className="sm:col-span-2">
+              <dt className="text-sm text-[var(--neutral-500)]">Состав смены</dt>
+              <dd className="mt-1 text-xl font-semibold text-[var(--primary)]">{d.shiftProfile}</dd>
+            </div>
           </dl>
         </section>
 

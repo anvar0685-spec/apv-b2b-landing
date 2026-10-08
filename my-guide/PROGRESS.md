@@ -216,7 +216,12 @@
 
 ## Последнее обновление
 
-- **Дата:** 2026-05-20  
+- **Дата:** 2026-09-30  
+- **Кто:** agent (роль 04)  
+- **Что:** **SEO programmatic:** все **240** пар «профессия × город» в `sitemap.xml` (**336** URL всего, было 120); снят `noindex` с неприоритетных programmatic; прод на VPS пересобран. **Яндекс Вебмастер:** sitemap sync; переобход **114** URL хвоста programmatic (`deploy/webmaster-recrawl-programmatic.txt`, остаток квоты ~102 на завтра). **Яндекс.Справочник** — сознательно не трогаем (решение заказчика до смены ИП). **Google GSC:** OAuth обновлён, но текущий Gmail в API — `siteUnverifiedUser` (нужен **Owner** в GSC для `gsc:sync` / routine).  
+- **Предыдущее:** 2026-05-20  
+
+- **Дата (архив):** 2026-05-20  
 - **Кто:** agent (роли 03 + 04 + 05)  
 - **Что:** **Блог:** опорная статья по миграционному учёту 2026 (`/ru/blog/migracionnyy-uchet-skladskogo-personala-2026-zakon-i-praktika`); prev/next на статье; даты всех **41** материалов пересчитаны **01.03–20.05.2026** (убраны июньские «заглядывания вперёд»). **SEO API:** Яндекс — переобход статьи + `/blog/category/migraciya` + хаб `/blog` (`webmaster:recrawl`, квота 85 осталось); Google GSC inspect — **PASS**, «Страница отправлена и проиндексирована» (last crawl 2026-05-20). **UX:** политика ПДн из `/zayavka` — `target=_blank`. Деплой на VPS.  
 - **Предыдущее:** 2026-05-16 — **реальные фото объекта (Софьино, МО) на главной** — заменён сток в `public/home/industrial-band/` на 5 кадров из `~/Desktop/Фото для сайта` (`hero-sklad.jpg` 1600×900, четыре тайла 1280×960; lanczos3, mozjpeg q78–80; водяной знак на 04 обрезан). Старый сток — резерв в `_old-stock/`. Скрипт ресайза — `scripts/_resize-real-photos.mjs`. Заведены осмысленные `alt` в `ru.json` (`industrialBand.photo*Alt`) и проброшены через `IndustrialPhoto` в `industrial-photo-tiles.tsx` (превью + lightbox). **Второй редакционный проход блога:** расширены «худые» лонгриды 19/25/40 (с 3–6 коротких секций до 6 секций / 16–17 абзацев каждая); добавлены «живые наблюдения с объекта» в ст. 6/21/36. `npm run build` — OK. Карта правок зафиксирована в **`my-guide/COPYWRITER-FINAL-AUDIT-REPORT.md`** (часть VIII).  

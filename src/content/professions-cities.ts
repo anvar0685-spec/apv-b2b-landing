@@ -70,3 +70,8 @@ export function getProfession(slug: string) {
 export function getCity(slug: string) {
   return CITIES.find((c) => c.slug === slug);
 }
+
+/** Все пары «профессия × город» для sitemap и generateStaticParams (8 × 30 = 240). */
+export function getAllProgrammaticPairs(): { profession: ProfessionSlug; city: CitySlug }[] {
+  return PROFESSIONS.flatMap((p) => CITIES.map((c) => ({ profession: p.slug, city: c.slug })));
+}

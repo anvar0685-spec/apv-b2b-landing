@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { HeroSlaDashboard } from "@/components/home/hero-sla-dashboard";
+import { HeroRatePanel } from "@/components/home/hero-rate-panel";
 import { HeroWordsReveal } from "@/components/home/hero-words-reveal";
 import { MagneticButtonWrap } from "@/components/home/magnetic-button-wrap";
 
@@ -66,7 +66,7 @@ export function HeroSection() {
                   asChild
                   className="focus-visible:ring-2 focus-visible:ring-white/90 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--primary-dark)]"
                 >
-                  <Link href="/kalkulyator">{tc("calc")}</Link>
+                  <Link href="/zayavka">{tc("proposal")}</Link>
                 </Button>
               </MagneticButtonWrap>
               <Button
@@ -74,7 +74,7 @@ export function HeroSection() {
                 variant="secondary"
                 className="border-white/25 bg-white/10 text-white hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-white/90 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--primary-dark)]"
               >
-                <Link href="/zayavka">{tc("proposal")}</Link>
+                <Link href="/kalkulyator">{tc("calc")}</Link>
               </Button>
             </div>
             <nav aria-label={th("sectionsNavAria")} className="mt-12 border-t border-white/[0.08] pt-8">
@@ -98,7 +98,7 @@ export function HeroSection() {
             animate={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
-            <HeroSlaDashboard />
+            <HeroRatePanel />
           </motion.div>
         </div>
       </div>

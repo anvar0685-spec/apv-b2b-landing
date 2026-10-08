@@ -1,32 +1,34 @@
 /**
- * Legacy: те же URL теперь в основном `/sitemap.xml`. В `robots.txt` не указывается.
- * Содержит только приоритетные пары (как и основной sitemap) — неприоритетные пары
- * закрыты `robots: noindex, follow`, в карту их класть нельзя.
+ * Legacy: дублирует programmatic URL из основного `/sitemap.xml`.
+ * В `robots.txt` не указывается — единая точка обхода: `sitemap.xml`.
  */
-import { PRIORITY_CROSS_30 } from "@/content/cross-priority";
+import { getAllProgrammaticPairs } from "@/content/professions-cities";
 import { absUrl } from "@/lib/abs-url";
+import { isPriorityCross } from "@/content/cross-priority";
 
 export const dynamic = "force-dynamic";
 
-const REV_PROGRAMMATIC = "2026-05-18T00:00:00Z";
+const REV_PROGRAMMATIC = "2026-09-30T00:00:00Z";
 
 function esc(s: string) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 export async function GET() {
-  const urls = PRIORITY_CROSS_30.map((pair) => absUrl(`/personal/${pair.profession}/${pair.city}`));
+  const pairs = getAllProgrammaticPairs();
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls
-  .map(
-    (loc) => `  <url>
+${pairs
+  .map((pair) => {
+    const loc = absUrl(`/personal/${pair.profession}/${pair.city}`);
+    const priority = isPriorityCross(pair.profession, pair.city) ? "0.6" : "0.55";
+    return `  <url>
     <loc>${esc(loc)}</loc>
     <lastmod>${REV_PROGRAMMATIC}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>`,
-  )
+    <priority>${priority}</priority>
+  </url>`;
+  })
   .join("\n")}
 </urlset>`;
 

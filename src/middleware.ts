@@ -42,6 +42,13 @@ export default function middleware(request: NextRequest) {
   const response = intl(req);
   const slug = process.env.DEFAULT_TENANT_SLUG ?? "default";
   response.headers.set("x-tenant-slug", slug);
+  // next-intl отдаёт 307 на /ru. Для Google это временный редирект, из-за него / и /ru спорят за каноникал.
+  if (response.status === 307 || response.status === 302) {
+    const location = response.headers.get("location");
+    if (location) {
+      return new NextResponse(null, { status: 308, headers: response.headers });
+    }
+  }
   return response;
 }
 

@@ -77,3 +77,60 @@ export async function sendKpDraftEmail(params: {
     return { ok: false, reason: "send_failed" };
   }
 }
+
+/** Письмо менеджеру на почту для КП. Не зависит от email заказчика. */
+export async function sendInboundLeadNotice(params: {
+  leadId: string;
+  companyName: string;
+  contactName: string;
+  contactPhone: string;
+  city: string;
+  profession: string;
+  headcount: number;
+  comment?: string | null;
+}): Promise<{ ok: true } | { ok: false; reason: string }> {
+  if (!smtpConfigured()) {
+    return { ok: false, reason: "smtp_not_configured" };
+  }
+
+  const host = process.env.SMTP_HOST!.trim();
+  const port = Number(process.env.SMTP_PORT ?? "465");
+  const secure = process.env.SMTP_SECURE !== "false";
+  const user = process.env.SMTP_USER!.trim();
+  const pass = process.env.SMTP_PASSWORD!.trim();
+  const from =
+    process.env.MAIL_FROM?.trim() ||
+    `"${site.brandName.replace(/_/g, " ")}" <${user}>`;
+  const to = (process.env.ADMIN_KP_NOTIFY_EMAIL?.split(",")[0] ?? site.emailHello).trim();
+
+  const transporter = nodemailer.createTransport({
+    host,
+    port,
+    secure,
+    auth: { user, pass },
+  });
+
+  try {
+    await transporter.sendMail({
+      from,
+      to,
+      subject: `Заявка с сайта: ${params.companyName}`,
+      text: [
+        `Компания: ${params.companyName}`,
+        `Контакт: ${params.contactName}`,
+        `Телефон: ${params.contactPhone}`,
+        `Город: ${params.city}`,
+        `Роли: ${params.profession}`,
+        `Численность: ${params.headcount}`,
+        params.comment ? `Комментарий: ${params.comment}` : "",
+        `ID: ${params.leadId}`,
+      ]
+        .filter(Boolean)
+        .join("\n"),
+    });
+    return { ok: true };
+  } catch (e) {
+    logger.error({ err: e, msg: "inbound_lead_notice_failed", leadId: params.leadId });
+    return { ok: false, reason: "send_failed" };
+  }
+}

@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { rateLimitOrThrow } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 import { renderKpDraftPdfBuffer } from "@/lib/kp-draft/render-kp-pdf";
-import { sendKpDraftEmail } from "@/lib/kp-draft/send-kp-draft-email";
+import { sendInboundLeadNotice, sendKpDraftEmail } from "@/lib/kp-draft/send-kp-draft-email";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -81,6 +81,17 @@ export async function POST(req: Request) {
       },
     });
 
+    const notice = await sendInboundLeadNotice({
+      leadId: lead.id,
+      companyName: lead.companyName,
+      contactName: lead.contactName,
+      contactPhone: lead.contactPhone,
+      city: lead.city,
+      profession: lead.profession,
+      headcount: lead.headcount,
+      comment: lead.comment,
+    });
+
     let kpEmailSent = false;
     if (lead.contactEmail) {
       try {
@@ -141,6 +152,7 @@ export async function POST(req: Request) {
       id: lead.id,
       status: lead.status,
       kpEmailSent,
+      managerNotified: notice.ok,
     });
   } catch (e) {
     if (e instanceof Error && e.message === "RATE_LIMITED") {

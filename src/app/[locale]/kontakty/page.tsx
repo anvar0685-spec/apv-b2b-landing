@@ -76,14 +76,15 @@ export default async function Page({ params }: Props) {
                 </a>
               </li>
               <li className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 shadow-[var(--card-shadow)]">
-                <span className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">Email</span>
+                <span className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">Почта для КП</span>
                 <br />
                 <a
                   className="mt-2 inline-block font-semibold text-[var(--accent)] transition hover:underline"
                   href={`mailto:${site.emailHello}`}
                 >
-                  {site.emailHello}
+                  Написать по заявке
                 </a>
+                <p className="mt-1 break-all text-sm text-[var(--neutral-600)]">{site.emailHello}</p>
                 {site.emailSales !== site.emailHello ? (
                   <>
                     <br />
@@ -106,7 +107,7 @@ export default async function Page({ params }: Props) {
                     MAX
                   </a>
                   <a className="font-medium text-[var(--accent)] hover:underline" href={site.telegram} rel="noopener noreferrer">
-                    Telegram
+                    Менеджер в Telegram
                   </a>
                   <a className="font-medium text-[var(--accent)] hover:underline" href={site.whatsapp} rel="noopener noreferrer">
                     WhatsApp

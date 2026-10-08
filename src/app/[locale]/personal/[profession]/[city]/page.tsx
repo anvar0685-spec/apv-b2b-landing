@@ -4,8 +4,6 @@ import { CITIES, PROFESSIONS, getCity, getProfession } from "@/content/professio
 import { ProgrammaticStaffingPage } from "@/components/marketing/programmatic-staffing-page";
 import { site } from "@/config/site";
 import { buildNotFoundPageMetadata, buildPageMetadata } from "@/lib/seo";
-import { isPriorityCross } from "@/content/cross-priority";
-
 type Props = {
   params: { locale: string; profession: string; city: string };
 };
@@ -34,13 +32,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const roleName = prof.titleRu;
   const title = `${roleName} в ${cityName} — складской персонал (аутсорсинг смен) — ${brand}`;
   const description = `${roleName} в ${cityName}: ориентиры по ставкам, логистика выхода на склад, документы и допуски. Аутсорсинг персонала на склад подрядчиком, без аутстаффинга.`;
-  const priority = isPriorityCross(params.profession, params.city);
   return buildPageMetadata({
     locale: params.locale,
     pathname: `/personal/${params.profession}/${params.city}`,
     title,
     description,
-    noindex: !priority,
   });
 }
 

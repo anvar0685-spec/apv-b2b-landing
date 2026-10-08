@@ -143,7 +143,8 @@ export async function HomeSections() {
                 <CardTitle className="mt-3">{card.title}</CardTitle>
                 <CardDescription>{card.summary}</CardDescription>
                 <CaseSparkline chartId={`home-case-${c.slug}`} variant={i === 1 ? "flat" : "up"} />
-                <p className="kpi-numerals mt-2 font-mono-nums text-lg font-semibold tabular-nums text-[var(--primary)]">
+                <p className="mt-2 text-sm font-medium text-[var(--primary)]">{card.shiftProfile}</p>
+                <p className="kpi-numerals mt-1 font-mono-nums text-lg font-semibold tabular-nums text-[var(--primary)]">
                   {card.metricUp}
                 </p>
                 <div className="mt-auto pt-5">

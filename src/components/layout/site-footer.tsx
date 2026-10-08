@@ -70,8 +70,9 @@ export async function SiteFooter() {
               </TrackedTelLink>
             </li>
             <li>
-              <a className="flex min-h-11 items-center break-all py-2 hover:text-white" href={`mailto:${site.emailHello}`}>
-                {site.emailHello}
+              <a className="flex min-h-11 flex-col justify-center py-2 hover:text-white" href={`mailto:${site.emailHello}`}>
+                <span>{t("emailKp")}</span>
+                <span className="text-xs text-white/60">{site.emailHello}</span>
               </a>
             </li>
             <li>
