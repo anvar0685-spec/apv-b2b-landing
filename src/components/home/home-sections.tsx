@@ -36,7 +36,7 @@ export async function HomeSections() {
   const speakableJson = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: "АПВ — СИСТЕМА — Складской персонал под ключ",
+    name: "АПВ — СИСТЕМА — Аутсорсинг складских смен",
     speakable: {
       "@type": "SpeakableSpecification",
       cssSelector: ["h1", "h2", "[data-speakable]"],

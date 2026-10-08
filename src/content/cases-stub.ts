@@ -135,7 +135,7 @@ export const CASES: CaseStub[] = [
   {
     slug: "marketplace-multiprofil-mo",
     title: "Площадка крупного маркетплейса: техника и FMCG-сырьё в одной смене",
-    industry: "Маркетплейс / multi-storage",
+    industry: "Маркетплейс / несколько товарных зон",
     city: "Московская область",
     durationMonths: 24,
     shiftProfile: "ПРР техники и пищевой допуск, один менеджер замен",

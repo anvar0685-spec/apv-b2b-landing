@@ -33,7 +33,7 @@ export const OTRASLI_SLUGS: readonly SlugPageDef[] = [
     slug: "sklady-3pl",
     title: { ru: "Аутсорсинг для 3PL-операторов", en: "3PL operator staffing" },
     description: {
-      ru: "Масштабируемые команды под мульти-клиентские площадки и переменный объём.",
+      ru: "Смены и резерв для площадок с несколькими клиентами и переменным объёмом.",
       en: "Scalable teams for multi-tenant sites and variable volumes.",
     },
   },

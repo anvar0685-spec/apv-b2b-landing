@@ -13,7 +13,7 @@ https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/gruzchiki/dzerzhinsky
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/gruzchiki/dolgoprudny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/gruzchiki/reutov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/gruzchiki/koteljniki
-https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/gruzchiki/kotlova
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/gruzchiki/bronnitsy
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/gruzchiki/zheleznodorozhny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/gruzchiki/korolyov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/gruzchiki/pushkino
@@ -40,7 +40,7 @@ https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/komplektovschiki/dzerzhinsky
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/komplektovschiki/dolgoprudny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/komplektovschiki/reutov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/komplektovschiki/koteljniki
-https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/komplektovschiki/kotlova
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/komplektovschiki/bronnitsy
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/komplektovschiki/zheleznodorozhny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/komplektovschiki/korolyov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/komplektovschiki/pushkino
@@ -67,7 +67,7 @@ https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/kladovschiki/dzerzhinsky
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/kladovschiki/dolgoprudny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/kladovschiki/reutov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/kladovschiki/koteljniki
-https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/kladovschiki/kotlova
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/kladovschiki/bronnitsy
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/kladovschiki/zheleznodorozhny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/kladovschiki/korolyov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/kladovschiki/pushkino
@@ -94,7 +94,7 @@ https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/voditeli-prt/dzerzhinsky
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/voditeli-prt/dolgoprudny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/voditeli-prt/reutov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/voditeli-prt/koteljniki
-https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/voditeli-prt/kotlova
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/voditeli-prt/bronnitsy
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/voditeli-prt/zheleznodorozhny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/voditeli-prt/korolyov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/voditeli-prt/pushkino
@@ -121,7 +121,7 @@ https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/upakovschiki/dzerzhinsky
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/upakovschiki/dolgoprudny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/upakovschiki/reutov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/upakovschiki/koteljniki
-https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/upakovschiki/kotlova
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/upakovschiki/bronnitsy
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/upakovschiki/zheleznodorozhny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/upakovschiki/korolyov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/upakovschiki/pushkino
@@ -148,7 +148,7 @@ https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/razdorabochie/dzerzhinsky
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/razdorabochie/dolgoprudny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/razdorabochie/reutov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/razdorabochie/koteljniki
-https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/razdorabochie/kotlova
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/razdorabochie/bronnitsy
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/razdorabochie/zheleznodorozhny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/razdorabochie/korolyov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/razdorabochie/pushkino
@@ -175,7 +175,7 @@ https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/klinery/dzerzhinsky
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/klinery/dolgoprudny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/klinery/reutov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/klinery/koteljniki
-https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/klinery/kotlova
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/klinery/bronnitsy
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/klinery/zheleznodorozhny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/klinery/korolyov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/klinery/pushkino
@@ -202,7 +202,7 @@ https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/sborschiki-upakovschiki/dzerzhi
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/sborschiki-upakovschiki/dolgoprudny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/sborschiki-upakovschiki/reutov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/sborschiki-upakovschiki/koteljniki
-https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/sborschiki-upakovschiki/kotlova
+https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/sborschiki-upakovschiki/bronnitsy
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/sborschiki-upakovschiki/zheleznodorozhny
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/sborschiki-upakovschiki/korolyov
 https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal/sborschiki-upakovschiki/pushkino

@@ -22,7 +22,9 @@ type Props = {
 
 export async function ProgrammaticStaffingPage({ profession, city }: Props) {
   const cityName = city.nameRu;
+  const cityPrepositional = city.namePrepositionalRu;
   const roleName = profession.titleRu;
+  const roleGenitive = profession.titleGenitiveRu;
   const priority = isPriorityCross(profession.slug, city.slug);
   const productionSeed = `${profession.slug}-${city.slug}`;
   const showProductionStrip = commercialProductionStripFromSlug(productionSeed);
@@ -32,14 +34,14 @@ export async function ProgrammaticStaffingPage({ profession, city }: Props) {
 
   const t = {
     kicker: "Персонал · Москва и МО",
-    h1: `${roleName} в ${cityName} — складской персонал (аутсорсинг смен)`,
-    lead:
-      `Что важно по профилю «${roleName}» в ${cityName}: ставка, логистика выхода на объект, документы и резерв на замену. Калькулятор и заявка ведут к КП. Аутстаффинг не оказываем — работаем как подрядчик по сменам.`,
+    h1: `${roleName} в ${cityPrepositional} — аутсорсинг складских смен`,
+    lead: `Выводим ${roleGenitive} на склады в ${cityPrepositional}: считаем ставку, логистику, документы и резерв на замену. Аутстаффинг не оказываем — отвечаем за смены как подрядчик.`,
     calc: "Рассчитать вилку",
     proposal: "Получить КП",
     h2: "Как закрываем смены по этой роли",
     cardTitle: "Что дальше",
-    cardDesc: "Калькулятор и заявка уже учитывают город и профиль — менеджер пришлёт КП с резервом и коэффициентами.",
+    cardDesc:
+      "Город и профиль уже подставлены. Рассчитайте ориентир или оставьте заявку — менеджер подготовит КП.",
     step1: "Заявка",
     step2: "Согласование",
     step3: "Выход на смену",
@@ -47,14 +49,13 @@ export async function ProgrammaticStaffingPage({ profession, city }: Props) {
     l2: "Складской аутсорсинг",
     l3: "Соседние города по этой роли",
     calcCta: "Открыть калькулятор",
-    footerCaption: "Материалы и соседние города",
+    footerCaption: "Полезные материалы",
     priBadge: "Популярный сценарий для расчёта",
   };
 
   const calcHref = `/kalkulyator?p=${profession.slug}&city=${city.slug}`;
 
-  const midBreak =
-    longread.length <= 1 ? longread.length : Math.max(1, Math.floor(longread.length / 2));
+  const midBreak = longread.length <= 1 ? longread.length : Math.max(1, Math.floor(longread.length / 2));
   const headParas = longread.slice(0, midBreak);
   const tailParas = longread.slice(midBreak);
 
@@ -92,7 +93,11 @@ export async function ProgrammaticStaffingPage({ profession, city }: Props) {
             <Button asChild>
               <Link href={calcHref}>{t.calc}</Link>
             </Button>
-            <Button asChild variant="secondary" className="border-white/25 bg-white/10 text-white hover:bg-white/15">
+            <Button
+              asChild
+              variant="secondary"
+              className="border-white/25 bg-white/10 text-white hover:bg-white/15"
+            >
               <Link href="/zayavka">{t.proposal}</Link>
             </Button>
           </>
@@ -101,7 +106,10 @@ export async function ProgrammaticStaffingPage({ profession, city }: Props) {
       />
 
       <div className="relative ux-inner-page-cluster">
-        <div className="ux-page-body-subtle pointer-events-none absolute inset-0 -z-10 min-h-full opacity-[0.55] dark:opacity-[0.38]" aria-hidden />
+        <div
+          className="ux-page-body-subtle pointer-events-none absolute inset-0 -z-10 min-h-full opacity-[0.55] dark:opacity-[0.38]"
+          aria-hidden
+        />
         <div
           className={cn(
             "relative mx-auto px-4 py-16 sm:px-6 lg:py-24 ux-inner-section-canopy",

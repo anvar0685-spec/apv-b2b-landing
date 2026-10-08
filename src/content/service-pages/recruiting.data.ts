@@ -3,7 +3,7 @@ import type { ServicePageBilingual } from "./types";
 export const recruitingPage: ServicePageBilingual = {
   slug: "podbor-personala",
   ru: {
-    h1: "Подбор персонала под ключ для линейных ролей",
+    h1: "Подбор линейного персонала для складов и РЦ",
     subtitle:
       "От профиля до выхода на смену: отбор, проверки и передача людей в операционную зону ответственности подрядчика или по согласованной модели заказчика.",
     intro: [
@@ -16,7 +16,10 @@ export const recruitingPage: ServicePageBilingual = {
       { title: "Складские роли", text: "Грузчики, комплектовщики, операторы погрузчика, кладовщики." },
       { title: "Производство", text: "Сборка, упаковка, вспомогательные операции на линии." },
       { title: "Сезонные кампании", text: "Массовый найм под пик без потери качества скрининга." },
-      { title: "Закрытие текучки", text: "Быстрое закрытие дефицита с понятными гарантиями по этапам отбора." },
+      {
+        title: "Закрытие текучки",
+        text: "Быстрое закрытие дефицита с понятными гарантиями по этапам отбора.",
+      },
     ],
     howItWorks: [
       "Профиль, этапы отбора и источники кандидатов.",
@@ -28,18 +31,45 @@ export const recruitingPage: ServicePageBilingual = {
       { name: "Поиск и первичный контакт", included: true },
       { name: "Ассессмент базовых навыков", included: true },
       { name: "Сопровождение первых смен", included: true },
-      { name: "Executive search топ-менеджмента", included: false },
+      { name: "Поиск руководителей и офисных специалистов", included: false },
     ],
     comparison: [
-      { label: "Скорость закрытия", us: "Пакетно под профиль", staff: "Зависит от HR", agency: "Высокая без операций" },
-      { label: "Контроль качества", us: "Единый стандарт подрядчика", staff: "Внутренний", agency: "Вариативно" },
-      { label: "Стоимость", us: "Прозрачный пакет в КП", staff: "ФОТ + риски", agency: "Комиссия + риски срыва" },
+      {
+        label: "Скорость закрытия",
+        us: "Пакетно под профиль",
+        staff: "Зависит от HR",
+        agency: "Высокая без операций",
+      },
+      {
+        label: "Контроль качества",
+        us: "Единый стандарт подрядчика",
+        staff: "Внутренний",
+        agency: "Вариативно",
+      },
+      {
+        label: "Стоимость",
+        us: "Прозрачный пакет в КП",
+        staff: "ФОТ + риски",
+        agency: "Комиссия + риски срыва",
+      },
     ],
     faq: [
-      { q: "Чем отличается от классического агентства?", a: "Фокус на линейных ролях и передаче в операционную работу подрядчика, а не только на резюме." },
-      { q: "Можно ли объединить с подрядом по персоналу на сменах?", a: "Да, типовой сценарий: подбор → вывод на объект и закрытие смен → отчётность." },
-      { q: "Есть ли гарантия найма N человек за неделю?", a: "Конкретные цифры — предмет КП и доступности профиля на рынке." },
-      { q: "Подбор только по Москве и области?", a: "Да: подбор и выход на объекты ведём по Москве и Московской области — так совпадают логистика пула и модель КП." },
+      {
+        q: "Чем отличается от классического агентства?",
+        a: "Фокус на линейных ролях и передаче в операционную работу подрядчика, а не только на резюме.",
+      },
+      {
+        q: "Можно ли объединить с подрядом по персоналу на сменах?",
+        a: "Да, типовой сценарий: подбор → вывод на объект и закрытие смен → отчётность.",
+      },
+      {
+        q: "Есть ли гарантия найма N человек за неделю?",
+        a: "Конкретные цифры — предмет КП и доступности профиля на рынке.",
+      },
+      {
+        q: "Подбор только по Москве и области?",
+        a: "Да: подбор и выход на объекты ведём по Москве и Московской области — так совпадают логистика пула и модель КП.",
+      },
       { q: "Какие проверки делаете?", a: "Базовый пакет согласуется в КП; расширенный — по запросу." },
       { q: "Как стартовать?", a: "Заявка с описанием профиля и объёма — ответ с этапами отбора и сроками." },
     ],
@@ -73,17 +103,45 @@ export const recruitingPage: ServicePageBilingual = {
       { name: "Executive search for leadership", included: false },
     ],
     comparison: [
-      { label: "Time to fill", us: "Packaged to profile", staff: "Depends on HR", agency: "Fast without ops handover" },
+      {
+        label: "Time to fill",
+        us: "Packaged to profile",
+        staff: "Depends on HR",
+        agency: "Fast without ops handover",
+      },
       { label: "Quality control", us: "Single vendor standard", staff: "Internal", agency: "Variable" },
-      { label: "Cost", us: "Transparent package in proposal", staff: "Payroll + risk", agency: "Fee + delivery risk" },
+      {
+        label: "Cost",
+        us: "Transparent package in proposal",
+        staff: "Payroll + risk",
+        agency: "Fee + delivery risk",
+      },
     ],
     faq: [
-      { q: "How is this different from a classic agency?", a: "We focus on line roles and operational handover, not CVs alone." },
-      { q: "Can it combine with shift outsourcing?", a: "Yes — typical path: recruit → shift delivery → reporting." },
-      { q: "Do you guarantee N hires per week?", a: "Numbers belong in the proposal and depend on market availability for the profile." },
-      { q: "Is hiring limited to Moscow and the region?", a: "Yes — search and on-site deployment are focused on Moscow and the Moscow Oblast so the pool, travel time and commercial model stay aligned." },
-      { q: "Which checks do you run?", a: "Baseline pack is agreed in the proposal; extended checks on request." },
-      { q: "How to start?", a: "Send a request with profile and volume — we reply with funnel and timelines." },
+      {
+        q: "How is this different from a classic agency?",
+        a: "We focus on line roles and operational handover, not CVs alone.",
+      },
+      {
+        q: "Can it combine with shift outsourcing?",
+        a: "Yes — typical path: recruit → shift delivery → reporting.",
+      },
+      {
+        q: "Do you guarantee N hires per week?",
+        a: "Numbers belong in the proposal and depend on market availability for the profile.",
+      },
+      {
+        q: "Is hiring limited to Moscow and the region?",
+        a: "Yes — search and on-site deployment are focused on Moscow and the Moscow Oblast so the pool, travel time and commercial model stay aligned.",
+      },
+      {
+        q: "Which checks do you run?",
+        a: "Baseline pack is agreed in the proposal; extended checks on request.",
+      },
+      {
+        q: "How to start?",
+        a: "Send a request with profile and volume — we reply with funnel and timelines.",
+      },
     ],
   },
 };

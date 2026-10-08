@@ -22,16 +22,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const prof = getProfession(params.profession);
   const city = getCity(params.city);
   if (!prof || !city) {
-    return buildNotFoundPageMetadata(
-      params.locale,
-      `/personal/${params.profession}/${params.city}`,
-    );
+    return buildNotFoundPageMetadata(params.locale, `/personal/${params.profession}/${params.city}`);
   }
   const brand = site.brandName.replace(/_/g, " ");
-  const cityName = city.nameRu;
+  const cityName = city.namePrepositionalRu;
   const roleName = prof.titleRu;
   const title = `${roleName} в ${cityName} — складской персонал (аутсорсинг смен) — ${brand}`;
-  const description = `${roleName} в ${cityName}: ориентиры по ставкам, логистика выхода на склад, документы и допуски. Аутсорсинг персонала на склад подрядчиком, без аутстаффинга.`;
+  const description = `${roleName} для склада в ${cityName}: ставки, логистика выхода, документы и резерв на замену. Подряд по складским сменам без аутстаффинга.`;
   return buildPageMetadata({
     locale: params.locale,
     pathname: `/personal/${params.profession}/${params.city}`,

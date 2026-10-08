@@ -51,7 +51,7 @@ export default async function Page({ params }: Props) {
       <MarketingHubShell
         kicker="Связь"
         title="Контакты"
-        description="Реквизиты и контакты централизованы в конфигурации сайта и переменных окружения. Офис приёмов — Бронницы; юридический адрес ИП указан в карточке реквизитов."
+        description="Офис для встреч — в Бронницах. Телефон, почта, мессенджеры и реквизиты указаны ниже; юридический адрес ИП приведён отдельно."
         heroSurface="contacts"
       >
         <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
