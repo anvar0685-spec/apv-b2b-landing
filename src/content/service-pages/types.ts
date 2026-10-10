@@ -13,6 +13,10 @@ export type ServiceLocaleBlock = {
   /** Для JSON-LD `Service.serviceType` вместо технического slug */
   schemaServiceType?: string;
   intro: string[];
+  /** Заголовок блока вводного текста (по умолчанию «Об услуге»). */
+  overviewTitle?: string;
+  /** Заголовок блока карточек под вводным (по умолчанию «Кому подходит»). */
+  segmentsTitle?: string;
   segments: { title: string; text: string }[];
   howItWorks: string[];
   includes: { name: string; included: boolean }[];

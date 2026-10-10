@@ -23,6 +23,21 @@ npm run build  → exit 0, 347 страниц
 
 Формула полного калькулятора и `estimate.ts` не менялись. Контроль 30 грузчиков / Москва / 40 ч — по прежним значениям промпта (ручная сверка при приёмке).
 
+## Проход 4 — закрытие остатков после b7fc7b0
+
+| Пункт | Файлы | Проверка |
+| --- | --- | --- |
+| Аутсорсинг | `service-page-full.tsx`, scroll-story | «Что берём на себя», howLead вместо howStoryLead на этапах |
+| 3 услуги | `types.ts`, `*.data.ts`, `service-page-full.tsx` | «Об услуге» / кастомные заголовки; CTA «Рассчитать стоимость» |
+| #why-us | `ru.json` | «Почему с нами удобно работать» + 6 карточек |
+| Кейсы ×6 | `cases-stub.ts`, `keysy/[slug]/page.tsx` | Нейтральные metricUp/challenge/solution/outcome; цитаты скрыты |
+| Таблица цен | `shift-pricing.ts` | Подписи «График склада…» без «на 1 чел.» |
+| Programmatic | `check-programmatic-routes.mjs` | 8×30=240, longread без жаргона |
+
+```text
+npm run test && npm run build → OK
+```
+
 ## Проход 2 — сводная таблица
 
 | Раздел | Файлы | На странице | Проверка | Остаток |

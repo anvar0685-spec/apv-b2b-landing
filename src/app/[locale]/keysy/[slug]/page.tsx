@@ -103,12 +103,14 @@ export default async function CasePage({ params }: Props) {
           </div>
         </section>
 
-        <figure className="mt-14 rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-8 shadow-[var(--card-shadow)]">
-          <blockquote className="font-display text-lg font-medium leading-relaxed text-[var(--primary)] md:text-xl">
-            «{d.clientQuote}»
-          </blockquote>
-          <figcaption className="mt-4 text-sm text-[var(--neutral-500)]">{t("quoteCaption")}</figcaption>
-        </figure>
+        {d.clientQuote.trim() ? (
+          <figure className="mt-14 rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-8 shadow-[var(--card-shadow)]">
+            <blockquote className="font-display text-lg font-medium leading-relaxed text-[var(--primary)] md:text-xl">
+              «{d.clientQuote}»
+            </blockquote>
+            <figcaption className="mt-4 text-sm text-[var(--neutral-500)]">{t("quoteCaption")}</figcaption>
+          </figure>
+        ) : null}
 
         <div className="mt-14 flex flex-wrap gap-3">
           <Button asChild>
