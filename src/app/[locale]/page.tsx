@@ -3,11 +3,9 @@ import { getTranslations } from "next-intl/server";
 import { HeroSection } from "@/components/home/hero-section";
 import { TrustMarquee } from "@/components/home/trust-marquee";
 import { HomePersonas } from "@/components/home/home-personas";
+import { HomeServiceScope } from "@/components/home/home-service-scope";
 import { StatsCounters } from "@/components/home/stats-counters";
 import { HomeSections } from "@/components/home/home-sections";
-import { PainSolutionBento } from "@/components/home/pain-solution-bento";
-import { IndustrialLogisticsBand } from "@/components/home/industrial-logistics-band";
-import { FullBleedOperations } from "@/components/home/full-bleed-operations";
 import { SectionDivider } from "@/components/marketing/section-divider";
 import { JsonLd } from "@/components/seo/json-ld";
 import { site } from "@/config/site";
@@ -82,11 +80,9 @@ export default async function HomePage() {
       <HeroSection />
       <TrustMarquee kicker={t("trust")} lead={t("trustLead")} />
       <HomePersonas />
-      <PainSolutionBento />
-      <IndustrialLogisticsBand />
+      <HomeServiceScope />
       <SectionDivider className="py-6 sm:py-8" />
       <StatsCounters />
-      <FullBleedOperations />
       <SectionDivider className="py-6 sm:py-8" />
       <HomeSections />
     </main>

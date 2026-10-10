@@ -72,7 +72,9 @@ export function buildPageMetadata({
 }: PageSeoInput): Metadata {
   const canonical = absUrl(pathname, locale);
   const brand = site.brandName.replace(/_/g, " ");
-  const fullTitle = title.includes(brand) ? title : `${title} | ${brand}`;
+  const titleHasBrand =
+    /апв/i.test(title) && /система/i.test(title.replace(/_/g, " "));
+  const fullTitle = titleHasBrand ? title : `${title} | ${brand}`;
   const ogImage = absUrl("/opengraph-image", locale);
 
   return {

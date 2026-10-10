@@ -1,5 +1,6 @@
 import type { BlogArticle } from "@/content/blog-published";
 import { PUBLISHED_BLOG_ARTICLES } from "@/content/blog-published";
+import { computeArticleReadingMinutes, stripBlogMarkdown } from "@/lib/blog-reading-time";
 import { absUrl } from "@/lib/abs-url";
 import { routing } from "@/i18n/routing";
 
@@ -14,11 +15,11 @@ export const BLOG_POSTS: BlogStub[] = PUBLISHED_BLOG_ARTICLES
     slug: a.slug,
     title: a.title,
     titleEn: a.titleEn,
-    excerpt: a.excerpt,
+    excerpt: stripBlogMarkdown(a.excerpt),
     excerptEn: a.excerptEn,
     category: a.category,
     publishedAt: a.publishedAt,
-    readingTime: a.readingTime,
+    readingTime: computeArticleReadingMinutes(a),
   }))
   .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 

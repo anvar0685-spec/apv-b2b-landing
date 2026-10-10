@@ -187,12 +187,8 @@ export function ManagerCard() {
           <p className="mt-0.5 text-[11px] font-medium leading-snug text-[var(--neutral-500)] dark:text-[var(--text-on-dark-muted)]">
             Менеджер проекта
           </p>
-          <p className="mt-1.5 flex items-center gap-1.5 text-[11px] font-medium text-[var(--neutral-700)] dark:text-[var(--text-on-dark-base)]">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--success)] opacity-60 motion-reduce:animate-none" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--success)]" />
-            </span>
-            <span>Онлайн · ответим за 15&nbsp;минут</span>
+          <p className="mt-1.5 text-[11px] font-medium text-[var(--neutral-700)] dark:text-[var(--text-on-dark-base)]">
+            Пн–Пт, 9:00–18:00 (МСК)
           </p>
         </div>
         {/* Controls: collapse (sm+) + close (mobile) */}
@@ -223,7 +219,7 @@ export function ManagerCard() {
       />
 
       <p className="px-3.5 pt-3 text-[12px] leading-snug text-[var(--neutral-600)] dark:text-[var(--text-on-dark-base)]">
-        Напишите в&nbsp;удобном канале — пришлю ставки, документы и условия по&nbsp;вашему складу.
+        Напишите, кто нужен, сколько человек и когда начинать.
       </p>
 
       <div className="px-3.5 pt-3">

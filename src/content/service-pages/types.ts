@@ -17,6 +17,8 @@ export type ServiceLocaleBlock = {
   howItWorks: string[];
   includes: { name: string; included: boolean }[];
   comparison: { label: string; us: string; staff: string; agency: string }[];
+  /** Короткое описание модели вместо таблицы сравнения (если задано). */
+  positioningNote?: string;
   faq: ServiceFAQ[];
 };
 

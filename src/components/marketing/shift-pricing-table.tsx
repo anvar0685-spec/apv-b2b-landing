@@ -1,5 +1,6 @@
 import {
   MONTHLY_SHIFT_SCHEDULES,
+  SHIFTS_PER_MONTH_WEEKS,
   WAREHOUSE_SHIFT_HOURS,
   getShiftPricingRows,
 } from "@/content/shift-pricing";
@@ -28,7 +29,8 @@ export function ShiftPricingTable({ className, compact }: Props) {
         (день, Москва и МО). В таблице — ориентир на{" "}
         <strong className="font-semibold text-[var(--primary)]">одного человека</strong> при трёх графиках на
         месяц. Итог по объекту = сумма по профилям × численность; ночь, пик и особые условия площадки — в
-        согласованном КП.
+        согласованном КП. Месячные суммы — ориентир при {SHIFTS_PER_MONTH_WEEKS} неделях в месяце; фактическое число
+        смен зависит от календаря и графика.
       </p>
 
       <p className="mt-2 text-xs text-[var(--neutral-500)]">

@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
-import {
-  commercialHeroFromSlug,
-  commercialProductionStripFromSlug,
-  commercialSectionDividerFromSlug,
-  commercialVsStripFromSlug,
-} from "@/lib/commercial-seo-variant";
+import { IndustryStaffingBody } from "@/components/marketing/industry-staffing-body";
+import { getIndustryPageContent } from "@/content/industry-page-content";
 import { buildNotFoundPageMetadata, buildPageMetadata, buildServiceJsonLd } from "@/lib/seo";
-import { industryEditorialBundle } from "@/content/commercial-editorial";
 import { OTRASLI_SLUGS } from "@/lib/site-structure";
 
 type Props = { params: { locale: string; slug: string } };
@@ -32,38 +27,37 @@ export default function Page({ params }: Props) {
   const def = OTRASLI_SLUGS.find((o) => o.slug === params.slug);
   if (!def) notFound();
 
+  const body = getIndustryPageContent(def.slug);
+  if (!body) notFound();
+
   const { locale } = params;
   const title = def.title.ru;
   const lead = def.description.ru;
   const hub = "Отрасли";
-  const kicker = "Отрасль";
-
-  const editorial = industryEditorialBundle(def.slug);
-  if (!editorial) notFound();
 
   return (
     <CommercialSeoPage
-      heroVariant={commercialHeroFromSlug(def.slug)}
-      showComparisonStrip={commercialVsStripFromSlug(def.slug)}
-      showProductionVisualStrip={commercialProductionStripFromSlug(def.slug)}
-      showSectionDivider={commercialSectionDividerFromSlug(def.slug)}
-      editorialParagraphs={editorial.paragraphs}
-      editorialCalloutParagraphIndex={editorial.calloutParagraphIndex}
+      heroVariant="vertical"
+      showComparisonStrip={false}
+      showProductionVisualStrip={false}
+      showSectionDivider
+      showPriorityTeasers={false}
       crumbs={[
         { href: "/", label: "Главная" },
         { href: "/otrasli", label: hub },
         { href: `/otrasli/${def.slug}`, label: title },
       ]}
-      kicker={kicker}
+      kicker="Отрасль"
       title={title}
       lead={lead}
-      showPriorityTeasers
       jsonLd={buildServiceJsonLd({
         locale,
         pathname: `/otrasli/${def.slug}`,
         name: title,
         description: lead,
       })}
-    />
+    >
+      <IndustryStaffingBody content={body} />
+    </CommercialSeoPage>
   );
 }

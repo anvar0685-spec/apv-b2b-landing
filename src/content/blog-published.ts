@@ -1,3 +1,5 @@
+import { computeArticleReadingMinutes } from "@/lib/blog-reading-time";
+
 /** 40 опубликованных материалов (RU-копирайт; EN в мета-полях оставлены для совместимости типов). */
 
 export type BlogSection = { id: string; heading: string; paragraphs: string[] };
@@ -1531,7 +1533,9 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
 ];
 
 export function getBlogArticle(slug: string): BlogArticle | undefined {
-  return PUBLISHED_BLOG_ARTICLES.find((a) => a.slug === slug);
+  const article = PUBLISHED_BLOG_ARTICLES.find((a) => a.slug === slug);
+  if (!article) return undefined;
+  return { ...article, readingTime: computeArticleReadingMinutes(article) };
 }
 
 export function relatedArticles(slug: string, category: string, limit = 5): BlogArticle[] {

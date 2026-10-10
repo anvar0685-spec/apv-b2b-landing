@@ -12,14 +12,11 @@ import { HomeWhyUs } from "@/components/home/home-why-us";
 import { getTranslations } from "next-intl/server";
 
 type FaqItem = { q: string; a: string };
-type TechTile = { t: string; d: string };
-
 export async function HomeSections() {
   const t = await getTranslations("homePage");
   const ts = await getTranslations("homePage.sections");
 
   const faq = t.raw("faq") as FaqItem[];
-  const techItems = ts.raw("techItems") as TechTile[];
   const calcBullets = ts.raw("calcBullets") as string[];
 
   const faqJson = {
@@ -159,21 +156,6 @@ export async function HomeSections() {
       </section>
 
       <ProcessStickySplit />
-
-      <section id="tech" className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--neutral-500)]">{ts("techKicker")}</p>
-        <h2 className="font-display mt-3 text-2xl font-bold tracking-tight text-[var(--primary)] md:text-4xl md:leading-[1.15]">
-          {ts("techTitle")}
-        </h2>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {techItems.map((x) => (
-            <Card key={x.t}>
-              <CardTitle>{x.t}</CardTitle>
-              <CardDescription>{x.d}</CardDescription>
-            </Card>
-          ))}
-        </div>
-      </section>
 
       {/* TODO: вернуть на главную, когда заказчик пришлёт реальные сканы благодарственных писем (см. PROGRESS.md). */}
       {/* <ThankYouLettersGallery /> */}

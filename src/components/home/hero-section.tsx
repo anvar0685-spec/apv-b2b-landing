@@ -18,6 +18,7 @@ export function HeroSection() {
 
   const sub = [
     { href: "#personas", label: ta("personas") },
+    { href: "#service-scope", label: ta("serviceScope") },
     { href: "#services-preview", label: ta("services") },
     { href: "#professions-home", label: ta("professions") },
     { href: "#calc", label: ta("calc") },

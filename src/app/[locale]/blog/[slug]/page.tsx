@@ -19,7 +19,7 @@ import { buildNotFoundPageMetadata, buildPageMetadata } from "@/lib/seo";
 type Props = { params: { locale: string; slug: string } };
 
 function RichParagraph({ text }: { text: string }) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
   return (
     <p>
       {parts.map((part, i) => {
@@ -28,6 +28,15 @@ function RichParagraph({ text }: { text: string }) {
             <strong key={i} className="font-semibold text-[var(--primary)]">
               {part.slice(2, -2)}
             </strong>
+          );
+        }
+        const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+        if (linkMatch) {
+          const [, label, href] = linkMatch;
+          return (
+            <Link key={i} className="font-medium text-[var(--accent)] hover:underline" href={href}>
+              {label}
+            </Link>
           );
         }
         return <span key={i}>{part}</span>;
@@ -209,10 +218,10 @@ export default function BlogArticlePage({ params }: Props) {
           </Link>
           <div className="flex flex-wrap gap-3">
             <Button asChild>
-              <Link href="/zayavka">Обсудить внедрение</Link>
+              <Link href="/zayavka">Обсудить задачу</Link>
             </Button>
             <Button asChild variant="secondary">
-              <Link href="/kalkulyator">Рассчитать вилку</Link>
+              <Link href="/kalkulyator">Рассчитать стоимость</Link>
             </Button>
             <Button asChild variant="secondary">
               <Link href="/uslugi/autsorsing">Услуги</Link>

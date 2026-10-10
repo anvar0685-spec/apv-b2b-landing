@@ -45,7 +45,16 @@ const t = {
   ctaTitle: "Нужен расчёт под ваш объект?",
   ctaLead:
     "Оставьте заявку — менеджер свяжется в рабочее время и уточнит параметры объекта.",
+  ctaTitleOutsourcing: "Получите расчёт для вашего склада",
+  ctaLeadOutsourcing:
+    "Укажите работников, количество, график и адрес объекта. Подготовим стоимость и обсудим начало работы.",
   req: "Оставить заявку",
+  reqOutsourcing: "Получить расчёт",
+  overviewOutsourcing: "Как организуем работу",
+  tasksOutsourcing: "Какие задачи можно поручить команде",
+  includesOutsourcing: "Что берём на себе",
+  howOutsourcing: "Этапы работы",
+  modelOutsourcing: "Как устроена услуга",
   calc: "Калькулятор",
   tableSwipeHint: "На узком экране таблицу можно прокручивать горизонтально.",
   areaServed: "Москва и Московская область",
@@ -86,6 +95,8 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
     })),
   };
 
+  const isOutsourcing = model.slug === "autsorsing";
+
   const crumbs = [
     { href: "/", label: "Главная" },
     { href: "/uslugi", label: "Услуги" },
@@ -125,7 +136,7 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
         <div className="ux-page-body-subtle pointer-events-none absolute inset-x-0 top-0 -z-10 h-[min(100%,48rem)] opacity-[0.45] dark:opacity-[0.32]" aria-hidden />
 
         <ServiceSectionWrap motionEnabled={motion}>
-          <h2 className="type-headline">{t.overview}</h2>
+          <h2 className="type-headline">{isOutsourcing ? t.overviewOutsourcing : t.overview}</h2>
           <div className="mt-4 space-y-4 text-[0.9375rem] leading-relaxed text-[var(--neutral-700)] sm:text-base">
             {model.intro.map((p, i) => (
               <p key={i}>{p}</p>
@@ -140,7 +151,7 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
         ) : null}
 
         <ServiceSectionWrap motionEnabled={motion} className="mt-14">
-          <h2 className="type-headline">{t.whoFits}</h2>
+          <h2 className="type-headline">{isOutsourcing ? t.tasksOutsourcing : t.whoFits}</h2>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {model.segments.map((s) => (
               <Card key={s.title}>
@@ -163,7 +174,7 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
             </>
           ) : (
             <>
-              <h2 className="type-headline">{t.how}</h2>
+              <h2 className="type-headline">{isOutsourcing ? t.howOutsourcing : t.how}</h2>
               <ol className="mt-4 list-decimal space-y-3 pl-5 text-[var(--neutral-700)]">
                 {model.howItWorks.map((step, i) => (
                   <li key={i}>{step}</li>
@@ -174,7 +185,7 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
         </ServiceSectionWrap>
 
         <ServiceSectionWrap motionEnabled={motion} className="mt-14">
-          <h2 className="type-headline">{t.includes}</h2>
+          <h2 className="type-headline">{isOutsourcing ? t.includesOutsourcing : t.includes}</h2>
           <p className="mt-2 text-xs text-[var(--neutral-500)] md:hidden">{t.tableSwipeHint}</p>
           <div className="mt-3 overflow-x-auto overscroll-x-contain rounded-2xl border border-[var(--neutral-200)] [-webkit-overflow-scrolling:touch]">
             <table className="w-full min-w-[480px] text-left text-sm">
@@ -196,32 +207,41 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
           </div>
         </ServiceSectionWrap>
 
-        <ServiceSectionWrap motionEnabled={motion} className="mt-14">
-          <h2 className="type-headline">{t.compare}</h2>
-          <p className="mt-2 text-xs text-[var(--neutral-500)] md:hidden">{t.tableSwipeHint}</p>
-          <div className="mt-3 overflow-x-auto overscroll-x-contain rounded-2xl border border-[var(--neutral-200)] [-webkit-overflow-scrolling:touch]">
-            <table className="w-full min-w-[520px] text-left text-sm">
-              <thead className="bg-[var(--surface)] text-xs uppercase tracking-wide text-[var(--neutral-500)]">
-                <tr>
-                  <th className="px-4 py-3">{t.crit}</th>
-                  <th className="px-4 py-3">{t.us}</th>
-                  <th className="px-4 py-3">{t.staff}</th>
-                  <th className="px-4 py-3">{t.agency}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {model.comparison.map((r) => (
-                  <tr key={r.label} className="border-t border-[var(--neutral-200)]">
-                    <td className="px-4 py-3 font-medium text-[var(--primary)]">{r.label}</td>
-                    <td className="px-4 py-3 text-[var(--neutral-700)]">{r.us}</td>
-                    <td className="px-4 py-3 text-[var(--neutral-700)]">{r.staff}</td>
-                    <td className="px-4 py-3 text-[var(--neutral-700)]">{r.agency}</td>
+        {model.positioningNote ? (
+          <ServiceSectionWrap motionEnabled={motion} className="mt-14">
+            <h2 className="type-headline">{t.modelOutsourcing}</h2>
+            <p className="mt-4 text-[0.9375rem] leading-relaxed text-[var(--neutral-700)] sm:text-base">
+              {model.positioningNote}
+            </p>
+          </ServiceSectionWrap>
+        ) : model.comparison.length ? (
+          <ServiceSectionWrap motionEnabled={motion} className="mt-14">
+            <h2 className="type-headline">{t.compare}</h2>
+            <p className="mt-2 text-xs text-[var(--neutral-500)] md:hidden">{t.tableSwipeHint}</p>
+            <div className="mt-3 overflow-x-auto overscroll-x-contain rounded-2xl border border-[var(--neutral-200)] [-webkit-overflow-scrolling:touch]">
+              <table className="w-full min-w-[520px] text-left text-sm">
+                <thead className="bg-[var(--surface)] text-xs uppercase tracking-wide text-[var(--neutral-500)]">
+                  <tr>
+                    <th className="px-4 py-3">{t.crit}</th>
+                    <th className="px-4 py-3">{t.us}</th>
+                    <th className="px-4 py-3">{t.staff}</th>
+                    <th className="px-4 py-3">{t.agency}</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </ServiceSectionWrap>
+                </thead>
+                <tbody>
+                  {model.comparison.map((r) => (
+                    <tr key={r.label} className="border-t border-[var(--neutral-200)]">
+                      <td className="px-4 py-3 font-medium text-[var(--primary)]">{r.label}</td>
+                      <td className="px-4 py-3 text-[var(--neutral-700)]">{r.us}</td>
+                      <td className="px-4 py-3 text-[var(--neutral-700)]">{r.staff}</td>
+                      <td className="px-4 py-3 text-[var(--neutral-700)]">{r.agency}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </ServiceSectionWrap>
+        ) : null}
 
         <ServiceSectionWrap motionEnabled={motion} className="mt-14">
           <h2 className="type-headline">{t.professions}</h2>
@@ -273,11 +293,13 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
 
         <ServiceSectionWrap motionEnabled={motion} className="mt-14">
           <div className="rounded-2xl bg-[var(--primary-dark)] p-8 text-center text-white">
-            <p className="font-display text-xl font-semibold">{t.ctaTitle}</p>
-            <p className="mt-2 text-sm text-white/80">{t.ctaLead}</p>
+            <p className="font-display text-xl font-semibold">
+              {isOutsourcing ? t.ctaTitleOutsourcing : t.ctaTitle}
+            </p>
+            <p className="mt-2 text-sm text-white/80">{isOutsourcing ? t.ctaLeadOutsourcing : t.ctaLead}</p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Button asChild>
-                <Link href="/zayavka">{t.req}</Link>
+                <Link href="/zayavka">{isOutsourcing ? t.reqOutsourcing : t.req}</Link>
               </Button>
               <Button asChild variant="secondary">
                 <Link href="/kalkulyator">{t.calc}</Link>

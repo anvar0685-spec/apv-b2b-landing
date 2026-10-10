@@ -87,7 +87,7 @@ export function HeroRatePanel() {
       <div className="relative flex flex-col gap-4">
         <div className="flex min-w-0 flex-wrap items-center justify-between gap-2">
           <figcaption className="min-w-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-on-dark-muted)]">
-            Ориентир ставки · день · Москва и МО
+            Базовые ставки на дневную смену
           </figcaption>
           <motion.span
             className="shrink-0 rounded-full border border-[var(--accent)]/50 bg-[var(--accent)]/20 px-2.5 py-0.5 text-[10px] font-semibold text-[var(--accent-soft)] shadow-[0_0_12px_-2px_var(--accent)]"
@@ -166,7 +166,8 @@ export function HeroRatePanel() {
         </div>
 
         <p className="border-t border-white/[0.07] pt-3 text-[10px] leading-snug text-[var(--text-on-dark-muted)]">
-          Витринный ориентир до КП. Ночная смена +8%. Срок замены невыхода фиксируется в договоре.
+          Итог зависит от графика, задач и расположения склада. Подготовим расчёт для вашего объекта. Ночная смена и
+          дополнительные условия — в согласованном КП.
         </p>
       </div>
     </figure>

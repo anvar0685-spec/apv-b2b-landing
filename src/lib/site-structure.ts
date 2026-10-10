@@ -15,57 +15,57 @@ export type SlugPageDef = {
 export const OTRASLI_SLUGS: readonly SlugPageDef[] = [
   {
     slug: "sklady-e-commerce",
-    title: { ru: "Аутсорсинг на склады e-commerce", en: "E-commerce warehouse staffing" },
+    title: { ru: "Персонал для складов интернет-магазинов и маркетплейсов", en: "E-commerce warehouse staffing" },
     description: {
-      ru: "Персонал под fulfillment, пики продаж и гарантии маркетплейсов в Москве и МО.",
+      ru: "Подбираем работников для сборки и упаковки заказов, сортировки товара и обработки возвратов. До начала сезона согласуем нужный состав и график смен.",
       en: "Fulfillment staffing, peak seasons and marketplace guarantees in Moscow and the Moscow Oblast.",
     },
   },
   {
     slug: "sklady-riteyla",
-    title: { ru: "Аутсорсинг на склады ритейла", en: "Retail DC staffing" },
+    title: { ru: "Персонал для складов розничных сетей", en: "Retail DC staffing" },
     description: {
-      ru: "Распределительные центры и складская логистика ритейла — смены под ваши регламенты.",
+      ru: "Обсудим команду для приёмки, перемещения и подготовки товара к отгрузке в магазины. Состав работников и график согласуем под операции вашего склада.",
       en: "Distribution centers and retail logistics — shifts aligned with your procedures.",
     },
   },
   {
     slug: "sklady-3pl",
-    title: { ru: "Аутсорсинг для 3PL-операторов", en: "3PL operator staffing" },
+    title: { ru: "Персонал для складов логистических операторов", en: "3PL operator staffing" },
     description: {
-      ru: "Смены и резерв для площадок с несколькими клиентами и переменным объёмом.",
+      ru: "Организуем работу складской команды на площадке с несколькими заказчиками. Согласуем задачи участков, график, требования к работникам и порядок отчётности.",
       en: "Scalable teams for multi-tenant sites and variable volumes.",
     },
   },
   {
     slug: "proizvodstvennye-sklady",
-    title: { ru: "Производственные склады", en: "Manufacturing warehouse staffing" },
+    title: { ru: "Персонал для производственного склада", en: "Manufacturing warehouse staffing" },
     description: {
-      ru: "Персонал под производственно-складские операции FMCG, фармы и электроники.",
+      ru: "Обсудим работников для складских и вспомогательных задач на производственной площадке. До подбора уточним операции, условия участков, инструктажи и график.",
       en: "Staffing for manufacturing warehouse flows in FMCG, pharma and electronics.",
     },
   },
   {
     slug: "farmatsevticheskie-sklady",
-    title: { ru: "Фармацевтические склады", en: "Pharma warehouse staffing" },
+    title: { ru: "Персонал для фармацевтического склада", en: "Pharma warehouse staffing" },
     description: {
-      ru: "Соблюдение регламентов хранения и сериализации при выводе людей на смены.",
+      ru: "Обсудим подбор работников под требования вашего фармацевтического склада. До выхода согласуем задачи, необходимые документы и инструктажи.",
       en: "Storage and serialization requirements respected while supplying shifts.",
     },
   },
   {
     slug: "fmcg-sklady",
-    title: { ru: "FMCG-склады", en: "FMCG warehouse staffing" },
+    title: { ru: "Персонал для складов товаров повседневного спроса", en: "FMCG warehouse staffing" },
     description: {
-      ru: "Скорость оборота, паллетизация, сезонные пики — без простоя линий отгрузки.",
+      ru: "Обсудим команду для приёмки, комплектации и отгрузки товаров повседневного спроса. Уточним требования к товару, операции и нагрузку по сменам.",
       en: "Turnover speed, palletizing and seasonal peaks without shipping line downtime.",
     },
   },
   {
     slug: "sklady-klassa-a",
-    title: { ru: "Склады класса А и А+", en: "Class A warehouse staffing" },
+    title: { ru: "Персонал для складов класса А и А+", en: "Class A warehouse staffing" },
     description: {
-      ru: "Персонал под высокие стандарты WMS, KPI и инфраструктуры класса А.",
+      ru: "Обсудим подбор команды под процессы и требования вашего склада. Согласуем задачи участков, навыки работников, доступ и график.",
       en: "Teams for Class A facilities: WMS, KPIs and premium infrastructure standards.",
     },
   },
