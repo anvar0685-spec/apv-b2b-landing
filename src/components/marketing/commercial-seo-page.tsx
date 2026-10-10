@@ -34,6 +34,7 @@ type Props = {
   showHeroCtas?: boolean;
   /** Промышленная фото-полоса после редакционного блока */
   showProductionVisualStrip?: boolean;
+  heroAside?: ReactNode;
 };
 
 export async function CommercialSeoPage({
@@ -52,6 +53,7 @@ export async function CommercialSeoPage({
   showComparisonStrip = false,
   showHeroCtas = true,
   showProductionVisualStrip = false,
+  heroAside,
 }: Props) {
   const t = await getTranslations("commercial");
   const tc = await getTranslations("cta");
@@ -66,7 +68,7 @@ export async function CommercialSeoPage({
           <Link href="/kalkulyator">{tc("calc")}</Link>
         </Button>
         <Button asChild variant="secondary" size="sm">
-          <Link href="/zayavka">{tc("proposal")}</Link>
+          <Link href="/zayavka">{tc("discuss")}</Link>
         </Button>
       </div>
     ) : null;
@@ -91,7 +93,7 @@ export async function CommercialSeoPage({
         {lightHeroCtas}
       </CommercialAtlasHero>
     ) : heroVariant === "vertical" ? (
-      <CommercialVerticalHero crumbs={crumbs} kicker={kicker} title={title} lead={lead}>
+      <CommercialVerticalHero crumbs={crumbs} kicker={kicker} title={title} lead={lead} aside={heroAside}>
         {lightHeroCtas}
       </CommercialVerticalHero>
     ) : (

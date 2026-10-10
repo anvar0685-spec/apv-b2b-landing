@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { WarehouseSchematic } from "@/components/graphics/warehouse-schematic";
 import { CommercialSeoPage } from "@/components/marketing/commercial-seo-page";
+import { industrySchematicVariant } from "@/lib/industry-schematic";
 import { IndustryStaffingBody } from "@/components/marketing/industry-staffing-body";
 import { getIndustryPageContent } from "@/content/industry-page-content";
 import { buildNotFoundPageMetadata, buildPageMetadata, buildServiceJsonLd } from "@/lib/seo";
@@ -50,6 +52,13 @@ export default function Page({ params }: Props) {
       kicker="Отрасль"
       title={title}
       lead={lead}
+      heroAside={
+        <WarehouseSchematic
+          variant={industrySchematicVariant(def.slug)}
+          className="text-[var(--accent)]"
+          title={title}
+        />
+      }
       jsonLd={buildServiceJsonLd({
         locale,
         pathname: `/otrasli/${def.slug}`,

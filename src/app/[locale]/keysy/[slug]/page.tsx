@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
+import { WarehouseSchematic } from "@/components/graphics/warehouse-schematic";
 import { CASES, caseDetailFields, getCase } from "@/content/cases-stub";
-import { CaseSparkline } from "@/components/home/case-sparkline";
+import { caseSchematicVariant } from "@/lib/case-schematic";
 import { buildNotFoundPageMetadata, buildPageMetadata } from "@/lib/seo";
 import { formatCaseCooperationRu } from "@/lib/format-cooperation-term";
 
@@ -35,6 +36,7 @@ export default async function CasePage({ params }: Props) {
 
   const t = await getTranslations({ locale: params.locale, namespace: "caseStudy" });
   const d = caseDetailFields(c);
+  const schematic = caseSchematicVariant(c.slug);
 
   const idx = CASES.findIndex((x) => x.slug === c.slug);
   const prev = idx > 0 ? CASES[idx - 1]! : null;
@@ -57,57 +59,40 @@ export default async function CasePage({ params }: Props) {
             {d.title}
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-white/80">{d.summary}</p>
-          <div className="mt-10 rounded-2xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-md">
-            <CaseSparkline chartId={`case-hero-${c.slug}`} variant={idx % 2 === 0 ? "up" : "flat"} />
-            <p className="kpi-numerals mt-4 font-mono-nums text-2xl font-bold tabular-nums text-white md:text-3xl">{d.metricUp}</p>
-          </div>
+          <p className="mt-4 text-sm text-white/65">
+            {formatCaseCooperationRu(d.durationMonths)} · {d.city}
+          </p>
         </div>
       </section>
 
-      <article className="mx-auto max-w-[880px] px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-        <section className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] p-8 shadow-[var(--card-shadow)]">
-          <h2 className="font-display text-lg font-semibold text-[var(--primary)]">{t("paramsTitle")}</h2>
-          <dl className="mt-6 grid gap-5 sm:grid-cols-2">
-            <div>
-              <dt className="text-sm text-[var(--neutral-500)]">{t("durationDt")}</dt>
-              <dd className="mt-1 text-xl font-semibold text-[var(--primary)]">
-                {formatCaseCooperationRu(d.durationMonths)}
-              </dd>
-            </div>
-            <div>
-              <dt className="text-sm text-[var(--neutral-500)]">{t("locationDt")}</dt>
-              <dd className="mt-1 text-xl font-semibold text-[var(--primary)]">{d.city}</dd>
-            </div>
-            <div className="sm:col-span-2">
-              <dt className="text-sm text-[var(--neutral-500)]">Состав смены</dt>
-              <dd className="mt-1 text-xl font-semibold text-[var(--primary)]">{d.shiftProfile}</dd>
-            </div>
-          </dl>
+      <article className="mx-auto max-w-[760px] px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+        <div className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] p-5">
+          <WarehouseSchematic variant={schematic} className="max-h-[120px] text-[var(--accent)]" title={d.title} />
+        </div>
+
+        <section className="mt-12">
+          <h2 className="font-display text-xl font-semibold text-[var(--primary)]">Задача</h2>
+          <p className="mt-4 text-base leading-relaxed text-[var(--neutral-700)]">{d.challenge}</p>
         </section>
 
-        <section className="mt-14 space-y-10">
-          <div>
-            <p className="type-kicker">{t("kickerContext")}</p>
-            <h2 className="type-headline mt-2">{t("headlineChallenge")}</h2>
-            <p className="type-body mt-4">{d.challenge}</p>
-          </div>
-          <div>
-            <p className="type-kicker">{t("kickerSolution")}</p>
-            <h2 className="type-headline mt-2">{t("headlineSolution")}</h2>
-            <p className="type-body mt-4">{d.solution}</p>
-          </div>
-          <div>
-            <p className="type-kicker">{t("kickerOutcome")}</p>
-            <h2 className="type-headline mt-2">{t("headlineOutcome")}</h2>
-            <p className="type-body mt-4">{d.outcome}</p>
-          </div>
+        <section className="mt-12">
+          <h2 className="font-display text-xl font-semibold text-[var(--primary)]">Как организовали работу</h2>
+          <p className="mt-4 text-base leading-relaxed text-[var(--neutral-700)]">{d.solution}</p>
+        </section>
+
+        <section className="mt-12">
+          <h2 className="font-display text-xl font-semibold text-[var(--primary)]">Итог работы</h2>
+          <p className="mt-4 text-base leading-relaxed text-[var(--neutral-700)]">{d.outcome}</p>
+        </section>
+
+        <section className="mt-12 rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6">
+          <h2 className="font-display text-lg font-semibold text-[var(--primary)]">Особенность объекта</h2>
+          <p className="mt-3 text-base leading-relaxed text-[var(--neutral-700)]">{d.shiftProfile}</p>
         </section>
 
         {d.clientQuote.trim() ? (
-          <figure className="mt-14 rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-8 shadow-[var(--card-shadow)]">
-            <blockquote className="font-display text-lg font-medium leading-relaxed text-[var(--primary)] md:text-xl">
-              «{d.clientQuote}»
-            </blockquote>
+          <figure className="mt-12 rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-8 shadow-[var(--card-shadow)]">
+            <blockquote className="text-lg font-medium leading-relaxed text-[var(--primary)]">«{d.clientQuote}»</blockquote>
             <figcaption className="mt-4 text-sm text-[var(--neutral-500)]">{t("quoteCaption")}</figcaption>
           </figure>
         ) : null}
@@ -128,7 +113,7 @@ export default async function CasePage({ params }: Props) {
           >
             {prev && prevD ? (
               <Link
-                className="group rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] p-5 transition hover:border-[var(--accent)]/30 hover:shadow-[var(--card-shadow-hover)] sm:max-w-[48%]"
+                className="group rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] p-5 transition hover:border-[var(--accent)]/30 sm:max-w-[48%]"
                 href={`/keysy/${prev.slug}`}
               >
                 <p className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">{t("navPrev")}</p>
@@ -139,7 +124,7 @@ export default async function CasePage({ params }: Props) {
             )}
             {next && nextD ? (
               <Link
-                className="group rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] p-5 text-right transition hover:border-[var(--accent)]/30 hover:shadow-[var(--card-shadow-hover)] sm:max-w-[48%]"
+                className="group rounded-2xl border border-[var(--neutral-200)] bg-[var(--surface)] p-5 text-right transition hover:border-[var(--accent)]/30 sm:max-w-[48%]"
                 href={`/keysy/${next.slug}`}
               >
                 <p className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">{t("navNext")}</p>

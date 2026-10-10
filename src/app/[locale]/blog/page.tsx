@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { BLOG_PAGE_SIZE, blogListingItemListJsonLd, paginatePosts } from "@/content/blog-stub";
+import {
+  BLOG_PAGE_SIZE,
+  FEATURED_BLOG_SLUG,
+  blogListingItemListJsonLd,
+  getBlogPost,
+  paginatePosts,
+} from "@/content/blog-stub";
+import { FeaturedBlogLead } from "@/components/marketing/featured-blog-lead";
 import { MarketingHubShell } from "@/components/layout/marketing-hub-shell";
 import { ListingGridShell } from "@/components/marketing/listing-grid-shell";
 import { PremiumBlogCard } from "@/components/marketing/premium-list-cards";
@@ -60,6 +67,8 @@ export default async function BlogIndexPage({ params, searchParams }: PageProps)
   const parsed = raw ? Number.parseInt(raw, 10) : 1;
   const page = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
   const { posts, totalPages, page: current } = paginatePosts(page);
+  const featured = current === 1 ? getBlogPost(FEATURED_BLOG_SLUG) : undefined;
+  const gridPosts = featured ? posts.filter((p) => p.slug !== featured.slug) : posts;
   const listLd = blogListingItemListJsonLd(posts, params.locale);
 
   return (
@@ -72,8 +81,9 @@ export default async function BlogIndexPage({ params, searchParams }: PageProps)
         heroSurface="blog"
       >
         <ListingGridShell>
-          <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((p) => (
+          {featured ? <FeaturedBlogLead post={featured} locale={params.locale} /> : null}
+          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {gridPosts.map((p) => (
               <li key={p.slug}>
                 <PremiumBlogCard p={p} locale={params.locale} />
               </li>

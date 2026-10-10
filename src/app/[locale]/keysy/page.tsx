@@ -31,9 +31,9 @@ export default async function Page({ params }: PageProps) {
       >
         <ListingGridShell>
           <ul className="grid gap-8 md:grid-cols-2">
-            {CASES.map((c, i) => (
+            {CASES.map((c) => (
               <li key={c.slug}>
-                <PremiumCaseCard c={c} index={i} locale={params.locale} />
+                <PremiumCaseCard c={c} locale={params.locale} />
               </li>
             ))}
           </ul>

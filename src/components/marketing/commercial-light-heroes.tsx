@@ -29,7 +29,9 @@ export function CommercialAtlasHero({ crumbs, kicker, title, lead, children }: H
 }
 
 /** Вертикальный акцент слева — отрасли и площадки, без полноэкранной тёмной плиты */
-export function CommercialVerticalHero({ crumbs, kicker, title, lead, children }: HeroProps) {
+type VerticalHeroProps = HeroProps & { aside?: ReactNode };
+
+export function CommercialVerticalHero({ crumbs, kicker, title, lead, children, aside }: VerticalHeroProps) {
   return (
     <section className="ux-tech-field-light relative overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--surface)] dark:border-[color-mix(in_srgb,var(--accent)_18%,transparent)] dark:bg-gradient-to-b dark:from-[var(--hero-operational-top)] dark:to-[var(--hero-operational-bottom)]">
       <div
@@ -41,15 +43,22 @@ export function CommercialVerticalHero({ crumbs, kicker, title, lead, children }
         aria-hidden
       />
       <div className="relative z-[2] mx-auto max-w-content px-4 py-10 pl-6 sm:px-6 sm:py-12 sm:pl-10 lg:px-8 lg:pl-12">
-        <div className="min-w-0 max-w-3xl">
-          <Breadcrumbs items={crumbs} variant="light" />
-          {kicker ? <p className="type-kicker mt-8">{kicker}</p> : null}
-          <h1 className="font-display mt-4 max-w-[22ch] text-balance text-4xl font-bold leading-[1.1] tracking-[-0.035em] text-[var(--primary)] md:max-w-[34ch] md:text-5xl lg:text-[2.75rem] dark:text-white">
-            {title}
-          </h1>
-          <p className="type-lead mt-5 max-w-2xl text-[var(--neutral-700)] dark:text-white/78">{lead}</p>
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_min(280px,32%)] lg:items-start lg:gap-10">
+          <div className="min-w-0 max-w-3xl">
+            <Breadcrumbs items={crumbs} variant="light" />
+            {kicker ? <p className="type-kicker mt-8">{kicker}</p> : null}
+            <h1 className="font-display mt-4 max-w-[22ch] text-balance text-4xl font-bold leading-[1.1] tracking-[-0.035em] text-[var(--primary)] md:max-w-[34ch] md:text-5xl lg:text-[2.75rem] dark:text-white">
+              {title}
+            </h1>
+            <p className="type-lead mt-5 max-w-2xl text-[var(--neutral-700)] dark:text-white/78">{lead}</p>
+            {children ? <div className="mt-8 min-w-0 max-w-3xl">{children}</div> : null}
+          </div>
+          {aside ? (
+            <div className="mt-10 min-w-0 rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-4 lg:mt-16 dark:border-white/12">
+              {aside}
+            </div>
+          ) : null}
         </div>
-        {children ? <div className="mt-8 min-w-0 max-w-3xl">{children}</div> : null}
       </div>
     </section>
   );

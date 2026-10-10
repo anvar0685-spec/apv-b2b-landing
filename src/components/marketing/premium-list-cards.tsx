@@ -6,14 +6,12 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import { CaseSparkline } from "@/components/home/case-sparkline";
 import { cn } from "@/lib/utils";
 import { formatCaseCooperationRu } from "@/lib/format-cooperation-term";
 
-export async function PremiumCaseCard({ c, index, locale }: { c: CaseStub; index: number; locale: string }) {
+export async function PremiumCaseCard({ c, locale }: { c: CaseStub; locale: string }) {
   const t = await getTranslations({ locale, namespace: "caseCard" });
   const card = caseCardFields(c);
-  const variant = index % 3 === 1 ? "flat" : "up";
   return (
     <Card
       className={cn(
@@ -34,11 +32,7 @@ export async function PremiumCaseCard({ c, index, locale }: { c: CaseStub; index
         </Link>
       </CardTitle>
       <CardDescription className="relative z-[1]">{card.summary}</CardDescription>
-      <div className="relative z-[1]">
-        <CaseSparkline chartId={`keysy-${c.slug}`} variant={variant} />
-      </div>
-      <p className="relative z-[1] mt-2 text-sm font-medium text-[var(--primary)]">{card.shiftProfile}</p>
-      <p className="kpi-numerals relative z-[1] mt-1 font-mono-nums text-lg font-semibold tabular-nums text-[var(--primary)]">{card.metricUp}</p>
+      <p className="relative z-[1] mt-4 text-sm leading-relaxed text-[var(--neutral-700)]">{card.shiftProfile}</p>
       <dl className="relative z-[1] mt-6 grid flex-1 grid-cols-2 gap-3 border-t border-[var(--neutral-200)] pt-6 text-sm">
         <div>
           <dt className="text-[var(--neutral-500)]">{t("months")}</dt>

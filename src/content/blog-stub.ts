@@ -25,6 +25,9 @@ export const BLOG_POSTS: BlogStub[] = PUBLISHED_BLOG_ARTICLES
 
 export const BLOG_PAGE_SIZE = 9;
 
+/** Полезная статья для крупной карточки в каталоге (не обязательно самая новая по дате). */
+export const FEATURED_BLOG_SLUG = "otsenka-podryadchika-posle-pervyh-30-dney-metriki-i-retrospektiva";
+
 /** Слаги рубрик блога (канон URL `/blog/category/...`); синхрон с `[category]/page.tsx`. */
 export const BLOG_CATEGORY_SLUGS = [
   "bazovaya",
