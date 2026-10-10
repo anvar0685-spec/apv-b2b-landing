@@ -25,8 +25,8 @@ export default function Page() {
     <main id="main" className="pb-24">
       <MarketingPageHero
         kicker="Гарантии"
-        title="Гарантии и уровень сервиса"
-        description="Коммерческие и операционные обязательства фиксируются в договоре и приложении к договору. Ниже — рамочные принципы; числовые целевые значения согласуются под каждый проект."
+        title="Как сопровождаем работу команды"
+        description="До начала работы согласуем выходы, порядок замены, учёт часов и связь по объекту. Если возникает вопрос по смене, заказчик обращается к закреплённому менеджеру."
         surface="garantii"
       />
 
@@ -34,10 +34,10 @@ export default function Page() {
         <div className="grid gap-6 md:grid-cols-3">
           <Card className="border-[var(--neutral-200)]/90">
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)]">Реакция</p>
-            <CardTitle className="mt-3">Сопровождение 24/7</CardTitle>
+            <CardTitle className="mt-3">Как связаться по смене</CardTitle>
             <CardDescription>
-              Линия диспетчеризации и курирующие менеджеры на критичных контрактах. Время реакции на инциденты
-              прописывается в договоре с эскалацией до руководства.
+              Контакт и режим сопровождения определяем для объекта. Условия ночных проектов указываются отдельно от
+              режима приёма новых заявок.
             </CardDescription>
           </Card>
           <Card className="border-[var(--neutral-200)]/90">

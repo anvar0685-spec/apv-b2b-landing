@@ -68,7 +68,7 @@ export function caseDetailFields(c: CaseStub) {
 export const CASES: CaseStub[] = [
   {
     slug: "sklad-avtozapchastej-mo",
-    title: "Склад автозапчастей известного автомобильного бренда",
+    title: "Бригада для приёмки и комплектации автозапчастей",
     industry: "Автозапчасти / оптовый склад",
     city: "Москва",
     durationMonths: 12,
@@ -101,7 +101,7 @@ export const CASES: CaseStub[] = [
   },
   {
     slug: "mebelnyy-rc-pogruzochnye-raboty",
-    title: "Распределительный центр известного мебельного бренда",
+    title: "Постоянная команда для погрузки и сборки на мебельном складе",
     industry: "Мебель / распределительный центр",
     city: "Московская область",
     durationMonths: 36,
@@ -134,7 +134,7 @@ export const CASES: CaseStub[] = [
   },
   {
     slug: "marketplace-multiprofil-mo",
-    title: "Площадка крупного маркетплейса: техника и FMCG-сырьё в одной смене",
+    title: "Работа команды на двух участках с разными требованиями",
     industry: "Маркетплейс / несколько товарных зон",
     city: "Московская область",
     durationMonths: 24,

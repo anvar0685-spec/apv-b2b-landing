@@ -8,9 +8,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return buildPageMetadata({
     locale: params.locale,
     pathname: "/uslugi",
-    title: "Складские услуги — Москва и МО",
+    title: "Услуги для складов Москвы и МО | АПВ — СИСТЕМА",
     description:
-      "Аутсорсинг смен на склады и DC: явка, гарантии. Подбор и документы на допуск — в рамках договора на закрытие смен.",
+      "Постоянная команда, сезонное усиление и ночные смены. Согласуем состав работников, стоимость и сопровождение до начала работы.",
   });
 }
 

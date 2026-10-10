@@ -1,7 +1,13 @@
 import { isPriorityCross } from "@/content/cross-priority";
 import { getProgrammaticLocalNarrative } from "@/content/cross-priority-narratives";
 import { CITIES, PROFESSIONS } from "@/content/professions-cities";
+import {
+  programmaticCalcCta,
+  programmaticCityH1,
+  programmaticCityLead,
+} from "@/content/copywriting-editorial";
 import { getProgrammaticLongreadParagraphs } from "@/content/programmatic-longread";
+import type { ProfessionSlug } from "@/content/professions-cities";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { OperationalDarkHero } from "@/components/layout/operational-dark-hero";
@@ -24,7 +30,6 @@ export async function ProgrammaticStaffingPage({ profession, city }: Props) {
   const cityName = city.nameRu;
   const cityPrepositional = city.namePrepositionalRu;
   const roleName = profession.titleRu;
-  const roleGenitive = profession.titleGenitiveRu;
   const priority = isPriorityCross(profession.slug, city.slug);
   const productionSeed = `${profession.slug}-${city.slug}`;
   const showProductionStrip = commercialProductionStripFromSlug(productionSeed);
@@ -32,13 +37,16 @@ export async function ProgrammaticStaffingPage({ profession, city }: Props) {
   const localNarrative = priority ? getProgrammaticLocalNarrative(profession.slug, city.slug) : [];
   const v = pairingVisualVariant(profession.slug, city.slug);
 
+  const profSlug = profession.slug as ProfessionSlug;
+  const calcCta = programmaticCalcCta(profSlug, city.slug);
+
   const t = {
     kicker: "Персонал · Москва и МО",
-    h1: `${roleName} в ${cityPrepositional} — аутсорсинг складских смен`,
-    lead: `Выводим ${roleGenitive} на склады в ${cityPrepositional}: считаем ставку, логистику, документы и резерв на замену. Аутстаффинг не оказываем — отвечаем за смены как подрядчик.`,
-    calc: "Рассчитать вилку",
-    proposal: "Получить КП",
-    h2: "Как закрываем смены по этой роли",
+    h1: programmaticCityH1(profSlug, cityPrepositional, city.slug),
+    lead: programmaticCityLead(profSlug),
+    calc: calcCta,
+    proposal: "Получить расчёт",
+    h2: "Задачи и условия на объекте",
     cardTitle: "Что дальше",
     cardDesc:
       "Город и профиль уже подставлены. Рассчитайте ориентир или оставьте заявку — менеджер подготовит КП.",

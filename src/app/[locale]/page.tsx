@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   return buildPageMetadata({
     locale,
     pathname: "/",
-    title: t("heroTitle"),
+    title: t("metaTitle"),
     description: t("metaDescription"),
   });
 }

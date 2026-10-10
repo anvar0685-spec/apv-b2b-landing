@@ -4,7 +4,12 @@ import { Link } from "@/i18n/navigation";
 import type { Crumb } from "@/components/seo/breadcrumbs";
 import { OperationalDarkHero } from "@/components/layout/operational-dark-hero";
 import { ProfessionIcon } from "@/content/profession-icons";
-import { CITIES, PROFESSIONS, getProfession } from "@/content/professions-cities";
+import {
+  PROFESSION_EDITORIAL,
+  professionHubTitle,
+  professionMetaDescription,
+} from "@/content/copywriting-editorial";
+import { CITIES, PROFESSIONS, getProfession, type ProfessionSlug } from "@/content/professions-cities";
 import { buildNotFoundPageMetadata, buildPageMetadata } from "@/lib/seo";
 import { slugVisualVariant, variantClass } from "@/lib/slug-visual-seed";
 import { cn } from "@/lib/utils";
@@ -20,8 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!prof) {
     return buildNotFoundPageMetadata(params.locale, `/personal/${params.profession}`);
   }
-  const title = `${prof.titleRu} — Москва и МО (города)`;
-  const description = `Закрываем смены с ${prof.titleGenitiveRu} в Москве и Московской области: ставки, документы, допуски и резерв на замену. Аутстаффинг не оказываем.`;
+  const slug = prof.slug as ProfessionSlug;
+  const title = `${professionHubTitle(slug)} — Москва и МО`;
+  const description = professionMetaDescription(slug);
   return buildPageMetadata({
     locale: params.locale,
     pathname: `/personal/${params.profession}`,
@@ -57,11 +63,11 @@ export default function ProfessionHubPage({ params }: Props) {
             </span>
           </p>
         }
-        title={`${prof.titleRu} — Москва и Московская область`}
+        title={`${professionHubTitle(prof.slug as ProfessionSlug)} — Москва и Московская область`}
         description={
           <p>
-            Выберите город — там разбираем ставку, логистику выхода на объект, документы и допуски, а также
-            резерв на замену. Калькулятор сразу подставит параметры по городу и роли.
+            {PROFESSION_EDITORIAL[prof.slug as ProfessionSlug].intro} Выберите город — калькулятор подставит
+            профессию и локацию.
           </p>
         }
         decoration={<div className={cn("ux-prog-angled", variantClass(v))} aria-hidden />}

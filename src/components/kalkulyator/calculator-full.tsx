@@ -26,10 +26,10 @@ const STEPS = 6;
 type WorkFormat = "permanent" | "seasonal" | "night" | "oneoff";
 
 const FORMATS: { id: WorkFormat; label: string; hint: string }[] = [
-  { id: "permanent", label: "Постоянный персонал", hint: "Ориентир — 11-ч смена, таблица ниже" },
-  { id: "seasonal", label: "Сезон / пик", hint: "Выше часов + пиковая надбавка" },
-  { id: "night", label: "Ночные смены", hint: "Надбавка к ставке по смене" },
-  { id: "oneoff", label: "Разовый проект", hint: "Короткое окно, частичная занятость" },
+  { id: "permanent", label: "Постоянная работа", hint: "Регулярный график на объекте" },
+  { id: "seasonal", label: "Сезонное усиление", hint: "Пиковая нагрузка и расширенные часы" },
+  { id: "night", label: "Ночные смены", hint: "Надбавка к ставке по согласованному графику" },
+  { id: "oneoff", label: "Разовые работы", hint: "Короткий период или отдельные смены" },
 ];
 
 export function CalculatorFull() {
@@ -132,7 +132,7 @@ export function CalculatorFull() {
         </div>
         {step === 0 ? (
           <div>
-            <Label htmlFor="prof">Шаг 1. Профессия на складе</Label>
+            <Label htmlFor="prof">Кто нужен на склад?</Label>
             <select
               id="prof"
               className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-base sm:text-sm"
@@ -153,7 +153,7 @@ export function CalculatorFull() {
         ) : null}
         {step === 1 ? (
           <div>
-            <Label htmlFor="hc">Шаг 2. Количество человек</Label>
+            <Label htmlFor="hc">Сколько работников требуется?</Label>
             <Input
               id="hc"
               type="number"
@@ -175,7 +175,7 @@ export function CalculatorFull() {
         ) : null}
         {step === 2 ? (
           <div>
-            <Label>Шаг 3. Формат работы (постоянный / сезон / ночь / разовый)</Label>
+            <Label>Какой формат работы нужен?</Label>
             <div className="mt-3 grid gap-2 sm:grid-cols-2">
               {FORMATS.map((f) => (
                 <button
@@ -195,13 +195,13 @@ export function CalculatorFull() {
               ))}
             </div>
             <p className="mt-3 text-xs text-[var(--neutral-500)]">
-              Пресечки по графику и смене можно уточнить на следующем шаге.
+              Перерывы и длительность смены согласуем с учётом объекта — на следующем шаге задаёте график.
             </p>
           </div>
         ) : null}
         {step === 3 ? (
           <div className="space-y-4">
-            <p className="text-sm font-semibold text-[var(--primary)]">Шаг 4. График (день / ночь / сутки) и часы</p>
+            <p className="text-sm font-semibold text-[var(--primary)]">Какой график планируете?</p>
             <div>
               <Label>Смена</Label>
               <div className="mt-2 flex flex-wrap gap-2">
@@ -247,7 +247,7 @@ export function CalculatorFull() {
         ) : null}
         {step === 4 ? (
           <div>
-            <Label htmlFor="city">Шаг 5. Локация (Москва / МО)</Label>
+            <Label htmlFor="city">Где находится склад?</Label>
             <select
               id="city"
               className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-base sm:text-sm"
@@ -268,7 +268,7 @@ export function CalculatorFull() {
         {step === 5 ? (
           <>
             <div className="space-y-4 border-b border-[var(--neutral-200)] pb-6">
-              <p className="text-sm font-semibold text-[var(--primary)]">Шаг 6. Срок (месяцы) и доп. условия</p>
+              <p className="text-sm font-semibold text-[var(--primary)]">На какой срок нужна команда?</p>
               <div>
                 <Label htmlFor="dur">Длительность проекта, мес.</Label>
                 <Input
@@ -300,40 +300,46 @@ export function CalculatorFull() {
             </div>
             <div className="mt-8 border border-[var(--neutral-200)] bg-[var(--surface)] p-5 dark:border-white/10 dark:bg-white/[0.04]">
               <h3 className="font-display text-lg font-semibold tracking-[-0.02em] text-[var(--primary)] dark:text-white">
-                Предварительный расчёт
+                Предварительный бюджет по выбранному графику
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-600)] dark:text-white/65">
-                Вилка к месячному фонду: от {estimate.low.toLocaleString("ru-RU")} до {estimate.high.toLocaleString("ru-RU")}{" "}
-                ₽ / мес (оценка).
+                Профессия и город учтены; часы в неделю на одного работника — {hoursPerWeek}. Ориентировочный диапазон: от{" "}
+                {estimate.low.toLocaleString("ru-RU")} до {estimate.high.toLocaleString("ru-RU")} ₽ / мес (±10% к базе расчёта).
+              </p>
+              <p className="mt-4 font-mono-nums text-2xl font-bold text-[var(--primary)] dark:text-white">
+                ~{estimate.total.toLocaleString("ru-RU")} ₽ <span className="text-base font-normal text-[var(--neutral-500)]">/ мес</span>
               </p>
               <ul className="type-body mt-4 space-y-2 text-[var(--neutral-700)]">
                 <li>
                   <strong>Ставка с учётом смены:</strong> {hourlyEffective} ₽/ч
                 </li>
                 <li>
-                  <strong>Ориентир за смену {WAREHOUSE_SHIFT_HOURS} ч (вся группа):</strong>{" "}
-                  {estimate.shift11.toLocaleString("ru-RU")} ₽
-                </li>
-                {MONTHLY_SHIFT_SCHEDULES.map((s) => (
-                  <li key={s.id}>
-                    <strong>Месяц · {s.label}:</strong>{" "}
-                    {estimate.monthlyBySchedule[s.id].toLocaleString("ru-RU")} ₽
-                  </li>
-                ))}
-                <li>
-                  <strong>Оценка с допами (вся группа, база):</strong> {estimate.total.toLocaleString("ru-RU")} ₽
+                  <strong>Численность:</strong> {headcount} чел.
                 </li>
                 <li>
                   <strong>Оценка на {durationMonths} мес.:</strong> {estimate.projectTotal.toLocaleString("ru-RU")} ₽
                 </li>
               </ul>
               <p className="type-body mt-3 text-sm text-[var(--neutral-500)]">
-                НДС, форма взаимодействия и пакет пика — в договоре. Разовый сценарий: сверяйтесь с заявкой и параметрами первых смен на объекте, а не
-                только с цифрой в калькуляторе.
+                Предварительный бюджет рассчитан для среднего месяца — 4,3 недели. Сумма за конкретный период зависит от числа смен.
+                Транспорт, проживание и дополнительные требования объекта согласуем отдельно, если они нужны по условиям.
               </p>
-              <p className="mt-4 font-mono-nums text-2xl font-bold text-[var(--primary)] dark:text-white">
-                ~{estimate.total.toLocaleString("ru-RU")} ₽ <span className="text-base font-normal text-[var(--neutral-500)]">/ мес</span>
-              </p>
+              <div className="mt-6 rounded-xl border border-dashed border-[var(--neutral-200)] bg-[var(--surface)] p-4 dark:border-white/15">
+                <p className="text-sm font-semibold text-[var(--primary)] dark:text-white">Примеры для других графиков</p>
+                <p className="mt-1 text-xs text-[var(--neutral-500)]">
+                  Смена {WAREHOUSE_SHIFT_HOURS} ч; суммы на всю группу ({headcount} чел.) при другом числе рабочих дней в неделю.
+                </p>
+                <ul className="type-body mt-3 space-y-2 text-sm text-[var(--neutral-700)]">
+                  <li>
+                    <strong>За смену {WAREHOUSE_SHIFT_HOURS} ч:</strong> {estimate.shift11.toLocaleString("ru-RU")} ₽
+                  </li>
+                  {MONTHLY_SHIFT_SCHEDULES.map((s) => (
+                    <li key={s.id}>
+                      <strong>Месяц · {s.label}:</strong> {estimate.monthlyBySchedule[s.id].toLocaleString("ru-RU")} ₽
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <div className="mt-6 flex flex-wrap gap-2">
                 <Button
                   type="button"
@@ -353,7 +359,7 @@ export function CalculatorFull() {
                   <Link
                     href={`/zayavka?service=${SERVICE_SLUG}&profession=${profession}&city=${city}&headcount=${headcount}`}
                   >
-                    Получить точный расчёт и КП
+                    Получить предложение для моего объекта
                   </Link>
                 </Button>
               </div>

@@ -60,13 +60,16 @@ export function HeroSection() {
             <p className="mt-6 max-w-xl text-base leading-relaxed text-[var(--text-on-dark-base)] sm:mt-7 sm:text-lg md:text-xl md:leading-[1.55]">
               {t("heroSubtitle")}
             </p>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--text-on-dark-muted)] sm:text-base">
+              {t("heroTagline")}
+            </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <MagneticButtonWrap>
                 <Button
                   asChild
                   className="focus-visible:ring-2 focus-visible:ring-white/90 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--primary-dark)]"
                 >
-                  <Link href="/zayavka">{tc("proposal")}</Link>
+                  <Link href="/kalkulyator">{tc("calc")}</Link>
                 </Button>
               </MagneticButtonWrap>
               <Button
@@ -74,7 +77,7 @@ export function HeroSection() {
                 variant="secondary"
                 className="border-white/25 bg-white/10 text-white hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-white/90 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--primary-dark)]"
               >
-                <Link href="/kalkulyator">{tc("calc")}</Link>
+                <Link href="/zayavka">{tc("discuss")}</Link>
               </Button>
             </div>
             <nav aria-label={th("sectionsNavAria")} className="mt-12 border-t border-white/[0.08] pt-8">

@@ -50,8 +50,8 @@ export default async function Page({ params }: Props) {
 
       <MarketingHubShell
         kicker="Связь"
-        title="Контакты"
-        description="Офис для встреч — в Бронницах. Телефон, почта, мессенджеры и реквизиты указаны ниже; юридический адрес ИП приведён отдельно."
+        title="Контакты АПВ — СИСТЕМА"
+        description="Опишите задачу склада — обсудим состав команды, график и расчёт. Для встречи в офисе договоримся о времени заранее."
         heroSurface="contacts"
       >
         <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
@@ -116,7 +116,7 @@ export default async function Page({ params }: Props) {
               </li>
               <li className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 shadow-[var(--card-shadow)]">
                 <span className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">
-                  Юридическое лицо
+                  Реквизиты исполнителя
                 </span>
                 <p className="mt-2 text-sm font-medium leading-snug text-[var(--neutral-950)]">{site.legalEntityFullName}</p>
                 <span className="mt-4 block text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">
