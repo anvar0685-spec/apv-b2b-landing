@@ -18,6 +18,12 @@ import {
   pricePerPersonPerMonthRub,
   pricePerShiftRub,
 } from "@/content/shift-pricing";
+import {
+  buildZayavkaHref,
+  parseCalculatorSearchParams,
+  resolveCitySlug,
+  resolveProfessionSlug,
+} from "@/lib/staffing-url-params";
 
 const SERVICE_SLUG = "autsorsing" as const;
 /** 5 шагов + экран срока/итога (нед. 7 мастер-док: профиль → численность → формат → локация → срок/доп. → результат). */
@@ -34,13 +40,21 @@ const FORMATS: { id: WorkFormat; label: string; hint: string }[] = [
 
 export function CalculatorFull() {
   const sp = useSearchParams();
+  const initial = useMemo(() => parseCalculatorSearchParams(sp), [sp]);
   const [step, setStep] = useState(0);
-  const [profession, setProfession] = useState(() => sp.get("p") ?? "gruzchiki");
-  const [headcount, setHeadcount] = useState(() => Number(sp.get("n") ?? 30) || 30);
+  const [profession, setProfession] = useState(() => initial.profession);
+  const [headcount, setHeadcount] = useState(() => initial.headcount);
   const [workFormat, setWorkFormat] = useState<WorkFormat>("permanent");
   const [shift, setShift] = useState<"day" | "night" | "24">("day");
   const [hoursPerWeek, setHoursPerWeek] = useState(40);
-  const [city, setCity] = useState("moskva");
+  const [city, setCity] = useState(() => initial.city);
+
+  useEffect(() => {
+    setProfession(resolveProfessionSlug(sp.get("p")));
+    setCity(resolveCitySlug(sp.get("city")));
+    const n = sp.get("n");
+    if (n) setHeadcount(Math.max(1, Number(n) || 30));
+  }, [sp]);
   const [durationMonths, setDurationMonths] = useState(3);
   const [extraHousing, setExtraHousing] = useState(false);
   const [extraTransport, setExtraTransport] = useState(false);
@@ -357,7 +371,12 @@ export function CalculatorFull() {
                   asChild
                 >
                   <Link
-                    href={`/zayavka?service=${SERVICE_SLUG}&profession=${profession}&city=${city}&headcount=${headcount}`}
+                    href={buildZayavkaHref({
+                      service: SERVICE_SLUG,
+                      profession,
+                      city,
+                      headcount,
+                    })}
                   >
                     Получить предложение для моего объекта
                   </Link>

@@ -92,7 +92,7 @@ export const INDUSTRY_PAGE_CONTENT: Record<string, IndustryPageContent> = {
       },
       {
         title: "Приёмка, отбор и отгрузка",
-        text: "Подбираем работников под согласованные операции без обещания единого стандарта для всех клиентов площадки.",
+        text: "Подбираем работников под задачи каждого участка. Порядок работы и требования согласуем с ответственным со стороны площадки.",
       },
       {
         title: "Учёт и связь по смене",
@@ -117,7 +117,7 @@ export const INDUSTRY_PAGE_CONTENT: Record<string, IndustryPageContent> = {
       },
       {
         title: "Вспомогательные работы",
-        text: "Обсуждаем разнорабочих и уборку зон — без смешения с производственными специальностями.",
+        text: "Подбираем разнорабочих и уборщиков для согласованных вспомогательных задач. Состав работ и условия участка уточняем до выхода.",
       },
       {
         title: "Согласование доступа",
@@ -156,7 +156,7 @@ export const INDUSTRY_PAGE_CONTENT: Record<string, IndustryPageContent> = {
       "Порядок замены и отчётности",
     ],
     ["gruzchiki", "komplektovschiki", "kladovschiki"],
-    "Мы не подменяем фармацевтический контроль заказчика — подбор возможен после согласования требований.",
+    "Состав команды согласуем после уточнения разрешённых операций, документов и зон доступа.",
     COMMON_RELATED,
   ),
   "fmcg-sklady": content(
@@ -181,7 +181,7 @@ export const INDUSTRY_PAGE_CONTENT: Record<string, IndustryPageContent> = {
       "График приёмки и отгрузки",
     ],
     ["gruzchiki", "komplektovschiki", "kladovschiki", "razdorabochie"],
-    "Профили подбираем под согласованные операции — без обещания специализации по всем группам товара.",
+    "Подбираем работников под товарные группы, операции и график вашего склада.",
     [...COMMON_RELATED, { href: "/keysy/tabachnyy-sklad-mo", label: "Кейс: FMCG" }],
   ),
   "sklady-klassa-a": content(

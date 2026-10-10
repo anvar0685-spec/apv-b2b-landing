@@ -5,6 +5,7 @@ import { useCallback, useEffect, useId, useState } from "react";
 import { ChevronDown, MessageCircle, Phone, Send, X } from "lucide-react";
 import { MaxAppSymbol } from "@/components/icons/max-app-symbol";
 import { site } from "@/config/site";
+import { MANAGER_INVITE_TEXT, MANAGER_OFFICE_HOURS_LABEL } from "@/config/manager-contact";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
@@ -188,7 +189,7 @@ export function ManagerCard() {
             Менеджер проекта
           </p>
           <p className="mt-1.5 text-[11px] font-medium text-[var(--neutral-700)] dark:text-[var(--text-on-dark-base)]">
-            Пн–Пт, 9:00–18:00 (МСК)
+            {MANAGER_OFFICE_HOURS_LABEL}
           </p>
         </div>
         {/* Controls: collapse (sm+) + close (mobile) */}
@@ -219,7 +220,7 @@ export function ManagerCard() {
       />
 
       <p className="px-3.5 pt-3 text-[12px] leading-snug text-[var(--neutral-600)] dark:text-[var(--text-on-dark-base)]">
-        Напишите, кто нужен, сколько человек и когда начинать.
+        {MANAGER_INVITE_TEXT}
       </p>
 
       <div className="px-3.5 pt-3">
@@ -281,8 +282,8 @@ export function ManagerCard() {
         </a>
       </nav>
 
-      <p className="border-t border-[var(--neutral-200)]/80 bg-[var(--surface)]/60 px-3.5 py-2 text-[10px] font-medium uppercase tracking-[0.12em] text-[var(--neutral-500)] dark:border-white/10 dark:bg-white/[0.03] dark:text-[var(--text-on-dark-muted)]">
-        пн–пт · 09:00 – 19:00 МСК
+      <p className="border-t border-[var(--neutral-200)]/80 bg-[var(--surface)]/60 px-3.5 py-2 text-[10px] font-medium text-[var(--neutral-500)] dark:border-white/10 dark:bg-white/[0.03] dark:text-[var(--text-on-dark-muted)]">
+        {MANAGER_OFFICE_HOURS_LABEL}
       </p>
     </div>
   );

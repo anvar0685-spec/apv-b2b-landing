@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Controller, useFieldArray, useForm, useWatch, type FieldPath } from "react-hook-form";
 import { useLocale, useTranslations } from "next-intl";
@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { CITIES, PROFESSIONS } from "@/content/professions-cities";
+import { parseLeadSearchParams } from "@/lib/staffing-url-params";
 import { trackEvent } from "@/lib/analytics";
 import { Link } from "@/i18n/navigation";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -92,19 +93,20 @@ export function LeadMultistepForm() {
   const defaults = useMemo<FormValues>(() => {
     const topic = sp.get("topic");
     const commentPrefix = topic ? `Тема: ${topic}\n` : "";
+    const fromUrl = parseLeadSearchParams(sp);
     return {
       contactName: "",
       companyName: "",
       contactPhone: "",
       contactEmail: "",
-      serviceType: "autsorsing",
+      serviceType: fromUrl.service,
       professionLines: [
         {
-          slug: sp.get("profession") ?? "gruzchiki",
-          headcount: Number(sp.get("headcount") ?? 20) || 20,
+          slug: fromUrl.profession,
+          headcount: fromUrl.headcount,
         },
       ],
-      city: sp.get("city") ?? "moskva",
+      city: fromUrl.city,
       comment: commentPrefix,
       consent: false,
     };
@@ -118,10 +120,15 @@ export function LeadMultistepForm() {
     setFocus,
     control,
     getValues,
+    reset,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: defaults,
   });
+
+  useEffect(() => {
+    reset(defaults);
+  }, [defaults, reset]);
 
   const { fields, append, remove } = useFieldArray({ control, name: "professionLines" });
   const watchedLines = useWatch({ control, name: "professionLines" });

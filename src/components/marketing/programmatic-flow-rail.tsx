@@ -20,6 +20,7 @@ type Props = {
   professionSlug: string;
   cityName: string;
   calcHref: string;
+  zayavkaHref?: string;
   labels: Labels;
   /** mid — полный блок с кнопками; footer — только перелинковка в конце */
   variant: "mid" | "footer";
@@ -37,6 +38,7 @@ export function ProgrammaticFlowRail({
   professionSlug,
   cityName,
   calcHref,
+  zayavkaHref = "/zayavka",
   labels,
   variant,
   className,
@@ -139,7 +141,7 @@ export function ProgrammaticFlowRail({
             <Link href={calcHref}>{labels.calcCta}</Link>
           </Button>
           <Button asChild variant={priorityCluster ? "ghost" : "secondary"} className={priorityCluster ? "border border-[var(--neutral-200)] dark:border-white/15" : undefined}>
-            <Link href="/zayavka">{labels.proposalCta}</Link>
+            <Link href={zayavkaHref}>{labels.proposalCta}</Link>
           </Button>
         </div>
 

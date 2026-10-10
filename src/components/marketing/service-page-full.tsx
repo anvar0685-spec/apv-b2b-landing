@@ -38,7 +38,7 @@ const t = {
   professions: "Профессии",
   casesTitle: "Кейсы и материалы",
   casesBody:
-    "Перейдите в раздел кейсов и блога — там публикуется отраслевая аналитика и примеры внедрений.",
+    "Посмотрите примеры работы команд и материалы о подборе, стоимости и организации смен.",
   casesLink: "Кейсы",
   blogLink: "Блог",
   faq: "FAQ",
@@ -175,6 +175,11 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
           ) : (
             <>
               <h2 className="type-headline">{isOutsourcing ? t.howOutsourcing : t.how}</h2>
+              {model.howLead ? (
+                <p className="mt-3 text-[0.9375rem] leading-relaxed text-[var(--neutral-700)] sm:text-base">
+                  {model.howLead}
+                </p>
+              ) : null}
               <ol className="mt-4 list-decimal space-y-3 pl-5 text-[var(--neutral-700)]">
                 {model.howItWorks.map((step, i) => (
                   <li key={i}>{step}</li>
@@ -211,7 +216,12 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
           <ServiceSectionWrap motionEnabled={motion} className="mt-14">
             <h2 className="type-headline">{t.modelOutsourcing}</h2>
             <p className="mt-4 text-[0.9375rem] leading-relaxed text-[var(--neutral-700)] sm:text-base">
-              {model.positioningNote}
+              {model.positioningNote}{" "}
+              {model.positioningLink ? (
+                <Link className="font-medium text-[var(--accent)] hover:underline" href={model.positioningLink.href}>
+                  {model.positioningLink.label}
+                </Link>
+              ) : null}
             </p>
           </ServiceSectionWrap>
         ) : model.comparison.length ? (
@@ -265,7 +275,7 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
         <ServiceSectionWrap motionEnabled={motion} className="mt-14">
           <h2 className="type-headline">{t.casesTitle}</h2>
           <p className="mt-4 text-[var(--neutral-700)]">
-            {t.casesBody}{" "}
+            {model.casesLead ?? t.casesBody}{" "}
             <Link className="font-medium text-[var(--accent)] hover:underline" href="/keysy">
               {t.casesLink}
             </Link>{" "}
@@ -294,12 +304,16 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
         <ServiceSectionWrap motionEnabled={motion} className="mt-14">
           <div className="rounded-2xl bg-[var(--primary-dark)] p-8 text-center text-white">
             <p className="font-display text-xl font-semibold">
-              {isOutsourcing ? t.ctaTitleOutsourcing : t.ctaTitle}
+              {model.finalCta?.title ?? (isOutsourcing ? t.ctaTitleOutsourcing : t.ctaTitle)}
             </p>
-            <p className="mt-2 text-sm text-white/80">{isOutsourcing ? t.ctaLeadOutsourcing : t.ctaLead}</p>
+            <p className="mt-2 text-sm text-white/80">
+              {model.finalCta?.lead ?? (isOutsourcing ? t.ctaLeadOutsourcing : t.ctaLead)}
+            </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Button asChild>
-                <Link href="/zayavka">{isOutsourcing ? t.reqOutsourcing : t.req}</Link>
+                <Link href="/zayavka">
+                  {model.finalCta || isOutsourcing ? t.reqOutsourcing : t.req}
+                </Link>
               </Button>
               <Button asChild variant="secondary">
                 <Link href="/kalkulyator">{t.calc}</Link>

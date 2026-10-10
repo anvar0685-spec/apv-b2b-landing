@@ -1,5 +1,4 @@
 import { isPriorityCross } from "@/content/cross-priority";
-import { getProgrammaticLocalNarrative } from "@/content/cross-priority-narratives";
 import { CITIES, PROFESSIONS } from "@/content/professions-cities";
 import {
   programmaticCalcCta,
@@ -17,6 +16,7 @@ import { commercialProductionStripFromSlug } from "@/lib/commercial-seo-variant"
 import { ProductionVisualStrip } from "@/components/marketing/production-visual-strip";
 import { pairingVisualVariant, variantClass } from "@/lib/slug-visual-seed";
 import { cn } from "@/lib/utils";
+import { buildZayavkaHref } from "@/lib/staffing-url-params";
 
 type ProfessionDef = (typeof PROFESSIONS)[number];
 type CityDef = (typeof CITIES)[number];
@@ -29,12 +29,10 @@ type Props = {
 export async function ProgrammaticStaffingPage({ profession, city }: Props) {
   const cityName = city.nameRu;
   const cityPrepositional = city.namePrepositionalRu;
-  const roleName = profession.titleRu;
   const priority = isPriorityCross(profession.slug, city.slug);
   const productionSeed = `${profession.slug}-${city.slug}`;
   const showProductionStrip = commercialProductionStripFromSlug(productionSeed);
   const longread = getProgrammaticLongreadParagraphs(profession, city, priority);
-  const localNarrative = priority ? getProgrammaticLocalNarrative(profession.slug, city.slug) : [];
   const v = pairingVisualVariant(profession.slug, city.slug);
 
   const profSlug = profession.slug as ProfessionSlug;
@@ -62,6 +60,7 @@ export async function ProgrammaticStaffingPage({ profession, city }: Props) {
   };
 
   const calcHref = `/kalkulyator?p=${profession.slug}&city=${city.slug}`;
+  const zayavkaHref = buildZayavkaHref({ profession: profession.slug, city: city.slug });
 
   const midBreak = longread.length <= 1 ? longread.length : Math.max(1, Math.floor(longread.length / 2));
   const headParas = longread.slice(0, midBreak);
@@ -106,7 +105,7 @@ export async function ProgrammaticStaffingPage({ profession, city }: Props) {
               variant="secondary"
               className="border-white/25 bg-white/10 text-white hover:bg-white/15"
             >
-              <Link href="/zayavka">{t.proposal}</Link>
+              <Link href={zayavkaHref}>{t.proposal}</Link>
             </Button>
           </>
         }
@@ -126,7 +125,7 @@ export async function ProgrammaticStaffingPage({ profession, city }: Props) {
             v === 2 && "max-w-[720px] lg:max-w-[660px]",
           )}
         >
-          <h2 className="type-headline">{t.h2}</h2>
+          <h2 className="type-headline">Что уточним перед подбором</h2>
           <div className="type-editorial-dropcap type-body mt-6 space-y-4">
             {headParas.map((para, i) => (
               <p key={`h-${i}`}>{para}</p>
@@ -144,6 +143,7 @@ export async function ProgrammaticStaffingPage({ profession, city }: Props) {
             professionSlug={profession.slug}
             cityName={cityName}
             calcHref={calcHref}
+            zayavkaHref={zayavkaHref}
             labels={railLabels}
             priorityCluster={priority}
             priorityBadge={priority ? t.priBadge : undefined}
@@ -153,16 +153,6 @@ export async function ProgrammaticStaffingPage({ profession, city }: Props) {
             {tailParas.map((para, i) => (
               <p key={`t-${i}`}>{para}</p>
             ))}
-            {localNarrative.length ? (
-              <>
-                <h3 className="type-headline pt-6 text-xl" id="local-narrative">
-                  Локальный контекст: {cityName} × {roleName}
-                </h3>
-                {localNarrative.map((para, j) => (
-                  <p key={`loc-${j}`}>{para}</p>
-                ))}
-              </>
-            ) : null}
           </div>
 
           <ProgrammaticFlowRail
@@ -170,6 +160,7 @@ export async function ProgrammaticStaffingPage({ profession, city }: Props) {
             professionSlug={profession.slug}
             cityName={cityName}
             calcHref={calcHref}
+            zayavkaHref={zayavkaHref}
             labels={railLabels}
             priorityCluster={priority}
             priorityBadge={priority ? t.priBadge : undefined}

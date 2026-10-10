@@ -19,6 +19,10 @@ export type ServiceLocaleBlock = {
   comparison: { label: string; us: string; staff: string; agency: string }[];
   /** Короткое описание модели вместо таблицы сравнения (если задано). */
   positioningNote?: string;
+  positioningLink?: { href: string; label: string };
+  howLead?: string;
+  casesLead?: string;
+  finalCta?: { title: string; lead: string };
   faq: ServiceFAQ[];
 };
 

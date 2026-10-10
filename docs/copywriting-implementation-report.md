@@ -1,6 +1,27 @@
 # Отчёт о внедрении редакции (октябрь 2026)
 
-**Источники:** `Промпт_Cursor_АПВ_Система_полная_редакция.md` (проход 1, коммит `ca86dc6`); `Cursor_АПВ_Система_завершение_редакции.md` (проход 2).
+**Источники:** полная редакция (проход 1, `ca86dc6`); завершение (`5dc57e5`); **`Cursor_АПВ_Система_финальные_исправления.md`** (проход 3).
+
+## Проход 3 — финальные исправления (окт 2026)
+
+| Пункт | Файлы | На странице | Проверка |
+| --- | --- | --- | --- |
+| Город в калькуляторе и заявке | `staffing-url-params.ts`, `calculator-full.tsx`, `lead-multistep-form.tsx`, `programmatic-*` | Query `city`/`p` читается; Podolsk/Domodedovo не сбрасываются в Москву; CTA городских страниц с profession+city | `npm run test` (4 кейса), build |
+| Часы менеджера | `manager-contact.ts`, `manager-card.tsx` | Едино «Пн–Пт, 9:00–18:00 (МСК)» сверху и внизу карточки | build |
+| Главная | `ru.json` | serviceScope lead, профессии, плитки подбор/ночь, calcLead, trust sr-only, monthHint мини-калькулятора | build |
+| Аутсорсинг остатки | `autsorsing.data.ts`, `service-page-full.tsx` | howLead, casesLead, positioning + ссылка на подбор, FAQ стоимости | build |
+| 3 услуги | `recruiting/postoyannyy/nochnye.data.ts`, `shared-service-copy.ts` | Полное тело, FAQ, CTA «Получите расчёт…», без таблицы сравнения | build |
+| Programmatic 240 | `programmatic-longread.ts`, `copywriting-editorial.ts` | Без повтора hero; блок «Что уточним» по профессии | build 240 URL |
+| Кейсы ×6 | `cases-stub.ts` | ПРР расшифрованы; marketplace — абзац про другого подрядчика; смягчены абсолютные KPI | build |
+| Отрасли ×4 правки | `industry-page-content.ts` | 3PL, производство, фарма, FMCG — готовые фразы | build |
+| Таблица ставок | `shift-pricing-table.tsx` | Пояснение месячных примеров vs чередование работников | build |
+
+```text
+npm run test   → 4/4 pass
+npm run build  → exit 0, 347 страниц
+```
+
+Формула полного калькулятора и `estimate.ts` не менялись. Контроль 30 грузчиков / Москва / 40 ч — по прежним значениям промпта (ручная сверка при приёмке).
 
 ## Проход 2 — сводная таблица
 
