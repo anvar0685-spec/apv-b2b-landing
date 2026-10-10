@@ -306,16 +306,10 @@ export function LeadMultistepForm() {
       ) : null}
       {step === 0 ? (
         <div className="mt-6 space-y-4">
+          <p className="text-[15px] leading-relaxed text-[var(--neutral-700)]">{t("stepIntro")}</p>
+          <input type="hidden" {...register("serviceType")} />
           <div>
-            <p className="text-sm font-medium text-[var(--neutral-800)]">{t("serviceProductTitle")}</p>
-            <p className="mt-2 text-[13px] leading-relaxed text-[var(--neutral-600)]">{t("serviceProductFocus")}</p>
-            <input type="hidden" {...register("serviceType")} />
-          </div>
-          <div>
-            <div className="flex flex-wrap items-end justify-between gap-2">
-              <Label className="block">{t("profession")}</Label>
-              <p className="text-[13px] text-[var(--neutral-500)]">{t("professionLinesHint")}</p>
-            </div>
+            <p className="text-[13px] text-[var(--neutral-500)]">{t("professionLinesHint")}</p>
             <div className="mt-3 space-y-4">
               {fields.map((field, index) => (
                 <div

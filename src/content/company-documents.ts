@@ -2,27 +2,27 @@ export type CompanyDocument = {
   id: string;
   title: string;
   description: string;
+  href: string;
 };
 
+/** Подтверждённые публичные ссылки; расширенный пакет — в docs/copywriting-business-questions.md */
 export const COMPANY_DOCUMENTS: CompanyDocument[] = [
   {
-    id: "charter",
-    title: "Устав и корпоративные документы",
-    description: "Актуальная редакция устава, решения о единоличном исполнительном органе, выписки по запросу.",
+    id: "requisites",
+    title: "Реквизиты исполнителя",
+    description: "ИНН, КПП, расчётный счёт и контакты для договора — на странице контактов.",
+    href: "/kontakty",
   },
   {
-    id: "licenses",
-    title: "Лицензии и допуски",
-    description: "Перечень лицензируемых видов деятельности (при наличии) и подтверждения допуска к работам.",
+    id: "privacy",
+    title: "Политика конфиденциальности",
+    description: "Как обрабатываем персональные данные при обращении через сайт и в работе по договору.",
+    href: "/politika-konfidencialnosti",
   },
   {
-    id: "policies",
-    title: "Локальные акты по ПДн и ИБ",
-    description: "Политика конфиденциальности, модель угроз, регламенты доступа к данным заказчика.",
-  },
-  {
-    id: "financial",
-    title: "Финансовые справки",
-    description: "Карточка предприятия, справки об отсутствии задолженности — по запросу для тендерных комиссий.",
+    id: "legal",
+    title: "Правовая информация",
+    description: "Оферта, согласие на обработку ПДн, правила сайта и сводные сведения для пользователей.",
+    href: "/pravovaya-informaciya",
   },
 ];

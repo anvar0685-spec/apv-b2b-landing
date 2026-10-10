@@ -1,6 +1,26 @@
 # Отчёт о внедрении редакции (октябрь 2026)
 
-**Источники:** полная редакция (проход 1, `ca86dc6`); завершение (`5dc57e5`); **`Cursor_АПВ_Система_финальные_исправления.md`** (проход 3).
+**Источники:** полная редакция (проход 1, `ca86dc6`); завершение (`5dc57e5`); **`Cursor_АПВ_Система_закрытие_недоделок_463fa83_2026-10-10.md`** (проход 6).
+
+## Проход 6 — закрытие недоделок после 463fa83 (2026-10-10)
+
+| Пункт | Файлы | На странице | Проверка |
+| --- | --- | --- | --- |
+| Заявка, простой язык | `ru.json`, `lead-multistep-form.tsx` | stepIntro, «Добавить профессию», город склада | build, `/ru/zayavka` |
+| Главная | `ru.json`, `home-sections.tsx`, `hero-rate-panel.tsx` | резерв, «Ориентир», 4-я услуга постоянная команда | браузер `/ru` |
+| 240 городов | `programmatic-staffing-page.tsx`, `programmatic-longread.ts`, `copywriting-editorial.ts` | CTA пара, «Что дальше», без старых вставок | `verify:programmatic-html` 240/240 |
+| Блог (каталог) | `blog-published.ts`, `ru.json` | заголовки/описания по таблице промпта | build |
+| Документы | `company-documents.ts`, `dokumenty/page.tsx` | только реквизиты/ПДн/правовая + обсуждение | `/ru/o-kompanii/dokumenty` |
+| Калькулятор | `calculator-full.tsx`, `kalkulyator/page.tsx`, `shift-pricing-table.tsx` | 3 шага + результат на 3-м; одна таблица в details | нет «Шаг 4» в HTML |
+| Шапка / CTA | `site-header*.tsx`, `ru.json` cta | Калькулятор ссылка + Обсудить задачу; Услуги/Персонал/Кейсы | браузер |
+| Графика | `warehouse-schematic.tsx`, `home-sections.tsx` | e-commerce pipeline, кейсы 1+2, менеджер спокойные иконки | build |
+| Приёмка | `verify-programmatic-html.mjs`, `browser-acceptance-matrix.mjs` | JSON в `docs/screenshots/editorial-design-2026-10-10/` | 240 HTML + 95 матрица |
+
+```text
+npm run test && npm run build → OK
+npm run verify:programmatic-html → 240 routes, 0 errors (next start)
+node scripts/browser-acceptance-matrix.mjs → 95/95
+```
 
 ## Проход 3 — финальные исправления (окт 2026)
 

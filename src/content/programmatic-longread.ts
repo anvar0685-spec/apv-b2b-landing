@@ -20,7 +20,7 @@ export function getProgrammaticLongreadParagraphs(profession: Prof, city: City, 
     clarify,
     cost,
     EXIT_REPLACE_LINE,
-    "Параметры профессии и города можно передать в калькулятор или заявку — менеджер подготовит предложение после обсуждения объекта.",
+    "Уточним задачи склада и подготовим стоимость под ваш график.",
   ];
 
   if (!priority) {

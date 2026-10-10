@@ -36,14 +36,21 @@ export async function SiteHeader() {
     },
   ] as const;
 
+  const primaryNav = [
+    { href: "/uslugi", label: t("services") },
+    { href: "/personal", label: t("personal") },
+    { href: "/keysy", label: t("cases") },
+  ] as const;
+
   return (
     <SiteHeaderClient
       brandName={site.brandName}
       monogram={getBrandMonogram(site.brandName)}
       groups={groups}
+      primaryNav={primaryNav}
       megaMenuTrigger={t("megaMenuTrigger")}
       ctaProposal={tc("discuss")}
-      ctaCalc={tc("calc")}
+      ctaCalc={t("calculator")}
       skipToMain={t("skipToMain")}
       menuOpenLabel={t("menuOpen")}
       menuCloseLabel={t("menuClose")}

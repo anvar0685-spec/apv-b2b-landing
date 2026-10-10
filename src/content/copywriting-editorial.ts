@@ -134,16 +134,9 @@ export const PROGRAMMATIC_CLARIFY_BODY: Record<ProfessionSlug, string> = {
 };
 
 export function programmaticCalcCta(profSlug: ProfessionSlug, citySlug: string): string {
-  if (profSlug === "gruzchiki" && citySlug === "domodedovo") {
-    return "Получить расчёт для моего склада";
-  }
-  if (profSlug === "komplektovschiki" && citySlug === "moskva") {
-    return "Рассчитать стоимость комплектовщиков";
-  }
-  if (profSlug === "voditeli-prt" && citySlug === "podolsk") {
-    return "Обсудить подбор водителей";
-  }
-  return PROFESSION_EDITORIAL[profSlug].calcCtaDefault;
+  void profSlug;
+  void citySlug;
+  return "Рассчитать стоимость";
 }
 
 export function professionHubTitle(slug: ProfessionSlug): string {

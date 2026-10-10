@@ -29,7 +29,16 @@ const expected = professions.length * cities.length;
 console.log(`Professions: ${professions.length}, cities: ${cities.length}, routes: ${expected}`);
 
 const longread = readFileSync(longreadPath, "utf8");
-const banned = ["эскалац", "KPI", "WMS", "экономика смены", "хвост вывода"];
+const banned = [
+  "эскалац",
+  "KPI",
+  "WMS",
+  "экономика смены",
+  "хвост вывода",
+  "Параметры профессии и города",
+  "операционный пул",
+  "профиль уже подставлен",
+];
 const hits = banned.filter((w) => longread.toLowerCase().includes(w.toLowerCase()));
 if (hits.length) {
   console.error("Banned fragments in programmatic-longread.ts:", hits.join(", "));

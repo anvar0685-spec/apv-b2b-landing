@@ -9,6 +9,9 @@ import { HomeProfessionsHubs } from "@/components/home/home-professions-hubs";
 import { HomeWhyUs } from "@/components/home/home-why-us";
 // import { ThankYouLettersGallery } from "@/components/home/thank-you-letters-gallery"; // временно скрыто до получения реальных сканов
 import { getTranslations } from "next-intl/server";
+import { cn } from "@/lib/utils";
+import { WarehouseSchematic } from "@/components/graphics/warehouse-schematic";
+import { caseSchematicVariant } from "@/lib/case-schematic";
 
 type FaqItem = { q: string; a: string };
 export async function HomeSections() {
@@ -51,9 +54,9 @@ export async function HomeSections() {
       desc: ts("tileRecruitingDesc"),
     },
     {
-      href: "/personal",
-      title: ts("tilePrrTitle"),
-      desc: ts("tilePrrDesc"),
+      href: "/uslugi/postoyannyy-personal",
+      title: ts("tilePermanentTitle"),
+      desc: ts("tilePermanentDesc"),
     },
   ] as const;
 
@@ -125,20 +128,38 @@ export async function HomeSections() {
           {ts("casesTitle")}
         </h2>
         <p className="mt-4 max-w-2xl text-[var(--neutral-700)]">{ts("casesLead")}</p>
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
-          {CASES.slice(0, 3).map((c) => {
+        <div className="mt-14 grid gap-6 lg:grid-cols-3 lg:grid-rows-2">
+          {CASES.slice(0, 3).map((c, index) => {
             const card = caseCardFields(c);
+            const featured = index === 0;
             return (
               <Card
                 key={c.slug}
-                className="group relative flex flex-col overflow-hidden border-[var(--neutral-200)]/90 bg-gradient-to-b from-[var(--card)] via-[var(--card)] to-[var(--surface)] shadow-[0_1px_0_rgba(0,0,0,0.04)] transition-[box-shadow,transform,border-color] duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/30 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.03),0_0_40px_-8px_var(--accent)] motion-reduce:transform-none"
+                className={cn(
+                  "group relative flex flex-col overflow-hidden border-[var(--neutral-200)]/90 bg-gradient-to-b from-[var(--card)] via-[var(--card)] to-[var(--surface)] shadow-[0_1px_0_rgba(0,0,0,0.04)] transition-[box-shadow,transform,border-color] duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/30 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.03),0_0_40px_-8px_var(--accent)] motion-reduce:transform-none",
+                  featured && "lg:col-span-2 lg:row-span-2",
+                )}
               >
+                <div
+                  className={cn(
+                    "mb-4 overflow-hidden rounded-xl border border-[var(--neutral-200)]/80 bg-[var(--surface)] p-3",
+                    featured ? "min-h-[140px]" : "min-h-[72px]",
+                  )}
+                >
+                  <WarehouseSchematic
+                    variant={caseSchematicVariant(c.slug)}
+                    className={featured ? "max-h-[160px]" : "max-h-[88px]"}
+                    title={card.title}
+                  />
+                </div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)]">
                   {card.industry}
                 </p>
-                <CardTitle className="mt-3">{card.title}</CardTitle>
-                <CardDescription>{card.summary}</CardDescription>
-                <p className="mt-4 text-sm leading-relaxed text-[var(--neutral-700)]">{card.shiftProfile}</p>
+                <CardTitle className={cn("mt-3", featured && "text-xl md:text-2xl")}>{card.title}</CardTitle>
+                <CardDescription className={featured ? "text-base" : undefined}>{card.summary}</CardDescription>
+                {featured ? (
+                  <p className="mt-4 text-sm leading-relaxed text-[var(--neutral-700)]">{card.shiftProfile}</p>
+                ) : null}
                 <div className="mt-auto pt-5">
                   <Button asChild variant="secondary" size="sm">
                     <Link href={`/keysy/${c.slug}`}>{ts("caseCta")}</Link>

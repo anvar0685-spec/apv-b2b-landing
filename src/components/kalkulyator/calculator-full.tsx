@@ -27,9 +27,9 @@ import {
 } from "@/lib/staffing-url-params";
 
 const SERVICE_SLUG = "autsorsing" as const;
-/** 3 шага ввода + экран результата */
-const STEPS = 4;
-const STEP_LABELS = ["Команда", "График", "Срок и условия", "Результат"] as const;
+/** Три шага: на третьем — поля и итоговый результат */
+const STEPS = 3;
+const STEP_LABELS = ["Команда", "График", "Срок и условия"] as const;
 
 type WorkFormat = "permanent" | "seasonal" | "night" | "oneoff";
 
@@ -167,11 +167,15 @@ export function CalculatorFull() {
           </li>
         ) : null}
       </ul>
-      {step < STEPS - 1 ? (
+      {step < 2 ? (
         <p className="mt-4 font-mono-nums text-lg font-bold text-[var(--primary)]">
           ~{estimate.total.toLocaleString("ru-RU")} ₽ <span className="text-xs font-normal">/ мес</span>
         </p>
-      ) : null}
+      ) : (
+        <p className="mt-4 font-mono-nums text-lg font-bold text-[var(--primary)]">
+          {estimate.total.toLocaleString("ru-RU")} ₽ <span className="text-xs font-normal">/ мес (итог)</span>
+        </p>
+      )}
     </aside>
   );
 
@@ -319,40 +323,38 @@ export function CalculatorFull() {
           ) : null}
 
           {step === 2 ? (
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="dur">Срок работы, мес.</Label>
-                <Input
-                  id="dur"
-                  type="number"
-                  min={1}
-                  max={36}
-                  value={durationMonths}
-                  onChange={(e) => setDurationMonths(Math.max(1, Math.min(36, Number(e.target.value) || 1)))}
-                  className="mt-2"
-                />
-              </div>
-              <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
-                <Checkbox checked={extraHousing} onCheckedChange={(v) => setExtraHousing(v === true)} />
-                Нужно жильё
-              </label>
-              <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
-                <Checkbox checked={extraTransport} onCheckedChange={(v) => setExtraTransport(v === true)} />
-                Нужен транспорт
-              </label>
-              <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
-                <Checkbox checked={extraPeak} onCheckedChange={(v) => setExtraPeak(v === true)} />
-                Пик / разгрузка сверх плана
-              </label>
-              <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
-                <Checkbox checked={extraCompliance} onCheckedChange={(v) => setExtraCompliance(v === true)} />
-                Жёсткие требования площадки (маркетплейс / РЦ): допуски и документы (+6% к ориентиру)
-              </label>
-            </div>
-          ) : null}
-
-          {step === 3 ? (
             <div className="space-y-6">
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="dur">Срок работы, мес.</Label>
+                  <Input
+                    id="dur"
+                    type="number"
+                    min={1}
+                    max={36}
+                    value={durationMonths}
+                    onChange={(e) => setDurationMonths(Math.max(1, Math.min(36, Number(e.target.value) || 1)))}
+                    className="mt-2"
+                  />
+                </div>
+                <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
+                  <Checkbox checked={extraHousing} onCheckedChange={(v) => setExtraHousing(v === true)} />
+                  Нужно жильё
+                </label>
+                <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
+                  <Checkbox checked={extraTransport} onCheckedChange={(v) => setExtraTransport(v === true)} />
+                  Нужен транспорт
+                </label>
+                <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
+                  <Checkbox checked={extraPeak} onCheckedChange={(v) => setExtraPeak(v === true)} />
+                  Пик / разгрузка сверх плана
+                </label>
+                <label className="flex items-center gap-3 text-sm text-[var(--neutral-700)]">
+                  <Checkbox checked={extraCompliance} onCheckedChange={(v) => setExtraCompliance(v === true)} />
+                  Жёсткие требования площадки (маркетплейс / РЦ): допуски и документы (+6% к ориентиру)
+                </label>
+              </div>
+
               <div className="border border-[var(--neutral-200)] bg-[var(--surface)] p-5 dark:border-white/10">
                 <h3 className="font-display text-lg font-semibold text-[var(--primary)]">Предварительный бюджет за месяц</h3>
                 <p className="mt-4 font-mono-nums text-3xl font-bold text-[var(--primary)]">
@@ -365,7 +367,8 @@ export function CalculatorFull() {
                 <ul className="mt-4 space-y-1 text-sm text-[var(--neutral-700)]">
                   <li>{professionTitle(profession)}, {cityTitle(city)}, {headcount} чел.</li>
                   <li>
-                    {hoursPerWeek} ч/нед., ставка {hourlyEffective} ₽/ч
+                    {hoursPerWeek} ч/нед., смена {shift === "day" ? "день" : shift === "night" ? "ночь" : "сутки"}, ставка{" "}
+                    {hourlyEffective} ₽/ч
                   </li>
                 </ul>
                 <div className="mt-6">
@@ -426,8 +429,8 @@ export function CalculatorFull() {
               </details>
 
               <p className="text-xs leading-relaxed text-[var(--neutral-500)]">
-                Предварительный бюджет рассчитан для среднего месяца — 4,3 недели. Транспорт, проживание и дополнительные
-                требования объекта согласуем отдельно.
+                Расчёт для среднего месяца — 4,3 недели. Фактическое число смен зависит от календаря. Транспорт,
+                проживание и дополнительные требования объекта согласуем отдельно.
               </p>
             </div>
           ) : null}

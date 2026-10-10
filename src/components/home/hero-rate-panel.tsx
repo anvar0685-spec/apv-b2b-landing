@@ -91,7 +91,7 @@ export function HeroRatePanel() {
             animate={reduce ? undefined : { scale: [1, 1.06, 1], opacity: [0.85, 1, 0.85] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
           >
-            до КП
+            Ориентир
           </motion.span>
         </div>
 
@@ -133,8 +133,8 @@ export function HeroRatePanel() {
         </div>
 
         <p className="border-t border-white/[0.07] pt-3 text-[10px] leading-snug text-[var(--text-on-dark-muted)]">
-          Итог зависит от графика, задач и расположения склада. Подготовим расчёт для вашего объекта. Ночная смена и
-          дополнительные условия — в согласованном КП.
+          Итог зависит от графика, задач и расположения склада. Подготовим расчёт для вашего объекта. Стоимость ночных
+          смен и дополнительных условий согласуем отдельно.
         </p>
       </div>
     </figure>

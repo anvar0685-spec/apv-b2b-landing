@@ -1144,7 +1144,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     title: "Долгосрочный контракт и краткий проект: экономика подряда по персоналу на складе",
     titleEn: "Long-term vs short-term: economics of warehouse staffing contracts",
     excerpt:
-      "Минимальные объёмы, фиксы, амортизация затрат на ввод и гибкость выхода — как выбрать горизонт договора при работе с подрядчиком по персоналу в Москве и Московской области.",
+      "Как срок договора, объём работ и подготовка команды влияют на стоимость услуг подрядчика.",
     excerptEn:
       "Minimums, fixed fees, onboarding amortisation and exit flexibility — choosing contract horizon for Moscow/region staffing.",
     category: "stoimost",
@@ -1251,10 +1251,10 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
   },
   {
     slug: "fbs-marketpleys-komplektovschiki-pechi-i-autsorsing-smen",
-    title: "FBS у маркетплейса (отгрузка с вашего склада): комплектовщики и закрытие волн",
+    title: "Отгрузка заказов маркетплейса со своего склада: работа комплектовщиков",
     titleEn: "Marketplace FBS: pickers, dispatch waves and shift rostering",
     excerpt:
-      "**FBS** — заказ уезжает с вашего склада от имени продавца; волны отбора и окна отгрузки в хаб давят на ошибку и скорость. Как подрядчик собирает смену под этот поток на складе в Москве и Московской области.",
+      "Как организовать сборку и отгрузку заказов маркетплейса со своего склада: состав команды, график и требования к работе.",
     excerptEn:
       "Seller-fulfilled flows: pick waves, hub windows, error/speed pressure — rostering shifts for FBS.",
     category: "optimizaciya",
@@ -1319,7 +1319,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
   },
   {
     slug: "biometriya-kpp-i-personalnye-dannye-pri-autsorsinge-smen",
-    title: "Биометрия на КПП и персональные данные, когда линейку закрывает подрядчик",
+    title: "Биометрия на проходной и персональные данные работников подрядчика",
     titleEn: "Biometrics at gates and personal data when lines are contractor-supplied",
     excerpt:
       "Согласия, цели обработки, доступ подрядчика к турникетам и пропускным системам — как выстроить работу по 152-ФЗ, когда людей на склад в Москве или МО выводит подрядчик.",
@@ -1353,7 +1353,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
   },
   {
     slug: "gibrid-shtata-i-autsorsinga-na-odnoy-linii-reglament-vzaimodeystviya",
-    title: "Гибрид штата и аутсорсинга на одной линии: регламент взаимодействия и KPI",
+    title: "Штатные работники и команда подрядчика: как организовать совместную работу",
     titleEn: "Hybrid in-house and outsourced staff on one line: interaction rules and KPIs",
     excerpt:
       "Кто старший на участке, как делится ошибка между «своими» и внешней бригадой, как избежать токсичной конкуренции смен — операционная модель для складов Москвы и Московской области.",
@@ -1387,7 +1387,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
   },
   {
     slug: "vtoraya-liniya-migracionnogo-kontrolya-pri-autsorsinge-skladskih-smen",
-    title: "Вторая линия проверки документов: когда заказчик аудирует подрядчика",
+    title: "Как заказчику проверять документы работников подрядчика",
     titleEn: "Second-line document checks on top of vendor compliance",
     excerpt:
       "Когда заказчик держит выборочный аудит документов поверх подрядчика: разделение ролей, частота проверок и документооборот без дублирования на складах Москвы и области.",

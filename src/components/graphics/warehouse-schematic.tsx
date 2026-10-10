@@ -10,6 +10,7 @@ export type WarehouseSchematicVariant =
   | "case-fragile"
   | "case-dual-site"
   | "case-assembly"
+  | "ecommerce-pipeline"
   | "strip-storage"
   | "strip-loading";
 
@@ -93,20 +94,56 @@ export function WarehouseSchematic({ variant, className, title }: Props) {
       );
     case "case-fragile":
       return (
-        <BaseSvg className={className} title={title ?? "Аккуратная работа с паллетами"}>
-          <rect x="100" y="90" width="120" height="64" rx="4" fill="currentColor" fillOpacity="0.12" stroke={stroke} />
-          <path d="M100 110 h120 M100 130 h120" stroke={stroke} opacity="0.4" />
-          <path d="M160 70 v20" stroke={stroke} strokeWidth="2" />
-          <text x="168" y="78" fontSize="10" fill="currentColor" opacity="0.8">!</text>
+        <BaseSvg className={className} title={title ?? "Приёмка, перемещение и выдача хрупкого груза"}>
+          <g fill="none" stroke={stroke} strokeWidth="1.25">
+            <rect x="28" y="100" width="56" height="48" rx="4" fill="currentColor" fillOpacity="0.1" />
+            <path d="M100 124 h48" strokeDasharray="4 3" />
+            <rect x="148" y="92" width="64" height="56" rx="4" fill="currentColor" fillOpacity="0.14" strokeDasharray="3 2" />
+            <path d="M228 124 h44" />
+            <rect x="272" y="104" width="28" height="40" rx="3" fill="currentColor" fillOpacity="0.18" />
+          </g>
+          <text x="36" y="92" fontSize="9" fill="currentColor" opacity="0.85">Приёмка</text>
+          <text x="152" y="86" fontSize="9" fill="currentColor" opacity="0.85">Перекладка</text>
+          <text x="268" y="98" fontSize="9" fill="currentColor" opacity="0.85">Выдача</text>
+          <text x="158" y="118" fontSize="14" fill="currentColor" opacity="0.75">!</text>
         </BaseSvg>
       );
     case "case-dual-site":
       return (
-        <BaseSvg className={className} title={title ?? "Два соседних склада"}>
-          <rect x="40" y="80" width="100" height="72" rx="6" fill="none" stroke={stroke} strokeWidth="1.5" />
-          <rect x="180" y="80" width="100" height="72" rx="6" fill="none" stroke={stroke} strokeWidth="1.5" />
-          <path d="M140 116 h40" stroke={stroke} strokeWidth="2" strokeDasharray="6 4" />
-          <circle cx="160" cy="116" r="6" fill="currentColor" fillOpacity="0.3" />
+        <BaseSvg className={className} title={title ?? "Два склада и один менеджер замен"}>
+          <rect x="24" y="88" width="88" height="64" rx="6" fill="none" stroke={stroke} strokeWidth="1.5" />
+          <rect x="208" y="88" width="88" height="64" rx="6" fill="none" stroke={stroke} strokeWidth="1.5" />
+          <text x="40" y="82" fontSize="9" fill="currentColor" opacity="0.8">Склад 1</text>
+          <text x="224" y="82" fontSize="9" fill="currentColor" opacity="0.8">Склад 2</text>
+          <circle cx="160" cy="120" r="14" fill="currentColor" fillOpacity="0.2" stroke={stroke} strokeWidth="1.5" />
+          <text x="152" y="124" fontSize="8" fill="currentColor" opacity="0.9">Менеджер</text>
+          <path d="M112 120 h32 M176 120 h32" stroke={stroke} strokeWidth="1.5" markerEnd="url(#none)" />
+          <path d="M160 134 v18" stroke={stroke} strokeWidth="1.25" strokeDasharray="4 3" />
+          <text x="124" y="168" fontSize="9" fill="currentColor" opacity="0.75">Замена между объектами</text>
+        </BaseSvg>
+      );
+    case "ecommerce-pipeline":
+      return (
+        <BaseSvg className={className} title={title ?? "Отбор, сборка, упаковка и отгрузка"}>
+          <g fill="none" stroke={stroke} strokeWidth="1.25">
+            {[
+              { x: 16, label: "Отбор" },
+              { x: 88, label: "Сборка" },
+              { x: 160, label: "Упаковка" },
+              { x: 232, label: "Отгрузка" },
+            ].map((step, i) => (
+              <g key={step.label}>
+                <rect x={step.x} y="88" width="56" height="52" rx="5" fill="currentColor" fillOpacity="0.1" />
+                {i < 3 ? <path d={`M${step.x + 56} 114 h24`} stroke={stroke} /> : null}
+              </g>
+            ))}
+            <path d="M248 72 h8 v-12 h24" stroke={stroke} strokeDasharray="3 2" opacity="0.55" />
+            <text x="244" y="58" fontSize="8" fill="currentColor" opacity="0.65">Возвраты</text>
+          </g>
+          <text x="22" y="82" fontSize="9" fill="currentColor" opacity="0.9">Отбор товара</text>
+          <text x="90" y="82" fontSize="9" fill="currentColor" opacity="0.9">Сборка заказа</text>
+          <text x="168" y="82" fontSize="9" fill="currentColor" opacity="0.9">Упаковка</text>
+          <text x="238" y="82" fontSize="9" fill="currentColor" opacity="0.9">Отгрузка</text>
         </BaseSvg>
       );
     case "case-assembly":

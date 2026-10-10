@@ -49,7 +49,7 @@ const t = {
   ctaLeadOutsourcing:
     "Укажите работников, количество, график и адрес объекта. Подготовим стоимость и обсудим начало работы.",
   req: "Оставить заявку",
-  reqOutsourcing: "Получить расчёт",
+  reqOutsourcing: "Обсудить задачу",
   overviewOutsourcing: "Как организуем работу",
   tasksOutsourcing: "Какие задачи можно поручить команде",
   includesOutsourcing: "Что берём на себя",

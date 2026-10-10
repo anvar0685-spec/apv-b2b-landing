@@ -1,0 +1,684 @@
+{
+  "summary": {
+    "at": "2026-10-10T14:29:10.697Z",
+    "base": "http://127.0.0.1:3000",
+    "widths": [
+      360,
+      390,
+      430,
+      1366,
+      1440
+    ],
+    "paths": 19,
+    "checks": 95,
+    "passed": 95,
+    "failed": []
+  },
+  "rows": [
+    {
+      "path": "/ru",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/kalkulyator",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/kalkulyator",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/kalkulyator",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/kalkulyator",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/kalkulyator",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/zayavka",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/zayavka",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/zayavka",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/zayavka",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/zayavka",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/o-kompanii",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/o-kompanii",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/o-kompanii",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/o-kompanii",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/o-kompanii",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/o-kompanii/dokumenty",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/o-kompanii/dokumenty",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/o-kompanii/dokumenty",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/o-kompanii/dokumenty",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/o-kompanii/dokumenty",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/autsorsing",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/autsorsing",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/autsorsing",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/autsorsing",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/autsorsing",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/podbor-personala",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/podbor-personala",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/podbor-personala",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/podbor-personala",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/podbor-personala",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/postoyannyy-personal",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/postoyannyy-personal",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/postoyannyy-personal",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/postoyannyy-personal",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/postoyannyy-personal",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/nochnye-smeny",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/nochnye-smeny",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/nochnye-smeny",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/nochnye-smeny",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/uslugi/nochnye-smeny",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/otrasli/sklady-e-commerce",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/otrasli/sklady-e-commerce",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/otrasli/sklady-e-commerce",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/otrasli/sklady-e-commerce",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/otrasli/sklady-e-commerce",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/otrasli/farmatsevticheskie-sklady",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/otrasli/farmatsevticheskie-sklady",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/otrasli/farmatsevticheskie-sklady",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/otrasli/farmatsevticheskie-sklady",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/otrasli/farmatsevticheskie-sklady",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/personal/gruzchiki/domodedovo",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/personal/gruzchiki/domodedovo",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/personal/gruzchiki/domodedovo",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/personal/gruzchiki/domodedovo",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/personal/gruzchiki/domodedovo",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/personal/komplektovschiki/moskva",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/personal/komplektovschiki/moskva",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/personal/komplektovschiki/moskva",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/personal/komplektovschiki/moskva",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/personal/komplektovschiki/moskva",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/personal/voditeli-prt/podolsk",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/personal/voditeli-prt/podolsk",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/personal/voditeli-prt/podolsk",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/personal/voditeli-prt/podolsk",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/personal/voditeli-prt/podolsk",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/keysy/stroitelnye-materialy-sklad-obrabotka",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/keysy/stroitelnye-materialy-sklad-obrabotka",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/keysy/stroitelnye-materialy-sklad-obrabotka",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/keysy/stroitelnye-materialy-sklad-obrabotka",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/keysy/stroitelnye-materialy-sklad-obrabotka",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/keysy/sklady-tehniki-mo",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/keysy/sklady-tehniki-mo",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/keysy/sklady-tehniki-mo",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/keysy/sklady-tehniki-mo",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/keysy/sklady-tehniki-mo",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/blog",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/blog",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/blog",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/blog",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/blog",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/blog/otsenka-podryadchika-posle-pervyh-30-dney-metriki-i-retrospektiva",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/blog/otsenka-podryadchika-posle-pervyh-30-dney-metriki-i-retrospektiva",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/blog/otsenka-podryadchika-posle-pervyh-30-dney-metriki-i-retrospektiva",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/blog/otsenka-podryadchika-posle-pervyh-30-dney-metriki-i-retrospektiva",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/blog/otsenka-podryadchika-posle-pervyh-30-dney-metriki-i-retrospektiva",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/kontakty",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/kontakty",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/kontakty",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/kontakty",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/kontakty",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    }
+  ]
+}

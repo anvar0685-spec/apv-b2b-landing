@@ -107,7 +107,7 @@ export function ManagerCard() {
   if (!dockVisible) return null;
 
   const msgrBtn =
-    "interactive-hover-ring group flex h-[68px] min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-1.5 text-[11px] font-semibold text-white shadow-[0_6px_18px_-8px_rgba(7,21,37,0.35)] ring-1 ring-white/15 transition hover:scale-[1.02] hover:shadow-[0_10px_22px_-8px_rgba(7,21,37,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] motion-reduce:hover:scale-100";
+    "interactive-hover-ring group flex h-11 min-w-0 flex-col items-center justify-center gap-0.5 rounded-xl border border-[var(--neutral-200)] bg-[var(--surface)] px-1.5 text-[10px] font-semibold text-[var(--primary)] transition hover:border-[var(--accent)]/40 hover:bg-[var(--card)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] dark:border-white/12 dark:bg-white/[0.06] dark:text-white dark:hover:bg-white/10";
 
   // Свёрнутое состояние — единая «пилюля» для desktop и mobile
   if (collapsed) {
@@ -228,7 +228,7 @@ export function ManagerCard() {
           href={site.whatsapp}
           target="_blank"
           rel="noopener noreferrer"
-          className={cn(msgrBtn, "bg-[#25D366] hover:bg-[#1eb858]")}
+          className={msgrBtn}
           aria-label="Написать в WhatsApp"
           title="WhatsApp"
           onClick={() => void trackEvent("manager_card_whatsapp", { source: "manager_card" })}
@@ -240,7 +240,7 @@ export function ManagerCard() {
           href={site.telegram}
           target="_blank"
           rel="noopener noreferrer"
-          className={cn(msgrBtn, "bg-[#229ED9] hover:bg-[#1e8cbf]")}
+          className={msgrBtn}
           aria-label="Написать в Telegram"
           title="Telegram"
           onClick={() => void trackEvent("manager_card_telegram", { source: "manager_card" })}
@@ -252,10 +252,7 @@ export function ManagerCard() {
           href={site.max}
           target="_blank"
           rel="noopener noreferrer"
-          className={cn(
-            msgrBtn,
-            "bg-gradient-to-br from-[#4f8cff] via-[#7c5cff] to-[#d946ef] hover:opacity-95",
-          )}
+          className={msgrBtn}
           aria-label="Написать в MAX"
           title="MAX"
           onClick={() => void trackEvent("manager_card_max", { source: "manager_card" })}
