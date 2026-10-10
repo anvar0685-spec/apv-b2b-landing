@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-10T14:45:00.000Z",
+  "tool": "cursor-ide-browser MCP",
+  "viewports": [360, 1366],
+  "checks": [
+    {
+      "url": "http://127.0.0.1:3010/ru/kalkulyator",
+      "viewport": 360,
+      "step1": "Шаг 1/3 Команда — 3 096 000 ₽ preview",
+      "step2": "Шаг 2/3 График — 40 ч/нед день",
+      "step3": "Шаг 3/3 Срок и условия + итог ~3 096 000 ₽ + CTA Обсудить задачу (без кнопки Далее)",
+      "status": "pass"
+    },
+    {
+      "url": "http://127.0.0.1:3010/ru",
+      "viewport": 1366,
+      "header": "Услуги/Персонал/Кейсы + Калькулятор + Обсудить задачу",
+      "hero": "бейдж Ориентир, CTA Рассчитать стоимость",
+      "status": "pass"
+    }
+  ],
+  "automatedMatrix": "browser-acceptance-log.json — 21 URL × 5 widths = 105 pass",
+  "programmaticHtml": "programmatic-html-verify.json — 240/240"
+}

@@ -1,7 +1,7 @@
 {
   "summary": {
-    "at": "2026-10-10T14:29:10.697Z",
-    "base": "http://127.0.0.1:3000",
+    "at": "2026-10-10T14:40:34.701Z",
+    "base": "http://127.0.0.1:3010",
     "widths": [
       360,
       390,
@@ -9,9 +9,9 @@
       1366,
       1440
     ],
-    "paths": 19,
-    "checks": 95,
-    "passed": 95,
+    "paths": 21,
+    "checks": 105,
+    "passed": 105,
     "failed": []
   },
   "rows": [
@@ -675,6 +675,76 @@
     },
     {
       "path": "/ru/kontakty",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/garantii",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/garantii",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/garantii",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/garantii",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/garantii",
+      "width": 1440,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/faq",
+      "width": 360,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/faq",
+      "width": 390,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/faq",
+      "width": 430,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/faq",
+      "width": 1366,
+      "status": 200,
+      "ok": true,
+      "note": ""
+    },
+    {
+      "path": "/ru/faq",
       "width": 1440,
       "status": 200,
       "ok": true,

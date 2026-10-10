@@ -31,6 +31,9 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# черновики статей (не в прод-каталоге)
+src/content/blog-drafts/
+
 # SSH VPS (Timeweb root password — только локально, никогда в репозиторий)
 deploy/.vps-ssh.local.env
 deploy/.vps-smtp-append.env

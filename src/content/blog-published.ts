@@ -1219,7 +1219,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     title: "3PL-модель и аутсорсинг линейного персонала: особенности договора и зоны ответственности",
     titleEn: "3PL and outsourced line labour: contract quirks and responsibility zones",
     excerpt:
-      "Когда склад обслуживает несколько заказчиков и линейка частично аутсорсная: разделение KPI, конфиденциальность, доступы в WMS и этика замены между потоками — для операций в Москве и МО.",
+      "Когда на складе несколько заказчиков и часть работников выходит от подрядчика: как разделить показатели, сохранить конфиденциальность, доступ к WMS и порядок замен — для операций в Москве и МО.",
     excerptEn:
       "Multi-tenant DCs with outsourced lines: KPI splits, confidentiality, WMS access and replacement ethics.",
     category: "model",
@@ -1356,7 +1356,7 @@ export const PUBLISHED_BLOG_ARTICLES: BlogArticle[] = [
     title: "Штатные работники и команда подрядчика: как организовать совместную работу",
     titleEn: "Hybrid in-house and outsourced staff on one line: interaction rules and KPIs",
     excerpt:
-      "Кто старший на участке, как делится ошибка между «своими» и внешней бригадой, как избежать токсичной конкуренции смен — операционная модель для складов Москвы и Московской области.",
+      "Кто старший на участке, как делится ответственность за ошибку между штатом и бригадой подрядчика, как избежать конфликта смен — практический порядок для складов Москвы и Московской области.",
     excerptEn:
       "Lead roles on a zone, error attribution, toxic shift rivalry — hybrid ops patterns for Moscow/region warehouses.",
     category: "bazovaya",

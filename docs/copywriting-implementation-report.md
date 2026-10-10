@@ -17,9 +17,12 @@
 | Приёмка | `verify-programmatic-html.mjs`, `browser-acceptance-matrix.mjs` | JSON в `docs/screenshots/editorial-design-2026-10-10/` | 240 HTML + 95 матрица |
 
 ```text
-npm run test && npm run build → OK
-npm run verify:programmatic-html → 240 routes, 0 errors (next start)
-node scripts/browser-acceptance-matrix.mjs → 95/95
+npm run test → 7 unit + lead payload + 240 longread
+npm run verify:programmatic-html → 240/240
+npm run verify:browser-matrix → 105/105 (21 URL × 5 widths)
+npm run seo:check → SEO-CHECK-latest.md
+test:lead-smoke → SKIP без DATABASE_URL локально; payload acceptance в npm test
+Браузер MCP: шаги 1–3 калькулятора, контрольные суммы 3 096 000 / 9 288 000 / 198 000 / 5 959 800…
 ```
 
 ## Проход 3 — финальные исправления (окт 2026)

@@ -30,6 +30,8 @@ const paths = [
   "/ru/blog",
   "/ru/blog/otsenka-podryadchika-posle-pervyh-30-dney-metriki-i-retrospektiva",
   "/ru/kontakty",
+  "/ru/garantii",
+  "/ru/faq",
 ];
 
 const rows = [];
@@ -52,6 +54,18 @@ for (const path of paths) {
       if (path.includes("kalkulyator") && ok && html.includes("Шаг 4")) {
         ok = false;
         note = "still 4 calculator steps";
+      }
+      if (path.includes("zayavka") && ok && !html.includes("Добавить профессию")) {
+        ok = false;
+        note = "lead form copy";
+      }
+      if (path === "/ru" && ok && html.includes("операционном пуле")) {
+        ok = false;
+        note = "home stats jargon";
+      }
+      if (path.includes("garantii") && ok && html.includes("Нормативка")) {
+        ok = false;
+        note = "garantii kicker";
       }
     } catch (e) {
       note = String(e);

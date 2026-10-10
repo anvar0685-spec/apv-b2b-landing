@@ -1,11 +1,11 @@
 # Google Search Console — отчёт routine
 
-**Сгенерировано:** 2026-10-08T06:46:29.981Z
+**Сгенерировано:** 2026-10-10T14:41:30.669Z
 **Свойство:** https://xn----7sbbgqr3atubl.xn--p1ai/ (siteOwner)
 
 ## Sitemap
 
-- `https://xn----7sbbgqr3atubl.xn--p1ai/sitemap.xml` — pending: true, errors: 0, warnings: 0, submitted: 2026-10-08T06:46:15.122Z
+- `https://xn----7sbbgqr3atubl.xn--p1ai/sitemap.xml` — pending: true, errors: 0, warnings: 0, submitted: 2026-10-10T14:41:10.470Z
 
 ## URL Inspection (36)
 
@@ -46,22 +46,22 @@
 - https://xn----7sbbgqr3atubl.xn--p1ai/ru/faq — Страница является копией. Канонические версии страницы, выбранные Google и пользователем, не совпадают.
 - https://xn----7sbbgqr3atubl.xn--p1ai/ru/garantii — Страница отправлена и проиндексирована
 
-## Поисковая аналитика (2026-09-07 … 2026-10-05)
+## Поисковая аналитика (2026-09-09 … 2026-10-07)
 
 ### Топ запросы
 
 - гарантия замены кандидата — клики 0, показы 2
-- кладовщик аутсорсинг — клики 0, показы 4
+- кладовщик аутсорсинг — клики 0, показы 3
 
 ### Топ страницы
 
 - https://xn----7sbbgqr3atubl.xn--p1ai/ — клики 1, показы 5
 - https://xn----7sbbgqr3atubl.xn--p1ai/ru/blog — клики 0, показы 1
 - https://xn----7sbbgqr3atubl.xn--p1ai/ru/blog/integratsiya-autsorsing-personala-s-wms-i-smenskoi-otchyotnostyu — клики 0, показы 2
-- https://xn----7sbbgqr3atubl.xn--p1ai/ru/blog/kladovshchik-pri-autsorsinge-granitsy-roli-i-uchet — клики 0, показы 4
+- https://xn----7sbbgqr3atubl.xn--p1ai/ru/blog/kladovshchik-pri-autsorsinge-granitsy-roli-i-uchet — клики 0, показы 3
 - https://xn----7sbbgqr3atubl.xn--p1ai/ru/blog/kross-dok-sortirovka-i-komanda-roley-pri-autsorsinge-sklad — клики 0, показы 1
 - https://xn----7sbbgqr3atubl.xn--p1ai/ru/blog/nochnye-smeny-sklad-moskva-mo-ekonomika-riski-i-koeffitsienty — клики 0, показы 1
-- https://xn----7sbbgqr3atubl.xn--p1ai/ru/garantii — клики 0, показы 4
+- https://xn----7sbbgqr3atubl.xn--p1ai/ru/garantii — клики 0, показы 3
 - https://xn----7sbbgqr3atubl.xn--p1ai/ru/kalkulyator — клики 0, показы 1
 - https://xn----7sbbgqr3atubl.xn--p1ai/ru/otrasli — клики 0, показы 3
 - https://xn----7sbbgqr3atubl.xn--p1ai/ru/personal — клики 0, показы 1

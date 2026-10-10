@@ -49,7 +49,7 @@ export default function Page() {
             </CardDescription>
           </Card>
           <Card className="border-[var(--neutral-200)]/90">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)]">Нормативка</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)]">Документы и допуски</p>
             <CardTitle className="mt-3">Документы и учёт</CardTitle>
             <CardDescription>
               Инструктажи, табели, акты и кадровый документооборот по выводу людей на объект — в зоне ответственности поставщика по договору.
