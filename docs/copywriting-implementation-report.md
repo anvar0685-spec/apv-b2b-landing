@@ -25,15 +25,19 @@ npm run build  → exit 0, 347 страниц
 
 ## Проход 5 — редакция и дизайн без фотографий (2026-10-10)
 
+Коммиты: `099d047` (ядро), `ec1fee0` (кейсы/блог/отрасли), `463fa83` (HEAD, VPS).
+
 | Пункт | Файлы | Проверка |
 | --- | --- | --- |
-| Кейсы стройматериалы / 2 склада | `cases-stub.ts` | Тексты §4.1–4.2 |
-| Город калькулятора, email заявки | `calculator-full.tsx`, `ru.json` | Браузер: подпись города, hint PDF |
-| Калькулятор 3+1 шага | `calculator-full.tsx` | 3 096 000 ₽ контроль, 4 шага UI |
-| Заявка: задача → контакты → проверка | `lead-multistep-form.tsx` | Порядок шагов |
-| Фото сняты | hero, manager, production-strip | curl/rg HTML |
-| Командa/Пресса | `next.config.mjs`, sitemap, `o-kompanii` | 308 на `/o-kompanii` |
-| Дизайн | `warehouse-schematic.tsx`, process, why-us, `--accent` | `design-implementation-report.md` |
+| §4.1–4.5, why-us, процесс | `cases-stub`, `calculator-full`, `ru.json`, `process-sticky-split` | build, браузер |
+| Калькулятор / заявка | `calculator-full`, `lead-multistep-form` | 3 096 000 ₽; 3 шага заявки |
+| Фото | hero, manager, production-strip, industrial-photo-tiles | prod grep `hero-sklad` → 0 |
+| Komanda/Pressa | redirects, sitemap | 308 |
+| Кейсы ×6 | `keysy/[slug]/page.tsx`, `case-schematic.ts` | структура + SVG |
+| Блог | `FEATURED_BLOG_SLUG`, `featured-blog-lead.tsx` | `/ru/blog` |
+| Отрасли ×7 | `industry-schematic.ts`, heroAside | build |
+| 240 URL | `check-programmatic-routes.mjs` | 8×30 |
+| Отчёты | `design-implementation-report.md`, `copywriting-business-questions.md` | — |
 
 ## Проход 4 — закрытие остатков после b7fc7b0
 
