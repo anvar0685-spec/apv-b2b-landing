@@ -30,7 +30,7 @@ export async function SiteHeader() {
       title: t("megaTools"),
       links: [
         { href: "/kalkulyator", label: t("calculator") },
-        { href: "/zayavka", label: tc("proposal") },
+        { href: "/zayavka", label: tc("discuss") },
         { href: "/kontakty", label: t("contacts") },
       ],
     },
@@ -42,7 +42,7 @@ export async function SiteHeader() {
       monogram={getBrandMonogram(site.brandName)}
       groups={groups}
       megaMenuTrigger={t("megaMenuTrigger")}
-      ctaProposal={tc("proposal")}
+      ctaProposal={tc("discuss")}
       ctaCalc={tc("calc")}
       skipToMain={t("skipToMain")}
       menuOpenLabel={t("menuOpen")}

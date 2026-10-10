@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
+import { ShiftPricingTable } from "@/components/marketing/shift-pricing-table";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import {
@@ -26,8 +27,9 @@ import {
 } from "@/lib/staffing-url-params";
 
 const SERVICE_SLUG = "autsorsing" as const;
-/** 5 шагов + экран срока/итога (нед. 7 мастер-док: профиль → численность → формат → локация → срок/доп. → результат). */
-const STEPS = 6;
+/** 3 шага ввода + экран результата */
+const STEPS = 4;
+const STEP_LABELS = ["Команда", "График", "Срок и условия", "Результат"] as const;
 
 type WorkFormat = "permanent" | "seasonal" | "night" | "oneoff";
 
@@ -37,6 +39,14 @@ const FORMATS: { id: WorkFormat; label: string; hint: string }[] = [
   { id: "night", label: "Ночные смены", hint: "Надбавка к ставке по согласованному графику" },
   { id: "oneoff", label: "Разовые работы", hint: "Короткий период или отдельные смены" },
 ];
+
+function professionTitle(slug: string) {
+  return PROFESSIONS.find((p) => p.slug === slug)?.titleRu ?? slug;
+}
+
+function cityTitle(slug: string) {
+  return CITIES.find((c) => c.slug === slug)?.nameRu ?? slug;
+}
 
 export function CalculatorFull() {
   const sp = useSearchParams();
@@ -132,159 +142,186 @@ export function CalculatorFull() {
   const panelClass =
     "rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-4 py-6 sm:px-6 dark:border-white/12 dark:bg-[var(--primary-dark)]/55";
 
+  const summary = (
+    <aside className="rounded-xl border border-[var(--neutral-200)] bg-[var(--surface)] p-4 text-sm dark:border-white/10">
+      <p className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">Сейчас в расчёте</p>
+      <ul className="mt-3 space-y-2 text-[var(--neutral-700)]">
+        <li>
+          <span className="text-[var(--neutral-500)]">Профессия:</span> {professionTitle(profession)}
+        </li>
+        <li>
+          <span className="text-[var(--neutral-500)]">Численность:</span> {headcount} чел.
+        </li>
+        <li>
+          <span className="text-[var(--neutral-500)]">Город:</span> {cityTitle(city)}
+        </li>
+        {step >= 1 ? (
+          <li>
+            <span className="text-[var(--neutral-500)]">График:</span> {hoursPerWeek} ч/нед., смена{" "}
+            {shift === "day" ? "день" : shift === "night" ? "ночь" : "сутки"}
+          </li>
+        ) : null}
+        {step >= 2 ? (
+          <li>
+            <span className="text-[var(--neutral-500)]">Срок:</span> {durationMonths} мес.
+          </li>
+        ) : null}
+      </ul>
+      {step < STEPS - 1 ? (
+        <p className="mt-4 font-mono-nums text-lg font-bold text-[var(--primary)]">
+          ~{estimate.total.toLocaleString("ru-RU")} ₽ <span className="text-xs font-normal">/ мес</span>
+        </p>
+      ) : null}
+    </aside>
+  );
+
   return (
-    <div className="mx-auto max-w-[720px]">
-      <div className={panelClass}>
-        <div className="mb-6">
-          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">
-            <span>
-              Шаг {step + 1} / {STEPS}
-            </span>
-            <span>Прогресс</span>
-          </div>
-          <Progress value={pct} className="mt-2" />
-        </div>
-        {step === 0 ? (
-          <div>
-            <Label htmlFor="prof">Кто нужен на склад?</Label>
-            <select
-              id="prof"
-              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-base sm:text-sm"
-              value={profession}
-              onChange={(e) => setProfession(e.target.value)}
-            >
-              {PROFESSIONS.map((p) => (
-                <option key={p.slug} value={p.slug}>
-                  {p.titleRu} — от {getWarehouseHourlyRateRub(p.slug)} ₽/ч
-                </option>
-              ))}
-            </select>
-            <p className="mt-3 text-xs text-[var(--neutral-500)]">
-              Базовая ставка:{" "}
-              <span className="font-mono-nums font-semibold text-[var(--primary)]">{hourlyBase} ₽/ч</span>
-            </p>
-          </div>
-        ) : null}
-        {step === 1 ? (
-          <div>
-            <Label htmlFor="hc">Сколько работников требуется?</Label>
-            <Input
-              id="hc"
-              type="number"
-              min={1}
-              max={500}
-              value={headcount}
-              onChange={(e) => setHeadcount(Number(e.target.value) || 1)}
-              className="mt-2"
-            />
-            <input
-              type="range"
-              min={1}
-              max={500}
-              value={headcount}
-              onChange={(e) => setHeadcount(Number(e.target.value))}
-              className="mt-4 w-full accent-[var(--accent)]"
-            />
-          </div>
-        ) : null}
-        {step === 2 ? (
-          <div>
-            <Label>Какой формат работы нужен?</Label>
-            <div className="mt-3 grid gap-2 sm:grid-cols-2">
-              {FORMATS.map((f) => (
-                <button
-                  key={f.id}
-                  type="button"
-                  onClick={() => setWorkFormat(f.id)}
-                  className={cn(
-                    "rounded-2xl border p-3 text-left text-sm transition",
-                    workFormat === f.id
-                      ? "border-[var(--accent)] bg-[var(--accent-soft)]"
-                      : "border-[var(--neutral-200)] bg-[var(--card)]",
-                  )}
-                >
-                  <span className="font-medium text-[var(--primary)]">{f.label}</span>
-                  <span className="mt-1 block text-xs text-[var(--neutral-500)]">{f.hint}</span>
-                </button>
-              ))}
+    <div className="mx-auto max-w-[1080px]">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
+        <div className={panelClass}>
+          <div className="mb-6">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">
+              <span>
+                Шаг {step + 1} / {STEPS}: {STEP_LABELS[step]}
+              </span>
             </div>
-            <p className="mt-3 text-xs text-[var(--neutral-500)]">
-              Перерывы и длительность смены согласуем с учётом объекта — на следующем шаге задаёте график.
-            </p>
+            <Progress value={pct} className="mt-2" />
           </div>
-        ) : null}
-        {step === 3 ? (
-          <div className="space-y-4">
-            <p className="text-sm font-semibold text-[var(--primary)]">Какой график планируете?</p>
-            <div>
-              <Label>Смена</Label>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {(
-                  [
-                    ["day", "День"],
-                    ["night", "Ночь"],
-                    ["24", "Сутки"],
-                  ] as const
-                ).map(([k, lab]) => (
-                  <button
-                    key={k}
-                    type="button"
-                    onClick={() => setShift(k)}
-                    className={cn(
-                      "rounded-full border px-4 py-2 text-sm font-medium",
-                      shift === k
-                        ? "border-[var(--accent)] bg-[var(--accent-soft)]"
-                        : "border-[var(--neutral-200)]",
-                    )}
-                  >
-                    {lab}
-                  </button>
-                ))}
-              </div>
-              <p className="mt-2 text-xs text-[var(--neutral-500)]">
-                С учётом смены: <span className="font-mono-nums font-semibold">{hourlyEffective} ₽/ч</span> на человека
-              </p>
-            </div>
-            <div>
-              <Label htmlFor="hw">Часов в неделю на человека</Label>
-              <Input
-                id="hw"
-                type="number"
-                min={12}
-                max={60}
-                value={hoursPerWeek}
-                onChange={(e) => setHoursPerWeek(Number(e.target.value) || 40)}
-                className="mt-2"
-              />
-            </div>
-          </div>
-        ) : null}
-        {step === 4 ? (
-          <div>
-            <Label htmlFor="city">Где находится склад?</Label>
-            <select
-              id="city"
-              className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-base sm:text-sm"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            >
-              {CITIES.map((c) => (
-                <option key={c.slug} value={c.slug}>
-                  {c.nameRu}
-                </option>
-              ))}
-            </select>
-            <p className="mt-2 text-xs text-[var(--neutral-500)]">
-              Для сравнения по городам — раздел «Персонал» и страницы «профессия × город».
-            </p>
-          </div>
-        ) : null}
-        {step === 5 ? (
-          <>
-            <div className="space-y-4 border-b border-[var(--neutral-200)] pb-6">
-              <p className="text-sm font-semibold text-[var(--primary)]">На какой срок нужна команда?</p>
+
+          {step === 0 ? (
+            <div className="space-y-5">
               <div>
-                <Label htmlFor="dur">Длительность проекта, мес.</Label>
+                <Label htmlFor="prof">Профессия</Label>
+                <select
+                  id="prof"
+                  className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-base sm:text-sm"
+                  value={profession}
+                  onChange={(e) => setProfession(e.target.value)}
+                >
+                  {PROFESSIONS.map((p) => (
+                    <option key={p.slug} value={p.slug}>
+                      {p.titleRu} — от {getWarehouseHourlyRateRub(p.slug)} ₽/ч
+                    </option>
+                  ))}
+                </select>
+                <p className="mt-3 text-xs text-[var(--neutral-500)]">
+                  Базовая ставка:{" "}
+                  <span className="font-mono-nums font-semibold text-[var(--primary)]">{hourlyBase} ₽/ч</span>
+                </p>
+              </div>
+              <div>
+                <Label htmlFor="hc">Численность</Label>
+                <Input
+                  id="hc"
+                  type="number"
+                  min={1}
+                  max={500}
+                  value={headcount}
+                  onChange={(e) => setHeadcount(Number(e.target.value) || 1)}
+                  className="mt-2"
+                />
+                <input
+                  type="range"
+                  min={1}
+                  max={500}
+                  value={headcount}
+                  onChange={(e) => setHeadcount(Number(e.target.value))}
+                  className="mt-4 w-full accent-[var(--accent)]"
+                  aria-label="Численность ползунком"
+                />
+              </div>
+              <div>
+                <Label htmlFor="city">Город склада</Label>
+                <select
+                  id="city"
+                  className="mt-2 flex h-11 w-full rounded-xl border border-[var(--neutral-200)] bg-[var(--card)] px-3 text-base sm:text-sm"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                >
+                  {CITIES.map((c) => (
+                    <option key={c.slug} value={c.slug}>
+                      {c.nameRu}
+                    </option>
+                  ))}
+                </select>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--neutral-500)]">
+                  Выберите город, где находится склад. Точный адрес уточним при обсуждении задачи.
+                </p>
+              </div>
+            </div>
+          ) : null}
+
+          {step === 1 ? (
+            <div className="space-y-5">
+              <div>
+                <Label>Формат работы</Label>
+                <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                  {FORMATS.map((f) => (
+                    <button
+                      key={f.id}
+                      type="button"
+                      onClick={() => setWorkFormat(f.id)}
+                      className={cn(
+                        "rounded-2xl border p-3 text-left text-sm transition",
+                        workFormat === f.id
+                          ? "border-[var(--accent)] bg-[var(--accent-soft)]"
+                          : "border-[var(--neutral-200)] bg-[var(--card)]",
+                      )}
+                    >
+                      <span className="font-medium text-[var(--primary)]">{f.label}</span>
+                      <span className="mt-1 block text-xs text-[var(--neutral-500)]">{f.hint}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <Label>Тип смены</Label>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {(
+                    [
+                      ["day", "День"],
+                      ["night", "Ночь"],
+                      ["24", "Сутки"],
+                    ] as const
+                  ).map(([k, lab]) => (
+                    <button
+                      key={k}
+                      type="button"
+                      onClick={() => setShift(k)}
+                      className={cn(
+                        "rounded-full border px-4 py-2 text-sm font-medium",
+                        shift === k
+                          ? "border-[var(--accent)] bg-[var(--accent-soft)]"
+                          : "border-[var(--neutral-200)]",
+                      )}
+                    >
+                      {lab}
+                    </button>
+                  ))}
+                </div>
+                <p className="mt-2 text-xs text-[var(--neutral-500)]">
+                  С учётом смены: <span className="font-mono-nums font-semibold">{hourlyEffective} ₽/ч</span> на человека
+                </p>
+              </div>
+              <div>
+                <Label htmlFor="hw">Часов в неделю на человека</Label>
+                <Input
+                  id="hw"
+                  type="number"
+                  min={12}
+                  max={60}
+                  value={hoursPerWeek}
+                  onChange={(e) => setHoursPerWeek(Number(e.target.value) || 40)}
+                  className="mt-2"
+                />
+              </div>
+            </div>
+          ) : null}
+
+          {step === 2 ? (
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="dur">Срок работы, мес.</Label>
                 <Input
                   id="dur"
                   type="number"
@@ -312,38 +349,64 @@ export function CalculatorFull() {
                 Жёсткие требования площадки (маркетплейс / РЦ): допуски и документы (+6% к ориентиру)
               </label>
             </div>
-            <div className="mt-8 border border-[var(--neutral-200)] bg-[var(--surface)] p-5 dark:border-white/10 dark:bg-white/[0.04]">
-              <h3 className="font-display text-lg font-semibold tracking-[-0.02em] text-[var(--primary)] dark:text-white">
-                Предварительный бюджет по выбранному графику
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-600)] dark:text-white/65">
-                Профессия и город учтены; часы в неделю на одного работника — {hoursPerWeek}. Ориентировочный диапазон: от{" "}
-                {estimate.low.toLocaleString("ru-RU")} до {estimate.high.toLocaleString("ru-RU")} ₽ / мес (±10% к базе расчёта).
-              </p>
-              <p className="mt-4 font-mono-nums text-2xl font-bold text-[var(--primary)] dark:text-white">
-                ~{estimate.total.toLocaleString("ru-RU")} ₽ <span className="text-base font-normal text-[var(--neutral-500)]">/ мес</span>
-              </p>
-              <ul className="type-body mt-4 space-y-2 text-[var(--neutral-700)]">
-                <li>
-                  <strong>Ставка с учётом смены:</strong> {hourlyEffective} ₽/ч
-                </li>
-                <li>
-                  <strong>Численность:</strong> {headcount} чел.
-                </li>
-                <li>
-                  <strong>Оценка на {durationMonths} мес.:</strong> {estimate.projectTotal.toLocaleString("ru-RU")} ₽
-                </li>
-              </ul>
-              <p className="type-body mt-3 text-sm text-[var(--neutral-500)]">
-                Предварительный бюджет рассчитан для среднего месяца — 4,3 недели. Сумма за конкретный период зависит от числа смен.
-                Транспорт, проживание и дополнительные требования объекта согласуем отдельно, если они нужны по условиям.
-              </p>
-              <div className="mt-6 rounded-xl border border-dashed border-[var(--neutral-200)] bg-[var(--surface)] p-4 dark:border-white/15">
-                <p className="text-sm font-semibold text-[var(--primary)] dark:text-white">Примеры для других графиков</p>
-                <p className="mt-1 text-xs text-[var(--neutral-500)]">
-                  Смена {WAREHOUSE_SHIFT_HOURS} ч; суммы на всю группу ({headcount} чел.) при другом числе рабочих дней в неделю.
+          ) : null}
+
+          {step === 3 ? (
+            <div className="space-y-6">
+              <div className="border border-[var(--neutral-200)] bg-[var(--surface)] p-5 dark:border-white/10">
+                <h3 className="font-display text-lg font-semibold text-[var(--primary)]">Предварительный бюджет за месяц</h3>
+                <p className="mt-4 font-mono-nums text-3xl font-bold text-[var(--primary)]">
+                  ~{estimate.total.toLocaleString("ru-RU")} ₽
                 </p>
-                <ul className="type-body mt-3 space-y-2 text-sm text-[var(--neutral-700)]">
+                <p className="mt-2 text-sm text-[var(--neutral-600)]">
+                  Диапазон: {estimate.low.toLocaleString("ru-RU")}–{estimate.high.toLocaleString("ru-RU")} ₽ / мес · за{" "}
+                  {durationMonths} мес.: {estimate.projectTotal.toLocaleString("ru-RU")} ₽
+                </p>
+                <ul className="mt-4 space-y-1 text-sm text-[var(--neutral-700)]">
+                  <li>{professionTitle(profession)}, {cityTitle(city)}, {headcount} чел.</li>
+                  <li>
+                    {hoursPerWeek} ч/нед., ставка {hourlyEffective} ₽/ч
+                  </li>
+                </ul>
+                <div className="mt-6">
+                  <Button
+                    type="button"
+                    onClick={() =>
+                      void trackEvent("calculator_completed", {
+                        service: SERVICE_SLUG,
+                        profession,
+                        city,
+                        headcount,
+                        workFormat,
+                        durationMonths,
+                        estimate: estimate.total,
+                      })
+                    }
+                    asChild
+                  >
+                    <Link
+                      href={buildZayavkaHref({
+                        service: SERVICE_SLUG,
+                        profession,
+                        city,
+                        headcount,
+                      })}
+                    >
+                      Обсудить задачу
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+
+              <details className="rounded-xl border border-[var(--neutral-200)] p-4">
+                <summary className="cursor-pointer text-sm font-semibold text-[var(--primary)]">
+                  Примеры для других графиков
+                </summary>
+                <p className="mt-3 text-xs text-[var(--neutral-500)]">
+                  Смена {WAREHOUSE_SHIFT_HOURS} ч; суммы на всю группу ({headcount} чел.) при другом числе рабочих дней в
+                  неделю. База расчёта выше — {hoursPerWeek} ч/нед. на человека; ниже — ориентиры для 11-часовых смен.
+                </p>
+                <ul className="mt-3 space-y-2 text-sm text-[var(--neutral-700)]">
                   <li>
                     <strong>За смену {WAREHOUSE_SHIFT_HOURS} ч:</strong> {estimate.shift11.toLocaleString("ru-RU")} ₽
                   </li>
@@ -353,50 +416,37 @@ export function CalculatorFull() {
                     </li>
                   ))}
                 </ul>
-              </div>
-              <div className="mt-6 flex flex-wrap gap-2">
-                <Button
-                  type="button"
-                  onClick={() =>
-                    void trackEvent("calculator_completed", {
-                      service: SERVICE_SLUG,
-                      profession,
-                      city,
-                      headcount,
-                      workFormat,
-                      durationMonths,
-                      estimate: estimate.total,
-                    })
-                  }
-                  asChild
-                >
-                  <Link
-                    href={buildZayavkaHref({
-                      service: SERVICE_SLUG,
-                      profession,
-                      city,
-                      headcount,
-                    })}
-                  >
-                    Получить предложение для моего объекта
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </>
-        ) : null}
+              </details>
 
-        <div className="mt-8 flex flex-wrap justify-between gap-3 border-t border-[var(--neutral-200)] pt-6 dark:border-white/10">
-          <Button type="button" variant="secondary" disabled={step === 0} onClick={prev}>
-            Назад
-          </Button>
-          {step < STEPS - 1 ? (
-            <Button type="button" onClick={next}>
-              Далее
-            </Button>
+              <details className="rounded-xl border border-[var(--neutral-200)] p-4">
+                <summary className="cursor-pointer text-sm font-semibold text-[var(--primary)]">
+                  Общая тарифная таблица
+                </summary>
+                <ShiftPricingTable className="mt-4" compact />
+              </details>
+
+              <p className="text-xs leading-relaxed text-[var(--neutral-500)]">
+                Предварительный бюджет рассчитан для среднего месяца — 4,3 недели. Транспорт, проживание и дополнительные
+                требования объекта согласуем отдельно.
+              </p>
+            </div>
           ) : null}
+
+          <div className="mt-8 flex flex-wrap justify-between gap-3 border-t border-[var(--neutral-200)] pt-6 dark:border-white/10">
+            <Button type="button" variant="secondary" disabled={step === 0} onClick={prev}>
+              Назад
+            </Button>
+            {step < STEPS - 1 ? (
+              <Button type="button" onClick={next}>
+                Далее
+              </Button>
+            ) : null}
+          </div>
         </div>
+
+        <div className="hidden lg:block">{summary}</div>
       </div>
+      <div className="mt-4 lg:hidden">{summary}</div>
     </div>
   );
 }

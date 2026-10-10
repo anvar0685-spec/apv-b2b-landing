@@ -23,6 +23,18 @@ npm run build  → exit 0, 347 страниц
 
 Формула полного калькулятора и `estimate.ts` не менялись. Контроль 30 грузчиков / Москва / 40 ч — по прежним значениям промпта (ручная сверка при приёмке).
 
+## Проход 5 — редакция и дизайн без фотографий (2026-10-10)
+
+| Пункт | Файлы | Проверка |
+| --- | --- | --- |
+| Кейсы стройматериалы / 2 склада | `cases-stub.ts` | Тексты §4.1–4.2 |
+| Город калькулятора, email заявки | `calculator-full.tsx`, `ru.json` | Браузер: подпись города, hint PDF |
+| Калькулятор 3+1 шага | `calculator-full.tsx` | 3 096 000 ₽ контроль, 4 шага UI |
+| Заявка: задача → контакты → проверка | `lead-multistep-form.tsx` | Порядок шагов |
+| Фото сняты | hero, manager, production-strip | curl/rg HTML |
+| Командa/Пресса | `next.config.mjs`, sitemap, `o-kompanii` | 308 на `/o-kompanii` |
+| Дизайн | `warehouse-schematic.tsx`, process, why-us, `--accent` | `design-implementation-report.md` |
+
 ## Проход 4 — закрытие остатков после b7fc7b0
 
 | Пункт | Файлы | Проверка |

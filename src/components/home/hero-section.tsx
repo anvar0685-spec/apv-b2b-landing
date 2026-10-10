@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { WarehouseSchematic } from "@/components/graphics/warehouse-schematic";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { HeroRatePanel } from "@/components/home/hero-rate-panel";
@@ -33,15 +33,10 @@ export function HeroSection() {
       id="hero"
       className="grain-dark relative overflow-x-clip overflow-hidden bg-gradient-to-b from-[var(--hero-operational-top)] to-[var(--hero-operational-bottom)] text-white"
     >
-      <div className="hero-backdrop" aria-hidden>
-        <Image
-          src="/home/industrial-band/hero-sklad.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-[0.22]"
-        />
+      <div className="hero-backdrop pointer-events-none absolute inset-0" aria-hidden>
+        <div className="absolute inset-0 opacity-[0.35]">
+          <WarehouseSchematic variant="hero" className="h-full max-h-none text-[var(--accent-soft)]" />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--hero-operational-top)]/93 via-[var(--hero-operational-bottom)]/88 to-[var(--hero-operational-bottom)]" />
       </div>
       <div className="hero-ambient pointer-events-none absolute inset-0 opacity-80" />

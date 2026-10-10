@@ -1,12 +1,12 @@
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import { WarehouseSchematic } from "@/components/graphics/warehouse-schematic";
 
 const SHOTS = [
-  { src: "/home/industrial-band/01-zona-hraneniya.jpg", key: "shotA" as const },
-  { src: "/home/industrial-band/02-pogruzka-tmc.jpg", key: "shotB" as const },
+  { variant: "strip-storage" as const, key: "shotA" as const },
+  { variant: "strip-loading" as const, key: "shotB" as const },
 ];
 
-/** Компактная фото-дирекция для промышленных посадочных: нейтральный свет, акцент на процессе. */
+/** Компактная схема операций для промышленных посадочных — без фотографий. */
 export async function ProductionVisualStrip() {
   const t = await getTranslations("commercial.productionStrip");
 
@@ -18,21 +18,9 @@ export async function ProductionVisualStrip() {
       </div>
       <div className="grid gap-0 sm:grid-cols-2">
         {SHOTS.map((shot) => (
-          <div key={shot.key} className="group relative aspect-[16/10] overflow-hidden sm:aspect-[5/3]">
-            <Image
-              src={shot.src}
-              alt=""
-              fill
-              sizes="(max-width: 640px) 100vw, 50vw"
-              className="object-cover transition duration-300 motion-reduce:transition-none brightness-[0.74] group-hover:brightness-100"
-            />
-            <div
-              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--primary-dark)]/70 via-[var(--primary-dark)]/20 to-[var(--primary-dark)]/40 transition-opacity duration-300 group-hover:opacity-20 motion-reduce:transition-none motion-reduce:group-hover:opacity-100"
-              aria-hidden
-            />
-            <p className="absolute inset-x-0 bottom-0 z-[1] px-4 pb-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/95 drop-shadow">
-              {t(shot.key)}
-            </p>
+          <div key={shot.key} className="border-t border-[var(--neutral-200)] p-4 dark:border-white/10 sm:border-t-0 sm:border-l sm:first:border-l-0">
+            <WarehouseSchematic variant={shot.variant} className="text-[var(--accent)]" />
+            <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--neutral-600)]">{t(shot.key)}</p>
           </div>
         ))}
       </div>

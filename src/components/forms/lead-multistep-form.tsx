@@ -307,74 +307,6 @@ export function LeadMultistepForm() {
       {step === 0 ? (
         <div className="mt-6 space-y-4">
           <div>
-            <Label htmlFor="nm">{t("name")}</Label>
-            <Input
-              id="nm"
-              aria-invalid={errors.contactName ? true : undefined}
-              className="mt-2"
-              {...register("contactName")}
-            />
-            {errors.contactName ? (
-              <p className="mt-1 text-xs text-red-600" role="alert">
-                {errors.contactName.message}
-              </p>
-            ) : null}
-          </div>
-          <div>
-            <Label htmlFor="co">{t("company")}</Label>
-            <Input
-              id="co"
-              aria-invalid={errors.companyName ? true : undefined}
-              className="mt-2"
-              {...register("companyName")}
-            />
-            {errors.companyName ? (
-              <p className="mt-1 text-xs text-red-600" role="alert">
-                {errors.companyName.message}
-              </p>
-            ) : null}
-          </div>
-          <div>
-            <Label htmlFor="ph">{t("phone")}</Label>
-            <Input
-              id="ph"
-              type="tel"
-              inputMode="tel"
-              autoComplete="tel"
-              aria-invalid={errors.contactPhone ? true : undefined}
-              className="mt-2"
-              {...register("contactPhone")}
-            />
-            {errors.contactPhone ? (
-              <p className="mt-1 text-xs text-red-600" role="alert">
-                {errors.contactPhone.message}
-              </p>
-            ) : null}
-          </div>
-          <div>
-            <Label htmlFor="em">{t("email")}</Label>
-            <Input
-              id="em"
-              type="email"
-              inputMode="email"
-              autoComplete="email"
-              placeholder={t("emailPlaceholder")}
-              aria-invalid={errors.contactEmail ? true : undefined}
-              className="mt-2"
-              {...register("contactEmail")}
-            />
-            <p className="mt-1 text-[13px] text-[var(--neutral-500)]">{t("emailHint")}</p>
-            {errors.contactEmail ? (
-              <p className="mt-1 text-xs text-red-600" role="alert">
-                {errors.contactEmail.message}
-              </p>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
-      {step === 1 ? (
-        <div className="mt-6 space-y-4">
-          <div>
             <p className="text-sm font-medium text-[var(--neutral-800)]">{t("serviceProductTitle")}</p>
             <p className="mt-2 text-[13px] leading-relaxed text-[var(--neutral-600)]">{t("serviceProductFocus")}</p>
             <input type="hidden" {...register("serviceType")} />
@@ -475,8 +407,90 @@ export function LeadMultistepForm() {
           </div>
         </div>
       ) : null}
+      {step === 1 ? (
+        <div className="mt-6 space-y-4">
+          <div>
+            <Label htmlFor="nm">{t("name")}</Label>
+            <Input
+              id="nm"
+              aria-invalid={errors.contactName ? true : undefined}
+              className="mt-2"
+              {...register("contactName")}
+            />
+            {errors.contactName ? (
+              <p className="mt-1 text-xs text-red-600" role="alert">
+                {errors.contactName.message}
+              </p>
+            ) : null}
+          </div>
+          <div>
+            <Label htmlFor="co">{t("company")}</Label>
+            <Input
+              id="co"
+              aria-invalid={errors.companyName ? true : undefined}
+              className="mt-2"
+              {...register("companyName")}
+            />
+            {errors.companyName ? (
+              <p className="mt-1 text-xs text-red-600" role="alert">
+                {errors.companyName.message}
+              </p>
+            ) : null}
+          </div>
+          <div>
+            <Label htmlFor="ph">{t("phone")}</Label>
+            <Input
+              id="ph"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              aria-invalid={errors.contactPhone ? true : undefined}
+              className="mt-2"
+              {...register("contactPhone")}
+            />
+            {errors.contactPhone ? (
+              <p className="mt-1 text-xs text-red-600" role="alert">
+                {errors.contactPhone.message}
+              </p>
+            ) : null}
+          </div>
+          <div>
+            <Label htmlFor="em">{t("email")}</Label>
+            <Input
+              id="em"
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              placeholder={t("emailPlaceholder")}
+              aria-invalid={errors.contactEmail ? true : undefined}
+              className="mt-2"
+              {...register("contactEmail")}
+            />
+            <p className="mt-1 text-[13px] text-[var(--neutral-500)]">{t("emailHint")}</p>
+            {errors.contactEmail ? (
+              <p className="mt-1 text-xs text-red-600" role="alert">
+                {errors.contactEmail.message}
+              </p>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
       {step === 2 ? (
         <div className="mt-6 space-y-4">
+          <div className="rounded-xl border border-[var(--neutral-200)] bg-[var(--surface)] p-4 text-sm">
+            <p className="font-semibold text-[var(--primary)]">Проверьте задачу</p>
+            <ul className="mt-2 space-y-1 text-[var(--neutral-700)]">
+              {(watchedLines ?? []).map((line) => (
+                <li key={line.slug}>
+                  {profLabel(PROFESSIONS.find((p) => p.slug === line.slug) ?? PROFESSIONS[0])} — {line.headcount} чел.
+                </li>
+              ))}
+              <li>Город: {cityLabel(CITIES.find((c) => c.slug === getValues("city")) ?? CITIES[0])}</li>
+              <li>
+                Контакт: {getValues("contactName")}, {getValues("companyName")}, {getValues("contactPhone")}
+              </li>
+            </ul>
+          </div>
           <div>
             <Label htmlFor="cm">{t("comment")}</Label>
             <Textarea id="cm" className="mt-2" rows={4} {...register("comment")} />
@@ -541,9 +555,9 @@ export function LeadMultistepForm() {
             disabled={loading}
             onClick={() => {
               if (step === 0) {
-                if (!validateStep0()) return;
-              } else if (step === 1) {
                 if (!validateStep1()) return;
+              } else if (step === 1) {
+                if (!validateStep0()) return;
               }
               setStep((s) => s + 1);
             }}

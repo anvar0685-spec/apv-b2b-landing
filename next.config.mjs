@@ -20,6 +20,26 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: "/o-kompanii/komanda",
+        destination: "/ru/o-kompanii",
+        permanent: true,
+      },
+      {
+        source: "/o-kompanii/pressa",
+        destination: "/ru/o-kompanii",
+        permanent: true,
+      },
+      {
+        source: "/:locale/o-kompanii/komanda",
+        destination: "/:locale/o-kompanii",
+        permanent: true,
+      },
+      {
+        source: "/:locale/o-kompanii/pressa",
+        destination: "/:locale/o-kompanii",
+        permanent: true,
+      },
+      {
         source: "/ru/geografiya",
         destination: "/ru/personal",
         permanent: true,

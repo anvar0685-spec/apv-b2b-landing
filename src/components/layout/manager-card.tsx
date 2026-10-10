@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useCallback, useEffect, useId, useState } from "react";
 import { ChevronDown, MessageCircle, Phone, Send, X } from "lucide-react";
 import { MaxAppSymbol } from "@/components/icons/max-app-symbol";
@@ -35,14 +34,14 @@ export function ManagerCard() {
   const telHref = `tel:${site.phone.replace(/[^\d+]/g, "")}`;
   const panelId = useId();
   const [open, setOpen] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [dockVisible, setDockVisible] = useState(false);
 
   useEffect(() => {
     try {
       const stored = window.localStorage.getItem(STORAGE_KEY);
-      if (stored === "1") setCollapsed(true);
+      setCollapsed(stored !== "0");
     } catch {
       // localStorage may throw in private mode — игнор, дефолт = развёрнуто
     }
@@ -93,8 +92,9 @@ export function ManagerCard() {
 
   const expand = useCallback(() => {
     setCollapsed(false);
+    setOpen(true);
     try {
-      window.localStorage.removeItem(STORAGE_KEY);
+      window.localStorage.setItem(STORAGE_KEY, "0");
     } catch {
       // intentionally swallowed
     }
@@ -129,20 +129,7 @@ export function ManagerCard() {
             "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]",
           )}
         >
-          <Image
-            src="/team/anvar-200.webp"
-            alt=""
-            fill
-            sizes="56px"
-            className="object-cover"
-          />
-          {/* Pulse-индикатор «онлайн» */}
-          <span
-            className="absolute bottom-0.5 right-0.5 flex h-3 w-3 items-center justify-center rounded-full border-2 border-white bg-[var(--success)] shadow-[0_0_8px_rgba(5,150,105,0.7)]"
-            aria-hidden
-          >
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--success)] opacity-60 motion-reduce:animate-none" />
-          </span>
+          <span className="font-display text-lg font-bold text-[var(--accent)]" aria-hidden>А</span>
           {/* Tooltip-подсказка при hover (только sm+) */}
           <span className="pointer-events-none absolute right-full top-1/2 mr-3 hidden -translate-y-1/2 whitespace-nowrap rounded-lg bg-[var(--primary)] px-2.5 py-1.5 text-[11px] font-semibold text-white opacity-0 shadow-lg transition group-hover:opacity-100 sm:block">
             Связаться с Анваром
@@ -171,15 +158,11 @@ export function ManagerCard() {
     >
       {/* Top: photo + identity + controls */}
       <div className="flex items-center gap-3 px-3.5 pt-3.5">
-        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl ring-2 ring-[var(--accent)]/35 shadow-[0_8px_24px_-8px_rgba(13,148,136,0.5)]">
-          <Image
-            src="/team/anvar-400.webp"
-            alt="Анвар, менеджер проекта АПВ-СИСТЕМА"
-            fill
-            sizes="56px"
-            className="object-cover"
-            priority={false}
-          />
+        <div
+          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[var(--accent-soft)] font-display text-xl font-bold text-[var(--accent)] ring-2 ring-[var(--accent)]/35"
+          aria-hidden
+        >
+          А
         </div>
         <div className="min-w-0 flex-1">
           <p className="font-display text-base font-bold leading-tight tracking-tight text-[var(--primary)] dark:text-white">
@@ -315,21 +298,7 @@ export function ManagerCard() {
         {open ? (
           <X className="h-5 w-5" aria-hidden />
         ) : (
-          <>
-            <Image
-              src="/team/anvar-200.webp"
-              alt=""
-              fill
-              sizes="56px"
-              className="object-cover"
-            />
-            <span
-              className="absolute bottom-0.5 right-0.5 flex h-3 w-3 items-center justify-center rounded-full border-2 border-white bg-[var(--success)] shadow-[0_0_8px_rgba(5,150,105,0.7)]"
-              aria-hidden
-            >
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--success)] opacity-60 motion-reduce:animate-none" />
-            </span>
-          </>
+          <span className="font-display text-lg font-bold text-[var(--accent)]" aria-hidden>А</span>
         )}
       </button>
 

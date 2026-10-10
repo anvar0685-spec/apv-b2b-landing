@@ -25,6 +25,9 @@ export function ShiftPricingTable({ className, compact }: Props) {
         Ориентир по ценам для коммерческого предложения
       </h2>
       <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
+        Расчёт для среднего месяца — 4,3 недели. Фактическое число смен зависит от календаря.
+      </p>
+      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
         Считаем только <strong className="font-semibold text-[var(--primary)]">11-часовую смену</strong>{" "}
         (день, Москва и МО). В таблице — ориентир на{" "}
         <strong className="font-semibold text-[var(--primary)]">одного человека</strong> при трёх графиках на

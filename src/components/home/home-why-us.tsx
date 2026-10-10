@@ -22,17 +22,16 @@ export async function HomeWhyUs() {
           {block.title}
         </h2>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[var(--neutral-700)]">{block.lead}</p>
-        <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-10 divide-y divide-[var(--neutral-200)] rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)]">
           {block.items.map((it, i) => {
             const Icon = ICONS[i] ?? Gauge;
             return (
-              <li
-                key={it.title}
-                className="rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 shadow-[var(--card-shadow)]"
-              >
-                <Icon className="h-6 w-6 text-[var(--accent)]" aria-hidden />
-                <h3 className="font-display mt-4 text-lg font-semibold text-[var(--primary)]">{it.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-700)] md:text-base">{it.text}</p>
+              <li key={it.title} className="flex gap-4 px-5 py-5 sm:px-6 sm:py-6">
+                <Icon className="mt-0.5 h-5 w-5 shrink-0 text-[var(--accent)]" aria-hidden />
+                <div className="min-w-0">
+                  <h3 className="font-display text-base font-semibold text-[var(--primary)] sm:text-lg">{it.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-[var(--neutral-700)] md:text-base">{it.text}</p>
+                </div>
               </li>
             );
           })}

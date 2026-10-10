@@ -4,7 +4,6 @@ import { Link } from "@/i18n/navigation";
 import { JsonLd } from "@/components/seo/json-ld";
 import { CalculatorEmbed } from "@/components/home/calculator-embed";
 import { Button } from "@/components/ui/button";
-import { CaseSparkline } from "@/components/home/case-sparkline";
 import { ProcessStickySplit } from "@/components/home/process-sticky-split";
 import { HomeProfessionsHubs } from "@/components/home/home-professions-hubs";
 import { HomeWhyUs } from "@/components/home/home-why-us";
@@ -127,7 +126,7 @@ export async function HomeSections() {
         </h2>
         <p className="mt-4 max-w-2xl text-[var(--neutral-700)]">{ts("casesLead")}</p>
         <div className="mt-14 grid gap-6 lg:grid-cols-3">
-          {CASES.slice(0, 3).map((c, i) => {
+          {CASES.slice(0, 3).map((c) => {
             const card = caseCardFields(c);
             return (
               <Card
@@ -139,11 +138,7 @@ export async function HomeSections() {
                 </p>
                 <CardTitle className="mt-3">{card.title}</CardTitle>
                 <CardDescription>{card.summary}</CardDescription>
-                <CaseSparkline chartId={`home-case-${c.slug}`} variant={i === 1 ? "flat" : "up"} />
-                <p className="mt-2 text-sm font-medium text-[var(--primary)]">{card.shiftProfile}</p>
-                <p className="kpi-numerals mt-1 font-mono-nums text-lg font-semibold tabular-nums text-[var(--primary)]">
-                  {card.metricUp}
-                </p>
+                <p className="mt-4 text-sm leading-relaxed text-[var(--neutral-700)]">{card.shiftProfile}</p>
                 <div className="mt-auto pt-5">
                   <Button asChild variant="secondary" size="sm">
                     <Link href={`/keysy/${c.slug}`}>{ts("caseCta")}</Link>
