@@ -16,35 +16,10 @@ import { site } from "@/config/site";
 import { absUrl } from "@/lib/abs-url";
 import { buildNotFoundPageMetadata, buildPageMetadata } from "@/lib/seo";
 import { getTranslations } from "next-intl/server";
+import { RichBlogText } from "@/components/blog/rich-blog-text";
+import { stripBlogMarkdown } from "@/lib/blog-reading-time";
 
 type Props = { params: { locale: string; slug: string } };
-
-function RichParagraph({ text }: { text: string }) {
-  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
-  return (
-    <p>
-      {parts.map((part, i) => {
-        if (part.startsWith("**") && part.endsWith("**")) {
-          return (
-            <strong key={i} className="font-semibold text-[var(--primary)]">
-              {part.slice(2, -2)}
-            </strong>
-          );
-        }
-        const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
-        if (linkMatch) {
-          const [, label, href] = linkMatch;
-          return (
-            <Link key={i} className="font-medium text-[var(--accent)] hover:underline" href={href}>
-              {label}
-            </Link>
-          );
-        }
-        return <span key={i}>{part}</span>;
-      })}
-    </p>
-  );
-}
 
 function authorCard(post: BlogArticle) {
   return (
@@ -52,7 +27,7 @@ function authorCard(post: BlogArticle) {
       <p className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">Автор</p>
       <p className="mt-2 font-medium text-[var(--primary)]">{post.authorRu}</p>
       <div className="type-body mt-3 text-[var(--neutral-700)]">
-        <RichParagraph text={post.authorBioRu} />
+        <RichBlogText text={post.authorBioRu} />
       </div>
     </div>
   );
@@ -71,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     locale: params.locale,
     pathname: `/blog/${post.slug}`,
     title: post.title,
-    description: post.excerpt,
+    description: stripBlogMarkdown(post.excerpt),
   });
 }
 
@@ -134,7 +109,7 @@ export default async function BlogArticlePage({ params }: Props) {
           <span>{post.readingTime} мин чтения</span>
           <span>{author}</span>
         </div>
-        <p className="type-lead mt-8">{excerpt}</p>
+        <RichBlogText className="type-lead mt-8" text={excerpt} />
       </MarketingHeroChrome>
       <SectionDivider className="py-5 sm:py-6" />
 
@@ -163,7 +138,7 @@ export default async function BlogArticlePage({ params }: Props) {
             <h2 className="type-headline text-2xl">{s.heading}</h2>
             <div className="type-body mt-4 space-y-4 text-[var(--neutral-700)]">
               {s.paragraphs.map((p, i) => (
-                <RichParagraph key={i} text={p} />
+                <RichBlogText key={i} text={p} />
               ))}
             </div>
           </section>
