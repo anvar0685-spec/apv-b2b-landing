@@ -5,7 +5,10 @@ import { absUrl } from "@/lib/abs-url";
 import { routing } from "@/i18n/routing";
 
 /** Карточка списка (блог-хаб); полная статья — `blog-published.ts`. */
-export type BlogStub = Pick<BlogArticle, "slug" | "title" | "excerpt" | "category" | "publishedAt" | "readingTime"> & {
+export type BlogStub = Pick<
+  BlogArticle,
+  "slug" | "title" | "excerpt" | "category" | "publishedAt" | "readingTime" | "updatedAt"
+> & {
   titleEn?: string;
   excerptEn?: string;
 };
@@ -19,6 +22,7 @@ export const BLOG_POSTS: BlogStub[] = PUBLISHED_BLOG_ARTICLES
     excerptEn: a.excerptEn,
     category: a.category,
     publishedAt: a.publishedAt,
+    updatedAt: a.updatedAt,
     readingTime: computeArticleReadingMinutes(a),
   }))
   .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));

@@ -12,6 +12,9 @@ export type PageSeoInput = {
   keywords?: string[];
   /** Закрыть страницу от индексации, но оставить follow (для тонких/повторяющихся страниц вне приоритетного кластера). */
   noindex?: boolean;
+  openGraphType?: "website" | "article";
+  articlePublishedTime?: string;
+  articleModifiedTime?: string;
 };
 
 /**
@@ -45,6 +48,22 @@ export function buildServiceJsonLd(input: {
   };
 }
 
+export function buildBreadcrumbListJsonLd(
+  items: { name: string; pathname: string }[],
+  locale: string,
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: absUrl(item.pathname, locale),
+    })),
+  };
+}
+
 export function buildWebPageJsonLd(input: {
   locale: string;
   pathname: string;
@@ -69,6 +88,9 @@ export function buildPageMetadata({
   description,
   keywords,
   noindex,
+  openGraphType = "website",
+  articlePublishedTime,
+  articleModifiedTime,
 }: PageSeoInput): Metadata {
   const canonical = absUrl(pathname, locale);
   const brand = site.brandName.replace(/_/g, " ");
@@ -89,7 +111,13 @@ export function buildPageMetadata({
       url: canonical,
       siteName: brand,
       locale: "ru_RU",
-      type: "website",
+      type: openGraphType,
+      ...(openGraphType === "article" && articlePublishedTime
+        ? {
+            publishedTime: articlePublishedTime,
+            ...(articleModifiedTime ? { modifiedTime: articleModifiedTime } : {}),
+          }
+        : {}),
       images: [{ url: ogImage, width: 1200, height: 630, alt: fullTitle }],
     },
     twitter: {

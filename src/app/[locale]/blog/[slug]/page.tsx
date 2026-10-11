@@ -14,7 +14,7 @@ import { SectionDivider } from "@/components/marketing/section-divider";
 import { JsonLd } from "@/components/seo/json-ld";
 import { site } from "@/config/site";
 import { absUrl } from "@/lib/abs-url";
-import { buildNotFoundPageMetadata, buildPageMetadata } from "@/lib/seo";
+import { buildBreadcrumbListJsonLd, buildNotFoundPageMetadata, buildPageMetadata } from "@/lib/seo";
 import { getTranslations } from "next-intl/server";
 import { RichBlogText } from "@/components/blog/rich-blog-text";
 import { stripBlogMarkdown } from "@/lib/blog-reading-time";
@@ -47,6 +47,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     pathname: `/blog/${post.slug}`,
     title: post.title,
     description: stripBlogMarkdown(post.excerpt),
+    openGraphType: "article",
+    articlePublishedTime: post.publishedAt,
+    articleModifiedTime: post.updatedAt ?? post.publishedAt,
   });
 }
 
@@ -60,31 +63,43 @@ export default async function BlogArticlePage({ params }: Props) {
 
   const title = post.title;
   const excerpt = post.excerpt;
+  const excerptPlain = stripBlogMarkdown(excerpt);
   const author = post.authorRu;
   const brand = site.brandName.replace(/_/g, " ");
   const canonical = absUrl(`/blog/${post.slug}`, params.locale);
+  const catLabel = blogCategories[post.category] ?? post.category.replace(/-/g, " ");
 
   const articleJson = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: title,
-    description: excerpt,
+    description: excerptPlain,
     datePublished: post.publishedAt,
     ...(post.updatedAt ? { dateModified: post.updatedAt } : {}),
     author: { "@type": "Organization", name: brand, url: absUrl("/", params.locale) },
     publisher: { "@type": "Organization", name: brand, url: absUrl("/", params.locale) },
     inLanguage: "ru-RU",
-    mainEntityOfPage: canonical,
+    mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
   };
+
+  const breadcrumbJson = buildBreadcrumbListJsonLd(
+    [
+      { name: "Главная", pathname: "/" },
+      { name: "Блог", pathname: "/blog" },
+      { name: catLabel, pathname: `/blog/category/${post.category}` },
+      { name: title, pathname: `/blog/${post.slug}` },
+    ],
+    params.locale,
+  );
 
   const related = relatedArticles(post.slug, post.category, 5);
   const { prev, next } = adjacentArticles(post.slug);
   const back = "Блог";
-  const catLabel = blogCategories[post.category] ?? post.category.replace(/-/g, " ");
 
   return (
     <main id="main" className="pb-24">
       <JsonLd data={articleJson} />
+      <JsonLd data={breadcrumbJson} />
       <MarketingHeroChrome innerClassName="mx-auto max-w-[800px] px-4 sm:px-6 lg:px-8">
         <p className="text-sm text-[var(--neutral-500)]">
           <Link className="font-medium text-[var(--accent)] hover:underline" href="/blog">

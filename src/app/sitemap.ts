@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 import { BLOG_CATEGORY_SLUGS, BLOG_POSTS } from "@/content/blog-stub";
+import { PUBLISHED_BLOG_ARTICLES } from "@/content/blog-published";
+import { blogArticleLastModified } from "@/lib/blog-last-modified";
 import { CASES } from "@/content/cases-stub";
 import { isPriorityCross } from "@/content/cross-priority";
 import { PROFESSIONS, getAllProgrammaticPairs } from "@/content/professions-cities";
@@ -49,13 +51,37 @@ const REV_PROGRAMMATIC = new Date("2026-09-30T00:00:00Z");
 const REV_CATEGORIES = new Date("2026-04-30T00:00:00Z");
 const REV_CASES = new Date("2026-04-15T00:00:00Z");
 
+function blogHubLastModified(): Date {
+  if (!PUBLISHED_BLOG_ARTICLES.length) return REV_STATIC;
+  return PUBLISHED_BLOG_ARTICLES.reduce(
+    (max, a) => {
+      const d = blogArticleLastModified(a);
+      return d > max ? d : max;
+    },
+    new Date(0),
+  );
+}
+
+function blogCategoryLastModified(category: string): Date {
+  const inCat = PUBLISHED_BLOG_ARTICLES.filter((a) => a.category === category);
+  if (!inCat.length) return REV_CATEGORIES;
+  return inCat.reduce(
+    (max, a) => {
+      const d = blogArticleLastModified(a);
+      return d > max ? d : max;
+    },
+    REV_CATEGORIES,
+  );
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
 
   for (const p of STATIC) {
+    const lastModified = p === "/blog" ? blogHubLastModified() : REV_STATIC;
     entries.push({
       url: absUrl(p),
-      lastModified: REV_STATIC,
+      lastModified,
       changeFrequency: "weekly",
       priority: staticPriority(p),
     });
@@ -80,7 +106,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const cat of BLOG_CATEGORY_SLUGS) {
     entries.push({
       url: absUrl(`/blog/category/${cat}`),
-      lastModified: REV_CATEGORIES,
+      lastModified: blogCategoryLastModified(cat),
       changeFrequency: "weekly",
       priority: 0.52,
     });
@@ -88,7 +114,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const b of BLOG_POSTS) {
     entries.push({
       url: absUrl(`/blog/${b.slug}`),
-      lastModified: new Date(b.publishedAt),
+      lastModified: blogArticleLastModified(b),
       changeFrequency: "monthly",
       priority: 0.5,
     });
