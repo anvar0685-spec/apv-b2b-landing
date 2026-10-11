@@ -20,7 +20,7 @@ type Props = { model: ServicePageModel; /** Горизонтальный scroll-
 
 const t = {
   kicker: "Услуга",
-  overview: "Об услуге",
+  overview: "О услуге",
   whoFits: "Кому подходит",
   how: "Как это работает",
   howStoryLead:
@@ -49,14 +49,13 @@ const t = {
   ctaLeadOutsourcing:
     "Укажите работников, количество, график и адрес объекта. Подготовим стоимость и обсудим начало работы.",
   req: "Оставить заявку",
-  reqOutsourcing: "Обсудить задачу",
+  reqOutsourcing: "Получить расчёт",
   overviewOutsourcing: "Как организуем работу",
   tasksOutsourcing: "Какие задачи можно поручить команде",
-  includesOutsourcing: "Что берём на себя",
+  includesOutsourcing: "Что берём на себе",
   howOutsourcing: "Этапы работы",
   modelOutsourcing: "Как устроена услуга",
   calc: "Калькулятор",
-  calcCta: "Рассчитать стоимость",
   tableSwipeHint: "На узком экране таблицу можно прокручивать горизонтально.",
   areaServed: "Москва и Московская область",
 };
@@ -137,9 +136,7 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
         <div className="ux-page-body-subtle pointer-events-none absolute inset-x-0 top-0 -z-10 h-[min(100%,48rem)] opacity-[0.45] dark:opacity-[0.32]" aria-hidden />
 
         <ServiceSectionWrap motionEnabled={motion}>
-          <h2 className="type-headline">
-            {model.overviewTitle ?? (isOutsourcing ? t.overviewOutsourcing : t.overview)}
-          </h2>
+          <h2 className="type-headline">{isOutsourcing ? t.overviewOutsourcing : t.overview}</h2>
           <div className="mt-4 space-y-4 text-[0.9375rem] leading-relaxed text-[var(--neutral-700)] sm:text-base">
             {model.intro.map((p, i) => (
               <p key={i}>{p}</p>
@@ -154,9 +151,7 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
         ) : null}
 
         <ServiceSectionWrap motionEnabled={motion} className="mt-14">
-          <h2 className="type-headline">
-            {model.segmentsTitle ?? (isOutsourcing ? t.tasksOutsourcing : t.whoFits)}
-          </h2>
+          <h2 className="type-headline">{isOutsourcing ? t.tasksOutsourcing : t.whoFits}</h2>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {model.segments.map((s) => (
               <Card key={s.title}>
@@ -170,11 +165,7 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
         <ServiceSectionWrap motionEnabled={motion} className="mt-14">
           {scrollStory ? (
             <>
-              <ServiceScrollStory
-                steps={model.howItWorks}
-                title={isOutsourcing ? t.howOutsourcing : t.how}
-                lead={model.howLead ?? undefined}
-              />
+              <ServiceScrollStory steps={model.howItWorks} title={t.how} lead={t.howStoryLead} />
               <ol className="sr-only" aria-label={t.how}>
                 {model.howItWorks.map((step, i) => (
                   <li key={i}>{step}</li>
@@ -325,7 +316,7 @@ export async function ServicePageFull({ model, scrollStory = false }: Props) {
                 </Link>
               </Button>
               <Button asChild variant="secondary">
-                <Link href="/kalkulyator">{model.finalCta ? t.calcCta : t.calc}</Link>
+                <Link href="/kalkulyator">{t.calc}</Link>
               </Button>
             </div>
           </div>

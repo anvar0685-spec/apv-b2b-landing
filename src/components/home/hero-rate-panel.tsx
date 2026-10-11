@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { SPARK_AREA_PATH, SPARK_LINE_PATH } from "@/components/marketing/spark-chart-paths";
 import { WAREHOUSE_HOURLY_RATE_RUB } from "@/content/warehouse-hourly-rates";
 
 const ROWS = [
@@ -65,6 +66,8 @@ function RateRow({
 
 export function HeroRatePanel() {
   const reduce = useReducedMotion();
+  const uid = useId();
+  const fillId = `heroRateFill-${uid.replace(/:/g, "")}`;
   const [mounted, setMounted] = useState(false);
   const t = useTranslations("homePage.heroDashboard");
   const chips = t.raw("chips") as string[];
@@ -91,7 +94,7 @@ export function HeroRatePanel() {
             animate={reduce ? undefined : { scale: [1, 1.06, 1], opacity: [0.85, 1, 0.85] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
           >
-            Ориентир
+            до КП
           </motion.span>
         </div>
 
@@ -117,6 +120,36 @@ export function HeroRatePanel() {
           ))}
         </ul>
 
+        <div className="hidden min-w-0 overflow-hidden rounded-2xl border border-white/15 bg-black/25 p-3 ring-1 ring-white/[0.06] md:block">
+          <p className="text-[11px] font-medium text-[var(--text-on-dark-base)]">Коридор ставки по ролям</p>
+          <svg viewBox="0 0 280 72" className="mt-2 h-[72px] w-full" preserveAspectRatio="none" aria-hidden>
+            <defs>
+              <linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.55" />
+                <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <motion.path
+              d={SPARK_AREA_PATH}
+              fill={`url(#${fillId})`}
+              initial={reduce ? undefined : { opacity: 0 }}
+              animate={reduce ? undefined : { opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            />
+            <motion.path
+              d={SPARK_LINE_PATH}
+              fill="none"
+              stroke="var(--accent-soft)"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              initial={reduce ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0.4 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 1.45, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
+            />
+          </svg>
+        </div>
+
         <div className="flex flex-wrap items-center gap-2">
           {chips.map((label, i) => (
             <motion.span
@@ -133,8 +166,8 @@ export function HeroRatePanel() {
         </div>
 
         <p className="border-t border-white/[0.07] pt-3 text-[10px] leading-snug text-[var(--text-on-dark-muted)]">
-          Итог зависит от графика, задач и расположения склада. Подготовим расчёт для вашего объекта. Стоимость ночных
-          смен и дополнительных условий согласуем отдельно.
+          Итог зависит от графика, задач и расположения склада. Подготовим расчёт для вашего объекта. Ночная смена и
+          дополнительные условия — в согласованном КП.
         </p>
       </div>
     </figure>

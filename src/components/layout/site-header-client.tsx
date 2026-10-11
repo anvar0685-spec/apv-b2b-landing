@@ -16,7 +16,6 @@ type SiteHeaderClientProps = {
   brandName: string;
   monogram: string;
   groups: readonly MegaNavGroup[];
-  primaryNav: readonly SiteHeaderLink[];
   megaMenuTrigger: string;
   ctaProposal: string;
   ctaCalc: string;
@@ -36,7 +35,6 @@ export function SiteHeaderClient({
   brandName,
   monogram,
   groups,
-  primaryNav,
   megaMenuTrigger,
   ctaProposal,
   ctaCalc,
@@ -163,26 +161,7 @@ export function SiteHeaderClient({
             </span>
           </Link>
 
-          <div className="hidden min-h-0 min-w-0 items-center justify-center gap-5 lg:flex">
-            <nav className="flex items-center gap-1" aria-label={menuNavLabel}>
-              {primaryNav.map((l) => {
-                const active = pathMatches(pathname, l.href);
-                return (
-                  <Link
-                    key={l.href}
-                    href={l.href}
-                    className={cn(
-                      "rounded-lg px-3 py-2 text-sm font-semibold transition-colors",
-                      active
-                        ? "text-[var(--primary)] dark:text-white"
-                        : "text-[var(--neutral-600)] hover:text-[var(--primary)] dark:text-[var(--text-on-dark-base)] dark:hover:text-white",
-                    )}
-                  >
-                    {l.label}
-                  </Link>
-                );
-              })}
-            </nav>
+          <div className="hidden min-h-0 min-w-0 justify-center lg:flex">
             <button
               ref={megaBtnRef}
               type="button"
@@ -212,14 +191,11 @@ export function SiteHeaderClient({
             >
               {menuOpen ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}
             </button>
-            <Link
-              href="/kalkulyator"
-              className="interactive-hover-ring hidden rounded-lg px-3 py-2 text-sm font-semibold text-[var(--neutral-700)] transition hover:text-[var(--primary)] sm:inline-flex dark:text-[var(--text-on-dark-base)] dark:hover:text-white"
-            >
-              {ctaCalc}
-            </Link>
-            <Button asChild size="sm" className="hidden text-xs sm:inline-flex sm:text-sm">
+            <Button asChild variant="secondary" size="sm" className="hidden sm:inline-flex">
               <Link href="/zayavka">{ctaProposal}</Link>
+            </Button>
+            <Button asChild size="sm" className="hidden text-xs sm:inline-flex sm:text-sm">
+              <Link href="/kalkulyator">{ctaCalc}</Link>
             </Button>
           </div>
         </div>

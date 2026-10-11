@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 import { CalculatorFull } from "@/components/kalkulyator/calculator-full";
+import { ShiftPricingTable } from "@/components/marketing/shift-pricing-table";
 import { ConversionPageShell } from "@/components/layout/conversion-page-shell";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -38,6 +39,9 @@ export default async function Page({ params }: Props) {
       >
         <CalculatorFull />
       </Suspense>
+      <div className="mt-16 border-t border-[var(--neutral-200)] pt-14 dark:border-white/10">
+        <ShiftPricingTable />
+      </div>
     </ConversionPageShell>
   );
 }

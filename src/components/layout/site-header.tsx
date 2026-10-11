@@ -30,16 +30,10 @@ export async function SiteHeader() {
       title: t("megaTools"),
       links: [
         { href: "/kalkulyator", label: t("calculator") },
-        { href: "/zayavka", label: tc("discuss") },
+        { href: "/zayavka", label: tc("proposal") },
         { href: "/kontakty", label: t("contacts") },
       ],
     },
-  ] as const;
-
-  const primaryNav = [
-    { href: "/uslugi", label: t("services") },
-    { href: "/personal", label: t("personal") },
-    { href: "/keysy", label: t("cases") },
   ] as const;
 
   return (
@@ -47,10 +41,9 @@ export async function SiteHeader() {
       brandName={site.brandName}
       monogram={getBrandMonogram(site.brandName)}
       groups={groups}
-      primaryNav={primaryNav}
       megaMenuTrigger={t("megaMenuTrigger")}
-      ctaProposal={tc("discuss")}
-      ctaCalc={t("calculator")}
+      ctaProposal={tc("proposal")}
+      ctaCalc={tc("calc")}
       skipToMain={t("skipToMain")}
       menuOpenLabel={t("menuOpen")}
       menuCloseLabel={t("menuClose")}

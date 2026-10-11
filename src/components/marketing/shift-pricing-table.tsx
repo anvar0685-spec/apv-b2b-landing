@@ -1,5 +1,6 @@
 import {
   MONTHLY_SHIFT_SCHEDULES,
+  SHIFTS_PER_MONTH_WEEKS,
   WAREHOUSE_SHIFT_HOURS,
   getShiftPricingRows,
 } from "@/content/shift-pricing";
@@ -24,15 +25,13 @@ export function ShiftPricingTable({ className, compact }: Props) {
         Ориентир по ценам для коммерческого предложения
       </h2>
       <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
-        Расчёт для среднего месяца — 4,3 недели. Фактическое число смен зависит от календаря.
-      </p>
-      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
         Считаем только <strong className="font-semibold text-[var(--primary)]">11-часовую смену</strong>{" "}
         (день, Москва и МО). В таблице — ориентир на{" "}
         <strong className="font-semibold text-[var(--primary)]">одного человека</strong> при трёх графиках на
-        месяц. Итог по объекту = сумма по профессиям × численность; ночь, пик и особые условия площадки согласуем
-        отдельно. Месячные примеры показывают стоимость смен при разных графиках работы склада. Численность команды
-        и чередование работников согласуем отдельно.
+        месяц. Итог по объекту = сумма по профилям × численность; ночь, пик и особые условия площадки — в
+        согласованном КП. Месячные примеры показывают стоимость смен при разных графиках работы склада.
+        Численность команды и чередование работников согласуем отдельно. Ориентир при {SHIFTS_PER_MONTH_WEEKS}{" "}
+        неделях в месяце; фактическое число смен зависит от календаря.
       </p>
 
       <p className="mt-2 text-xs text-[var(--neutral-500)]">
