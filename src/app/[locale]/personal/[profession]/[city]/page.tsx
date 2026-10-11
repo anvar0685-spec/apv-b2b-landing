@@ -27,8 +27,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const brand = site.brandName.replace(/_/g, " ");
   const cityName = city.namePrepositionalRu;
   const roleName = prof.titleRu;
-  const title = `${roleName} в ${cityName} — складской персонал (аутсорсинг смен) — ${brand}`;
-  const description = `${roleName} для склада в ${cityName}: ставки, логистика выхода, документы и резерв на замену. Подряд по складским сменам без аутстаффинга.`;
+  const title = `${roleName} в ${cityName} — аутсорсинг складского персонала — ${brand}`;
+  const description = `${roleName} для склада в ${cityName}: ставки, логистика выхода, документы и резерв на замену. Аутсорсинг персонала подрядчиком, без аутстаффинга.`;
   return buildPageMetadata({
     locale: params.locale,
     pathname: `/personal/${params.profession}/${params.city}`,

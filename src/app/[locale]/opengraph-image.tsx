@@ -7,7 +7,7 @@ export const contentType = "image/png";
 
 export default function OpengraphImage() {
   const brand = site.brandName.replace(/_/g, " ");
-  const tagline = "Закрываем складские смены · Москва и область";
+  const tagline = "Аутсорсинг складского персонала · Москва и область";
 
   return new ImageResponse(
     (

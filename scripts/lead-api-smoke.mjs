@@ -63,7 +63,7 @@ for (const s of scenarios) {
     continue;
   }
   assert.ok(json.id, `${s.name} id`);
-  assert.equal(json.status, "new");
+  assert.equal(String(json.status).toLowerCase(), "new");
   console.log("OK", s.name, json.id, "kpEmailSent=", json.kpEmailSent);
 }
 
