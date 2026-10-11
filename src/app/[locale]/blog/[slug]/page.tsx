@@ -15,6 +15,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { site } from "@/config/site";
 import { absUrl } from "@/lib/abs-url";
 import { buildNotFoundPageMetadata, buildPageMetadata } from "@/lib/seo";
+import { getTranslations } from "next-intl/server";
 
 type Props = { params: { locale: string; slug: string } };
 
@@ -50,7 +51,9 @@ function authorCard(post: BlogArticle) {
     <div className="mt-16 rounded-2xl border border-[var(--neutral-200)] bg-[var(--card)] p-6 dark:border-white/10">
       <p className="text-xs font-semibold uppercase tracking-wide text-[var(--neutral-500)]">Автор</p>
       <p className="mt-2 font-medium text-[var(--primary)]">{post.authorRu}</p>
-      <p className="type-body mt-3 text-[var(--neutral-700)]">{post.authorBioRu}</p>
+      <div className="type-body mt-3 text-[var(--neutral-700)]">
+        <RichParagraph text={post.authorBioRu} />
+      </div>
     </div>
   );
 }
@@ -72,10 +75,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-export default function BlogArticlePage({ params }: Props) {
+export default async function BlogArticlePage({ params }: Props) {
   if (params.slug === "category") notFound();
   const post = getBlogArticle(params.slug);
   if (!post) notFound();
+
+  const tHome = await getTranslations({ locale: params.locale, namespace: "homePage" });
+  const blogCategories = tHome.raw("blogCategories") as Record<string, string>;
 
   const title = post.title;
   const excerpt = post.excerpt;
@@ -89,6 +95,7 @@ export default function BlogArticlePage({ params }: Props) {
     headline: title,
     description: excerpt,
     datePublished: post.publishedAt,
+    ...(post.updatedAt ? { dateModified: post.updatedAt } : {}),
     author: { "@type": "Organization", name: brand, url: absUrl("/", params.locale) },
     publisher: { "@type": "Organization", name: brand, url: absUrl("/", params.locale) },
     inLanguage: "ru-RU",
@@ -98,7 +105,7 @@ export default function BlogArticlePage({ params }: Props) {
   const related = relatedArticles(post.slug, post.category, 5);
   const { prev, next } = adjacentArticles(post.slug);
   const back = "Блог";
-  const catLabel = post.category.replace(/-/g, " ");
+  const catLabel = blogCategories[post.category] ?? post.category.replace(/-/g, " ");
 
   return (
     <main id="main" className="pb-24">
@@ -118,6 +125,12 @@ export default function BlogArticlePage({ params }: Props) {
         </h1>
         <div className="mt-4 flex flex-wrap gap-4 text-sm text-[var(--neutral-500)]">
           <time dateTime={post.publishedAt}>{new Date(post.publishedAt).toLocaleDateString("ru-RU")}</time>
+          {post.updatedAt ? (
+            <span>
+              Обновлено:{" "}
+              <time dateTime={post.updatedAt}>{new Date(post.updatedAt).toLocaleDateString("ru-RU")}</time>
+            </span>
+          ) : null}
           <span>{post.readingTime} мин чтения</span>
           <span>{author}</span>
         </div>
