@@ -24,11 +24,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tHome = await getTranslations({ locale: params.locale, namespace: "homePage" });
   const blogCategories = tHome.raw("blogCategories") as Record<string, string>;
   const label = blogCategories[params.category] ?? params.category.replace(/-/g, " ");
+  const { total } = paginatePostsByCategory(params.category, 1);
   return buildPageMetadata({
     locale: params.locale,
     pathname: `/blog/category/${params.category}`,
     title: t("metaTitle", { label }),
     description: t("metaDescription", { label, pageSize: BLOG_PAGE_SIZE }),
+    noindex: total === 0,
   });
 }
 

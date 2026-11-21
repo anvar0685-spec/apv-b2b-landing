@@ -188,6 +188,22 @@ async function apiPost(path, accessToken, jsonBody) {
   return json;
 }
 
+/** POST переобхода с повторами на 502/503/504 (шлюз Яндекса после сбоев ДЦ). */
+async function postRecrawlWithRetry(path, accessToken, url) {
+  const attempts = 3;
+  let last = { status: 0, json: {} };
+  for (let i = 1; i <= attempts; i++) {
+    last = await apiPostRecrawl(path, accessToken, { url });
+    if (last.status !== 502 && last.status !== 503 && last.status !== 504) return last;
+    if (i < attempts) {
+      const wait = 2000 * i;
+      console.warn(`HTTP ${last.status} ${url} — повтор ${i}/${attempts - 1} через ${wait} мс`);
+      await sleep(wait);
+    }
+  }
+  return last;
+}
+
 /** POST переобхода: 202 Accepted, 409 уже в очереди, 429 квота. */
 async function apiPostRecrawl(path, accessToken, jsonBody) {
   const res = await fetch(`${API}${path}`, {
@@ -519,7 +535,7 @@ async function cmdRecrawl(env) {
     }
 
     const path = `/user/${userId}/hosts/${hid}/recrawl/queue`;
-    const { status, json } = await apiPostRecrawl(path, access, { url });
+    const { status, json } = await postRecrawlWithRetry(path, access, url);
 
     if (status === 202) {
       remainder = json.quota_remainder ?? remainder - 1;
@@ -537,12 +553,17 @@ async function cmdRecrawl(env) {
     } else {
       console.error(`HTTP ${status} ${url}: ${JSON.stringify(json)}`);
       failed++;
+      if (status >= 500) {
+        console.error("Шлюз переобхода Яндекса отвечает 5xx — остановка, квота не списана.");
+        break;
+      }
     }
 
     await sleep(400);
   }
 
   console.log(`Итого: отправлено=${sent}, пропуск/дубль=${skipped}, ошибки=${failed}`);
+  if (failed > 0 && sent === 0) process.exitCode = 1;
 }
 
 /**
@@ -589,7 +610,7 @@ async function cmdRecrawlDaily(env) {
     }
 
     const path = `/user/${userId}/hosts/${hid}/recrawl/queue`;
-    const { status, json } = await apiPostRecrawl(path, access, { url });
+    const { status, json } = await postRecrawlWithRetry(path, access, url);
 
     if (status === 202) {
       remainder = json.quota_remainder ?? remainder - 1;
@@ -609,6 +630,10 @@ async function cmdRecrawlDaily(env) {
     } else {
       console.error(`HTTP ${status} ${url}: ${JSON.stringify(json)}`);
       failed++;
+      if (status >= 500) {
+        console.error("Шлюз переобхода Яндекса отвечает 5xx — остановка, квота не списана.");
+        break;
+      }
     }
 
     state.yandex_done = [...doneSet];
@@ -620,6 +645,7 @@ async function cmdRecrawlDaily(env) {
   state.yandex_pending_count = urls.length - doneSet.size;
   saveAutomationState(state);
   console.log(`Итого daily: отправлено=${sent}, пропуск/дубль=${skipped}, ошибки=${failed}, осталось pending=${state.yandex_pending_count}`);
+  if (failed > 0 && sent === 0) process.exitCode = 1;
 }
 
 const cmd = process.argv[2] || "sync";

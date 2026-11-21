@@ -104,6 +104,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
   for (const cat of BLOG_CATEGORY_SLUGS) {
+    if (!BLOG_POSTS.some((p) => p.category === cat)) continue;
     entries.push({
       url: absUrl(`/blog/category/${cat}`),
       lastModified: blogCategoryLastModified(cat),
